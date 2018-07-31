@@ -112,13 +112,13 @@
 <meta name="description" content="支付宝老版本的 Web 端扫码支付产品为即时到账，更新到新版后现在的产品为电脑网站支付">
 <meta name="keywords" content="java, alipay">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Java 支付宝扫码支付 (新)">
+<meta property="og:title" content="Java 支付宝扫码支付[新]">
 <meta property="og:url" content="http://localhost:4000/java/2018/03/31/Java-%E6%94%AF%E4%BB%98%E5%AE%9D%E6%89%AB%E7%A0%81%E6%94%AF%E4%BB%98-%E6%96%B0/">
 <meta property="og:site_name" content="asing1elife's blog">
 <meta property="og:description" content="支付宝老版本的 Web 端扫码支付产品为即时到账，更新到新版后现在的产品为电脑网站支付">
 <meta property="og:locale" content="zh-Hans">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Java 支付宝扫码支付 (新)">
+<meta name="twitter:title" content="Java 支付宝扫码支付[新]">
 <meta name="twitter:description" content="支付宝老版本的 Web 端扫码支付产品为即时到账，更新到新版后现在的产品为电脑网站支付">
 
 
@@ -152,7 +152,7 @@
 
 
 
-  <title>Java 支付宝扫码支付 (新) | asing1elife's blog</title>
+  <title>Java 支付宝扫码支付[新] | asing1elife's blog</title>
   
 
 
@@ -334,7 +334,7 @@
           <h1 class="post-title" itemprop="name headline">
           
           
-            Java 支付宝扫码支付 (新)
+            Java 支付宝扫码支付[新]
           
         </h1>
         
@@ -384,17 +384,6 @@
           
 
           
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/java/2018/03/31/Java-%E6%94%AF%E4%BB%98%E5%AE%9D%E6%89%AB%E7%A0%81%E6%94%AF%E4%BB%98-%E6%96%B0/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="/java/2018/03/31/Java-%E6%94%AF%E4%BB%98%E5%AE%9D%E6%89%AB%E7%A0%81%E6%94%AF%E4%BB%98-%E6%96%B0/" itemprop="commentCount"></span>
-                </a>
-              </span>
             
           
 
@@ -775,10 +764,34 @@
 
       
       
+        <div class="post-nav" id="post-nav-id">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/java/2018/02/14/Java-%E6%94%AF%E4%BB%98%E5%AE%9D%E6%89%AB%E7%A0%81%E6%94%AF%E4%BB%98-%E6%97%A7/" rel="prev" title="Java 支付宝扫码支付[旧]">
+                Java 支付宝扫码支付[旧] <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
       
 
       
     </footer>
+    <script src="//cdn.jsdelivr.net/jquery/2.1.3/jquery.min.js"></script>
+    <script>
+      $(function () {
+        $('a[href^="http"]').each(function () {
+          $(this).attr('target', '_blank')
+        })
+      })
+    </script>
   </article>
 
   <div class="post-spread">
@@ -794,12 +807,7 @@
           
   <div class="comments" id="comments">
     
-      <div id="disqus_thread">
-        <noscript>
-          Please enable JavaScript to view the
-          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
-        </noscript>
-      </div>
+      <div id="gitalk-container"></div>
     
   </div>
 
@@ -858,7 +866,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-count">2</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -1112,28 +1120,6 @@
 
   
 
-    
-      <script id="dsq-count-scr" src="https://asing1elife.disqus.com/count.js" async></script>
-    
-
-    
-      
-      <script type="text/javascript">
-          var disqus_config = function () {
-              this.page.url = 'http://localhost:4000/java/2018/03/31/Java-%E6%94%AF%E4%BB%98%E5%AE%9D%E6%89%AB%E7%A0%81%E6%94%AF%E4%BB%98-%E6%96%B0/';
-              this.page.identifier = '/java/2018/03/31/Java-%E6%94%AF%E4%BB%98%E5%AE%9D%E6%89%AB%E7%A0%81%E6%94%AF%E4%BB%98-%E6%96%B0/';
-              this.page.title = 'Java 支付宝扫码支付 (新)';
-          };
-          var d = document, s = d.createElement('script');
-          s.src = 'https://asing1elife.disqus.com/embed.js';
-          s.setAttribute('data-timestamp', '' + +new Date());
-          (d.head || d.body).appendChild(s);
-      </script>
-      
-    
-
-  
-
 
 
 
@@ -1151,6 +1137,26 @@
 
 
 
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+<script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.js"></script>
+<script type="text/javascript">
+      var gitalk = new Gitalk({
+        clientID: 'ef9f962e9ae383f53506',
+        clientSecret: '1b2ceaa93a86016c9efa2457abd876206c87d15c',
+        repo: 'asing1elife.github.io',
+        owner: 'asing1elife',
+        admin: ['asing1elife'],
+        id: md5('/java/2018/03/31/Java-%E6%94%AF%E4%BB%98%E5%AE%9D%E6%89%AB%E7%A0%81%E6%94%AF%E4%BB%98-%E6%96%B0/'),
+        labels: ['gitalk'],
+        perPage: 50,
+        distractionFreeMode: true
+      });
+      gitalk.render('gitalk-container');
+</script>
+
+
+
 
 
 
@@ -1159,6 +1165,10 @@
 
 
 
+
+  
+
+    
 
   
 
