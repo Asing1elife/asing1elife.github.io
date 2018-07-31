@@ -384,7 +384,7 @@ baidu_analytics: 0015134c628bc9087498774533265121
 # Disqus
 # 评论系统
 disqus:
-  enable: true
+  enable: false
   shortname: asing1elife
   count: true
   # hide comments (visitors need to click to load the comments)
