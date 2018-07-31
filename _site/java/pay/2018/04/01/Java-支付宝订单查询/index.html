@@ -83,7 +83,7 @@
 <link href="/assets/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="asing1elife java web vue html css mac" />
+  <meta name="keywords" content="java,alipay," />
 
 
 
@@ -109,17 +109,17 @@
 
 
 
-<meta name="description" content="- 说好为我泡花茶">
-<meta name="keywords" content="asing1elife java web vue html css mac">
-<meta property="og:type" content="website">
-<meta property="og:title" content="asing1elife's blog">
-<meta property="og:url" content="http://localhost:4000/">
+<meta name="description" content="电脑网站支付成功后可通过支付宝接口主动查询订单结果">
+<meta name="keywords" content="java, alipay">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java 支付宝订单查询">
+<meta property="og:url" content="http://localhost:4000/java/pay/2018/04/01/Java-%E6%94%AF%E4%BB%98%E5%AE%9D%E8%AE%A2%E5%8D%95%E6%9F%A5%E8%AF%A2/">
 <meta property="og:site_name" content="asing1elife's blog">
-<meta property="og:description" content="- 说好为我泡花茶">
+<meta property="og:description" content="电脑网站支付成功后可通过支付宝接口主动查询订单结果">
 <meta property="og:locale" content="zh-Hans">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="asing1elife's blog">
-<meta name="twitter:description" content="- 说好为我泡花茶">
+<meta name="twitter:title" content="Java 支付宝订单查询">
+<meta name="twitter:description" content="电脑网站支付成功后可通过支付宝接口主动查询订单结果">
 
 
 <script type="text/javascript" id="hexo.configurations">
@@ -152,7 +152,7 @@
 
 
 
-  <title>asing1elife's blog</title>
+  <title>Java 支付宝订单查询 | asing1elife's blog</title>
   
 
 
@@ -187,7 +187,7 @@
   
   
 
-  <div class="container sidebar-position-left page-home ">
+  <div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -303,12 +303,9 @@
           <div id="content" class="content">
             
 
-
-
-<section id="posts" class="posts-expand">
+<div id="posts" class="posts-expand">
   
-    
-    
+  
 
   
 
@@ -337,12 +334,7 @@
           <h1 class="post-title" itemprop="name headline">
           
           
-            
-                
-                <a class="post-title-link" href="/java/pay/2018/04/01/Java-%E6%94%AF%E4%BB%98%E5%AE%9D%E8%AE%A2%E5%8D%95%E6%9F%A5%E8%AF%A2/" itemprop="url">
-                Java 支付宝订单查询
-              </a>
-            
+            Java 支付宝订单查询
           
         </h1>
         
@@ -411,6 +403,12 @@
           
 
           
+            
+                <div class="post-description">
+                    
+                </div>
+            
+          
 
         </div>
       </header>
@@ -423,7 +421,6 @@
 
       
         
-          
   
   
 
@@ -442,232 +439,124 @@
   <p>电脑网站支付成功后可通过支付宝接口主动查询订单结果</p>
 </blockquote>
 
+<h2 id="前置条件">前置条件</h2>
+<ol>
+  <li>该方法基于 <a href="http://asing1elife.com/java/2018/03/31/Java-支付宝扫码支付-新/">Java 支付宝扫码支付 (新)</a> 实现</li>
+</ol>
+
+<h2 id="调用查询接口进行订单查询">调用查询接口进行订单查询</h2>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6<br/>7<br/>8<br/>9<br/>10<br/>11<br/>12<br/>13<br/>14<br/>15<br/>16<br/>17<br/>18<br/>19<br/>20<br/>21<br/>22<br/>23<br/>24<br/>25<br/>26<br/>27<br/>28<br/>29<br/>30<br/>31<br/>32<br/>33<br/>34<br/>35<br/>36<br/>37<br/>38<br/>39<br/>40<br/>41<br/>42<br/>43<br/>44</pre></td><td class="code"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">AliQueryServiceImpl</span> <span class="kd">extends</span> <span class="n">AliCoreServiceImpl</span> <span class="o">{</span>
+
+    <span class="kd">public</span> <span class="n">Boolean</span> <span class="nf">getPayResult</span><span class="o">(</span><span class="n">Long</span> <span class="n">orderId</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">AlipayTradeQueryRequest</span> <span class="n">queryRequest</span> <span class="o">=</span> <span class="k">new</span> <span class="n">AlipayTradeQueryRequest</span><span class="o">();</span>
+
+        <span class="n">queryRequest</span><span class="o">.</span><span class="na">setBizModel</span><span class="o">(</span><span class="n">generateOrderInfo</span><span class="o">(</span><span class="n">orderId</span><span class="o">));</span>
+
+        <span class="n">AlipayTradeQueryResponse</span> <span class="n">response</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="n">response</span> <span class="o">=</span> <span class="n">alipayClient</span><span class="o">.</span><span class="na">execute</span><span class="o">(</span><span class="n">queryRequest</span><span class="o">);</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">AlipayApiException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">logger</span><span class="o">.</span><span class="na">error</span><span class="o">(</span><span class="s">"支付宝查询订单"</span> <span class="o">+</span> <span class="n">orderId</span> <span class="o">+</span> <span class="s">"失败！"</span><span class="o">,</span> <span class="n">e</span><span class="o">);</span>
+        <span class="o">}</span>
+
+        <span class="k">if</span> <span class="o">(</span><span class="n">response</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">logger</span><span class="o">.</span><span class="na">error</span><span class="o">(</span><span class="s">"支付宝未获取订单"</span> <span class="o">+</span> <span class="n">orderId</span> <span class="o">+</span> <span class="s">"详情！"</span><span class="o">);</span>
+            <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+        <span class="o">}</span>
+
+        <span class="k">if</span> <span class="o">(</span><span class="n">response</span><span class="o">.</span><span class="na">isSuccess</span><span class="o">())</span> <span class="o">{</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">response</span><span class="o">.</span><span class="na">getTradeStatus</span><span class="o">().</span><span class="na">equals</span><span class="o">(</span><span class="n">TRADE_STATUS_SUCCESS</span><span class="o">)</span> <span class="o">||</span> <span class="n">response</span><span class="o">.</span><span class="na">getTradeStatus</span><span class="o">().</span><span class="na">equals</span><span class="o">(</span><span class="n">TRADE_STATUS_FINISHED</span><span class="o">))</span> <span class="o">{</span>
+                <span class="c1">// 更新订单状态</span>
+                <span class="n">updateOrderInfo</span><span class="o">(</span><span class="n">response</span><span class="o">.</span><span class="na">getOutTradeNo</span><span class="o">(),</span> <span class="n">OrderPay</span><span class="o">.</span><span class="na">aliPay</span><span class="o">.</span><span class="na">getCode</span><span class="o">());</span>
+                <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+            <span class="o">}</span>
+
+            <span class="n">logger</span><span class="o">.</span><span class="na">error</span><span class="o">(</span><span class="s">"支付宝订单"</span> <span class="o">+</span> <span class="n">orderId</span> <span class="o">+</span> <span class="s">"交易失败，交易状态："</span> <span class="o">+</span> <span class="n">response</span><span class="o">.</span><span class="na">getTradeStatus</span><span class="o">());</span>
+            <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+        <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+            <span class="n">logger</span><span class="o">.</span><span class="na">error</span><span class="o">(</span><span class="s">"支付宝订单"</span> <span class="o">+</span> <span class="n">orderId</span> <span class="o">+</span> <span class="s">"查询失败！"</span><span class="o">);</span>
+            <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+    <span class="kd">private</span> <span class="n">AlipayTradeQueryModel</span> <span class="nf">generateOrderInfo</span><span class="o">(</span><span class="n">Long</span> <span class="n">orderId</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">OrderDTO</span> <span class="n">order</span> <span class="o">=</span> <span class="n">orderManageService</span><span class="o">.</span><span class="na">getOrder</span><span class="o">(</span><span class="n">orderId</span><span class="o">);</span>
+
+        <span class="n">AlipayTradeQueryModel</span> <span class="n">model</span> <span class="o">=</span> <span class="k">new</span> <span class="n">AlipayTradeQueryModel</span><span class="o">();</span>
+        <span class="n">model</span><span class="o">.</span><span class="na">setOutTradeNo</span><span class="o">(</span><span class="n">order</span><span class="o">.</span><span class="na">getCode</span><span class="o">());</span>
+
+        <span class="k">return</span> <span class="n">model</span><span class="o">;</span>
+    <span class="o">}</span>
+
+<span class="o">}</span>
+</code></pre></td></tr></tbody></table></div>
+</div>
 
 
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/java/pay/2018/04/01/Java-%E6%94%AF%E4%BB%98%E5%AE%9D%E8%AE%A2%E5%8D%95%E6%9F%A5%E8%AF%A2/#" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
+      
+    </div>
+
+    <div>
+      
         
+
       
     </div>
 
     <div>
       
-    </div>
+        
 
-    <div>
       
     </div>
 
     <div>
+      
+        
+
       
     </div>
 
     <footer class="post-footer">
       
-
-      
-
-      
-
-      
-        
-        
-        
-        
-          <div class="post-eof"></div>
-        
-      
-    </footer>
-    <script src="//cdn.jsdelivr.net/jquery/2.1.3/jquery.min.js"></script>
-    <script>
-      $(function () {
-        $('a[href^="http"]').each(function () {
-          $(this).attr('target', '_blank')
-        })
-      })
-    </script>
-  </article>
-
-  
-    
-    
-
-  
-
-  
-  
-  
-
-  <article class="post post-type- " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://localhost:4000/java/pay/2018/03/31/Java-%E6%94%AF%E4%BB%98%E5%AE%9D%E6%89%AB%E7%A0%81%E6%94%AF%E4%BB%98-%E6%96%B0/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="asing1elife">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/assets/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="asing1elife's blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-          
+        <div class="post-tags">
           
             
-                
-                <a class="post-title-link" href="/java/pay/2018/03/31/Java-%E6%94%AF%E4%BB%98%E5%AE%9D%E6%89%AB%E7%A0%81%E6%94%AF%E4%BB%98-%E6%96%B0/" itemprop="url">
-                Java 支付宝扫码支付[新]
+            <a href="/tag/#/java" rel="tag"># java</a>
+          
+            
+            <a href="/tag/#/alipay" rel="tag"># alipay</a>
+          
+        </div>
+      
+
+      
+      
+      
+      
+      
+
+      
+      
+        <div class="post-nav" id="post-nav-id">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/java/pay/2018/03/31/Java-%E6%94%AF%E4%BB%98%E5%AE%9D%E6%89%AB%E7%A0%81%E6%94%AF%E4%BB%98-%E6%96%B0/" rel="prev" title="Java 支付宝扫码支付[新]">
+                Java 支付宝扫码支付[新] <i class="fa fa-chevron-right"></i>
               </a>
             
-          
-        </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-31T00:00:00+08:00">
-                2018-03-31
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-              
-                
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/category/#/java" itemprop="url" rel="index">
-                    <span itemprop="name">java</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/category/#/pay" itemprop="url" rel="index">
-                    <span itemprop="name">pay</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-  
-  
-
-
-
-
-
-
-
-
-
-
-
-
-  <blockquote>
-  <p>支付宝老版本的 Web 端扫码支付产品为<strong>即时到账</strong>，更新到新版后现在的产品为<strong>电脑网站支付</strong></p>
-</blockquote>
-
-
-
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/java/pay/2018/03/31/Java-%E6%94%AF%E4%BB%98%E5%AE%9D%E6%89%AB%E7%A0%81%E6%94%AF%E4%BB%98-%E6%96%B0/#" rel="contents">
-              阅读全文 &raquo;
-            </a>
           </div>
-          <!--/noindex-->
-        
+        </div>
       
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
       
 
-      
-
-      
-
-      
-        
-        
-        
-        
-          <div class="post-eof"></div>
-        
       
     </footer>
     <script src="//cdn.jsdelivr.net/jquery/2.1.3/jquery.min.js"></script>
@@ -680,587 +569,10 @@
     </script>
   </article>
 
-  
+  <div class="post-spread">
     
-    
-
-  
-
-  
-  
-  
-
-  <article class="post post-type- " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://localhost:4000/java/pay/2018/03/31/Java-%E5%BE%AE%E4%BF%A1%E8%AE%A2%E5%8D%95%E6%9F%A5%E8%AF%A2/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="asing1elife">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/assets/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="asing1elife's blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-                
-                <a class="post-title-link" href="/java/pay/2018/03/31/Java-%E5%BE%AE%E4%BF%A1%E8%AE%A2%E5%8D%95%E6%9F%A5%E8%AF%A2/" itemprop="url">
-                Java 微信订单查询
-              </a>
-            
-          
-        </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-31T00:00:00+08:00">
-                2018-03-31
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-              
-                
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/category/#/java" itemprop="url" rel="index">
-                    <span itemprop="name">java</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/category/#/pay" itemprop="url" rel="index">
-                    <span itemprop="name">pay</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-  
-  
-
-
-
-
-
-
-
-
-
-
-
-
-  <blockquote>
-  <p>Java 通过统一下单 API 进行订单支付后，除等待微信通过 notify_url 进行回调通知外，还可以主动查询订单状态</p>
-</blockquote>
-
-
-
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/java/pay/2018/03/31/Java-%E5%BE%AE%E4%BF%A1%E8%AE%A2%E5%8D%95%E6%9F%A5%E8%AF%A2/#" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-        
-        
-        
-        
-          <div class="post-eof"></div>
-        
-      
-    </footer>
-    <script src="//cdn.jsdelivr.net/jquery/2.1.3/jquery.min.js"></script>
-    <script>
-      $(function () {
-        $('a[href^="http"]').each(function () {
-          $(this).attr('target', '_blank')
-        })
-      })
-    </script>
-  </article>
-
-  
-    
-    
-
-  
-
-  
-  
-  
-
-  <article class="post post-type- " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://localhost:4000/java/pay/2017/02/14/Java-%E6%94%AF%E4%BB%98%E5%AE%9D%E6%89%AB%E7%A0%81%E6%94%AF%E4%BB%98-%E6%97%A7/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="asing1elife">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/assets/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="asing1elife's blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-                
-                <a class="post-title-link" href="/java/pay/2017/02/14/Java-%E6%94%AF%E4%BB%98%E5%AE%9D%E6%89%AB%E7%A0%81%E6%94%AF%E4%BB%98-%E6%97%A7/" itemprop="url">
-                Java 支付宝扫码支付[旧]
-              </a>
-            
-          
-        </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-02-14T00:00:00+08:00">
-                2017-02-14
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-              
-                
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/category/#/java" itemprop="url" rel="index">
-                    <span itemprop="name">java</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/category/#/pay" itemprop="url" rel="index">
-                    <span itemprop="name">pay</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-  
-  
-
-
-
-
-
-
-
-
-
-
-
-
-  <blockquote>
-  <p>在实际开发过程中，首先采用当面付模式进行开发，但没有成功，个人认为当面付更适合线下模式<br />
-之后改用即时到账模式才成功接入支付宝扫码支付功能<br />
-以下内容是基于即时到账模式开发<br />
-要使用支付宝即时到账接口，首先需要签约即时到账产品， <a href="https://b.alipay.com/order/productDetail.htm?productId=2015110218012942">申请地址</a><br />
-审核进度通常需要1个工作日，但实际几小时即可<br />
-之后需要获取和设置如下关键信息<br />
-pid:2088621150311111          合作伙伴身份ID<br />
-key:zrqyf6dfli7dvji4mmi4sw1111111111      MD5密钥<br />
-notify_url:http://127.0.0.1:8080/sop/order/notify/ali    异步通知回调地址<br />
-return_url:http://127.0.0.1:8080/sop/order/notify/ali/return  同步通知回调地址</p>
-</blockquote>
-
-
-
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/java/pay/2017/02/14/Java-%E6%94%AF%E4%BB%98%E5%AE%9D%E6%89%AB%E7%A0%81%E6%94%AF%E4%BB%98-%E6%97%A7/#" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-        
-        
-        
-        
-          <div class="post-eof"></div>
-        
-      
-    </footer>
-    <script src="//cdn.jsdelivr.net/jquery/2.1.3/jquery.min.js"></script>
-    <script>
-      $(function () {
-        $('a[href^="http"]').each(function () {
-          $(this).attr('target', '_blank')
-        })
-      })
-    </script>
-  </article>
-
-  
-    
-    
-
-  
-
-  
-  
-  
-
-  <article class="post post-type- " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://localhost:4000/java/pay/2017/02/11/Java-%E5%BE%AE%E4%BF%A1%E6%89%AB%E7%A0%81%E6%94%AF%E4%BB%98/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="asing1elife">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/assets/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="asing1elife's blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-                
-                <a class="post-title-link" href="/java/pay/2017/02/11/Java-%E5%BE%AE%E4%BF%A1%E6%89%AB%E7%A0%81%E6%94%AF%E4%BB%98/" itemprop="url">
-                Java 微信扫码支付
-              </a>
-            
-          
-        </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-02-11T00:00:00+08:00">
-                2017-02-11
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-              
-                
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/category/#/java" itemprop="url" rel="index">
-                    <span itemprop="name">java</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/category/#/pay" itemprop="url" rel="index">
-                    <span itemprop="name">pay</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-  
-  
-
-
-
-
-
-
-
-
-
-
-
-
-  <blockquote>
-  <p>以下内容是基于模式二开发<br />
-在开发之前需要先到微信支付官网注册账号，并获取到以下信息<br />
-appid:wx1137939101111111公众账号id<br />
-mch_id:1438111111 商户号<br />
-key:4Inn0va1eSxOnl1neqsxwuhan1111111密钥<br />
-send_url:https://api.mch.weixin.qq.com/pay/unifiedorder统一下单API<br />
-notify_url:http://127.0.0.1:8080/sop/order/notify/wechat支付成功回调地址</p>
-</blockquote>
-
-
-
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/java/pay/2017/02/11/Java-%E5%BE%AE%E4%BF%A1%E6%89%AB%E7%A0%81%E6%94%AF%E4%BB%98/#" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-        
-        
-        
-        
-          <div class="post-eof"></div>
-        
-      
-    </footer>
-    <script src="//cdn.jsdelivr.net/jquery/2.1.3/jquery.min.js"></script>
-    <script>
-      $(function () {
-        $('a[href^="http"]').each(function () {
-          $(this).attr('target', '_blank')
-        })
-      })
-    </script>
-  </article>
-
-  
-</section>
-
-
-
+  </div>
+</div>
 
 
           </div>
@@ -1268,6 +580,12 @@ notify_url:http://127.0.0.1:8080/sop/order/notify/wechat支付成功回调地址
 
 
           
+  <div class="comments" id="comments">
+    
+      <div id="gitalk-container"></div>
+    
+  </div>
+
 
         </div>
         
@@ -1285,10 +603,30 @@ notify_url:http://127.0.0.1:8080/sop/order/notify/wechat支付成功回调地址
     <div class="sidebar-inner">
 
       
+        
+        
+        
+
+
+
+
+
+
 
       
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/assets/images/avatar.png"
@@ -1376,6 +714,34 @@ notify_url:http://127.0.0.1:8080/sop/order/notify/wechat支付成功回调地址
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+
+
+
+
+
+
+
+            
+              <div class="post-toc-content">
+    <ol class=nav>
+      <li class="nav-item nav-level-2"> <a class="nav-link" href="#前置条件"> <span class="nav-number">1</span> <span class="nav-text">前置条件</span> </a> </li> <li class="nav-item nav-level-2"> <a class="nav-link" href="#调用查询接口进行订单查询"> <span class="nav-number">2</span> <span class="nav-text">调用查询接口进行订单查询</span> </a> </li>
+    </ol>
+  </div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -1556,7 +922,7 @@ notify_url:http://127.0.0.1:8080/sop/order/notify/wechat支付成功回调地址
         repo: 'asing1elife.github.io',
         owner: 'asing1elife',
         admin: ['asing1elife'],
-        id: md5('/'),
+        id: md5('/java/pay/2018/04/01/Java-%E6%94%AF%E4%BB%98%E5%AE%9D%E8%AE%A2%E5%8D%95%E6%9F%A5%E8%AF%A2/'),
         labels: ['gitalk'],
         perPage: 50,
         distractionFreeMode: true

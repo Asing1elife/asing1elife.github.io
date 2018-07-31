@@ -1,0 +1,1619 @@
+
+<!doctype html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/assets/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/assets/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/assets/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="java,wechatpay," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/assets/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Java 通过统一下单 API 进行订单支付后，除等待微信通过 notify_url 进行回调通知外，还可以主动查询订单状态">
+<meta name="keywords" content="java, wechatpay">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java 微信订单查询">
+<meta property="og:url" content="http://localhost:4000/java/pay/2018/03/31/Java-%E5%BE%AE%E4%BF%A1%E8%AE%A2%E5%8D%95%E6%9F%A5%E8%AF%A2/">
+<meta property="og:site_name" content="asing1elife's blog">
+<meta property="og:description" content="Java 通过统一下单 API 进行订单支付后，除等待微信通过 notify_url 进行回调通知外，还可以主动查询订单状态">
+<meta property="og:locale" content="zh-Hans">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java 微信订单查询">
+<meta name="twitter:description" content="Java 通过统一下单 API 进行订单支付后，除等待微信通过 notify_url 进行回调通知外，还可以主动查询订单状态">
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://localhost:4000/"/>
+
+
+
+
+
+  <title>Java 微信订单查询 | asing1elife's blog</title>
+  
+
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?0015134c628bc9087498774533265121";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> <div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">asing1elife's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">x1anx1an is my wife</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+            首页
+          </a>
+        </li>
+      
+        
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+            归档
+          </a>
+        </li>
+      
+        
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+<div id="posts" class="posts-expand">
+  
+  
+
+  
+
+  
+  
+  
+
+  <article class="post post-type- " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://localhost:4000/java/pay/2018/03/31/Java-%E5%BE%AE%E4%BF%A1%E8%AE%A2%E5%8D%95%E6%9F%A5%E8%AF%A2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="asing1elife">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/assets/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="asing1elife's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+          
+          
+            Java 微信订单查询
+          
+        </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-31T00:00:00+08:00">
+                2018-03-31
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+              
+                
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/category/#/java" itemprop="url" rel="index">
+                    <span itemprop="name">java</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/category/#/pay" itemprop="url" rel="index">
+                    <span itemprop="name">pay</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+            
+                <div class="post-description">
+                    
+                </div>
+            
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <blockquote>
+  <p>Java 通过统一下单 API 进行订单支付后，除等待微信通过 notify_url 进行回调通知外，还可以主动查询订单状态</p>
+</blockquote>
+
+<h2 id="前置条件">前置条件</h2>
+<p>可参考 <a href="http://asing1elife.com/java/pay/2017/02/11/Java-微信扫码支付/">Java 微信扫码支付</a> 如果实现微信支付</p>
+
+<h2 id="官网">官网</h2>
+<p><a href="https://pay.weixin.qq.com/wiki/doc/api/native.php?chapter=9_2">【微信支付】扫码支付开发者文档</a></p>
+
+<h2 id="定义请求参数对象">定义请求参数对象</h2>
+<ol>
+  <li>订单查询请求参数（必填）</li>
+</ol>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6<br/>7<br/>8<br/>9<br/>10<br/>11<br/>12<br/>13<br/>14<br/>15<br/>16</pre></td><td class="code"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">QueryOrderRequest</span> <span class="o">{</span>
+    <span class="c1">// 公众账号id</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">appid</span><span class="o">;</span>
+
+    <span class="c1">// 商户号</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">mch_id</span><span class="o">;</span>
+
+    <span class="c1">// 商户订单号，32位以内，不重复</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">out_trade_no</span><span class="o">;</span>
+
+    <span class="c1">// 随机字符串，32位以内</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">nonce_str</span><span class="o">;</span>
+
+    <span class="c1">// 签名，遵循签名算法</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">sign</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></td></tr></tbody></table></div>
+</div>
+
+<ol>
+  <li>查询订单请求参数（非必填）</li>
+</ol>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5</pre></td><td class="code"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">QueryOrderRequestExt</span> <span class="kd">extends</span> <span class="n">QueryOrderRequest</span> <span class="o">{</span>
+    <span class="c1">// 签名类型，默认MD5</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">sign_type</span><span class="o">;</span>
+<span class="o">}</span>
+
+</code></pre></td></tr></tbody></table></div>
+</div>
+
+<h2 id="定义接收参数对象">定义接收参数对象</h2>
+<ol>
+  <li>查询订单接收参数（必填）</li>
+</ol>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6<br/>7<br/>8<br/>9<br/>10<br/>11<br/>12<br/>13<br/>14<br/>15<br/>16<br/>17<br/>18<br/>19<br/>20<br/>21<br/>22<br/>23<br/>24<br/>25<br/>26<br/>27<br/>28<br/>29<br/>30<br/>31<br/>32<br/>33<br/>34<br/>35<br/>36<br/>37<br/>38<br/>39<br/>40<br/>41<br/>42<br/>43<br/>44<br/>45<br/>46<br/>47<br/>48<br/>49</pre></td><td class="code"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">QueryOrderResponse</span> <span class="o">{</span>
+    <span class="c1">// 返回状态码，通信标识，SUCCESS/FAIL</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">return_code</span><span class="o">;</span>
+
+    <span class="c1">// 公众账号id</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">appid</span><span class="o">;</span>
+
+    <span class="c1">// 商户号</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">mch_id</span><span class="o">;</span>
+
+    <span class="c1">// 随机字符串</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">nonce_str</span><span class="o">;</span>
+
+    <span class="c1">// 签名</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">sign</span><span class="o">;</span>
+
+    <span class="c1">// 业务结果，交易标识，SUCCESS/FAIL</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">result_code</span><span class="o">;</span>
+
+    <span class="c1">// 用户标识</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">openid</span><span class="o">;</span>
+
+    <span class="c1">// 交易类型，JSAPI，NATIVE，APP</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">trade_type</span><span class="o">;</span>
+
+    <span class="c1">// 交易状态，SUCCESS-成功 USERPAYING-支付中</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">trade_state</span><span class="o">;</span>
+
+    <span class="c1">// 付款银行</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">bank_type</span><span class="o">;</span>
+
+    <span class="c1">// 标价金额，单位分</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">total_fee</span><span class="o">;</span>
+
+    <span class="c1">// 现金支付金额</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">cash_fee</span><span class="o">;</span>
+
+    <span class="c1">// 微信支付订单号</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">transaction_id</span><span class="o">;</span>
+
+    <span class="c1">// 商户订单号</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">out_trade_no</span><span class="o">;</span>
+
+    <span class="c1">// 支付完成时间</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">time_end</span><span class="o">;</span>
+
+    <span class="c1">// 交易状态描述</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">trade_state_desc</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></td></tr></tbody></table></div>
+</div>
+
+<ol>
+  <li>查询订单接收参数（非必填）</li>
+</ol>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6<br/>7<br/>8<br/>9<br/>10<br/>11<br/>12<br/>13<br/>14<br/>15<br/>16<br/>17<br/>18<br/>19<br/>20<br/>21<br/>22<br/>23<br/>24<br/>25<br/>26<br/>27<br/>28<br/>29</pre></td><td class="code"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">QueryOrderResponseExt</span> <span class="kd">extends</span> <span class="n">QueryOrderResponse</span> <span class="o">{</span>
+    <span class="c1">// 返回信息，非空则表示返回了错误信息</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">return_msg</span><span class="o">;</span>
+
+    <span class="c1">// 错误代码</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">err_code</span><span class="o">;</span>
+
+    <span class="c1">// 错误代码描述</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">err_code_des</span><span class="o">;</span>
+
+    <span class="c1">// 设备号</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">device_info</span><span class="o">;</span>
+
+    <span class="c1">// 是否关注公众号</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">is_subscribe</span><span class="o">;</span>
+
+    <span class="c1">// 应结订单金额</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">settlement_total_fee</span><span class="o">;</span>
+
+    <span class="c1">// 标价币种</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">fee_type</span><span class="o">;</span>
+
+    <span class="c1">// 现金支付币种</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">cash_fee_type</span><span class="o">;</span>
+
+    <span class="c1">// 附加数据</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">attach</span><span class="o">;</span>
+<span class="o">}</span>
+
+</code></pre></td></tr></tbody></table></div>
+</div>
+
+<h2 id="生成订单信息">生成订单信息</h2>
+<ol>
+  <li><code class="highlighter-rouge">SOPConstants.WECHAT_PAY_APP_ID</code> 是公众账号 id</li>
+  <li><code class="highlighter-rouge">SOPConstants.WECHAT_PAY_MCH_ID</code> 是商户id</li>
+  <li><code class="highlighter-rouge">WechatUtil.makeNonceStr()</code> 是生成的随机字符串</li>
+  <li><code class="highlighter-rouge">WechatUtil.makeSign(BeanMap.create(ext))</code> 是根据请求参数制作签名</li>
+  <li><code class="highlighter-rouge">WechatUtil.truncateDataToXML(QueryOrderRequestExt.class, ext)</code> 是将数据转换为 XML 形式</li>
+</ol>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6<br/>7<br/>8<br/>9<br/>10<br/>11<br/>12<br/>13</pre></td><td class="code"><pre class="highlight"><code><span class="kd">private</span> <span class="n">String</span> <span class="nf">generateOrderInfo</span><span class="o">(</span><span class="n">Long</span> <span class="n">orderId</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">OrderDTO</span> <span class="n">order</span> <span class="o">=</span> <span class="n">orderManageService</span><span class="o">.</span><span class="na">getOrder</span><span class="o">(</span><span class="n">orderId</span><span class="o">);</span>
+
+    <span class="n">QueryOrderRequestExt</span> <span class="n">ext</span> <span class="o">=</span> <span class="k">new</span> <span class="n">QueryOrderRequestExt</span><span class="o">();</span>
+    <span class="n">ext</span><span class="o">.</span><span class="na">setAppid</span><span class="o">(</span><span class="n">SOPConstants</span><span class="o">.</span><span class="na">WECHAT_PAY_APP_ID</span><span class="o">);</span>
+    <span class="n">ext</span><span class="o">.</span><span class="na">setMch_id</span><span class="o">(</span><span class="n">SOPConstants</span><span class="o">.</span><span class="na">WECHAT_PAY_MCH_ID</span><span class="o">);</span>
+    <span class="n">ext</span><span class="o">.</span><span class="na">setOut_trade_no</span><span class="o">(</span><span class="n">order</span><span class="o">.</span><span class="na">getCode</span><span class="o">());</span>
+    <span class="n">ext</span><span class="o">.</span><span class="na">setNonce_str</span><span class="o">(</span><span class="n">WechatUtil</span><span class="o">.</span><span class="na">makeNonceStr</span><span class="o">());</span>
+
+    <span class="n">ext</span><span class="o">.</span><span class="na">setSign</span><span class="o">(</span><span class="n">WechatUtil</span><span class="o">.</span><span class="na">makeSign</span><span class="o">(</span><span class="n">BeanMap</span><span class="o">.</span><span class="na">create</span><span class="o">(</span><span class="n">ext</span><span class="o">)));</span>
+
+    <span class="k">return</span> <span class="n">WechatUtil</span><span class="o">.</span><span class="na">truncateDataToXML</span><span class="o">(</span><span class="n">QueryOrderRequestExt</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">ext</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></td></tr></tbody></table></div>
+</div>
+
+<h2 id="向微信发起订单查询请求">向微信发起订单查询请求</h2>
+<ol>
+  <li><code class="highlighter-rouge">SOPConstants.WECHAT_PAY_QUERY_URL</code> 是微信订单查询的请求 URL</li>
+  <li><code class="highlighter-rouge">WechatConnection.connect()</code> 是向微信发起请求的通用方法</li>
+  <li>只有 <code class="highlighter-rouge">ext.getResult_code()</code> <code class="highlighter-rouge">ext.getResult_code()</code>  <code class="highlighter-rouge">ext.getTrade_state()</code> 的值都是 <strong>SUCCESS</strong> 才能确定订单支付成功</li>
+</ol>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6<br/>7<br/>8<br/>9<br/>10<br/>11<br/>12<br/>13<br/>14<br/>15<br/>16<br/>17<br/>18<br/>19<br/>20<br/>21<br/>22<br/>23<br/>24<br/>25<br/>26<br/>27<br/>28</pre></td><td class="code"><pre class="highlight"><code><span class="kd">public</span> <span class="n">Boolean</span> <span class="nf">getPayResult</span><span class="o">(</span><span class="n">Long</span> <span class="n">orderId</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">String</span> <span class="n">orderInfo</span> <span class="o">=</span> <span class="n">generateOrderInfo</span><span class="o">(</span><span class="n">orderId</span><span class="o">);</span>
+
+    <span class="n">QueryOrderResponseExt</span> <span class="n">ext</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+    <span class="k">try</span> <span class="o">{</span>
+        <span class="n">ext</span> <span class="o">=</span> <span class="o">(</span><span class="n">QueryOrderResponseExt</span><span class="o">)</span> <span class="n">WechatConnection</span><span class="o">.</span><span class="na">connect</span><span class="o">(</span><span class="n">SOPConstants</span><span class="o">.</span><span class="na">WECHAT_PAY_QUERY_URL</span><span class="o">,</span> <span class="n">orderInfo</span><span class="o">,</span> <span class="n">QueryOrderResponseExt</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+    <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">IOException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">logger</span><span class="o">.</span><span class="na">error</span><span class="o">(</span><span class="s">"微信查询订单"</span> <span class="o">+</span> <span class="n">orderId</span> <span class="o">+</span> <span class="s">"失败！"</span><span class="o">,</span> <span class="n">e</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="k">if</span> <span class="o">(</span><span class="n">ext</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="k">if</span> <span class="o">(</span><span class="n">WechatConnection</span><span class="o">.</span><span class="na">SUCCESS_CODE</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">ext</span><span class="o">.</span><span class="na">getResult_code</span><span class="o">()))</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">WechatConnection</span><span class="o">.</span><span class="na">SUCCESS_CODE</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">ext</span><span class="o">.</span><span class="na">getResult_code</span><span class="o">())</span> <span class="o">&amp;&amp;</span> <span class="n">WechatConnection</span><span class="o">.</span><span class="na">SUCCESS_CODE</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">ext</span><span class="o">.</span><span class="na">getTrade_state</span><span class="o">()))</span> <span class="o">{</span>
+            <span class="c1">// 更新订单状态</span>
+            <span class="n">orderPayService</span><span class="o">.</span><span class="na">updateOrderInfo</span><span class="o">(</span><span class="n">ext</span><span class="o">.</span><span class="na">getOut_trade_no</span><span class="o">(),</span> <span class="n">OrderPay</span><span class="o">.</span><span class="na">wchatPay</span><span class="o">.</span><span class="na">getCode</span><span class="o">());</span>
+            <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+        <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+            <span class="n">logger</span><span class="o">.</span><span class="na">error</span><span class="o">(</span><span class="s">"订单"</span> <span class="o">+</span> <span class="n">orderId</span> <span class="o">+</span> <span class="s">"交易失败，交易状态："</span> <span class="o">+</span> <span class="n">ext</span><span class="o">.</span><span class="na">getTrade_state</span><span class="o">());</span>
+            <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+        <span class="o">}</span>
+    <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+        <span class="n">logger</span><span class="o">.</span><span class="na">error</span><span class="o">(</span><span class="s">"订单"</span> <span class="o">+</span> <span class="n">orderId</span> <span class="o">+</span> <span class="s">"查询失败！"</span><span class="o">);</span>
+        <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></td></tr></tbody></table></div>
+</div>
+
+<h2 id="微信支付相关操作工具类">微信支付相关操作工具类</h2>
+<ol>
+  <li>该工具类目前提供了数据转换、签名生成、随机数生成的通用方法</li>
+</ol>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6<br/>7<br/>8<br/>9<br/>10<br/>11<br/>12<br/>13<br/>14<br/>15<br/>16<br/>17<br/>18<br/>19<br/>20<br/>21<br/>22<br/>23<br/>24<br/>25<br/>26<br/>27<br/>28<br/>29<br/>30<br/>31<br/>32<br/>33<br/>34<br/>35<br/>36<br/>37<br/>38<br/>39<br/>40<br/>41<br/>42<br/>43<br/>44<br/>45<br/>46<br/>47<br/>48<br/>49<br/>50<br/>51<br/>52<br/>53<br/>54<br/>55<br/>56<br/>57<br/>58<br/>59<br/>60<br/>61<br/>62<br/>63<br/>64<br/>65<br/>66<br/>67<br/>68<br/>69<br/>70<br/>71<br/>72<br/>73<br/>74<br/>75<br/>76<br/>77<br/>78<br/>79<br/>80<br/>81<br/>82<br/>83<br/>84<br/>85<br/>86<br/>87<br/>88<br/>89<br/>90<br/>91<br/>92<br/>93<br/>94<br/>95<br/>96<br/>97<br/>98<br/>99<br/>100<br/>101<br/>102<br/>103<br/>104<br/>105<br/>106<br/>107<br/>108<br/>109<br/>110<br/>111<br/>112<br/>113<br/>114<br/>115<br/>116<br/>117<br/>118<br/>119<br/>120<br/>121<br/>122<br/>123</pre></td><td class="code"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">WechatUtil</span> <span class="o">{</span>
+
+    <span class="kd">private</span> <span class="kd">static</span> <span class="n">Logger</span> <span class="n">logger</span> <span class="o">=</span> <span class="n">LoggerFactory</span><span class="o">.</span><span class="na">getLogger</span><span class="o">(</span><span class="n">WechatUtil</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+
+    <span class="cm">/**
+     * 数据转换为xml格式
+     *
+     * @param object
+     * @param obj
+     * @return
+     */</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="n">String</span> <span class="nf">truncateDataToXML</span><span class="o">(</span><span class="n">Class</span><span class="o">&lt;?&gt;</span> <span class="n">object</span><span class="o">,</span> <span class="n">Object</span> <span class="n">obj</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">XStream</span> <span class="n">xStream</span> <span class="o">=</span> <span class="k">new</span> <span class="n">XStream</span><span class="o">(</span><span class="k">new</span> <span class="n">XppDriver</span><span class="o">(</span><span class="k">new</span> <span class="n">XmlFriendlyReplacer</span><span class="o">(</span><span class="s">"_-"</span><span class="o">,</span> <span class="s">"_"</span><span class="o">)));</span>
+        <span class="n">xStream</span><span class="o">.</span><span class="na">alias</span><span class="o">(</span><span class="s">"xml"</span><span class="o">,</span> <span class="n">object</span><span class="o">);</span>
+
+        <span class="k">return</span> <span class="n">xStream</span><span class="o">.</span><span class="na">toXML</span><span class="o">(</span><span class="n">obj</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="cm">/**
+     * 数据转换为对象
+     *
+     * @param object
+     * @param str
+     * @return
+     */</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="n">Object</span> <span class="nf">truncateDataFromXML</span><span class="o">(</span><span class="n">Class</span><span class="o">&lt;?&gt;</span> <span class="n">object</span><span class="o">,</span> <span class="n">String</span> <span class="n">str</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">XStream</span> <span class="n">xStream</span> <span class="o">=</span> <span class="k">new</span> <span class="n">XStream</span><span class="o">(</span><span class="k">new</span> <span class="n">XppDriver</span><span class="o">(</span><span class="k">new</span> <span class="n">XmlFriendlyReplacer</span><span class="o">(</span><span class="s">"_-"</span><span class="o">,</span> <span class="s">"_"</span><span class="o">)));</span>
+        <span class="n">xStream</span><span class="o">.</span><span class="na">alias</span><span class="o">(</span><span class="s">"xml"</span><span class="o">,</span> <span class="n">object</span><span class="o">);</span>
+
+        <span class="k">return</span> <span class="n">xStream</span><span class="o">.</span><span class="na">fromXML</span><span class="o">(</span><span class="n">str</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="cm">/**
+     * 生成随机字符串
+     *
+     * @return
+     */</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="n">String</span> <span class="nf">makeNonceStr</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">StringBuffer</span> <span class="n">str</span> <span class="o">=</span> <span class="k">new</span> <span class="n">StringBuffer</span><span class="o">(</span><span class="n">DateUtil</span><span class="o">.</span><span class="na">getSysDateString</span><span class="o">(</span><span class="s">"yyyyMMddHHmmssS"</span><span class="o">));</span>
+        <span class="n">str</span><span class="o">.</span><span class="na">append</span><span class="o">((</span><span class="k">new</span> <span class="n">Random</span><span class="o">().</span><span class="na">nextInt</span><span class="o">(</span><span class="mi">900</span><span class="o">)</span> <span class="o">+</span> <span class="mi">100</span><span class="o">));</span>
+
+        <span class="k">return</span> <span class="n">str</span><span class="o">.</span><span class="na">toString</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="cm">/**
+     * 拼接签名数据
+     *
+     * @return
+     */</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="n">String</span> <span class="nf">makeSign</span><span class="o">(</span><span class="n">BeanMap</span> <span class="n">beanMap</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">SortedMap</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">String</span><span class="o">&gt;</span> <span class="n">signMaps</span> <span class="o">=</span> <span class="n">Maps</span><span class="o">.</span><span class="na">newTreeMap</span><span class="o">();</span>
+
+        <span class="k">for</span> <span class="o">(</span><span class="n">Object</span> <span class="n">key</span> <span class="o">:</span> <span class="n">beanMap</span><span class="o">.</span><span class="na">keySet</span><span class="o">())</span> <span class="o">{</span>
+            <span class="n">Object</span> <span class="n">value</span> <span class="o">=</span> <span class="n">beanMap</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">key</span><span class="o">);</span>
+
+            <span class="c1">// 排除空数据</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">value</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+                <span class="k">continue</span><span class="o">;</span>
+            <span class="o">}</span>
+
+            <span class="n">signMaps</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">key</span> <span class="o">+</span> <span class="s">""</span><span class="o">,</span> <span class="n">String</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="n">value</span><span class="o">));</span>
+        <span class="o">}</span>
+
+        <span class="c1">// 生成签名</span>
+        <span class="k">return</span> <span class="nf">generateSign</span><span class="o">(</span><span class="n">signMaps</span><span class="o">);</span>
+    <span class="o">}</span>
+
+
+    <span class="cm">/**
+     * 生成签名
+     *
+     * @param signMaps
+     * @return
+     * @throws Exception
+     */</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="n">String</span> <span class="nf">generateSign</span><span class="o">(</span><span class="n">SortedMap</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">String</span><span class="o">&gt;</span> <span class="n">signMaps</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">StringBuffer</span> <span class="n">sb</span> <span class="o">=</span> <span class="k">new</span> <span class="n">StringBuffer</span><span class="o">();</span>
+
+        <span class="c1">// 字典序</span>
+        <span class="k">for</span> <span class="o">(</span><span class="n">Map</span><span class="o">.</span><span class="na">Entry</span> <span class="n">signMap</span> <span class="o">:</span> <span class="n">signMaps</span><span class="o">.</span><span class="na">entrySet</span><span class="o">())</span> <span class="o">{</span>
+            <span class="n">String</span> <span class="n">key</span> <span class="o">=</span> <span class="o">(</span><span class="n">String</span><span class="o">)</span> <span class="n">signMap</span><span class="o">.</span><span class="na">getKey</span><span class="o">();</span>
+            <span class="n">String</span> <span class="n">value</span> <span class="o">=</span> <span class="o">(</span><span class="n">String</span><span class="o">)</span> <span class="n">signMap</span><span class="o">.</span><span class="na">getValue</span><span class="o">();</span>
+
+            <span class="c1">// 为空不参与签名、参数名区分大小写</span>
+            <span class="k">if</span> <span class="o">(</span><span class="kc">null</span> <span class="o">!=</span> <span class="n">value</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="s">""</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">value</span><span class="o">)</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="s">"sign"</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">key</span><span class="o">)</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="s">"key"</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">key</span><span class="o">))</span> <span class="o">{</span>
+                <span class="n">sb</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">key</span><span class="o">).</span><span class="na">append</span><span class="o">(</span><span class="s">"="</span><span class="o">).</span><span class="na">append</span><span class="o">(</span><span class="n">value</span><span class="o">).</span><span class="na">append</span><span class="o">(</span><span class="s">"&amp;"</span><span class="o">);</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+
+        <span class="c1">// 拼接key</span>
+        <span class="n">sb</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="s">"key="</span><span class="o">).</span><span class="na">append</span><span class="o">(</span><span class="n">SOPConstants</span><span class="o">.</span><span class="na">WECHAT_PAY_KEY</span><span class="o">);</span>
+
+        <span class="c1">// MD5加密</span>
+        <span class="k">return</span> <span class="n">Objects</span><span class="o">.</span><span class="na">requireNonNull</span><span class="o">(</span><span class="n">encoderByMd5</span><span class="o">(</span><span class="n">sb</span><span class="o">.</span><span class="na">toString</span><span class="o">())).</span><span class="na">toUpperCase</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="cm">/**
+     * 利用MD5进行加密
+     *
+     * @param str 待加密的字符串
+     * @return 加密后的字符串
+     */</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="n">String</span> <span class="nf">encoderByMd5</span><span class="o">(</span><span class="n">String</span> <span class="n">str</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">// 生成一个MD5加密计算摘要</span>
+        <span class="n">MessageDigest</span> <span class="n">md</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="n">md</span> <span class="o">=</span> <span class="n">MessageDigest</span><span class="o">.</span><span class="na">getInstance</span><span class="o">(</span><span class="s">"MD5"</span><span class="o">);</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">NoSuchAlgorithmException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">logger</span><span class="o">.</span><span class="na">error</span><span class="o">(</span><span class="s">"MD5加密失败！"</span><span class="o">,</span> <span class="n">e</span><span class="o">);</span>
+        <span class="o">}</span>
+
+        <span class="k">if</span> <span class="o">(</span><span class="n">md</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+        <span class="o">}</span>
+
+        <span class="c1">// 计算md5函数</span>
+        <span class="n">md</span><span class="o">.</span><span class="na">update</span><span class="o">(</span><span class="n">str</span><span class="o">.</span><span class="na">getBytes</span><span class="o">());</span>
+        <span class="c1">// digest()最后确定返回md5 hash值，返回值为8为字符串。因为md5 hash值是16位的hex值，实际上就是8位的字符</span>
+        <span class="c1">// BigInteger函数则将8位的字符串转换成16位hex值，用字符串来表示；得到字符串形式的hash值</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="nf">BigInteger</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="n">md</span><span class="o">.</span><span class="na">digest</span><span class="o">()).</span><span class="na">toString</span><span class="o">(</span><span class="mi">16</span><span class="o">);</span>
+    <span class="o">}</span>
+
+<span class="o">}</span>
+</code></pre></td></tr></tbody></table></div>
+</div>
+
+<h2 id="微信支付请求建立类">微信支付请求建立类</h2>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6<br/>7<br/>8<br/>9<br/>10<br/>11<br/>12<br/>13<br/>14<br/>15<br/>16<br/>17<br/>18<br/>19<br/>20<br/>21<br/>22<br/>23<br/>24<br/>25<br/>26<br/>27<br/>28<br/>29<br/>30<br/>31<br/>32<br/>33<br/>34<br/>35<br/>36<br/>37<br/>38<br/>39<br/>40<br/>41</pre></td><td class="code"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">WechatConnection</span> <span class="o">{</span>
+
+    <span class="c1">// 成功标志</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">SUCCESS_CODE</span> <span class="o">=</span> <span class="s">"SUCCESS"</span><span class="o">;</span>
+
+    <span class="cm">/**
+     * 建立微信连接，并返回结果
+     *
+     * @param url
+     * @param info
+     * @param object
+     * @return
+     * @throws IOException
+     */</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="n">Object</span> <span class="nf">connect</span><span class="o">(</span><span class="n">String</span> <span class="n">url</span><span class="o">,</span> <span class="n">String</span> <span class="n">info</span><span class="o">,</span> <span class="n">Class</span><span class="o">&lt;?&gt;</span> <span class="n">object</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span> <span class="o">{</span>
+        <span class="c1">// 建立连接</span>
+        <span class="n">HttpURLConnection</span> <span class="n">conn</span> <span class="o">=</span> <span class="o">(</span><span class="n">HttpURLConnection</span><span class="o">)</span> <span class="k">new</span> <span class="n">URL</span><span class="o">(</span><span class="n">url</span><span class="o">).</span><span class="na">openConnection</span><span class="o">();</span>
+        <span class="n">conn</span><span class="o">.</span><span class="na">setConnectTimeout</span><span class="o">(</span><span class="mi">8000</span><span class="o">);</span>
+        <span class="n">conn</span><span class="o">.</span><span class="na">setRequestMethod</span><span class="o">(</span><span class="s">"POST"</span><span class="o">);</span>
+        <span class="n">conn</span><span class="o">.</span><span class="na">setDoOutput</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
+
+        <span class="c1">// 发送数据</span>
+        <span class="n">BufferedOutputStream</span> <span class="n">bos</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BufferedOutputStream</span><span class="o">(</span><span class="n">conn</span><span class="o">.</span><span class="na">getOutputStream</span><span class="o">());</span>
+        <span class="n">bos</span><span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="n">info</span><span class="o">.</span><span class="na">getBytes</span><span class="o">());</span>
+        <span class="n">bos</span><span class="o">.</span><span class="na">flush</span><span class="o">();</span>
+        <span class="n">bos</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+
+        <span class="c1">// 获取数据</span>
+        <span class="n">BufferedReader</span> <span class="n">reader</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BufferedReader</span><span class="o">(</span><span class="k">new</span> <span class="n">InputStreamReader</span><span class="o">(</span><span class="n">conn</span><span class="o">.</span><span class="na">getInputStream</span><span class="o">()));</span>
+
+        <span class="c1">// 接收数据</span>
+        <span class="n">String</span> <span class="n">line</span><span class="o">;</span>
+        <span class="n">StringBuffer</span> <span class="n">str</span> <span class="o">=</span> <span class="k">new</span> <span class="n">StringBuffer</span><span class="o">();</span>
+        <span class="k">while</span> <span class="o">((</span><span class="n">line</span> <span class="o">=</span> <span class="n">reader</span><span class="o">.</span><span class="na">readLine</span><span class="o">())</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">str</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">line</span><span class="o">);</span>
+        <span class="o">}</span>
+
+        <span class="k">return</span> <span class="n">WechatUtil</span><span class="o">.</span><span class="na">truncateDataFromXML</span><span class="o">(</span><span class="n">object</span><span class="o">,</span> <span class="n">str</span><span class="o">.</span><span class="na">toString</span><span class="o">());</span>
+    <span class="o">}</span>
+
+<span class="o">}</span>
+</code></pre></td></tr></tbody></table></div>
+</div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            
+            <a href="/tag/#/java" rel="tag"># java</a>
+          
+            
+            <a href="/tag/#/wechatpay" rel="tag"># wechatpay</a>
+          
+        </div>
+      
+
+      
+      
+      
+      
+      
+
+      
+      
+        <div class="post-nav" id="post-nav-id">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/java/pay/2018/03/31/Java-%E6%94%AF%E4%BB%98%E5%AE%9D%E6%89%AB%E7%A0%81%E6%94%AF%E4%BB%98-%E6%96%B0/" rel="next" title="Java 支付宝扫码支付[新]">
+                <i class="fa fa-chevron-left"></i> Java 支付宝扫码支付[新]
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/java/pay/2017/02/14/Java-%E6%94%AF%E4%BB%98%E5%AE%9D%E6%89%AB%E7%A0%81%E6%94%AF%E4%BB%98-%E6%97%A7/" rel="prev" title="Java 支付宝扫码支付[旧]">
+                Java 支付宝扫码支付[旧] <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+      
+
+      
+    </footer>
+    <script src="//cdn.jsdelivr.net/jquery/2.1.3/jquery.min.js"></script>
+    <script>
+      $(function () {
+        $('a[href^="http"]').each(function () {
+          $(this).attr('target', '_blank')
+        })
+      })
+    </script>
+  </article>
+
+  <div class="post-spread">
+    
+  </div>
+</div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="gitalk-container"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+        
+        
+        
+
+
+
+
+
+
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/assets/images/avatar.png"
+               alt="asing1elife" />
+          <p class="site-author-name" itemprop="name">asing1elife</p>
+           
+              <p class="site-description motion-element" itemprop="description">- 说好为我泡花茶</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/">
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              
+              
+              <span class="links-of-author-item">
+                <a href="https://github.com/asing1elife" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              
+              
+              <span class="links-of-author-item">
+                <a href="https://weibo.com/201277592" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+
+
+
+
+
+
+
+            
+              <div class="post-toc-content">
+    <ol class=nav>
+      <li class="nav-item nav-level-2"> <a class="nav-link" href="#前置条件"> <span class="nav-number">1</span> <span class="nav-text">前置条件</span> </a> </li> <li class="nav-item nav-level-2"> <a class="nav-link" href="#官网"> <span class="nav-number">2</span> <span class="nav-text">官网</span> </a> </li> <li class="nav-item nav-level-2"> <a class="nav-link" href="#定义请求参数对象"> <span class="nav-number">3</span> <span class="nav-text">定义请求参数对象</span> </a> </li> <li class="nav-item nav-level-2"> <a class="nav-link" href="#定义接收参数对象"> <span class="nav-number">4</span> <span class="nav-text">定义接收参数对象</span> </a> </li> <li class="nav-item nav-level-2"> <a class="nav-link" href="#生成订单信息"> <span class="nav-number">5</span> <span class="nav-text">生成订单信息</span> </a> </li> <li class="nav-item nav-level-2"> <a class="nav-link" href="#向微信发起订单查询请求"> <span class="nav-number">6</span> <span class="nav-text">向微信发起订单查询请求</span> </a> </li> <li class="nav-item nav-level-2"> <a class="nav-link" href="#微信支付相关操作工具类"> <span class="nav-number">7</span> <span class="nav-text">微信支付相关操作工具类</span> </a> </li> <li class="nav-item nav-level-2"> <a class="nav-link" href="#微信支付请求建立类"> <span class="nav-number">8</span> <span class="nav-text">微信支付请求建立类</span> </a> </li>
+    </ol>
+  </div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">asing1elife</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://jekyllrb.com">Jekyll</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/simpleyyt/jekyll-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+   
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/assets/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/assets/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  <script type="text/javascript" src="/assets/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/assets/js/src/post-details.js?v=5.1.1"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/assets/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+<script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.js"></script>
+<script type="text/javascript">
+      var gitalk = new Gitalk({
+        clientID: 'ef9f962e9ae383f53506',
+        clientSecret: '1b2ceaa93a86016c9efa2457abd876206c87d15c',
+        repo: 'asing1elife.github.io',
+        owner: 'asing1elife',
+        admin: ['asing1elife'],
+        id: md5('/java/pay/2018/03/31/Java-%E5%BE%AE%E4%BF%A1%E8%AE%A2%E5%8D%95%E6%9F%A5%E8%AF%A2/'),
+        labels: ['gitalk'],
+        perPage: 50,
+        distractionFreeMode: true
+      });
+      gitalk.render('gitalk-container');
+</script>
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+    
+
+  
+
+
+
+
+
+  
+
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+  
+
+
+  
+
+  
+
+  
+
+</body>
+</html>
+
