@@ -1,0 +1,22 @@
+---
+title: SpringBoot抛出ContextPath must start with '/' and not end with '/'异常
+date: 2018-04-17
+categories:
+ - java
+ - springboot
+ - error
+tags:
+ - java
+ - springboot
+ - error
+---
+> 该异常属于项目配置的根路径出错  
+
+## 解决问题的办法
+1. 在 `application.yml` 中将 **server.servlet.context-path** 设置的路径前加一个 **/**
+
+```yaml
+server:
+  servlet:
+    context-path: /api
+```
