@@ -1,1 +1,19 @@
 // Custom styles.
+// 单行代码
+code.highlighter-rouge {
+	color: #f44337;
+}
+
+// 加粗字体
+article strong {
+	font-size: 13px;
+    padding: 0 5px;
+    display: inline-block;
+    color: white;
+    border-radius: 5px;
+}
+
+// 修复多行代码左侧行数显示高度可能不饱和的问题
+article .gutter {
+	background-color: #292929;
+}
