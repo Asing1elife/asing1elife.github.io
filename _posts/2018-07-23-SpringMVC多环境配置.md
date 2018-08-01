@@ -77,5 +77,5 @@ tags:
 ![](http://asing1elife.com/sources/images/8855BF1F-4F40-4B99-8E97-044B6C875633.png)
 
 ## 生产环境启动方式
-1. Linux 环境需要前往 Tomcat 的 /bin 目录下，需要 ::./catalina.sh:: 中的 `JAVA_OPTS` 内容如下
+1. Linux 环境需要前往 Tomcat 的 /bin 目录下，需要 **./catalina.sh** 中的 `JAVA_OPTS` 内容如下
 2. `JAVA_OPTS="$JAVA_OPTS -Dspring.profiles.active=prod"`
