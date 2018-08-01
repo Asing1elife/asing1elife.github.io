@@ -2,6 +2,104 @@
 <search>
   
     <entry>
+      <title><![CDATA[SpringBoot前后分离项目实现自定义登录拦截]]></title>
+      <url>/java/springboot/shiro/2018/06/24/SpringBoot%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB%E9%A1%B9%E7%9B%AE%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%AE%9A%E4%B9%89%E7%99%BB%E5%BD%95%E6%8B%A6%E6%88%AA/</url>
+      <content type="text"><![CDATA[  通常的 shiro 登录拦截对于 /login 操作可设置为 authc 模式，但前后分离的项目直接设置会导致无法获取登录信息自定义登录拦截的实现  要实现自定义的登录拦截是继承 FormAuthenticationFilter 接口  对接口中的 onLoginSuccess 和 onLoginFailure 重写          从而根据登录成功和失败进行不同的操作记录      public class LoginFormAuthenticationFilter extends FormAuthenticationFilter {  // springBoot中存在与配置类的service类需要提供get/set方法手动收入，如果使用@Autowired会导致报错    private MemberLoginRecordServiceImpl memberLoginRecordService;    @Override    protected boolean onLoginSuccess(AuthenticationToken token, Subject subject, ServletRequest request, ServletResponse response) throws Exception {        // 处理会员登录成功操作        memberLoginRecordService.doAfterSuccessfullyLogin(request, subject);        return super.onLoginSuccess(token, subject, request, response);    }    @Override    protected boolean onLoginFailure(AuthenticationToken token, AuthenticationException e, ServletRequest request, ServletResponse response) {        return super.onLoginFailure(token, e, request, response);    }    public MemberLoginRecordServiceImpl getMemberLoginRecordService() {        return memberLoginRecordService;    }    public void setMemberLoginRecordService(MemberLoginRecordServiceImpl memberLoginRecordService) {        this.memberLoginRecordService = memberLoginRecordService;    }}将重写的拦截器注入到 shiro 配置中@Configuration@ConditionalOnWebApplicationpublic class ShiroConfiguration extends BaseShiroConfiguration {  ...  	// 手动注入自定义拦截器需要用到的service  	// 注入该service即可，service内部的其他类可实现自动注入    @Bean    public MemberLoginRecordServiceImpl memberLoginRecordService() {        return new MemberLoginRecordServiceImpl();    }    public ShiroFilterFactoryBean shiroFilterFactoryBean(DefaultWebSecurityManager securityManager) throws Exception {        ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();        shiroFilterFactoryBean.setSecurityManager(securityManager);  		// 指定登录链接        shiroFilterFactoryBean.setLoginUrl("/login");        Map&lt;String, Filter&gt; filters = new LinkedHashMap&lt;String, Filter&gt;();          		// 配置自定义表单拦截器        LoginFormAuthenticationFilter authcFilter = new LoginFormAuthenticationFilter();        authcFilter.setRememberMeParam("rememberMe");  		// 注入上述引用的service类        authcFilter.setMemberLoginRecordService(memberLoginRecordService());  		// 选择指定拦截器的规则        filters.put("authc", authcFilter);        shiroFilterFactoryBean.setFilters(filters);  		// 配置不同接口规则        Map&lt;String, String&gt; filterChainDefinitionMap = new LinkedHashMap&lt;String, String&gt;();  		// 登出操作由shiro管理        filterChainDefinitionMap.put("/logout", "anon");  		// 以下规则可直接访问        filterChainDefinitionMap.put("/api/portals/**", "anon");  		// 以下规则需要认证访问        filterChainDefinitionMap.put("/login", "authc");        filterChainDefinitionMap.put("/api/**", "authc");        shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);        return shiroFilterFactoryBean;    }}以上方式在前后分离项目中会出现的问题  由于项目是前后分离的，前端发起的直接是访问 loginController 的请求  该请求由于配置了 authc 规则，则需要认证才能访问  所以就导致以上配置方式会直接报错  而如果将 /login 请求配置为 anon 规则，则会导致登录操作无法被自定义表单拦截器拦截解决方式  重写 FormAuthenticationFilter 接口的 onAccessDenied 方法  判断当前访问该规则的请求是否为登录请求  如果是登录请求则再次判断是否为登录提交请求 this.isLoginRequest          因为正常的登录请求中会存在一个访问登录页面和提交登录表单两个操作      而前后分离项目发起的必然是提交登录表单 this.isLoginSubmission        如果不是登录请求则返回 false@Overrideprotected boolean onAccessDenied(ServletRequest request, ServletResponse response) throws Exception {    if (this.isLoginRequest(request, response) &amp;&amp; this.isLoginSubmission(request, response)) {        return true;    }    return false;}]]></content>
+      <categories>
+        
+          <category> java </category>
+        
+          <category> springboot </category>
+        
+          <category> shiro </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> java </tag>
+        
+          <tag> springboot </tag>
+        
+          <tag> shiro </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[SpringBoot实现全局异常捕获]]></title>
+      <url>/java/springboot/2018/06/07/SpringBoot%E5%AE%9E%E7%8E%B0%E5%85%A8%E5%B1%80%E5%BC%82%E5%B8%B8%E6%8D%95%E8%8E%B7/</url>
+      <content type="text"><![CDATA[  SpringBoot 对异常可以进行全局捕获，按照如下操作即可创建全局异常捕获器  @RestControllerAdvice 是对 @RestController 的加强          该注解是 Spring2.3 之后提供的新功能，主要用于对原生 Controller 做一些低侵入性的增加辅助      被该注解标注的类，其中的方法会被应用到 @RestController 中      作用与 @RestController 中被标注 @RequestMapping 的方法        @ExceptionHandler 是自定义错误处理器，使用时可以注明具体需要处理的错误类型          一般需要标注默认异常和自定义异常即可        该错误捕获方式是将所有错误向上一直抛出至 Spring 容器，由 Spring 自行处理          所以如果在之前进行了 try-catch 操作，会导致 Spring 无法捕获到该异常      @RestControllerAdvicepublic class GlobalExceptionHandler {    public Logger log = LoggerFactory.getLogger(getClass());    @ExceptionHandler(TSharkException.class)    public ResponseData handleTSharkException(TSharkException e) {        log.error(e.getMessage());        ResponseData responseData = new ResponseData();        responseData.setError(e.getMessage());        return responseData;    }    @ExceptionHandler(Exception.class)    public ResponseData handleException(Exception e) {        log.error(e.getMessage());        String exceptionMessage = "";        ResponseData responseData = new ResponseData();        if (e.getMessage().contains("rollback")) {            exceptionMessage = "数据已被关联或使用，无法删除！";        }        responseData.setError(exceptionMessage);        return responseData;    }}]]></content>
+      <categories>
+        
+          <category> java </category>
+        
+          <category> springboot </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> java </tag>
+        
+          <tag> springboot </tag>
+        
+          <tag> exception </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[SpringBoot通过jar包启动时MyBatis无法定位实体类]]></title>
+      <url>/java/springboot/mybatis/error/2018/05/09/SpringBoot%E9%80%9A%E8%BF%87jar%E5%8C%85%E5%90%AF%E5%8A%A8%E6%97%B6MyBatis%E6%97%A0%E6%B3%95%E5%AE%9A%E4%BD%8D%E5%AE%9E%E4%BD%93%E7%B1%BB/</url>
+      <content type="text"><![CDATA[  SpringBoot 通过 jar 包启动项目时，MyBatis 无法定位实体类，但通过 IDE 启动时没问题出现问题的原因  通过 jar 启动时，MyBatis 内部获得的路径不同，会导致无法根据配置文件指定的路径扫描到实体类  项目不是通过自动注入方式配置 MyBatis ，而是通过手动注入解决办法  在手动注入并指定实体类扫描路径之前，将 Spring 已经实例化的 VFS 提前指定@Bean@ConditionalOnMissingBean(SqlSessionFactoryBean.class)public SqlSessionFactory sqlSessionFactory(@Qualifier("druidDataSource") DataSource dataSource) throws Exception {    SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();    sqlSessionFactoryBean.setDataSource(dataSource);    sqlSessionFactoryBean.setMapperLocations(new PathMatchingResourcePatternResolver().getResources(mapperLocations));  // 指定VFS确保可以扫描到实体类    sqlSessionFactoryBean.setVfs(SpringBootVFS.class);    sqlSessionFactoryBean.setTypeAliasesPackage(typeAliasesPackage);    return sqlSessionFactoryBean.getObject();}]]></content>
+      <categories>
+        
+          <category> java </category>
+        
+          <category> springboot </category>
+        
+          <category> mybatis </category>
+        
+          <category> error </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> java </tag>
+        
+          <tag> springboot </tag>
+        
+          <tag> mybatis </tag>
+        
+          <tag> error </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[SpringBoot多环境配置]]></title>
+      <url>/java/springboot/2018/05/09/SpringBoot%E5%A4%9A%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/</url>
+      <content type="text"><![CDATA[  SpringBoot 在开发时可以配置多个环境进行便捷切换创建多个环境配置文件  首先需要创建多个对应的配置文件，如上图  然后在 application.yml 中通过如下语法进行匹配          项目启动时会根据指定的尾缀自动去匹配对应的配置文件      spring:  profiles:    active: dev项目打包实现动态指定配置文件  执行 java -jar xxx.jar  会直接按照默认配置进行打包  执行 java -jar xxx.jar --spring.profiles.active=test 则可以动态指定配置文件]]></content>
+      <categories>
+        
+          <category> java </category>
+        
+          <category> springboot </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> java </tag>
+        
+          <tag> springboot </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
       <title><![CDATA[SpringBoot集成ActiveMQ抛出java.lang.NoClassDefFoundError异常]]></title>
       <url>/java/springboot/springmvc/maven/error/2018/05/08/SpringBoot%E9%9B%86%E6%88%90ActiveMQ%E6%8A%9B%E5%87%BANoClassDefFoundError/</url>
       <content type="text"><![CDATA[  SpringBoot 在集成 JMS 及 ActiveMQ 时抛出 java.lang.NoClassDefFoundError: javax/jms/JMSContext 异常出现问题的原因  spring 5.0 以上版本不会自动导入 JMS 2.0 的依赖  但是 activemq-core 5.7  版本需要 JMS 2.0 的依赖解决办法  手动加入 JMS 2.0 依赖&lt;dependency&gt;    &lt;groupId&gt;javax.jms&lt;/groupId&gt;    &lt;artifactId&gt;javax.jms-api&lt;/artifactId&gt;    &lt;version&gt;2.0.1&lt;/version&gt;&lt;/dependency&gt;  在 activemq-core 5.7 中移除低版本的默认引入&lt;dependency&gt;    &lt;groupId&gt;org.apache.activemq&lt;/groupId&gt;    &lt;artifactId&gt;activemq-core&lt;/artifactId&gt;    &lt;version&gt;5.7.0&lt;/version&gt;    &lt;exclusions&gt;        &lt;exclusion&gt;            &lt;artifactId&gt;spring-context&lt;/artifactId&gt;            &lt;groupId&gt;org.springframework&lt;/groupId&gt;        &lt;/exclusion&gt;        &lt;exclusion&gt;            &lt;groupId&gt;org.apache.geronimo.specs&lt;/groupId&gt;            &lt;artifactId&gt;geronimo-jms_1.1_spec&lt;/artifactId&gt;        &lt;/exclusion&gt;    &lt;/exclusions&gt;&lt;/dependency&gt;]]></content>
