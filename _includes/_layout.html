@@ -32,6 +32,12 @@
 
     <main id="main" class="main">
       <div class="main-inner">
+        {% if page.type != 'categories' %}
+          <div class="main-category {% if page.type != 'category' %}top-60{% endif %}">
+            {% include _helper/list_categories.html %}
+            {{ list_categories }}
+          </div>
+        {% endif %}
         <div class="content-wrap">
           <div id="content" class="content">
             {{ content }}

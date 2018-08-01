@@ -1,19 +1,60 @@
 // Custom styles.
 // 单行代码
 code.highlighter-rouge {
-	color: #f44337;
+  color: #f44337;
 }
 
 // 加粗字体
-article strong {
-	font-size: 13px;
-    padding: 0 5px;
-    display: inline-block;
-    color: white;
-    border-radius: 5px;
+div.posts-expand article strong {
+  font-size: 13px;
+  padding: 0 5px;
+  display: inline-block;
+  color: white;
+  border-radius: 5px;
 }
 
 // 修复多行代码左侧行数显示高度可能不饱和的问题
 article .gutter {
-	background-color: #292929;
+  background-color: #292929;
+}
+
+// 修复多行代码右侧内容区在手机下高度可能不饱和的问题
+article .code {
+  background-color: #000000;
+}
+
+// 首页导航栏
+.main .main-inner {
+  position: relative;
+}
+
+.main .main-category {
+  position: absolute;
+  left: -300px;
+}
+
+.main .main-category.top-60 {
+	top: 60px;
+}
+
+.main .main-category .category-list {
+  list-style: none;
+}
+
+.main .main-category .category-list .category-list-item {
+  margin: 5px 10px;
+}
+
+.main .main-category .category-list .category-list-count {
+  color: #bbbbbb;
+}
+
+.main .main-category .category-list .category-list-count::before {
+  display: inline;
+  content: '(';
+}
+
+.main .main-category .category-list .category-list-count::after {
+  display: inline;
+  content: ')';
 }
