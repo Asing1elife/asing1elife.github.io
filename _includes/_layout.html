@@ -33,7 +33,7 @@
     <main id="main" class="main">
       <div class="main-inner">
         {% if page.type != 'categories' %}
-          <div class="main-category {% if page.type != 'category' %}top-60{% endif %}">
+          <div class="main-category">
             {% include _helper/list_categories.html %}
             {{ list_categories }}
           </div>
@@ -88,5 +88,19 @@
   {% include _third-party/mathjax.html %}
   {% include _third-party/scroll-cookie.html %}
   {% include _third-party/exturl.html %}
+  <script type="text/javascript">
+    $(function () {
+      $('.sidebar-toggle').on('click', function () {
+        var $sidebar = $('#sidebar')
+        var $mainCategory = $('.main .main-category')
+
+        if ($sidebar.width() === 320) {
+          $mainCategory.css('transform', 'translateX(0)')
+        } else {
+          $mainCategory.css('transform', 'translateX(-160px)')
+        }
+      })
+    })
+  </script>
 </body>
 </html>

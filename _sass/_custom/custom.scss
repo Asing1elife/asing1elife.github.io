@@ -23,38 +23,82 @@ article .code {
   background-color: #000000;
 }
 
-// 首页导航栏
-.main .main-inner {
-  position: relative;
+// mist和muse模式下首页布局调整
+.mist,
+.muse {
+  // 首页导航栏
+  .main .main-inner {
+    position: relative;
+  }
+
+  .main .main-category {
+    position: fixed;
+    top: 400px;
+    transform: translateX(0);
+    transition: all .5s;
+    display: none;
+  }
+
+  .main .main-category .category-list {
+    list-style: none;
+  }
+
+  .main .main-category .category-list .category-list-item {
+    margin: 5px 10px;
+  }
+
+  .main .main-category .category-list .category-list-count {
+    color: #bbbbbb;
+  }
+
+  .main .main-category .category-list .category-list-count::before {
+    display: inline;
+    content: '(';
+  }
+
+  .main .main-category .category-list .category-list-count::after {
+    display: inline;
+    content: ')';
+  }
+
+  @include desktop() {
+    // 首页导航栏
+    .main .main-inner .main-category {
+      display: block;
+    } 
+    // 首页顶栏
+    .header .header-inner {
+      padding-left: 300px;
+    } 
+    // 首页内容区
+    .main .main-inner .content-wrap {
+      padding-left: 300px;
+    }
+  }
 }
 
-.main .main-category {
-  position: absolute;
-  left: -300px;
-}
+// mist 模式下也显示副标题
+.mist {
+	.header  {
+		.site-meta {
+			.custom-logo-site-title {
+				display: inline-block;
+			}
 
-.main .main-category.top-60 {
-	top: 60px;
-}
+			.site-subtitle {
+				display: inline-block;
+				margin: 0;
+				margin-left: 10px;
+				bottom: 30px;
+				top: auto !important;
+				position: absolute;
+			}
 
-.main .main-category .category-list {
-  list-style: none;
-}
-
-.main .main-category .category-list .category-list-item {
-  margin: 5px 10px;
-}
-
-.main .main-category .category-list .category-list-count {
-  color: #bbbbbb;
-}
-
-.main .main-category .category-list .category-list-count::before {
-  display: inline;
-  content: '(';
-}
-
-.main .main-category .category-list .category-list-count::after {
-  display: inline;
-  content: ')';
+			@include mobile() {
+				.site-subtitle {
+					bottom: 20px;
+				}
+			}	
+		} 
+	}
 }
