@@ -1,6 +1,7 @@
 ---
 title: SpringBoot集成ActiveMQ抛出java.lang.NoClassDefFoundError异常
 date: 2018-05-08
+author: asing1elife
 categories:
  - java
  - springboot

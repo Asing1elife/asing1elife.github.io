@@ -1,6 +1,7 @@
 ---
 title: Maven针对SpringBoot的多项目依赖配置
 date: 2017-12-16
+author: asing1elife
 categories:
  - java
  - maven

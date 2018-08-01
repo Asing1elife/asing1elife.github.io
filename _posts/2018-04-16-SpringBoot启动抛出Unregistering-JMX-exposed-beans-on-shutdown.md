@@ -1,6 +1,7 @@
 ---
 title: SpringBoot启动抛出Unregistering JMX-exposed beans on shutdown异常
 date: 2018-04-16
+author: asing1elife
 categories:
  - java
  - springboot

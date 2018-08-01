@@ -29,6 +29,15 @@
         </{% if site.seo %}h2{% else %}h1{% endif %}>
         {% endunless %}
         <div class="post-meta">
+            <span class="post-author">
+                {% if post.author %}
+                    <span class="post-meta-item-icon">
+                        <i class="fa fa-user-o"></i>
+                    </span>
+                    <span class="post-meta-item-text">{{ post.author }}</span>
+                    <span class="post-meta-divider">|</span>
+                {% endif %}
+            </span>
             <span class="post-time">
             {% if site.post_meta.created_at %}
               <span class="post-meta-item-icon">

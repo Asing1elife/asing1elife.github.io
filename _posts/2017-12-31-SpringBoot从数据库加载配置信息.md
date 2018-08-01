@@ -1,6 +1,7 @@
 ---
 title: SpringBoot从数据库加载配置信息
 date: 2017-12-31
+author: asing1elife
 categories:
  - java
  - springboot

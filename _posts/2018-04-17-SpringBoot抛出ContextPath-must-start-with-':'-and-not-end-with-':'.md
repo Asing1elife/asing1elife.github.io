@@ -1,6 +1,7 @@
 ---
 title: SpringBoot抛出ContextPath must start with '/' and not end with '/'异常
 date: 2018-04-17
+author: asing1elife
 categories:
  - java
  - springboot

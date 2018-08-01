@@ -1,6 +1,7 @@
 ---
 title: SpringBoot集成Swagger
 date: 2018-04-17
+author: asing1elife
 categories:
  - java
  - springboot
