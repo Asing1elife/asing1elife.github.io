@@ -2,6 +2,31 @@
 <search>
   
     <entry>
+      <title><![CDATA[SpringMVC多环境配置]]></title>
+      <url>/java/springmvc/2018/07/23/SpringMVC%E5%A4%9A%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/</url>
+      <content type="text"><![CDATA[  SpringMVC 可以使用 Spring 本身提供的 profile 特性对多环境配置文件进行统一集成，自动切换存在的必要  日常开发中，一般都存在多个环境，开发、测试、生产  上述环境对应的数据库及配置文件都会存在不同，所以为项目集成多环境配置很有必要实现方式  集成方式有多种，网上介绍的大多是使用 &lt;beans profile="dev"&gt; 去区分不同的 *.properties 文件  还可以使用 @Profile 进行不同环境代码加载  本文介绍的是使用 &lt;beans profile="dev"&gt; 直接在同一个 xml 文件中区分不同环境需要的不同配置项XML配置  注意如果使用了多环境的配置的 xml 文件中存在其他公有属性，这些属性需要放在最前面，否则会报错&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"       xmlns:p="http://www.springframework.org/schema/p"       xsi:schemaLocation="http://www.springframework.org/schema/beans            http://www.springframework.org/schema/beans/spring-beans-4.0.xsd"&gt;  &lt;description&gt;spring-data-redis-cluster&lt;/description&gt;  &lt;bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig"&gt;    &lt;property name="maxIdle" value="${redis.pool.maxIdle}"/&gt;    &lt;property name="maxTotal" value="${redis.pool.maxActive}"/&gt;    &lt;property name="maxWaitMillis" value="${redis.pool.maxWait}"/&gt;    &lt;property name="testOnBorrow" value="${redis.pool.testOnBorrow}"/&gt;  &lt;/bean&gt;  ...  &lt;beans profile="dev"&gt;    &lt;bean id="jedisPool" class="redis.clients.jedis.JedisPool"&gt;      &lt;constructor-arg index="0" ref="jedisPoolConfig"/&gt;      &lt;constructor-arg index="1" value="${redis.server.url}"/&gt;      &lt;constructor-arg index="2" value="${redis.server.port}" type="int"/&gt;      &lt;constructor-arg index="3" value="${redis.server.timeout}" type="int"/&gt;      &lt;constructor-arg index="4" value="${redis.server.password}"/&gt;    &lt;/bean&gt;    &lt;bean id="jedisConnectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory"&gt;      &lt;property name="hostName" value="${redis.server.url}"/&gt;      &lt;property name="port" value="${redis.server.port}"/&gt;      &lt;property name="password" value="${redis.server.password}"/&gt;      &lt;property name="poolConfig" ref="jedisPoolConfig"/&gt;    &lt;/bean&gt;  &lt;/beans&gt;  &lt;beans profile="prod"&gt;    &lt;bean id="redisClusterConfiguration" class="org.springframework.data.redis.connection.RedisClusterConfiguration"&gt;      ...    &lt;/bean&gt;    &lt;bean id="jedisConnectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory"&gt;      &lt;constructor-arg ref="redisClusterConfiguration"/&gt;      &lt;constructor-arg ref="jedisPoolConfig"/&gt;    &lt;/bean&gt;  &lt;/beans&gt;&lt;/beans&gt;开发环境启动方式  IDEA 需要在启动时添加脚本 -Dspring.profiles.active="dev" 以确保使用开发环境启动生产环境启动方式  Linux 环境需要前往 Tomcat 的 /bin 目录下，需要 ::./catalina.sh:: 中的 JAVA_OPTS 内容如下  JAVA_OPTS="$JAVA_OPTS -Dspring.profiles.active=prod"]]></content>
+      <categories>
+        
+          <category> java </category>
+        
+          <category> springmvc </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> java </tag>
+        
+          <tag> springmvc </tag>
+        
+          <tag> profile </tag>
+        
+          <tag> spring </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
       <title><![CDATA[SpringBoot前后分离项目实现自定义登录拦截]]></title>
       <url>/java/springboot/shiro/2018/06/24/SpringBoot%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB%E9%A1%B9%E7%9B%AE%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%AE%9A%E4%B9%89%E7%99%BB%E5%BD%95%E6%8B%A6%E6%88%AA/</url>
       <content type="text"><![CDATA[  通常的 shiro 登录拦截对于 /login 操作可设置为 authc 模式，但前后分离的项目直接设置会导致无法获取登录信息自定义登录拦截的实现  要实现自定义的登录拦截是继承 FormAuthenticationFilter 接口  对接口中的 onLoginSuccess 和 onLoginFailure 重写          从而根据登录成功和失败进行不同的操作记录      public class LoginFormAuthenticationFilter extends FormAuthenticationFilter {  // springBoot中存在与配置类的service类需要提供get/set方法手动收入，如果使用@Autowired会导致报错    private MemberLoginRecordServiceImpl memberLoginRecordService;    @Override    protected boolean onLoginSuccess(AuthenticationToken token, Subject subject, ServletRequest request, ServletResponse response) throws Exception {        // 处理会员登录成功操作        memberLoginRecordService.doAfterSuccessfullyLogin(request, subject);        return super.onLoginSuccess(token, subject, request, response);    }    @Override    protected boolean onLoginFailure(AuthenticationToken token, AuthenticationException e, ServletRequest request, ServletResponse response) {        return super.onLoginFailure(token, e, request, response);    }    public MemberLoginRecordServiceImpl getMemberLoginRecordService() {        return memberLoginRecordService;    }    public void setMemberLoginRecordService(MemberLoginRecordServiceImpl memberLoginRecordService) {        this.memberLoginRecordService = memberLoginRecordService;    }}将重写的拦截器注入到 shiro 配置中@Configuration@ConditionalOnWebApplicationpublic class ShiroConfiguration extends BaseShiroConfiguration {  ...  	// 手动注入自定义拦截器需要用到的service  	// 注入该service即可，service内部的其他类可实现自动注入    @Bean    public MemberLoginRecordServiceImpl memberLoginRecordService() {        return new MemberLoginRecordServiceImpl();    }    public ShiroFilterFactoryBean shiroFilterFactoryBean(DefaultWebSecurityManager securityManager) throws Exception {        ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();        shiroFilterFactoryBean.setSecurityManager(securityManager);  		// 指定登录链接        shiroFilterFactoryBean.setLoginUrl("/login");        Map&lt;String, Filter&gt; filters = new LinkedHashMap&lt;String, Filter&gt;();          		// 配置自定义表单拦截器        LoginFormAuthenticationFilter authcFilter = new LoginFormAuthenticationFilter();        authcFilter.setRememberMeParam("rememberMe");  		// 注入上述引用的service类        authcFilter.setMemberLoginRecordService(memberLoginRecordService());  		// 选择指定拦截器的规则        filters.put("authc", authcFilter);        shiroFilterFactoryBean.setFilters(filters);  		// 配置不同接口规则        Map&lt;String, String&gt; filterChainDefinitionMap = new LinkedHashMap&lt;String, String&gt;();  		// 登出操作由shiro管理        filterChainDefinitionMap.put("/logout", "anon");  		// 以下规则可直接访问        filterChainDefinitionMap.put("/api/portals/**", "anon");  		// 以下规则需要认证访问        filterChainDefinitionMap.put("/login", "authc");        filterChainDefinitionMap.put("/api/**", "authc");        shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);        return shiroFilterFactoryBean;    }}以上方式在前后分离项目中会出现的问题  由于项目是前后分离的，前端发起的直接是访问 loginController 的请求  该请求由于配置了 authc 规则，则需要认证才能访问  所以就导致以上配置方式会直接报错  而如果将 /login 请求配置为 anon 规则，则会导致登录操作无法被自定义表单拦截器拦截解决方式  重写 FormAuthenticationFilter 接口的 onAccessDenied 方法  判断当前访问该规则的请求是否为登录请求  如果是登录请求则再次判断是否为登录提交请求 this.isLoginRequest          因为正常的登录请求中会存在一个访问登录页面和提交登录表单两个操作      而前后分离项目发起的必然是提交登录表单 this.isLoginSubmission        如果不是登录请求则返回 false@Overrideprotected boolean onAccessDenied(ServletRequest request, ServletResponse response) throws Exception {    if (this.isLoginRequest(request, response) &amp;&amp; this.isLoginSubmission(request, response)) {        return true;    }    return false;}]]></content>
@@ -377,6 +402,304 @@
     </entry>
   
     <entry>
+      <title><![CDATA[SpringMVC配置i18n]]></title>
+      <url>/java/springmvc/i18n/2017/11/14/SpringMVC%E9%85%8D%E7%BD%AEi18n/</url>
+      <content type="text"><![CDATA[  i18n是internationalization首字母i和末尾字母n以及中间18个字母的简称，意于国际化在/src/main/resources下新建messages文件夹  新增以下文件          message.properties用于默认资源      message_zh_CN.properties用于中文资源      message_en_US.properties用于英文资源      spring-config.xml添加配置信息&lt;!-- 配置i18n资源文件 --&gt;&lt;bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource"&gt;  &lt;!-- 资源文件路径 --&gt;  &lt;property name="basename" value="classpath:messages/message"/&gt;  &lt;!-- 默认编码 --&gt;  &lt;property name="defaultEncoding" value="UTF-8"/&gt;  &lt;!-- 指定默认资源文件 --&gt;  &lt;property name="useCodeAsDefaultMessage" value="true"/&gt;&lt;/bean&gt;spring-mvc.xml添加配置信息&lt;!-- 将Locale信息存放于Session中 --&gt;&lt;!-- id必须是localeResolver，否则会报cannot change HTTP Head ... --&gt;&lt;bean id="localeResolver" class="org.springframework.web.servlet.i18n.SessionLocaleResolver"/&gt;&lt;!-- 配置拦截器获取Locale信息 --&gt;&lt;mvc:interceptors&gt;  &lt;bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor"/&gt;&lt;/mvc:interceptors&gt;IndexControler.java中的添加获取Locale信息方法public class IndexController {    @Autowired  private MessageSource messageSource;  @RequestMapping("")  public String main(Model model, HttpServletRequest request, HttpServletResponse response) {    // 设置语言格式    setLanguage(model, request, response, Locale.getDefault());        return "/index";  }    @RequestMapping("/{language}")  public String main(Model model, HttpServletRequest request, HttpServletResponse response, @PathVariable String language) {    // 分割参数    String[] languages = language.split("_");        // 设置系统语言    setLanguage(model, request, response, new Locale(languages[0], languages[1]));        return "/index";  }    /**   * 设定语言格式   */  private void setLanguage(Model model, HttpServletRequest request, HttpServletResponse response, Locale locale) {    // 获取LocaleResolver    LocaleResolver localeResolver = RequestContextUtils.getLocaleResolver(request);        // 设置Locale信息    localeResolver.setLocale(request, response, locale);        // 传递正确的Locale信息到页面    model.addAttribute("encoding", messageSource.getMessage("encoding", new Object[0], locale));  }  }页面中添加spring的tag用于使用message.properties中的标签信息&lt;%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %&gt;页面上使用spring标签获取标签信息&lt;spring:message code="title" /&gt;首页提供一个下拉框用于手动切换语言&lt;div class="form select-langugae-panel"&gt;  &lt;div class="form-group"&gt;    &lt;select class="select-content select-content-btn"&gt;      &lt;option value="zh_CN" &lt;c:if test="${encoding eq 'zh_CN' }"&gt;selected&lt;/c:if&gt;&gt;中文&lt;/option&gt;      &lt;option value="en_US" &lt;c:if test="${encoding eq 'en_US' }"&gt;selected&lt;/c:if&gt;&gt;English&lt;/option&gt;    &lt;/select&gt; &lt;i class="select-arrow"&gt;&lt;/i&gt;  &lt;/div&gt;&lt;/div&gt;]]></content>
+      <categories>
+        
+          <category> java </category>
+        
+          <category> springmvc </category>
+        
+          <category> i18n </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> java </tag>
+        
+          <tag> springmvc </tag>
+        
+          <tag> i18n </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[SpringMVC+MyBatis项目搭建]]></title>
+      <url>/java/springmvc/mybatis/2017/11/12/SpringMVC+MyBatis%E9%A1%B9%E7%9B%AE%E6%90%AD%E5%BB%BA/</url>
+      <content type="text"><![CDATA[  SpringMVC作为一个敏捷开发的常用框架，和MyBatis进行集成需要如下步骤构建项目  创建一个Maven Project，并添加web.xml  在pom.xml中引入以下依赖包  为保证项目编译的JDK版本统一，需要加入以下配置&lt;build&gt;  &lt;plugins&gt;    &lt;plugin&gt;      &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;      &lt;artifactId&gt;maven-compiler-plugin&lt;/artifactId&gt;      &lt;version&gt;3.1&lt;/version&gt;      &lt;configuration&gt;        &lt;source&gt;1.8&lt;/source&gt;        &lt;target&gt;1.8&lt;/target&gt;      &lt;/configuration&gt;    &lt;/plugin&gt;  &lt;/plugins&gt;&lt;/build&gt;添加Spring依赖包&lt;!-- Spring核心包 --&gt;&lt;dependency&gt;  &lt;groupId&gt;org.springframework&lt;/groupId&gt;  &lt;artifactId&gt;spring-core&lt;/artifactId&gt;  &lt;version&gt;4.1.6.RELEASE&lt;/version&gt;&lt;/dependency&gt;&lt;!-- Spring IoC --&gt;&lt;dependency&gt;  &lt;groupId&gt;org.springframework&lt;/groupId&gt;  &lt;artifactId&gt;spring-beans&lt;/artifactId&gt;  &lt;version&gt;4.1.6.RELEASE&lt;/version&gt;&lt;/dependency&gt;&lt;!-- Spring包扫描 --&gt;&lt;dependency&gt;  &lt;groupId&gt;org.springframework&lt;/groupId&gt;  &lt;artifactId&gt;spring-context&lt;/artifactId&gt;  &lt;version&gt;4.1.6.RELEASE&lt;/version&gt;&lt;/dependency&gt;&lt;!-- Spring数据库连接 --&gt;&lt;dependency&gt;  &lt;groupId&gt;org.springframework&lt;/groupId&gt;  &lt;artifactId&gt;spring-jdbc&lt;/artifactId&gt;  &lt;version&gt;4.1.6.RELEASE&lt;/version&gt;&lt;/dependency&gt;&lt;!-- Spring事务管理器 --&gt;&lt;dependency&gt;  &lt;groupId&gt;org.springframework&lt;/groupId&gt;  &lt;artifactId&gt;spring-tx&lt;/artifactId&gt;  &lt;version&gt;4.1.6.RELEASE&lt;/version&gt;&lt;/dependency&gt;&lt;!-- Spring Web --&gt;&lt;dependency&gt;  &lt;groupId&gt;org.springframework&lt;/groupId&gt;  &lt;artifactId&gt;spring-web&lt;/artifactId&gt;  &lt;version&gt;4.1.6.RELEASE&lt;/version&gt;&lt;/dependency&gt;&lt;!-- Spring WebMVC --&gt;&lt;dependency&gt;  &lt;groupId&gt;org.springframework&lt;/groupId&gt;  &lt;artifactId&gt;spring-webmvc&lt;/artifactId&gt;  &lt;version&gt;4.1.6.RELEASE&lt;/version&gt;&lt;/dependency&gt;添加MyBatis依赖包&lt;!-- MyBatis核心包 --&gt;&lt;dependency&gt;  &lt;groupId&gt;org.mybatis&lt;/groupId&gt;  &lt;artifactId&gt;mybatis&lt;/artifactId&gt;  &lt;version&gt;3.2.7&lt;/version&gt;&lt;/dependency&gt;&lt;!-- MyBatis Spring依赖包 --&gt;&lt;dependency&gt;  &lt;groupId&gt;org.mybatis&lt;/groupId&gt;  &lt;artifactId&gt;mybatis-spring&lt;/artifactId&gt;  &lt;version&gt;1.2.2&lt;/version&gt;&lt;/dependency&gt;添加数据库依赖包&lt;!-- MySQL连接 --&gt;&lt;dependency&gt;  &lt;groupId&gt;mysql&lt;/groupId&gt;  &lt;artifactId&gt;mysql-connector-java&lt;/artifactId&gt;  &lt;version&gt;5.1.18&lt;/version&gt;&lt;/dependency&gt;&lt;!-- c3p0 --&gt;&lt;dependency&gt;  &lt;groupId&gt;com.mchange&lt;/groupId&gt;  &lt;artifactId&gt;c3p0&lt;/artifactId&gt;  &lt;version&gt;0.9.5.1&lt;/version&gt;&lt;/dependency&gt;添加视图层依赖包&lt;!-- 视图层的核心包 --&gt;&lt;dependency&gt;  &lt;groupId&gt;taglibs&lt;/groupId&gt;  &lt;artifactId&gt;standard&lt;/artifactId&gt;  &lt;version&gt;1.1.2&lt;/version&gt;&lt;/dependency&gt;&lt;!-- JSTL --&gt;&lt;dependency&gt;  &lt;groupId&gt;javax.servlet&lt;/groupId&gt;  &lt;artifactId&gt;jstl&lt;/artifactId&gt;  &lt;version&gt;1.2&lt;/version&gt;&lt;/dependency&gt;&lt;!-- Servlet容器 --&gt;&lt;dependency&gt;  &lt;groupId&gt;javax.servlet&lt;/groupId&gt;  &lt;artifactId&gt;javax.servlet-api&lt;/artifactId&gt;  &lt;version&gt;3.0.1&lt;/version&gt;&lt;/dependency&gt;在web.xml中添加配置  配置 DispatcherServlet&lt;!-- 配置DispatcherServlet --&gt;&lt;servlet&gt;  &lt;servlet-name&gt;asl-ums-dispatcher&lt;/servlet-name&gt;  &lt;servlet-class&gt;org.springframework.web.servlet.DispatcherServlet&lt;/servlet-class&gt;  &lt;!-- 加载Spring配置文件 --&gt;  &lt;init-param&gt;    &lt;param-name&gt;contextConfigLocation&lt;/param-name&gt;    &lt;param-value&gt;classpath:spring-*.xml&lt;/param-value&gt;  &lt;/init-param&gt;  &lt;!-- 项目启动时加载文件 --&gt;  &lt;load-on-startup&gt;1&lt;/load-on-startup&gt;&lt;/servlet&gt;  映射路径规则```xml  asl-ums-dispatcher  /## 创建**spring-mvc.xml**并添加配置```xml&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context" xmlns:mvc="http://www.springframework.org/schema/mvc"xsi:schemaLocation="                http://www.springframework.org/schema/beans                http://www.springframework.org/schema/beans/spring-beans.xsd                http://www.springframework.org/schema/mvc                http://www.springframework.org/schema/mvc/spring-mvc.xsdhttp://www.springframework.org/schema/context                http://www.springframework.org/schema/context/spring-context.xsd"&gt;&lt;!-- 自动注入 --&gt;&lt;!-- 用于提供数据绑定、数字@NumberFormat和日期格式化@DateTimeFormat以及xml和json的默认读写支持 --&gt;&lt;mvc:annotation-driven/&gt;&lt;!-- 配置静态资源 --&gt;&lt;!-- 加入对js/gif/png等静态资源的处理 --&gt;&lt;mvc:default-servlet-handler/&gt;&lt;!-- 指定默认路径 --&gt;&lt;mvc:view-controller path="/" view-name="redirect:/index"/&gt;&lt;!-- 配置JSP显示 --&gt;&lt;bean class="org.springframework.web.servlet.view.InternalResourceViewResolver"&gt;  &lt;property name="prefix" value="/WEB-INF/views"/&gt;  &lt;property name="suffix" value=".jsp"/&gt;&lt;/bean&gt;&lt;!-- 扫描指定路径下的类 --&gt;&lt;context:component-scan base-package="online.shixun.asl.module"&gt;  &lt;!-- 扫描带有@Controller注解的类 --&gt;  &lt;context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/&gt;  &lt;!-- 扫描带有@Service注解的类 --&gt;  &lt;context:include-filter type="annotation" expression="org.springframework.stereotype.Service"/&gt;&lt;/context:component-scan&gt;&lt;/beans&gt;创建spring-config.xml并添加配置&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context       http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd"&gt;&lt;!-- 指定数据库文件 --&gt;&lt;context:property-placeholder location="classpath:jdbc.properties"/&gt;&lt;!-- 配置c3p0连接池 --&gt;&lt;bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"&gt;  &lt;!-- 数据库连接信息 --&gt;  &lt;property name="driverClass" value="${driver}"/&gt;  &lt;property name="jdbcUrl" value="${url}"/&gt;  &lt;property name="user" value="${username}"/&gt;  &lt;property name="password" value="${password}"/&gt;  &lt;!-- 最大连接数 --&gt;  &lt;property name="maxPoolSize" value="30"/&gt;  &lt;!-- 最小连接数 --&gt;  &lt;property name="minPoolSize" value="10"/&gt;  &lt;!-- 获取连接的超时时间，毫秒 --&gt;  &lt;property name="checkoutTimeout" value="5000"/&gt;  &lt;!-- 连接失败后的重连次数 --&gt;  &lt;property name="acquireRetryAttempts" value="1"/&gt;&lt;/bean&gt;&lt;!-- 配置事务管理器，MyBatis采用jdbc的事务管理器 --&gt;&lt;bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager"&gt;  &lt;!-- 指定数据源 --&gt;  &lt;property name="dataSource" ref="dataSource"/&gt;&lt;/bean&gt;&lt;!-- 配置声明式事务 --&gt;&lt;tx:annotation-driven/&gt;&lt;!-- 配置SqlSessionFactory --&gt;&lt;bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean"&gt;  &lt;!-- 指定数据源 --&gt;  &lt;property name="dataSource" ref="dataSource"/&gt;  &lt;!-- 指定MyBatis全局配置文件 --&gt;  &lt;property name="configLocation" value="classpath:spring-mybatis.xml"/&gt;  &lt;!-- 指定实体类扫描路径 --&gt;  &lt;property name="typeAliasesPackage" value="online.shixun.asl.dto"/&gt;  &lt;!-- 指定映射文件的扫描路径 --&gt;  &lt;property name="mapperLocations" value="classpath:mapper/*Mapper.xml"/&gt;&lt;/bean&gt;&lt;!-- 将Dao注入Spring容器中 --&gt;&lt;bean class="org.mybatis.spring.mapper.MapperScannerConfigurer"&gt;  &lt;!-- 指定扫描路径 --&gt;  &lt;property name="basePackage" value="online.shixun.asl.module"/&gt;  &lt;!-- 扫描带有@MyBatisRepository --&gt;  &lt;property name="annotationClass" value="online.shixun.asl.core.MyBatisRepository"/&gt;&lt;/bean&gt;&lt;/beans&gt;创建spring-mybatis.xml并添加配置&lt;?xml version="1.0" encoding="UTF-8" ?&gt;&lt;!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd"&gt;&lt;configuration&gt;    &lt;!-- 配置全局属性 --&gt;    &lt;settings&gt;        &lt;!-- 使用数据库自增主键 --&gt;        &lt;setting name="useGeneratedKeys" value="true"/&gt;        &lt;!-- 显示SQL语句 --&gt;        &lt;setting name="logImpl" value="STDOUT_LOGGING"/&gt;    &lt;/settings&gt;&lt;/configuration&gt;项目配置完毕后，想要启动项目，则需要在Mapper映射路径下至少存在一个mapper.xml]]></content>
+      <categories>
+        
+          <category> java </category>
+        
+          <category> springmvc </category>
+        
+          <category> mybatis </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> java </tag>
+        
+          <tag> springmvc </tag>
+        
+          <tag> mybatis </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[Spring事务隔离级别]]></title>
+      <url>/java/springmvc/springboot/2017/09/14/Spring%E4%BA%8B%E5%8A%A1%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB/</url>
+      <content type="text"><![CDATA[  Spring 事务隔离级别是指 Spring 如何去处理每个事务之间的关联，可用于防止一些数据错误隔离级别  TransactionDefinition.ISOLATION_DEFAULT [默认值]          表示使用底层数据库的默认隔离级别，通常为 TransactionDefinition.ISOLATION_READ_COMMITTED      数据库的隔离级别参见 MySQL 数据库隔离级别        TransactionDefinition.ISOLATION_READ_UNCOMMITTED          表示一个事务可以读取到另一个事务修改但还未提交的数据      无法防止脏读、不可重复读、幻读      不推荐使用        TransactionDefinition.ISOLATION_READ_COMMITTED          表示一个事务只能读取到另一个事务已经提交的数据      可防止脏读      推荐使用        TransactionDefinition.ISOLATION_REPEATABLE_READ          表示一个事务在整个过程中可以多次重复执行某个查询，并且每次返回的记录都相同      可防止脏读、不可重复读        TransactionDefinition.ISOLATION_SERIALIZABLE          表示所有事务一次逐个执行，事务之间完全不可能产生干扰      可防止脏读、不可重复读、幻读      过于严密的隔离级别会严重影响系统性能      不推荐使用      ]]></content>
+      <categories>
+        
+          <category> java </category>
+        
+          <category> springmvc </category>
+        
+          <category> springboot </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> java </tag>
+        
+          <tag> springmvc </tag>
+        
+          <tag> springboot </tag>
+        
+          <tag> spring </tag>
+        
+          <tag> transaction </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[Spring事务传播行为]]></title>
+      <url>/java/springmvc/springboot/2017/09/14/Spring%E4%BA%8B%E5%8A%A1%E4%BC%A0%E6%92%AD%E8%A1%8C%E4%B8%BA/</url>
+      <content type="text"><![CDATA[  Spring 事务的传播行为是指当存在多个事务同时存在的时候，Spring 应该如何处理这些这些事务传播行为  TransactionDefinition.PROPAGATION_REQUIRED [默认值]          如果当前存在事务，则加入该事务      如果当前不存在事务，则创建一个新的事务        TransactionDefinition.PROPAGATION_REQUIRES_NEW          创建一个新的事务      如果当前存在事务，则将当前事务挂起        TransactionDefinition.PROPAGATION_SUPPORTS          如果当前存在事务，则加入该事务      如果当前没有事务，则以非事务的方式继续执行        TransactionDefinition.PROPAGATION_NOT_SUPPORTED          以非事务方式运行      如果当前存在事务，则将当前事务挂起        TransactionDefinition.PROPAGATION_NEVER          以非事务方式运行      如果当前存在事务，则抛出异常        TransactionDefinition.PROPAGATION_MANDATORY          如果当前存在事务，则加入该事务      如果当前没有事务，则抛出异常        TransactionDefinition.PROPAGATION_NESTED          如果当前存在事务，则创建一个事务作为当前事务的嵌套事务来运行      如果当前没有事务，则根据 TransactionDefinition.PROPAGATION_REQUIRED 决定      ]]></content>
+      <categories>
+        
+          <category> java </category>
+        
+          <category> springmvc </category>
+        
+          <category> springboot </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> java </tag>
+        
+          <tag> springmvc </tag>
+        
+          <tag> springboot </tag>
+        
+          <tag> spring </tag>
+        
+          <tag> transaction </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[MySQL数据库隔离级别]]></title>
+      <url>/database/mysql/2017/09/14/MySQL%E6%95%B0%E6%8D%AE%E5%BA%93%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB/</url>
+      <content type="text"><![CDATA[  数据库隔离级别用于处理数据库中的数据读写规则定义  脏读          事务 A 对数据进行了增删改，但未提交事务，事务 B 可读取到该数据      如果事务 A 进行回滚，则事务 B 读取到的数据是脏数据        不可重复读          事务 A 中发生了两次读操作      在第一次读操作和第二次读操作之间，事务 B 对该数据进行了修改      导致事务 A 两次读取的数据是不一致的        幻读          事务 A 对一定范围内的数据进行了修改      事务 B 在这个范围内新增了一条数据      这时事务 A 对这些数据进行的修改会丢失      隔离级别  Read-Uncommitted - Level 0          导致脏读        Read-Committed - Level 1          避免脏读      允许不可重复读和幻读        Repeatable-Read - Level 2          避免脏读      避免不可重复读和幻读        Serializable - Level 3          串行化读，事务只能依次执行      避免脏读      避免不可重复读和幻读      执行效率慢，慎重使用      总结  隔离级别越高，越能保证数据安全，但对并发性能的影响越大  Oracle 、SqlServer 的默认隔离级别是 Read-Committed  MySQL 的默认隔离级别是 Repeatable-Read]]></content>
+      <categories>
+        
+          <category> database </category>
+        
+          <category> mysql </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> database </tag>
+        
+          <tag> mysql </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[SpringMVC使用MultipartFile实现文件上传]]></title>
+      <url>/java/springmvc/2017/04/26/SpringMVC%E4%BD%BF%E7%94%A8MultipartFile%E5%AE%9E%E7%8E%B0%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/</url>
+      <content type="text"><![CDATA[  SpringMVC 接收 MultipartFile 需要在 spring-mvc.xml 中配置文件解析器配置&lt;bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"&gt;    &lt;property name="maxUploadSize" value="20971520"/&gt;    &lt;property name="defaultEncoding" value="UTF-8"/&gt;&lt;/bean&gt;依赖&lt;dependency&gt;	&lt;groupId&gt;commons-fileupload&lt;/groupId&gt;	&lt;artifactId&gt;commons-fileupload&lt;/artifactId&gt;&lt;/dependency&gt;&lt;dependency&gt;	&lt;groupId&gt;commons-io&lt;/groupId&gt;	&lt;artifactId&gt;commons-io&lt;/artifactId&gt;&lt;/dependency&gt;]]></content>
+      <categories>
+        
+          <category> java </category>
+        
+          <category> springmvc </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> java </tag>
+        
+          <tag> springmvc </tag>
+        
+          <tag> fileupload </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[Spring的@Transactional详解]]></title>
+      <url>/java/springboot/springmvc/2017/04/05/Spring%E7%9A%84@Transactional%E8%AF%A6%E8%A7%A3/</url>
+      <content type="text"><![CDATA[  Spring 提供的事务管理机制为不同的事务 API 提供一致的编程模型管理方式  编程式事务          TransactionTemplate [推荐]      PlatformTransactionManager [基于底层]        声明式事务 [推荐]          基于 &lt;tx/&gt; 和 &lt;aop/&gt; 的 xml 配置文件      使用 @Transactional 注解 [推荐]      配置方式  使用 @Transactional 注解的声明式配置参见 SpringMVC声明式事务配置注意点  默认情况下，数据库处于紫铜提交模式，每个语句处于单独的事务中  对于正常的事务管理，应当是一组相关操作处于同一个事务中  Spring 默认将底层连接的自动提交设置为 false  有些数据连接池提供自动提交的开关设置，但 c3p0 未提供  JDBC 规范明文指出当连接对象建立时应该处理自动提交模式，对于自动提交的开关应该进行显示处理  当一个连接关闭时，未提交的事务应该回滚，虽然 JDBC 规范未明确指出，但 c3p0 默认将 autoCommitOnClose 设置为 false  MyBatis 会自动参与到 Spring 的事务管理中，只要二者引用的数据源一致@Transactional 属性  value - String          限定描述符，用于指定使用的事务管理器        isolation - enum          事务隔离级别，参见 Spring 事务隔离级别        propagation - enum          事务传播行为，参见 Spring 事务传播行为        readOnly - boolean          事务只读属性，默认读写      false = 读写，true = 只读      只读属性用于特殊情景优化，例如在使用 Hibernate 时，默认使用读写事务        timeout - int          事务超时时间，单位秒      如果超过该时间事务还没完成，则自动回滚事务      默认设置为底层事务系统的超时值，如果底层未设置，则为 none        rollbackFor - Class 对象数组，必须继承自 Throwable          导致事务回滚的异常类数组        rollbackForClassName - 类名数组，必须继承自 Throwable          导致事务回滚的异常类名称数组        noRollbackFor - Class 对象数组，必须继承自 Throwable          不会导致事务回滚的异常类数组        noRollbackForClassName - 类名数组，必须继承自 Throwable          不会导致事务回滚的异常类名称数组      ]]></content>
+      <categories>
+        
+          <category> java </category>
+        
+          <category> springboot </category>
+        
+          <category> springmvc </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> java </tag>
+        
+          <tag> springboot </tag>
+        
+          <tag> springmvc </tag>
+        
+          <tag> spring </tag>
+        
+          <tag> transaction </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[SpringMVC的CacheManager配置]]></title>
+      <url>/java/springmvc/2017/03/27/SpringMVC%E7%9A%84CacheManager%E9%85%8D%E7%BD%AE/</url>
+      <content type="text"><![CDATA[  Spring 3.1 后提供一个新特性 基于注释驱动的缓存可以通过在方法上加入注解，从而缓存该方法返回的数据编写配置文件&lt;!-- 使用缺省名称为 cacheManager 的缓存管理器，其缺省实现为 org.springframework.cache.support.SimpleCacheManager --&gt;&lt;cache:annotation-driven/&gt;&lt;!-- 配置 cacheManager --&gt;&lt;bean id="cacheManager" class="org.springframework.cache.support.SimpleCacheManager"&gt;&lt;!-- 配置缓存集合 --&gt;&lt;property name="caches"&gt;&lt;set&gt;&lt;!-- 缺省方案 --&gt;&lt;bean class="org.springframework.cache.concurrent.ConcurrentMapCacheFactoryBean" p:name="default"/&gt;&lt;!-- 自定义方案 --&gt;&lt;bean class="org.springframework.cache.concurrent.ConcurrentMapCacheFactoryBean" p:name="dictionaryCache"/&gt;&lt;/set&gt;&lt;/property&gt;&lt;/bean&gt;在需要缓存的方法上加缓存注释，并指定自定义名称@Cacheable(value = "dictionaryCache")public List&lt;DictionaryDTO&gt; getDictionaries(String className) {return dictionaryDao.getDictionaries(className);}清空缓存  allEntries = true 表示清空所有缓存  key = "#dictionary.getName()" 表示只清空方法参数中带有指定key的缓存@CacheEvict(value = "departmentService", allEntries = true)public ResponseData removeDictionary(Long id) {...}@CacheEvict(value = "departmentService", key = "#dictionary.getName()")public void addDictionary(DictionaryDTO dictionary) {...}]]></content>
+      <categories>
+        
+          <category> java </category>
+        
+          <category> springmvc </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> java </tag>
+        
+          <tag> springmvc </tag>
+        
+          <tag> cache </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[SpringMVC声明式事务配置]]></title>
+      <url>/java/springmvc/2017/03/25/SpringMVC%E5%A3%B0%E6%98%8E%E5%BC%8F%E4%BA%8B%E5%8A%A1%E9%85%8D%E7%BD%AE/</url>
+      <content type="text"><![CDATA[  Spring 的事务管理机制用处在于保证数据统一性在事务执行过程中如果出现报错，Spring 的事务管理机制会回滚事务，保证数据库的数据不会出现只更改一部分的情况但触发事务回滚的报错必须是 RuntimeExpection，只有这种异常可以被 Spring 事务捕获到如果随意使用 try-catch 对报错进行包裹，会导致报错在方法体内被处理报错信息不再向上抛出，即 Spring 捕获不到关键的 RuntimeExpection根据持久层类型选择正确的事务管理器进行配置  MyBatis 采用的是 JDBC 的事务管理器  Hibernate 采用的是 Hibernate 自己的事务管理器  dataSource 是数据源&lt;bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager"&gt;&lt;property name="dataSource" ref="dataSource"/&gt;&lt;/bean&gt;配置声明式事务  默认使用注解管理事务行为，注解也是管理实务的最佳行为&lt;tx:annotation-driven transaction-manager="transactionManager"/&gt;通过 @Transactional 指定需要事务管理的方法体  事务注解最好是打到具体的方法体上，如果打到类名上则意味着整个类都需要进行事务控制，多余的事务控制会影响事务的执行时间  方法体中存在增删改操作才需要事务控制  只读操作不需要事务控制@Transactionalpublic void executeSkill() { ... }]]></content>
+      <categories>
+        
+          <category> java </category>
+        
+          <category> springmvc </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> java </tag>
+        
+          <tag> springmvc </tag>
+        
+          <tag> transaction </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[MyBatis集成到Spring之生成Session工厂]]></title>
+      <url>/java/springmvc/mybatis/2017/03/24/MyBatis%E9%9B%86%E6%88%90%E5%88%B0Spring%E4%B9%8B%E7%94%9F%E6%88%90Session%E5%B7%A5%E5%8E%82/</url>
+      <content type="text"><![CDATA[  虽然 Spring 自身没有对 MyBatis 提供支持但 MyBatis 主动对 Spring 进行了整合依赖依赖&lt;dependency&gt;&lt;groupId&gt;org.mybatis&lt;/groupId&gt;&lt;artifactId&gt;mybatis-spring&lt;/artifactId&gt;&lt;version&gt;1.2.2&lt;/version&gt;&lt;/dependency&gt;配置  在 Spring 中集成 MyBatis 需要使用 SqlSessionFactoryBean 来生成 MyBatis 所需的 Session 工厂&lt;bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean"&gt;...&lt;/bean&gt;  SqlSessionFactoryBean 实际上并不是真正的 Session 工厂，其经历了如下转换SqlSessionFactoryBean factoryBean = new SqlSessionFactoryBean();SqlSessionFactory sessionFactory = factoryBean.getObject();属性  指定数据源          该数据源通常引用的是一个数据库连接池的配置项别名      &lt;property name="dataSource" ref="dataSource" /&gt;        MyBatis 全局配置文件          mybatis-config.xml 中的内容是 MyBatis settings 配置表      &lt;property name="configLocation" value="classpath:mybatis-config.xml" /&gt;        自动扫描 Mapper 文件          &lt;property name="mapperLocations" value="classpath:mapper/*Mapper.xml" /&gt;      ]]></content>
+      <categories>
+        
+          <category> java </category>
+        
+          <category> springmvc </category>
+        
+          <category> mybatis </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> java </tag>
+        
+          <tag> springmvc </tag>
+        
+          <tag> mybatis </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[MyBatis集成到Spring之注入Dao接口]]></title>
+      <url>/java/springmvc/mybatis/2017/03/24/MyBatis%E9%9B%86%E6%88%90%E5%88%B0Spring%E4%B9%8B%E6%B3%A8%E5%85%A5Dao%E6%8E%A5%E5%8F%A3/</url>
+      <content type="text"><![CDATA[  MyBatis 的 MapperScannerConfigurer 可以将 Dao 接口和 Mapper 文件注入到 Spring 容器中配置&lt;bean class="org.mybatis.spring.mapper.MapperScannerConfigurer"&gt;...&lt;/bean&gt;属性  指定 Session 工厂          通常情况下系统只会存在一个 DataSource ，这时 MapperScannerConfigurer 会自动装配 Session 工厂，无需手动指定      必须使用 value 注入 Bean 的名称，而不是使用 ref 对 Bean 进行引用      sqlSessionFactory 的实例在 MyBatis 集成到 Spring 之生成 Session 工厂      &lt;property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" /&gt;        指定 Dao 接口的扫描路径          同时指定多个路径只需要通过逗号分隔即可      &lt;property name="basePackage" value="org.seckill.module" /&gt;      ]]></content>
+      <categories>
+        
+          <category> java </category>
+        
+          <category> springmvc </category>
+        
+          <category> mybatis </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> java </tag>
+        
+          <tag> springmvc </tag>
+        
+          <tag> mybatis </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[MyBatis的settings配置表]]></title>
+      <url>/java/mybatis/2017/03/22/MyBatis%E7%9A%84settings%E9%85%8D%E7%BD%AE%E8%A1%A8/</url>
+      <content type="text"><![CDATA[  &lt;settings/&gt; 标签是 MyBatis 中的属性配置项，可以改变 MyBatis 的运行时行为规则  标签中的 value 为该设置的默认值  缓存全局开关          &lt;setting name="cacheEnabled" value="true" /&gt;        延迟加载全局开关          值为 true 时所有对象延迟加载      可通过在具体的查询中设置 fetchType 来覆盖该设置      &lt;setting name="lazyLoadingEnabled" value="false" /&gt;        所有对象直接加载          &lt;setting name="aggressiveLazyLoading" value="true" /&gt;        允许单一语句返回多个结果集，需要兼容驱动          &lt;setting name="multipleResultSetsEnabled" value="true" /&gt;        使用列标签代替类名          &lt;setting name="useColumnLabel" value="true" /&gt;        允许 JDBC 使用数据库自增主键          &lt;setting name="useGeneratedKeys" value="true" /&gt;        指定自动映射到字段的规则          NONE 取消自动映射      PARTIAL 只映射没有定义嵌套结果集映射的结果集      FULL 自动映射任何结果集      &lt;setting name="autoMappingBehavior" value="PARTIAL" /&gt;        指定当自动映射碰到未知列的处理规则          NONE 不做任何处理      WARNING 输入警告日志      FAILING 抛出 SqlSessionException 异常      &lt;setting name="autoMappingUnknownColumnBehavior" value="NONE" /&gt;        配置默认执行器          SIMPLE 普通执行器      REUSE 重用预处理语句      BATCH 重用语句并执行批量更新      &lt;setting name="defaultExecutorType" value="SIMPLE" /&gt;        设置驱动等待数据库响应的超时时间          该设置项默认没有值      值的范围是任意正整数      值的单位是秒      &lt;setting name="defaultStatementTimeout" value="" /&gt;        为驱动的结果集数量设置提示值          该设置项默认没有值      值的范围是任意正整数      可在具体查询中通过 fetchSize 覆盖该设置项      &lt;setting name="defaultFetchSize" value="" /&gt;        允许在嵌套语句中使用分页 RowBounds          &lt;setting name="safeRowBoundsEnabled" value="false" /&gt;        允许在嵌套语句中使用分页 RowHandler          &lt;setting name="safeRowHandlerEnabled" value="true" /&gt;        开启驼峰命令规则自动转换功能          例如：create_time &gt; createTime      &lt;setting name="mapUnderscoreToCameCase" value="false" /&gt;        利用本地缓存机制防止循环引用和加速重复嵌套查询          SESSION 缓存一个会话中执行的所有查询      STATEMENT 本地会员只用在语句执行中，对相同 SqlSession 的不同调用不会共享数据      &lt;setting name="localCacheScope" value="SESSION" /&gt;        当没有为参数提供特定的 JDBC 类型时，为空值指定 JDBC 类型          OTHER 一般类型      NULL 空值      VARCHAR 字符串      &lt;setting name="jdbcTypeForNull" value="OTHER" /&gt;        指定某个对象的方法触发一次延迟加载          多个方法名称通过逗号划分      &lt;setting name="lazyLoadTriggerMethods" value="equals,clone,hashCode,toString /&gt;"        指定动态 SQL 生成的默认语言          &lt;setting name="defaultScriptingLanguage" value="org.apache.ibatis.scripting.xmltags.XMLLanguageDriver" /&gt;        当结果集为 NULL 时，调用映射对象的 setter 方法为结果赋值          结果集类型是 List 时，调用 setter 方法      结果集类型是 Map 时，调用 put 方法      该属性对于基本类型无效      &lt;setting name="callSetterOnNulls" value="false" /&gt;        当对象所有列都返回 NULL 时，将整个对象设置为 NULL          &lt;setting name="returnInstanceForEmptyRow" value="false" /&gt;        指定日志名称的前缀          该设置项没有默认值      值可以是任何字符串      &lt;setting name="logPrefix" value="" /&gt;        指定日志的具体实现方式          该设置项没有默认值      值可以是 slf4j / log4j / log4j2 / jdk_logging / commons_logging / stdout_logging / no_loggging      未指定值的时候会在上述支持列表中自动查找      &lt;setting name="logImpl" value="" /&gt;        指定创建具有延迟加载能力的对象所用到的代理工具          值可以是 CGLIB / JAVASSIST      &lt;setting name="proxyFactory" value="JAVASSIST" /&gt;        指定 VFS 的实现          该设置项没有默认值      值可以是自定义 VFS 的实现类全名      多个 VFS 可以通过逗号划分      &lt;setting name="vfsImpl" value="" /&gt;        允许使用方法签名中的名称作为语句参数名称          仅在 Java 8 环境中生效，并且需要在环境变量中加上 -parameters      &lt;setting name="useActualParamName" value="true" /&gt;      完整配置示例&lt;settings&gt;  &lt;setting name="cacheEnabled" value="true"/&gt;  &lt;setting name="lazyLoadingEnabled" value="true"/&gt;  &lt;setting name="multipleResultSetsEnabled" value="true"/&gt;  &lt;setting name="useColumnLabel" value="true"/&gt;  &lt;setting name="useGeneratedKeys" value="false"/&gt;  &lt;setting name="autoMappingBehavior" value="PARTIAL"/&gt;  &lt;setting name="autoMappingUnknownColumnBehavior" value="WARNING"/&gt;  &lt;setting name="defaultExecutorType" value="SIMPLE"/&gt;  &lt;setting name="defaultStatementTimeout" value="25"/&gt;  &lt;setting name="defaultFetchSize" value="100"/&gt;  &lt;setting name="safeRowBoundsEnabled" value="false"/&gt;  &lt;setting name="mapUnderscoreToCamelCase" value="false"/&gt;  &lt;setting name="localCacheScope" value="SESSION"/&gt;  &lt;setting name="jdbcTypeForNull" value="OTHER"/&gt;  &lt;setting name="lazyLoadTriggerMethods" value="equals,clone,hashCode,toString"/&gt;&lt;/settings&gt;]]></content>
+      <categories>
+        
+          <category> java </category>
+        
+          <category> mybatis </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> java </tag>
+        
+          <tag> mybatis </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
       <title><![CDATA[Java支付宝扫码支付[旧]]]></title>
       <url>/java/pay/2017/02/14/Java%E6%94%AF%E4%BB%98%E5%AE%9D%E6%89%AB%E7%A0%81%E6%94%AF%E4%BB%98-%E6%97%A7/</url>
       <content type="text"><![CDATA[  在实际开发过程中，首先采用当面付模式进行开发，但没有成功，个人认为当面付更适合线下模式之后改用即时到账模式才成功接入支付宝扫码支付功能以下内容是基于即时到账模式开发要使用支付宝即时到账接口，首先需要签约即时到账产品， 申请地址审核进度通常需要1个工作日，但实际几小时即可之后需要获取和设置如下关键信息pid:2088621150311111          合作伙伴身份IDkey:zrqyf6dfli7dvji4mmi4sw1111111111      MD5密钥notify_url:http://127.0.0.1:8080/sop/order/notify/ali    异步通知回调地址return_url:http://127.0.0.1:8080/sop/order/notify/ali/return  同步通知回调地址官网支付宝-开放平台模式  当面付 ，消费者扫描商户二维码完成支付。并不适用于Web网页端扫码支付  即时到账 ，用户在线向开发者的支付宝账号支付资金。Web网页端扫码支付首选开发步骤  下载支付宝提供的即时到账 DEMO          按下图所示将alipay下所有文件复制到项目开发目录，支付宝已将接口的调用、请求、验签等操作完成，我们只需要包装好数据后调用即可        打开AlipayConfig.java，将其中关键信息替换成之前准备好的内容          除了下述四个信息，其他内容均不需要修改      ** partner**即pid，key即md5密钥，都可以在 mapi网关产品密钥 获取      notify_url是支付宝异步通知链接，由支付宝主动调用，一旦用户完成支付，即调用该地址      不可添加自定义参数      必须保证外网可正常访问      使用POST方式发送/接收数据      没有时间限制      如果是https，则必须安装ssl证书，并且需要正规的证书机构签发，自签名的无法识别      return_url，是支付宝同步跳转通知，用户完成支付后，在支付页面完成跳转      不可添加自定义参数      必须保证外网可正常访问，但可在本机测试      使用GET方式发送/接收数据      一分钟超时      // 合作身份者ID，签约账号，以2088开头由16位纯数字组成的字符串，查看地址：https://b.alipay.com/order/pidAndKey.htmpublic static String partner = SOPConstants.ALI_PAY_PARTNER_ID; // MD5密钥，安全检验码，由数字和字母组成的32位字符串，查看地址：https://b.alipay.com/order/pidAndKey.htmpublic static String key = SOPConstants.ALI_PAY_MD5_KEY;// 服务器异步通知页面路径  需http://格式的完整路径，不能加?id=123这类自定义参数，必须外网可以正常访问public static String notify_url = SOPConstants.ALI_PAY_NOTIFY_URL;// 页面跳转同步通知页面路径 需http://格式的完整路径，不能加?id=123这类自定义参数，必须外网可以正常访问public static String return_url = SOPConstants.ALI_PAY_RETURN_URL;  在订单支付页面创建一个空的div，用于接收调用即时到账接口返回的表单数据$.ts.doAction("/api/order/pay/ali", {    orderId: orderId}, function () {    // 提交表单内容    $orderSubmitPanel.find("#returnAli").append(this.data);   // 打开订单状态轮询页面，确保支付完成后，支付页面能自动跳转    $.ts.openModalWindow("/api/order/pay/ali/tip/" + orderId, 350, 300);}, "", "", "");@RequestMapping(value = "/ali", method = RequestMethod.POST)@ResponseBodypublic ResponseData ali(HttpServletRequest request, @RequestParam("orderId") final String orderId) {    SimpleActionHandler actionHandler = new SimpleActionHandler(request) {        @Override        protected void doHandle(ResponseData responseData) throws Exception {            responseData.setData(orderPayService.aliPay(IdEncoder.decodeId(orderId)));        }    };    return actionHandler.handle();}  按照 请求参数说明 包装请求参数，并建立请求          建立请求的操作支付宝已在AlipaySubmit.java中实现，只需要调用其中buildRequest()方法并传入参数即可      public String aliPay(Long orderId) {    // 获取订单信息    OrderDTO order = orderManageService.getOrder(orderId);    // 包装请求参数    Map&lt;String, String&gt; params = Maps.newHashMap();    // 调用接口    params.put("service", AlipayConfig.service);    // 签约账号id    params.put("partner", AlipayConfig.partner);    // 收款支付账号，默认与签约账号相同    params.put("seller_id", AlipayConfig.seller_id);    // 编码格式，支付GBK和UTF-8    params.put("_input_charset", AlipayConfig.input_charset);    // 支付类型    params.put("payment_type", AlipayConfig.payment_type);    // 异步通知回调地址    params.put("notify_url", AlipayConfig.notify_url);    // 同步通知跳转地址    params.put("return_url", AlipayConfig.return_url);    // 防钓鱼时间戳    params.put("anti_phishing_key", AlipayConfig.anti_phishing_key);    // 客户端IP    params.put("exter_invoke_ip", super.getClientIP());    // 订单号    params.put("out_trade_no", order.getCode());    // 标题    params.put("subject", "轻实训-" + order.getName());    // 金额    params.put("total_fee", String.valueOf(order.getPrice()));    // 建立请求    return AlipaySubmit.buildRequest(params, "get", "确认");}  由于调用即时到账接口返回的表单数据会自动提交，而接收表单数据的div是在订单提交页面，因此按照表单提交默认方式，会导致订单提交页面被替换成支付宝扫码页面  所以需要修改AlipaySubmit.java中的buildRequest()方法，在其拼接的表单中加入target=“_blank”，让表单提交时在新页面打开public static String buildRequest(Map&lt;String, String&gt; sParaTemp, String strMethod, String strButtonName) {    //待请求参数数组    Map&lt;String, String&gt; sPara = buildRequestPara(sParaTemp);    List&lt;String&gt; keys = new ArrayList&lt;String&gt;(sPara.keySet());    StringBuffer sbHtml = new StringBuffer();    sbHtml.append("&lt;form id=\"alipaysubmit\" name=\"alipaysubmit\" action=\"" + ALIPAY_GATEWAY_NEW                  + "_input_charset=" + AlipayConfig.input_charset + "\" method=\"" + strMethod                  + "\" target=\"_blank\"&gt;");    for (int i = 0; i &lt; keys.size(); i++) {        String name = (String) keys.get(i);        String value = (String) sPara.get(name);        sbHtml.append("&lt;input type=\"hidden\" name=\"" + name + "\" value=\"" + value + "\"/&gt;");    }    //submit按钮控件请不要含有name属性    sbHtml.append("&lt;input type=\"submit\" value=\"" + strButtonName + "\" style=\"display:none;\"&gt;&lt;/form&gt;");    sbHtml.append("&lt;script&gt;document.forms['alipaysubmit'].submit();&lt;/script&gt;");    return sbHtml.toString();}  用户通过支付宝扫描二维码完成支付后，支付宝会主动调用notify_url进行回执          由于回执时并没有携带用户信息，所以如果使用了诸如shiro等安全框架的，需要给予该回执地址一个访问许可，否则会被安全框架屏蔽      @RequestMapping(value = "/ali", method = RequestMethod.POST)@ResponseBodypublic String aliNotify(HttpServletRequest request) {    return orderPayService.aliNotify(request);}  接收并处理支付回执后，必须通知支付宝回执接收成功，否则支付宝会认为回执发送失败，并发送数次通知  支付宝发送异步通知后，如果没有获取到成功回执（返回success），则会按一定规律重发（4m,10m,10m,1h,2h,6h,15h）  接收支付宝的回执信息时，必须进行验签，改操作支付宝已实现，我们只需要调用AlipayNotify.java中的verify()方法即可  验签成功后需要判断操作状态，从回执参数中获取trade_status，参数值为TRADE_SUCCESS即为支付成功  还有一个订单状态是TRADE_FINISHED，该状态表示订单已完成，即超过三个月的退款期限，一旦订单到达这个状态，支付宝会再次调用notify_url进行回执，若业务系统没有退款流程，则无需处理该状态public String aliNotify(HttpServletRequest request) {    // 订单号    String orderCode = request.getParameter("out_trade_no");    // 交易状态    String tradeStatus = request.getParameter("trade_status");    // 验签    if (AlipayNotify.verify(getNotifyData(request))) {        // 交易成功        if (tradeStatus.equals("TRADE_SUCCESS")) {            // 更新订单信息            updateOrderInfo(orderCode, OrderPay.aliPay.getCode());        }        return "success";    } else {        return "fail";    }}  处理回执内容，用于验签private Map&lt;String, String&gt; getNotifyData(HttpServletRequest request, String method) throws Exception {    // 获取回执内容    Map requestParams = request.getParameterMap();    // 过滤回执内容    Map&lt;String, String&gt; params = Maps.newHashMap();    for (Iterator iter = requestParams.keySet().iterator(); iter.hasNext(); ) {        String name = (String) iter.next();        String[] values = (String[]) requestParams.get(name);        String valueStr = "";        for (int i = 0; i &lt; values.length; i++) {            valueStr = (i == values.length - 1) ? valueStr + values[i] : valueStr + values[i] + ",";        }        if (method.equals("notify")) {            params.put(name, valueStr);        } else {            params.put(name, new String(valueStr.getBytes("ISO-8859-1"), "utf-8"));        }    }    return params;}  用户通过支付宝扫描二维码完成支付后，在新打开的支付宝窗口会执行return_url进行跳转          由于跳转时并没有携带用户信息，所以如果使用了诸如shiro等安全框架的，需要给予该跳转地址一个访问许可，否则会被安全框架屏蔽      public String aliReturn(HttpServletResponse response, HttpServletRequest request) throws Exception {    orderPayService.aliReturn(response, request);           // 跳转地址会通过输出流的方式关闭新窗口，所以无需返回任何内容    return null;}  接收跳转通知时，同样需要验签，以确保内容的安全性  为防止网络等不可预测原因导致异步回执没能成功接收，所以在接收跳转通知并验签通过以及状态判断成功后，同样需要对订单状态进行更新  如果用户完成支付后立即关闭页面，会导致同步跳转通知无法执行，所以不能完全依赖该通知确认订单状态  如果用户在支付页面扫码生成预下单订单，但并未直接付款，而是前往支付宝订单页重新付款，即使网页端支付页面未关闭，也无法执行该同步跳转通知  通过同步跳转通知更新订单状态，只是一种辅助措施，主要手段还是通过接受异步回执来处理订单状态  由于支付宝的扫码页面是在新窗口打开，在支付完成后并没有存在的必要，即可以通过输出流的方式关闭该窗口public void aliReturn(HttpServletResponse response, HttpServletRequest request) throws IOException {    // 订单号    String orderCode = request.getParameter("out_trade_no");    // 交易状态    String tradeStatus = request.getParameter("trade_status");    // 验签    if (AlipayNotify.verify(getNotifyData(request))) {        if (tradeStatus.equals("TRADE_FINISHED") || tradeStatus.equals("TRADE_SUCCESS")) {            // 更新订单信息            updateOrderInfo(orderCode, OrderPay.aliPay.getCode());            // 页面跳转            response.setContentType("text/html;charset=gb2312");     // 通过输出流关闭窗口            PrintWriter writer = response.getWriter();            writer.println("&lt;html&gt;&lt;head&gt;&lt;title&gt; CLOSE &lt;/title&gt;&lt;/head&gt;");            writer.println("&lt;body&gt;");            writer.println("&lt;script type=\"text/javascript\"&gt;window.close();&lt;/script&gt;");            writer.println("&lt;/body&gt;&lt;/html&gt;");        }    }}  轮询订单状态，实现支付完成后页面自动跳转          由于支付回执是异步的，所以即使捕获到异步回执也无法实现支付页面的自动跳转      所以需要在支付页面打开时设置一个ajax轮询订单状态，一旦订单状态更新，则进行页面跳转      // 页面关闭$(“.modal-header button.close:last”).click(function () {    // 停止轮询    clearInterval(checkTimer);});// 轮询订单状态checkTimer = setInterval(function () {    // 窗口是否打开    if ($(“.order-pay-panel”).length &lt;= 0) {        clearInterval(checkTimer);    }    // 获取订单状态    $.ts.doAction(“/api/order/review/check/“, {        orderId: orderId    }, function () {        // 订单已支付        if (!this.data) {            $.ts.closeWindow();            g_index.loadMainContentWithState(“/order/manage”);        $.ts.toastr.success(“订单已支付成功！”);        }    }, “”, “”, “”);}, 3000);]]></content>
@@ -413,6 +736,33 @@
           <tag> java </tag>
         
           <tag> wechatpay </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[web.xml组件加载顺序]]></title>
+      <url>/java/springmvc/tomcat/2016/12/29/web.xml%E7%BB%84%E4%BB%B6%E5%8A%A0%E8%BD%BD%E9%A1%BA%E5%BA%8F/</url>
+      <content type="text"><![CDATA[  context-param &gt; listener &gt; filter &gt; servlet 其中同类则按编写顺序执行常用组件解析&lt;web-app xmlns="" version=""&gt;	&lt;!-- 应用名称 --&gt;	&lt;display-name&gt;Bear&lt;/display-name&gt;	&lt;!-- 应用描述 --&gt;	&lt;description&gt;&lt;/description&gt;	&lt;!-- 应用范围内的初始化参数 --&gt;	&lt;context-param&gt;		&lt;param-name&gt;contextConfigLocation&lt;/param-name&gt;		&lt;!-- 加载多个spring配置文件 --&gt;		&lt;param-value&gt;classpath*:/applicationContext.xml&lt;/param-value&gt;	&lt;/context-param&gt;	&lt;!-- 加载事件监听器，在建立、修改、删除会话或servlet环境时得到通知 --&gt;	&lt;listener&gt;		&lt;!-- 定义Spring监听器 --&gt;		&lt;listener-class&gt;org.springframework.web.context.ContextLoaderListener&lt;/listener-class&gt;	&lt;/listener&gt;	&lt;!-- 加载过滤器，将一个名字与一个实现了javax.servlet.Filter接口的类关联 --&gt;	&lt;filter&gt;		&lt;!-- 过滤器名称 --&gt;		&lt;filter-name&gt;&lt;/filter-name&gt;		&lt;!-- 过滤器路径 --&gt;		&lt;filter-class&gt;&lt;/filter-class&gt;		&lt;!-- 初始化参数 --&gt;		&lt;init-param&gt;			&lt;!-- 参数名称 --&gt;			&lt;param-name&gt;&lt;/param-name&gt;			&lt;!-- 参数值 --&gt;			&lt;param-value&gt;&lt;/param-value&gt;		&lt;/init-param&gt;	&lt;/filter&gt;	&lt;!-- 如果命名了过滤器，则需要将其与一个或多个servlet或jsp页面关联 --&gt;	&lt;filter-mapping&gt;		&lt;!-- 过滤器名称 --&gt;		&lt;filter-name&gt;&lt;/filter-name&gt;		&lt;!-- 应用范围，所有 --&gt;		&lt;url-pattern&gt;/*&lt;/ulr-pattern&gt;	&lt;/filter-mapping&gt;	&lt;!-- 加载servlet，在向servlet或jsp页面指定初始化参数或URL时，必须先命名servlet或jsp页面 --&gt;	&lt;servlet&gt;		&lt;!-- servlet名称 --&gt;		&lt;servlet-name&gt;springServlet&lt;/servlet-name&gt;		&lt;!-- servlet路径 --&gt;		&lt;servlet-class&gt;org.springframework.web.servlet.DispatcherServlet&lt;/servlet-class&gt;		&lt;!-- 初始化参数 --&gt;		&lt;init-param&gt;			&lt;!-- 参数名称 --&gt;			&lt;param-name&gt;contextConfigLocation&lt;/param-name&gt;			&lt;!-- 参数值 --&gt;			&lt;param-value&gt;classpath*:spring-mvc.xml&lt;/param-value&gt;		&lt;/init-param&gt;		&lt;!-- 加载优先级 --&gt;		&lt;load-on-startup&gt;1&lt;/load-on-startup&gt;	&lt;/servlet&gt;	&lt;!-- 为指定的servlet提供缺省URL --&gt;	&lt;servlet-mapping&gt;		&lt;!-- servlet名称 --&gt;		&lt;servlet-name&gt;springServlet&lt;/servlet-name&gt;		&lt;!-- 应用范围 --&gt;		&lt;url-pattern&gt;/*&lt;/url-pattern&gt;	&lt;/servlet-mapping&gt;	&lt;!-- 会话配置 --&gt;	&lt;session-config&gt;		&lt;!-- 定义会话超时时间，会员未访问时间达到改配置，则会被服务器抛弃以节省内存 --&gt;		&lt;session-timeout&gt;30&lt;/session-timeout&gt;	&lt;/session-config&gt;	&lt;!-- 为特殊文件分配特定mime类型 --&gt;	&lt;mime-mapping&gt;&lt;/mime-mapping&gt;	&lt;!-- 应用首页入口文件列表 --&gt;	&lt;welcome-file-list&gt;&lt;/welcome-file-list&gt;	&lt;!-- 在返回特定http状态码或特定类型的异常抛出时，显示的页面 --&gt;	&lt;error-page&gt;		&lt;!-- 状态码 --&gt;		&lt;error-code&gt;404&lt;/error-code&gt;		&lt;!-- 显示页面 --&gt;		&lt;location&gt;404.jsp&lt;/location&gt;	&lt;/error-page&gt;	&lt;!-- 为标记库描述文件指定别名，可更改TLD文件的位置 ——&gt;	&lt;taglib&gt;&lt;/taglib&gt;	&lt;!-- 声明与资源相关的管理对象 --&gt; 	&lt;resource-env-ref&gt;&lt;/resource-env-ref&gt;	&lt;!-- 声明资源工厂使用的外部资源 --&gt;	&lt;resource-ref&gt;&lt;/resource-ref&gt;	&lt;!-- 指定待保护的URL，与location-config联合使用 --&gt;	&lt;security-constraint&gt;&lt;/security-constraint&gt;	&lt;!-- 指定服务器如何给试图访问受保护页面的用户授权，与security-constraint联合使用 --&gt;	&lt;login-config&gt;&lt;/login-config&gt;	&lt;!-- 安全角色列表 --&gt;	&lt;security-role&gt;&lt;/security-role&gt;	&lt;!-- 声明应用环境项 --&gt;	&lt;env-entry&gt;&lt;/env-entry&gt;&lt;/web-app&gt;]]></content>
+      <categories>
+        
+          <category> java </category>
+        
+          <category> springmvc </category>
+        
+          <category> tomcat </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> java </tag>
+        
+          <tag> springmvc </tag>
+        
+          <tag> tomcat </tag>
+        
+          <tag> server </tag>
         
       </tags>
       <tags></tags>
