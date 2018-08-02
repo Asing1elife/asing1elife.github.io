@@ -415,6 +415,29 @@
     </entry>
   
     <entry>
+      <title><![CDATA[BeanMap 实现对象转换 Map]]></title>
+      <url>/java/map/2018/03/31/BeanMap-%E5%AE%9E%E7%8E%B0%E5%AF%B9%E8%B1%A1%E8%BD%AC%E6%8D%A2-Map/</url>
+      <content type="text"><![CDATA[  通过 org.springframework.cglib.beans 的 BeanMap 可以实现对象将字段和字段值直接转换为 Map 的 key-value 形式实现方式SortedMap&lt;String, String&gt; signMaps = Maps.newTreeMap();BeanMap beanMap = BeanMap.create(ext);for (Object key : beanMap.keySet()) {    Object value = beanMap.get(key);    // 排除空数据    if (value == null) {        continue;    }    signMaps.put(key + "", String.valueOf(value));}]]></content>
+      <categories>
+        
+          <category> java </category>
+        
+          <category> map </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> java </tag>
+        
+          <tag> map </tag>
+        
+          <tag> spring </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
       <title><![CDATA[MyBatis抛出You can't operate on a closed Connection!!!]]></title>
       <url>/java/mybatis/error/2018/03/08/MyBatis%E6%8A%9B%E5%87%BAYou-can't-operate-on-a-closed-Connection!!!/</url>
       <content type="text"><![CDATA[  有时候通过 Session 获取数据库连接时为空碰到的问题  一般通过以下方式获取数据库连接  但有时候会出现获取不到连接，从而抛出 You can’t operate on a closed Connection!!! 的异常Connection connection = this.SqlSession().getConnection();解决的方式  使用以下方式获取数据库连接可保证获取的连接存在与事务中不会莫名丢失SqlSessionTemplate st = (SqlSessionTemplate) this.getSqlSession();SqlSession session = SqlSessionUtils.getSqlSession(st.getSqlSessionFactory(), st.getExecutorType(), st.getPersistenceExceptionTranslator());Connection connection = session.getConnection();]]></content>
@@ -1199,6 +1222,67 @@
           <tag> java </tag>
         
           <tag> mybatis </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[对象反射赋值]]></title>
+      <url>/java/relfect/2017/01/20/%E5%AF%B9%E8%B1%A1%E5%8F%8D%E5%B0%84%E8%B5%8B%E5%80%BC/</url>
+      <content type="text"><![CDATA[  在不确定对象字段及内容的前提下，为对象赋值的解决方案通常是反射赋值实现方式// 获取当前会员对象Class&lt;MemberDTO&gt; member = (Class&lt;MemberDTO&gt;) super.getMember().getClass();// 获取所有字段Field[] fileds = member.getDeclaredFields();// 遍历字段找到与当前修改字段相符合的字段for (Field field : fileds) {	// ** 获取私有字段的操作权限	field.setAccessible(true);	if (field.getName().equals(name)) {		// 找到字段对应 set 方法		PropertyDescriptor pd = new PropertyDescriptor(field.getName(), member);		Method method = pd.getWriteMethod();		// 传入当前对象，并赋值		method.invoke(super.getMember(), value);		break;	}}]]></content>
+      <categories>
+        
+          <category> java </category>
+        
+          <category> relfect </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> java </tag>
+        
+          <tag> relfect </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[Java实现颜色随机]]></title>
+      <url>/java/2017/01/20/Java%E5%AE%9E%E7%8E%B0%E9%A2%9C%E8%89%B2%E9%9A%8F%E6%9C%BA/</url>
+      <content type="text"><![CDATA[  通过随机拼接rgb编码的方式，获取随机的颜色码实现方式String r, g, b;// 定义随机数	Random random = new Random();	// 获取编码r = Integer.toHexString(random.nextInt(256)).toUpperCase();g = Integer.toHexString(random.nextInt(256)).toUpperCase();b = Integer.toHexString(random.nextInt(256)).toUpperCase();	// 编码有效性控制r = r.length() == 1 ? "0" + r : r;g = g.length() == 1 ? "0" + g : g;b = b.length() == 1 ? "0" + b : b;	// 拼接return r + g + b;]]></content>
+      <categories>
+        
+          <category> java </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> java </tag>
+        
+          <tag> color </tag>
+        
+          <tag> random </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[判断String是否为数字]]></title>
+      <url>/java/2017/01/12/%E5%88%A4%E6%96%ADString%E6%98%AF%E5%90%A6%E4%B8%BA%E6%95%B0%E5%AD%97/</url>
+      <content type="text"><![CDATA[  解决思路是通过正则表达式匹配字符串内容是否全部为数字实现方式// 数字0-9出现零到多次Pattern pattern = Pattern.compile("[0-9]*");Matcher isNum = pattern.matcher(str);if (isNum.matches()) {	// 数字} else {	// 非数字}]]></content>
+      <categories>
+        
+          <category> java </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> java </tag>
+        
+          <tag> string </tag>
         
       </tags>
       <tags></tags>
