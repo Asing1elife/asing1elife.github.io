@@ -757,6 +757,27 @@
     </entry>
   
     <entry>
+      <title><![CDATA[Java Thread.wait()]]></title>
+      <url>/java/multithreading/2017/05/05/Java-Thread.wait()/</url>
+      <content type="text"><![CDATA[  wait() 和 notify() 必须在 synchronized 语句块中使用wait() 是强迫一个线程等待notify() 是通知一个线程继续运行功能  wait() 是针对已经获取对象锁的线程进行操作  当线程获取对象锁后，调用 wait() 主动释放对象锁，同时该线程休眠  直到其他线程调用 notify() 唤醒该线程，才继续获取对象锁，并执行  调用 notify() 唤醒线程并不是实时的，而是等相应的 synchronized 语句块执行结束，自动释放对象锁  再由 JVM 选取休眠的线程赋予对象锁，并执行，从而实现线程间同步、唤醒的操作对比  wait() 和 sleep() 都可以通过 interrupt() 打断线程的暂停状态，从而使线程立刻抛出 InterruptedException          通过 interrupt() 打断线程时，只需在 catch() 中捕获到异常即可安全结束线程      InterruptedException 是线程内部抛出，并不是 interrupt() 抛出      当线程执行普通代码时调用 interrupt() 并不会抛出异常，只有当线程进入 wait() / sleep() / join() 后才会立即抛出        wait() 和 sleep() 都可以暂定当前线程，其区别在于 wait() 在暂定的同时释放了对象锁  sleep() 是 Thread 的静态方法，wait() 是 Object 的一般方法实现public class WaitTest extends Thread {    private final Object self;    private final Object last;    public WaitTest(String name, Object self, Object last) {        super(name);        this.self = self;        this.last = last;    }    public void run() {        for (int i = 0; i &lt; 10; i++) {            // 锁住下一个对象            synchronized (last) {                // 锁住当前对象                synchronized (self) {                    if (super.getName().equals("A")) {                        System.out.println("第 " + (i + 1) + " 次运行！");                    }                    System.out.println(super.getName());                    // 等待一轮循环结束后唤醒当前线程                    self.notify();                }                try {                    // 释放下一个线程的对象锁                    last.wait();                } catch (InterruptedException e) {                    e.printStackTrace();                }            }        }    }    public static void main(String[] args) {        Object a = new Object();        Object b = new Object();        Object c = new Object();        WaitTest waitA = new WaitTest("A", a, b);        WaitTest waitB = new WaitTest("B", b, c);        WaitTest waitC = new WaitTest("C", c, a);        waitA.start();        waitB.start();        waitC.start();    }}]]></content>
+      <categories>
+        
+          <category> java </category>
+        
+          <category> multithreading </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> java </tag>
+        
+          <tag> multithreading </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
       <title><![CDATA[SpringMVC使用MultipartFile实现文件上传]]></title>
       <url>/java/springmvc/2017/04/26/SpringMVC%E4%BD%BF%E7%94%A8MultipartFile%E5%AE%9E%E7%8E%B0%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/</url>
       <content type="text"><![CDATA[  SpringMVC 接收 MultipartFile 需要在 spring-mvc.xml 中配置文件解析器配置&lt;bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"&gt;    &lt;property name="maxUploadSize" value="20971520"/&gt;    &lt;property name="defaultEncoding" value="UTF-8"/&gt;&lt;/bean&gt;依赖&lt;dependency&gt;	&lt;groupId&gt;commons-fileupload&lt;/groupId&gt;	&lt;artifactId&gt;commons-fileupload&lt;/artifactId&gt;&lt;/dependency&gt;&lt;dependency&gt;	&lt;groupId&gt;commons-io&lt;/groupId&gt;	&lt;artifactId&gt;commons-io&lt;/artifactId&gt;&lt;/dependency&gt;]]></content>
@@ -774,6 +795,132 @@
           <tag> springmvc </tag>
         
           <tag> fileupload </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[Java Thread.yield()]]></title>
+      <url>/java/multithreading/2017/04/21/Java-Thread.yield()/</url>
+      <content type="text"><![CDATA[  yield() 是 Thread 提供的一个静态方法，可直接通过 Thread 调用yield() 是提醒线程暂停功能  暂停当前正在执行的线程对象，并执行其他线程特点  让当前运行线程回到可运行状态，从而让拥有相同优先级的线程获取运行机会  其目的是让拥有相同优先级的线程之前能适当的轮转运行  实际上 yeld() 的可行性无法得到保证，因为回到可运行状态的线程依旧有可能有限被调度程序选中  yeld() 不会导致线程回到等待/睡眠/阻塞状态，所以对线程执行该方法后可能没有效果对比  sleep() 放线程进行停滞状态，导致线程在指定时间内停止运行  yield() 只是让线程回到可运行状态，但重新获取运行权的可能还是这个线程  sleep() 允许优先级较低线程在当前线程停滞后获取运行权  yield() 不可能让比当前线程优先级低的线程获取运行权实现public YieldTest extends Thread {	public YieldTest (String name) {		super(name);	}	public void run() {		for (int i = 1; i &lt;= 5; i++) {			System.out.println(this.getName() + " 运行 " + i + " 次");			if (i == 3) {				this.yield();			}		}	}	public static void main(String[] args) {		YieldTest tom = new YieldTest("tom");		YieldTest jerry = new YieldTest("jerry");		tom.start();		jerry.start();	}}]]></content>
+      <categories>
+        
+          <category> java </category>
+        
+          <category> multithreading </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> java </tag>
+        
+          <tag> multithreading </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[Java Thread 调度]]></title>
+      <url>/java/multithreading/2017/04/21/Java-Thread-%E8%B0%83%E5%BA%A6/</url>
+      <content type="text"><![CDATA[  Thread 调整线程优先级，称为线程调度线程优先级越高，则会获得更多的运行机会级别  优先级的取值范围是 1-10 ，但只提供 3 个常量          Thread.MAX_PRIORITY - 最高优先级，取值 10      Thread.MIN_PRIORITY - 最低优先级，取值 1      Thread.NORM_PRIORITY - 默认优先级，取值 5        虽然 JVM 提供了 10 个优先级，但不推荐使用常量以外的其他优先级，因为其一致性不佳  线程的优先级拥有继承关系，子类默认和父类拥有相同优先级方法  setPriority() 设置优先级  getPriority() 获取优先级]]></content>
+      <categories>
+        
+          <category> java </category>
+        
+          <category> multithreading </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> java </tag>
+        
+          <tag> multithreading </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[Java Thread join()]]></title>
+      <url>/java/multithreading/2017/04/21/Java-Thread-join()/</url>
+      <content type="text"><![CDATA[  join() 是 Thread 提供的一个方法，线程启动后可直接调用join() 是等待线程终止功能  线程调用 join() 后，主线程必须等待该线程终止后，主线程才能终止场景  当主线程调用子线程后，子线程需要大量的耗时运算  由于多线程的特性，往往导致主线程会在子线程之前结束  那么主线程结束之前就无法获取到子线程的运算结果  当子线程调用 join() 后，会强制主线程必须等待子线程终止后，主线程才能终止  从而主线程就可以获取到子线程的运算结果实现  主线程的结束语句一定会等两个子线程都结束后才会运行public JoinTest implements Runnable {	private String name;	public JoinTest(String name) {		this.name = name;	}	public void run() {		System.out.println(name = " 线程开始运行！");		for (int i = 1; i &lt;= 5; i++) {			System.out.println(name = " 线程运行 " + i + " 次！");			try {				Thread.sleep(500);			} catch (InterruptedException e) {				e.printStackTrace();			}		}				System.out.println(name = " 线程运行结束！");	}	public static void main(String[] args) {		System.out.println("主线程开始运行！\n");		JoinTest tom = new JoinTest("tom");		JoinTest jerry = new JoinTest("jerry");		Thread tomThread = new Thread(tom);		Thread jerryThread = new Thread(jerry);		tomThread.start();		jerryThread.start();		try {			tomThread.join();			jerryThread.join();		} catch (InterruptedException e) {			e.printStackTrace();		}		System.out.println("\n主线程运行结束！");	}}]]></content>
+      <categories>
+        
+          <category> java </category>
+        
+          <category> multithreading </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> java </tag>
+        
+          <tag> multithreading </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[Java Thread 状态转换]]></title>
+      <url>/java/multithreading/2017/04/18/Java-Thread-%E7%8A%B6%E6%80%81%E8%BD%AC%E6%8D%A2/</url>
+      <content type="text"><![CDATA[  下图对 Thread 的所有状态进行流程描述分解  初始 - 新创建一个线程对象  就绪- 对象的 start() 被调用          处于该状态的线程位于可运行线程池中，等待获取 CPU 使用权        运行 - 执行程序代码  阻塞 - 因为某种原因放弃 CPU 使用权，暂时停止运行          处于该状态的线程直到重新进入就绪状态，才有机会回到运行状态      该状态具体分为三种                  等待 - 该线程执行 wait() ，JVM 将该线程放入等待池中，并释放持有的锁          同步 - 该线程在获取对象同步锁时，发现该同步锁被占用，JVM 则将该线程放入锁池中          其他 - 该线程执行 sleep() 或 join() 或发出 I/O 请求，JVM 将该线程改为阻塞状态                      死亡 - 线程执行结束或因抛出异常导致退出 run()]]></content>
+      <categories>
+        
+          <category> java </category>
+        
+          <category> multithreading </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> java </tag>
+        
+          <tag> multithreading </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[Java 继承 Thread 类]]></title>
+      <url>/java/multithreading/2017/04/17/Java-%E7%BB%A7%E6%89%BF-Thread-%E7%B1%BB/</url>
+      <content type="text"><![CDATA[  如果只是启动一个线程，则可通过继承 Thread 类来实现但一般推荐使用 Runnable - Java 实现 Runnable 接口Thread 类实际上也是实现了 Runnable 接口注意  程序运行时，Java 虚拟机启动一个进程，主线程在 main() 调用时被创建  在 main() 中调用 ThreadTest 的两个对象，则启动两个线程  start() 的调用不会立即执行多线程代码，而是促使该线程变为可运行态，具体运行时间由操作系统决定  多线程是乱序执行的，每次执行的结果都不确定  在多线程中调用 sleep() 的目的是不让当前线程占用全部系统资源  如果一个对象的 start() 被重复调用，则会抛出 java.lang.IllegalThreadStateException 异常实现public class ThreadTest extends Thread {	private String name;	public ThreadTest (String name) {		this.name = name;	}	public void run() {		for (int i = 1; i &lt;= 5; i++) {			System.out.println(name + " 运行 " + i + " 次");			try {					// 单位毫秒				sleep(1000);			} catch (InterruptedException e) {				e.printStackTrace();			}		}	}	public static void main(String[] args) {		ThreadTest tom = new ThreadTest("tom");		ThreadTest jerry = new ThreadTest("jerry");		tom.start();		jerry.start();	}}]]></content>
+      <categories>
+        
+          <category> java </category>
+        
+          <category> multithreading </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> java </tag>
+        
+          <tag> multithreading </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[Java 实现 Runnable 接口]]></title>
+      <url>/java/multithreading/2017/04/17/Java-%E5%AE%9E%E7%8E%B0-Runnable-%E6%8E%A5%E5%8F%A3/</url>
+      <content type="text"><![CDATA[  与 Java 继承 Thread 类 一样，实现 Runnable 接口也是启动 Java 线程的一种方式通过继承 Thread 类实现多线程的对象，不适合资源共享，而实现 Runnable 接口，则适合资源共享不论是通过继承 Thread 类或者实现 Runnable 接口来实现多线程，最终都是通过 Thread 的 API 控制线程注意  run() 是多线程程序的一个约定，所有的多线程代码都在其中执行  在启动多线程时，首先需要通过 Thread(Runnable target) 构造出线程对象，再调用 start() 运行多线程  所有的多线程代码都是通过 Thread 的 start() 来运行优势 - Runnable 相较于 Thread  适合拥有多个相同程序代码的线程去处理同一资源  可以避免 Java 中的单继承限制  代码可以被多个线程共享  代码和数据实现独立  增加程序的健壮性  线程池只能放入实现 Runnable 或 Callable 的类，不能直接放入继承 Thread 的类实现public class RunnableTest implements Runnable {	private String name;	public RunnableTest(String name) {		this.name = name;	}	public void run() {		for (int i = 1; i &lt;= 5; i++) {			System.out.println(name + " 运行 " + i + " 次");			try {				Thread.sleep(1000);			} catch (InerruptedException e) {				e.printStackTrace();			}		}	}	public static void main(String[] args) {		RunnableTest tom = new RunnableTest("tom");		RunnableTest jerry = new RunnableTest("jerry");		new Thread(tom).start();		new Thread(jerry).start();	}}]]></content>
+      <categories>
+        
+          <category> java </category>
+        
+          <category> multithreading </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> java </tag>
+        
+          <tag> multithreading </tag>
         
       </tags>
       <tags></tags>
