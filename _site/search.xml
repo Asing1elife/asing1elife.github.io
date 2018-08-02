@@ -4,7 +4,7 @@
     <entry>
       <title><![CDATA[SpringMVC多环境配置]]></title>
       <url>/java/springmvc/2018/07/23/SpringMVC%E5%A4%9A%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/</url>
-      <content type="text"><![CDATA[  SpringMVC 可以使用 Spring 本身提供的 profile 特性对多环境配置文件进行统一集成，自动切换存在的必要  日常开发中，一般都存在多个环境，开发、测试、生产  上述环境对应的数据库及配置文件都会存在不同，所以为项目集成多环境配置很有必要实现方式  集成方式有多种，网上介绍的大多是使用 &lt;beans profile="dev"&gt; 去区分不同的 *.properties 文件  还可以使用 @Profile 进行不同环境代码加载  本文介绍的是使用 &lt;beans profile="dev"&gt; 直接在同一个 xml 文件中区分不同环境需要的不同配置项XML配置  注意如果使用了多环境的配置的 xml 文件中存在其他公有属性，这些属性需要放在最前面，否则会报错&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"       xmlns:p="http://www.springframework.org/schema/p"       xsi:schemaLocation="http://www.springframework.org/schema/beans            http://www.springframework.org/schema/beans/spring-beans-4.0.xsd"&gt;  &lt;description&gt;spring-data-redis-cluster&lt;/description&gt;  &lt;bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig"&gt;    &lt;property name="maxIdle" value="${redis.pool.maxIdle}"/&gt;    &lt;property name="maxTotal" value="${redis.pool.maxActive}"/&gt;    &lt;property name="maxWaitMillis" value="${redis.pool.maxWait}"/&gt;    &lt;property name="testOnBorrow" value="${redis.pool.testOnBorrow}"/&gt;  &lt;/bean&gt;  ...  &lt;beans profile="dev"&gt;    &lt;bean id="jedisPool" class="redis.clients.jedis.JedisPool"&gt;      &lt;constructor-arg index="0" ref="jedisPoolConfig"/&gt;      &lt;constructor-arg index="1" value="${redis.server.url}"/&gt;      &lt;constructor-arg index="2" value="${redis.server.port}" type="int"/&gt;      &lt;constructor-arg index="3" value="${redis.server.timeout}" type="int"/&gt;      &lt;constructor-arg index="4" value="${redis.server.password}"/&gt;    &lt;/bean&gt;    &lt;bean id="jedisConnectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory"&gt;      &lt;property name="hostName" value="${redis.server.url}"/&gt;      &lt;property name="port" value="${redis.server.port}"/&gt;      &lt;property name="password" value="${redis.server.password}"/&gt;      &lt;property name="poolConfig" ref="jedisPoolConfig"/&gt;    &lt;/bean&gt;  &lt;/beans&gt;  &lt;beans profile="prod"&gt;    &lt;bean id="redisClusterConfiguration" class="org.springframework.data.redis.connection.RedisClusterConfiguration"&gt;      ...    &lt;/bean&gt;    &lt;bean id="jedisConnectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory"&gt;      &lt;constructor-arg ref="redisClusterConfiguration"/&gt;      &lt;constructor-arg ref="jedisPoolConfig"/&gt;    &lt;/bean&gt;  &lt;/beans&gt;&lt;/beans&gt;开发环境启动方式  IDEA 需要在启动时添加脚本 -Dspring.profiles.active="dev" 以确保使用开发环境启动生产环境启动方式  Linux 环境需要前往 Tomcat 的 /bin 目录下，需要 ::./catalina.sh:: 中的 JAVA_OPTS 内容如下  JAVA_OPTS="$JAVA_OPTS -Dspring.profiles.active=prod"]]></content>
+      <content type="text"><![CDATA[  SpringMVC 可以使用 Spring 本身提供的 profile 特性对多环境配置文件进行统一集成，自动切换存在的必要  日常开发中，一般都存在多个环境，开发、测试、生产  上述环境对应的数据库及配置文件都会存在不同，所以为项目集成多环境配置很有必要实现方式  集成方式有多种，网上介绍的大多是使用 &lt;beans profile="dev"&gt; 去区分不同的 *.properties 文件  还可以使用 @Profile 进行不同环境代码加载  本文介绍的是使用 &lt;beans profile="dev"&gt; 直接在同一个 xml 文件中区分不同环境需要的不同配置项XML配置  注意如果使用了多环境的配置的 xml 文件中存在其他公有属性，这些属性需要放在最前面，否则会报错&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"       xmlns:p="http://www.springframework.org/schema/p"       xsi:schemaLocation="http://www.springframework.org/schema/beans            http://www.springframework.org/schema/beans/spring-beans-4.0.xsd"&gt;  &lt;description&gt;spring-data-redis-cluster&lt;/description&gt;  &lt;bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig"&gt;    &lt;property name="maxIdle" value="${redis.pool.maxIdle}"/&gt;    &lt;property name="maxTotal" value="${redis.pool.maxActive}"/&gt;    &lt;property name="maxWaitMillis" value="${redis.pool.maxWait}"/&gt;    &lt;property name="testOnBorrow" value="${redis.pool.testOnBorrow}"/&gt;  &lt;/bean&gt;  ...  &lt;beans profile="dev"&gt;    &lt;bean id="jedisPool" class="redis.clients.jedis.JedisPool"&gt;      &lt;constructor-arg index="0" ref="jedisPoolConfig"/&gt;      &lt;constructor-arg index="1" value="${redis.server.url}"/&gt;      &lt;constructor-arg index="2" value="${redis.server.port}" type="int"/&gt;      &lt;constructor-arg index="3" value="${redis.server.timeout}" type="int"/&gt;      &lt;constructor-arg index="4" value="${redis.server.password}"/&gt;    &lt;/bean&gt;    &lt;bean id="jedisConnectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory"&gt;      &lt;property name="hostName" value="${redis.server.url}"/&gt;      &lt;property name="port" value="${redis.server.port}"/&gt;      &lt;property name="password" value="${redis.server.password}"/&gt;      &lt;property name="poolConfig" ref="jedisPoolConfig"/&gt;    &lt;/bean&gt;  &lt;/beans&gt;  &lt;beans profile="prod"&gt;    &lt;bean id="redisClusterConfiguration" class="org.springframework.data.redis.connection.RedisClusterConfiguration"&gt;      ...    &lt;/bean&gt;    &lt;bean id="jedisConnectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory"&gt;      &lt;constructor-arg ref="redisClusterConfiguration"/&gt;      &lt;constructor-arg ref="jedisPoolConfig"/&gt;    &lt;/bean&gt;  &lt;/beans&gt;&lt;/beans&gt;开发环境启动方式  IDEA 需要在启动时添加脚本 -Dspring.profiles.active="dev" 以确保使用开发环境启动生产环境启动方式  Linux 环境需要前往 Tomcat 的 /bin 目录下，需要 ./catalina.sh 中的 JAVA_OPTS 内容如下  JAVA_OPTS="$JAVA_OPTS -Dspring.profiles.active=prod"]]></content>
       <categories>
         
           <category> java </category>
@@ -119,6 +119,31 @@
           <tag> java </tag>
         
           <tag> springboot </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[Maven打包时抛出should not point at files within the project directory …异常]]></title>
+      <url>/java/maven/error/2018/05/09/Maven%E6%89%93%E5%8C%85%E6%97%B6%E6%8A%9B%E5%87%BAshould-not-point-at-files-within-the-project-directory-%E5%BC%82%E5%B8%B8/</url>
+      <content type="text"><![CDATA[  项目中通过 Maven 引入本地包后打包时抛出 should not point at files within the project directory … 警告具体问题  在项目中引入本地包&lt;dependency&gt;    &lt;groupId&gt;ppts.model&lt;/groupId&gt;    &lt;artifactId&gt;ppts-model&lt;/artifactId&gt;    &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;    &lt;scope&gt;system&lt;/scope&gt;    &lt;systemPath&gt;${basedir}/../lib/ppts-model-1.0-SNAPSHOT.jar&lt;/systemPath&gt;&lt;/dependency&gt;  在项目进行 package 打包时，抛出以下异常，且并没有引入对应 jar 包[WARNING] 'dependencies.dependency.systemPath' for ts.core:ts-core:jar should not point at files within the project directory, ${basedir}/../lib/ts-core-1.0.jar will be unresolvable by dependent projects @ line 97, column 19解决方式  移除本地包依赖中的 &lt;scope/&gt; 和 &lt;systemPath/&gt;&lt;dependency&gt;  &lt;groupId&gt;ppts.model&lt;/groupId&gt;  &lt;artifactId&gt;ppts-model&lt;/artifactId&gt;  &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;&lt;/dependency&gt;  通过 maven-install-plugin 插件对 jar 包进行安装          &lt;phase&gt;clean&lt;/phase&gt; 表示该 jar 包会在执行 clean 操作时引入      &lt;plugin&gt;  &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;  &lt;artifactId&gt;maven-install-plugin&lt;/artifactId&gt;  &lt;version&gt;2.5.2&lt;/version&gt;  &lt;executions&gt;    &lt;execution&gt;      &lt;id&gt;install-ppts-model&lt;/id&gt;      &lt;phase&gt;clean&lt;/phase&gt;      &lt;configuration&gt;        &lt;file&gt;${basedir}/../lib/ppts-model-1.0-SNAPSHOT.jar&lt;/file&gt;        &lt;repositoryLayout&gt;default&lt;/repositoryLayout&gt;        &lt;groupId&gt;ppts.model&lt;/groupId&gt;        &lt;artifactId&gt;ppts-model&lt;/artifactId&gt;        &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;        &lt;packaging&gt;jar&lt;/packaging&gt;        &lt;generatePom&gt;true&lt;/generatePom&gt;      &lt;/configuration&gt;      &lt;goals&gt;        &lt;goal&gt;install-file&lt;/goal&gt;      &lt;/goals&gt;    &lt;/execution&gt;  &lt;/executions&gt;&lt;/plugin&gt;]]></content>
+      <categories>
+        
+          <category> java </category>
+        
+          <category> maven </category>
+        
+          <category> error </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> java </tag>
+        
+          <tag> maven </tag>
+        
+          <tag> error </tag>
         
       </tags>
       <tags></tags>
@@ -325,6 +350,56 @@
     </entry>
   
     <entry>
+      <title><![CDATA[MyBatis抛出You can't operate on a closed Connection!!!]]></title>
+      <url>/java/mybatis/error/2018/03/08/MyBatis%E6%8A%9B%E5%87%BAYou-can't-operate-on-a-closed-Connection!!!/</url>
+      <content type="text"><![CDATA[  有时候通过 Session 获取数据库连接时为空碰到的问题  一般通过以下方式获取数据库连接  但有时候会出现获取不到连接，从而抛出 You can’t operate on a closed Connection!!! 的异常Connection connection = this.SqlSession().getConnection();解决的方式  使用以下方式获取数据库连接可保证获取的连接存在与事务中不会莫名丢失SqlSessionTemplate st = (SqlSessionTemplate) this.getSqlSession();SqlSession session = SqlSessionUtils.getSqlSession(st.getSqlSessionFactory(), st.getExecutorType(), st.getPersistenceExceptionTranslator());Connection connection = session.getConnection();]]></content>
+      <categories>
+        
+          <category> java </category>
+        
+          <category> mybatis </category>
+        
+          <category> error </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> java </tag>
+        
+          <tag> mybatis </tag>
+        
+          <tag> error </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[List抛出ConcurrentModificationException]]></title>
+      <url>/java/list/error/2018/03/01/List%E6%8A%9B%E5%87%BAConcurrentModificationException/</url>
+      <content type="text"><![CDATA[  在对 List 进行遍历的同时进行 remove 元素操作，可能会抛出 java.util.ConcurrentModificationException 异常错误示范  在遍历 List 时获取元素实际上通过迭代器在进行，迭代器在获取下一个元素时会对 modCount 和 expectedCount 进行匹配  遍历的同时直接对 List 进行 remove 操作，会导致只有 modCount 发生变化，而expectedCount 未发生变化  所以迭代器在获取下一个元素会发现两个值不匹配则抛出 java.util.ConcurrentModificationException 异常for (CourseDTO course : courses) {    for (MemberCourseDTO memberCourse : memberCourses) {        if (course.getId().equals(memberCourse.getCourse().getId())) {            courses.remove(course);        }    }}正确处理  使用迭代器原生的 remove 方法去操作 List 元素即可for (Iterator&lt;CourseDTO&gt; it = courses.iterator(); it.hasNext(); ) {    CourseDTO course = it.next();    for (MemberCourseDTO memberCourse : memberCourses) {        if (course.getId().equals(memberCourse.getCourse().getId())) {            // 移除当前元素            it.remove();        }    }}Java 8 的处理方式question.getOptions().removeIf(option -&gt; option.getContent().trim().equals(""));]]></content>
+      <categories>
+        
+          <category> java </category>
+        
+          <category> list </category>
+        
+          <category> error </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> java </tag>
+        
+          <tag> list </tag>
+        
+          <tag> error </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
       <title><![CDATA[SpringBoot从数据库加载配置信息]]></title>
       <url>/java/springboot/hibernate/2017/12/31/SpringBoot%E4%BB%8E%E6%95%B0%E6%8D%AE%E5%BA%93%E5%8A%A0%E8%BD%BD%E9%85%8D%E7%BD%AE%E4%BF%A1%E6%81%AF/</url>
       <content type="text"><![CDATA[  Spring Boot 通过@Value注解可实现获取配置文件中的数据，而配置文件中的数据可以通过修改MutablePropertySources从数据库注入该示例基于Hibernate实现实体类  根据Hibernate的配置，实体类对应数据库中的表即可@Entity@Table(name = "sys_config")@Inheritance(strategy = InheritanceType.SINGLE_TABLE)public class Config implements Serializable {    @Id    private Long id;    @Column    private String code;    @Column    private String value;    @Column    private String name;    @Column    private String description;  ...}服务类  服务类用于从数据库中获取列表信息@Servicepublic class SystemConfigService extends SimpleHibernateService&lt;Config, Long&gt; {   ...}配置类  该配置类会在系统启动时自动加载  根据内部逻辑会将从数据库取出的列表信息注入到MutablePropertySources属性集合中  动态注入的属性集合无需有对应的 .properties 文件存在@Configurationpublic class SystemConfig {    @Autowired    private ConfigurableEnvironment environment;    @Autowired    private SystemConfigService service;    @PostConstruct    public void initDatabasePropertySourceUsage() {        // 获取系统属性集合        MutablePropertySources propertySources = environment.getPropertySources();        try {            // 从数据库获取自定义变量列表            Map&lt;String, String&gt; collect = service.getAll().stream().collect(Collectors.toMap(Config::getCode, Config::getValue));            // 将转换后的列表加入属性中            Properties properties = new Properties();            properties.putAll(collect);            // 将属性转换为属性集合，并指定名称            PropertiesPropertySource constants = new PropertiesPropertySource("system-config", properties);            // 定义寻找属性的正则，该正则为系统默认属性集合的前缀            Pattern p = Pattern.compile("^applicationConfig.*");            // 接收系统默认属性集合的名称            String name = null;            // 标识是否找到系统默认属性集合            boolean flag = false;            // 遍历属性集合            for (PropertySource&lt;?&gt; source : propertySources) {                // 正则匹配                if (p.matcher(source.getName()).matches()) {                    // 接收名称                    name = source.getName();                    // 变更标识                    flag = true;                    break;                }            }            if (flag) {                // 找到则将自定义属性添加到该属性之前                propertySources.addBefore(name, constants);            } else {                // 没找到默认添加到第一位                propertySources.addFirst(constants);            }        } catch (Exception e) {            throw new RuntimeException(e);        }    }}工具类  由于Spring Boot不支持静态变量的自动注入，所以需要使用一个非静态的setter方法将通过@Value注解获取到的属性信息赋值给对应静态变量  @DependsOn({"systemConfig"}) 的意思是说 Constants 依赖于 SystemConfig ，所以需要确保 SystemConfig 在 Constants 之前加载@Configuration@DependsOn({"systemConfig"})public class Constants {    // 资源服务器地址    public static String RESOURCE_SERVER_URL;    @Value("${resource.server.url}")    public void setResourceServerUrl(String resourceServerUrl) {        RESOURCE_SERVER_URL = resourceServerUrl;    }}]]></content>
@@ -446,6 +521,29 @@
           <tag> springmvc </tag>
         
           <tag> mybatis </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[MyBatis二级缓存]]></title>
+      <url>/java/mybatis/2017/11/12/MyBatis%E4%BA%8C%E7%BA%A7%E7%BC%93%E5%AD%98/</url>
+      <content type="text"><![CDATA[  MyBatis的二级缓存可以通过极少的配置项实现对数据库查询数据的缓存规则  映射文件中所有的 &lt;select/&gt; 语句都会被缓存  映射文件中所有的 &lt;insert/&gt; &lt;update/&gt; &lt;delete/&gt; 语句都会刷新缓存  基于以上两点，需要被缓存的数据库表的所有操作都应该放在同一个Mapper文件中在MyBatis的配置文件中添加以下配置  实际上即时不在配置文件中显式的声明该配置项，MyBatis的二级缓存也是默认开启的，因为该配置项的默认值就是true          &lt;setting name="cacheEnabled" value="true" /&gt;        在需要进行缓存的Mapper文件中添加以下配置          &lt;cache eviction="FIFO" flushInterval="60000" size="512" readOnly="true" /&gt;      可选配置  eviction 回收策略          LRU [default] 移除最长时间不被使用的对象      FIFO 按对象进入缓存的顺序进行移除      SOFT 移除基于垃圾回收器状态和软引用规则的对象      WEAK 更积极的移除基于垃圾回收器状态和弱引用规则的对象        flushInterval 刷新间隔，毫秒          没有默认值，表明没有刷新间隔，缓存只有在调用刷新语句时刷新        size 引用数目          1024 [default] 存储列表集合和对象的1024个引用        readOnly  只读          false [default] 可读写的缓存会返回缓存对象的拷贝，性能稍差，但安全性更高      true 只读的缓存会给所有调用者返回缓存对象的相同实例，所以该对象无法被修改，性能更高      可选属性  useCache 让单个 &lt;select/&gt; 语句自行选择是否被缓存  flushCache 让单个 &lt;select/&gt; 语句自行选择是否被刷新缓存]]></content>
+      <categories>
+        
+          <category> java </category>
+        
+          <category> mybatis </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> java </tag>
+        
+          <tag> mybatis </tag>
+        
+          <tag> cache </tag>
         
       </tags>
       <tags></tags>
@@ -583,6 +681,27 @@
     </entry>
   
     <entry>
+      <title><![CDATA[MyBatis批量新增]]></title>
+      <url>/java/mybatis/2017/03/31/MyBatis%E6%89%B9%E9%87%8F%E6%96%B0%E5%A2%9E/</url>
+      <content type="text"><![CDATA[  通过循环 values 语句实现批量新增数据&lt;insert id="saveTimetables"&gt; INSERT INTO pt_timetable (  id,  lessonNo ) VALUES  &lt;foreach collection="list" item="item" separator=","&gt;   (    #{item.id},              #{item.lessonNo}          )  &lt;/foreach&gt;&lt;/insert&gt;]]></content>
+      <categories>
+        
+          <category> java </category>
+        
+          <category> mybatis </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> java </tag>
+        
+          <tag> mybatis </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
       <title><![CDATA[SpringMVC的CacheManager配置]]></title>
       <url>/java/springmvc/2017/03/27/SpringMVC%E7%9A%84CacheManager%E9%85%8D%E7%BD%AE/</url>
       <content type="text"><![CDATA[  Spring 3.1 后提供一个新特性 基于注释驱动的缓存可以通过在方法上加入注解，从而缓存该方法返回的数据编写配置文件&lt;!-- 使用缺省名称为 cacheManager 的缓存管理器，其缺省实现为 org.springframework.cache.support.SimpleCacheManager --&gt;&lt;cache:annotation-driven/&gt;&lt;!-- 配置 cacheManager --&gt;&lt;bean id="cacheManager" class="org.springframework.cache.support.SimpleCacheManager"&gt;&lt;!-- 配置缓存集合 --&gt;&lt;property name="caches"&gt;&lt;set&gt;&lt;!-- 缺省方案 --&gt;&lt;bean class="org.springframework.cache.concurrent.ConcurrentMapCacheFactoryBean" p:name="default"/&gt;&lt;!-- 自定义方案 --&gt;&lt;bean class="org.springframework.cache.concurrent.ConcurrentMapCacheFactoryBean" p:name="dictionaryCache"/&gt;&lt;/set&gt;&lt;/property&gt;&lt;/bean&gt;在需要缓存的方法上加缓存注释，并指定自定义名称@Cacheable(value = "dictionaryCache")public List&lt;DictionaryDTO&gt; getDictionaries(String className) {return dictionaryDao.getDictionaries(className);}清空缓存  allEntries = true 表示清空所有缓存  key = "#dictionary.getName()" 表示只清空方法参数中带有指定key的缓存@CacheEvict(value = "departmentService", allEntries = true)public ResponseData removeDictionary(Long id) {...}@CacheEvict(value = "departmentService", key = "#dictionary.getName()")public void addDictionary(DictionaryDTO dictionary) {...}]]></content>
@@ -700,6 +819,31 @@
     </entry>
   
     <entry>
+      <title><![CDATA[MyBatis防止死循环]]></title>
+      <url>/java/mybatis/error/2017/02/18/MyBatis%E9%98%B2%E6%AD%A2%E6%AD%BB%E5%BE%AA%E7%8E%AF/</url>
+      <content type="text"><![CDATA[  mybatis的mapper文件中如果存在错误，会导致项目启动时加载mapper进入死循环，却不输出错误重新buildSqlSessionFactory()  重写org.mybatis.spring.SqlSessionFactoryBean的buildSqlSessionFactory()方法public class FixedSqlSessionFactory extends SqlSessionFactoryBean {    @Override    protected SqlSessionFactory buildSqlSessionFactory() throws IOException {        try {            return super.buildSqlSessionFactory();        }catch (Exception e){            e.printStackTrace();        }finally {            ErrorContext.instance().reset();        }        return null;    }}修改配置文件中的引用为上述包装类&lt;bean id="sqlSessionFactory" class="com.innovaee.hts.sop.web.FixedSqlSessionFactory"&gt;    &lt;property name="dataSource" ref="dataSource"/&gt;    ...&lt;/bean&gt;启动项目，则会在控制台输出具体错误信息]]></content>
+      <categories>
+        
+          <category> java </category>
+        
+          <category> mybatis </category>
+        
+          <category> error </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> java </tag>
+        
+          <tag> mybatis </tag>
+        
+          <tag> error </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
       <title><![CDATA[Java支付宝扫码支付[旧]]]></title>
       <url>/java/pay/2017/02/14/Java%E6%94%AF%E4%BB%98%E5%AE%9D%E6%89%AB%E7%A0%81%E6%94%AF%E4%BB%98-%E6%97%A7/</url>
       <content type="text"><![CDATA[  在实际开发过程中，首先采用当面付模式进行开发，但没有成功，个人认为当面付更适合线下模式之后改用即时到账模式才成功接入支付宝扫码支付功能以下内容是基于即时到账模式开发要使用支付宝即时到账接口，首先需要签约即时到账产品， 申请地址审核进度通常需要1个工作日，但实际几小时即可之后需要获取和设置如下关键信息pid:2088621150311111          合作伙伴身份IDkey:zrqyf6dfli7dvji4mmi4sw1111111111      MD5密钥notify_url:http://127.0.0.1:8080/sop/order/notify/ali    异步通知回调地址return_url:http://127.0.0.1:8080/sop/order/notify/ali/return  同步通知回调地址官网支付宝-开放平台模式  当面付 ，消费者扫描商户二维码完成支付。并不适用于Web网页端扫码支付  即时到账 ，用户在线向开发者的支付宝账号支付资金。Web网页端扫码支付首选开发步骤  下载支付宝提供的即时到账 DEMO          按下图所示将alipay下所有文件复制到项目开发目录，支付宝已将接口的调用、请求、验签等操作完成，我们只需要包装好数据后调用即可        打开AlipayConfig.java，将其中关键信息替换成之前准备好的内容          除了下述四个信息，其他内容均不需要修改      ** partner**即pid，key即md5密钥，都可以在 mapi网关产品密钥 获取      notify_url是支付宝异步通知链接，由支付宝主动调用，一旦用户完成支付，即调用该地址      不可添加自定义参数      必须保证外网可正常访问      使用POST方式发送/接收数据      没有时间限制      如果是https，则必须安装ssl证书，并且需要正规的证书机构签发，自签名的无法识别      return_url，是支付宝同步跳转通知，用户完成支付后，在支付页面完成跳转      不可添加自定义参数      必须保证外网可正常访问，但可在本机测试      使用GET方式发送/接收数据      一分钟超时      // 合作身份者ID，签约账号，以2088开头由16位纯数字组成的字符串，查看地址：https://b.alipay.com/order/pidAndKey.htmpublic static String partner = SOPConstants.ALI_PAY_PARTNER_ID; // MD5密钥，安全检验码，由数字和字母组成的32位字符串，查看地址：https://b.alipay.com/order/pidAndKey.htmpublic static String key = SOPConstants.ALI_PAY_MD5_KEY;// 服务器异步通知页面路径  需http://格式的完整路径，不能加?id=123这类自定义参数，必须外网可以正常访问public static String notify_url = SOPConstants.ALI_PAY_NOTIFY_URL;// 页面跳转同步通知页面路径 需http://格式的完整路径，不能加?id=123这类自定义参数，必须外网可以正常访问public static String return_url = SOPConstants.ALI_PAY_RETURN_URL;  在订单支付页面创建一个空的div，用于接收调用即时到账接口返回的表单数据$.ts.doAction("/api/order/pay/ali", {    orderId: orderId}, function () {    // 提交表单内容    $orderSubmitPanel.find("#returnAli").append(this.data);   // 打开订单状态轮询页面，确保支付完成后，支付页面能自动跳转    $.ts.openModalWindow("/api/order/pay/ali/tip/" + orderId, 350, 300);}, "", "", "");@RequestMapping(value = "/ali", method = RequestMethod.POST)@ResponseBodypublic ResponseData ali(HttpServletRequest request, @RequestParam("orderId") final String orderId) {    SimpleActionHandler actionHandler = new SimpleActionHandler(request) {        @Override        protected void doHandle(ResponseData responseData) throws Exception {            responseData.setData(orderPayService.aliPay(IdEncoder.decodeId(orderId)));        }    };    return actionHandler.handle();}  按照 请求参数说明 包装请求参数，并建立请求          建立请求的操作支付宝已在AlipaySubmit.java中实现，只需要调用其中buildRequest()方法并传入参数即可      public String aliPay(Long orderId) {    // 获取订单信息    OrderDTO order = orderManageService.getOrder(orderId);    // 包装请求参数    Map&lt;String, String&gt; params = Maps.newHashMap();    // 调用接口    params.put("service", AlipayConfig.service);    // 签约账号id    params.put("partner", AlipayConfig.partner);    // 收款支付账号，默认与签约账号相同    params.put("seller_id", AlipayConfig.seller_id);    // 编码格式，支付GBK和UTF-8    params.put("_input_charset", AlipayConfig.input_charset);    // 支付类型    params.put("payment_type", AlipayConfig.payment_type);    // 异步通知回调地址    params.put("notify_url", AlipayConfig.notify_url);    // 同步通知跳转地址    params.put("return_url", AlipayConfig.return_url);    // 防钓鱼时间戳    params.put("anti_phishing_key", AlipayConfig.anti_phishing_key);    // 客户端IP    params.put("exter_invoke_ip", super.getClientIP());    // 订单号    params.put("out_trade_no", order.getCode());    // 标题    params.put("subject", "轻实训-" + order.getName());    // 金额    params.put("total_fee", String.valueOf(order.getPrice()));    // 建立请求    return AlipaySubmit.buildRequest(params, "get", "确认");}  由于调用即时到账接口返回的表单数据会自动提交，而接收表单数据的div是在订单提交页面，因此按照表单提交默认方式，会导致订单提交页面被替换成支付宝扫码页面  所以需要修改AlipaySubmit.java中的buildRequest()方法，在其拼接的表单中加入target=“_blank”，让表单提交时在新页面打开public static String buildRequest(Map&lt;String, String&gt; sParaTemp, String strMethod, String strButtonName) {    //待请求参数数组    Map&lt;String, String&gt; sPara = buildRequestPara(sParaTemp);    List&lt;String&gt; keys = new ArrayList&lt;String&gt;(sPara.keySet());    StringBuffer sbHtml = new StringBuffer();    sbHtml.append("&lt;form id=\"alipaysubmit\" name=\"alipaysubmit\" action=\"" + ALIPAY_GATEWAY_NEW                  + "_input_charset=" + AlipayConfig.input_charset + "\" method=\"" + strMethod                  + "\" target=\"_blank\"&gt;");    for (int i = 0; i &lt; keys.size(); i++) {        String name = (String) keys.get(i);        String value = (String) sPara.get(name);        sbHtml.append("&lt;input type=\"hidden\" name=\"" + name + "\" value=\"" + value + "\"/&gt;");    }    //submit按钮控件请不要含有name属性    sbHtml.append("&lt;input type=\"submit\" value=\"" + strButtonName + "\" style=\"display:none;\"&gt;&lt;/form&gt;");    sbHtml.append("&lt;script&gt;document.forms['alipaysubmit'].submit();&lt;/script&gt;");    return sbHtml.toString();}  用户通过支付宝扫描二维码完成支付后，支付宝会主动调用notify_url进行回执          由于回执时并没有携带用户信息，所以如果使用了诸如shiro等安全框架的，需要给予该回执地址一个访问许可，否则会被安全框架屏蔽      @RequestMapping(value = "/ali", method = RequestMethod.POST)@ResponseBodypublic String aliNotify(HttpServletRequest request) {    return orderPayService.aliNotify(request);}  接收并处理支付回执后，必须通知支付宝回执接收成功，否则支付宝会认为回执发送失败，并发送数次通知  支付宝发送异步通知后，如果没有获取到成功回执（返回success），则会按一定规律重发（4m,10m,10m,1h,2h,6h,15h）  接收支付宝的回执信息时，必须进行验签，改操作支付宝已实现，我们只需要调用AlipayNotify.java中的verify()方法即可  验签成功后需要判断操作状态，从回执参数中获取trade_status，参数值为TRADE_SUCCESS即为支付成功  还有一个订单状态是TRADE_FINISHED，该状态表示订单已完成，即超过三个月的退款期限，一旦订单到达这个状态，支付宝会再次调用notify_url进行回执，若业务系统没有退款流程，则无需处理该状态public String aliNotify(HttpServletRequest request) {    // 订单号    String orderCode = request.getParameter("out_trade_no");    // 交易状态    String tradeStatus = request.getParameter("trade_status");    // 验签    if (AlipayNotify.verify(getNotifyData(request))) {        // 交易成功        if (tradeStatus.equals("TRADE_SUCCESS")) {            // 更新订单信息            updateOrderInfo(orderCode, OrderPay.aliPay.getCode());        }        return "success";    } else {        return "fail";    }}  处理回执内容，用于验签private Map&lt;String, String&gt; getNotifyData(HttpServletRequest request, String method) throws Exception {    // 获取回执内容    Map requestParams = request.getParameterMap();    // 过滤回执内容    Map&lt;String, String&gt; params = Maps.newHashMap();    for (Iterator iter = requestParams.keySet().iterator(); iter.hasNext(); ) {        String name = (String) iter.next();        String[] values = (String[]) requestParams.get(name);        String valueStr = "";        for (int i = 0; i &lt; values.length; i++) {            valueStr = (i == values.length - 1) ? valueStr + values[i] : valueStr + values[i] + ",";        }        if (method.equals("notify")) {            params.put(name, valueStr);        } else {            params.put(name, new String(valueStr.getBytes("ISO-8859-1"), "utf-8"));        }    }    return params;}  用户通过支付宝扫描二维码完成支付后，在新打开的支付宝窗口会执行return_url进行跳转          由于跳转时并没有携带用户信息，所以如果使用了诸如shiro等安全框架的，需要给予该跳转地址一个访问许可，否则会被安全框架屏蔽      public String aliReturn(HttpServletResponse response, HttpServletRequest request) throws Exception {    orderPayService.aliReturn(response, request);           // 跳转地址会通过输出流的方式关闭新窗口，所以无需返回任何内容    return null;}  接收跳转通知时，同样需要验签，以确保内容的安全性  为防止网络等不可预测原因导致异步回执没能成功接收，所以在接收跳转通知并验签通过以及状态判断成功后，同样需要对订单状态进行更新  如果用户完成支付后立即关闭页面，会导致同步跳转通知无法执行，所以不能完全依赖该通知确认订单状态  如果用户在支付页面扫码生成预下单订单，但并未直接付款，而是前往支付宝订单页重新付款，即使网页端支付页面未关闭，也无法执行该同步跳转通知  通过同步跳转通知更新订单状态，只是一种辅助措施，主要手段还是通过接受异步回执来处理订单状态  由于支付宝的扫码页面是在新窗口打开，在支付完成后并没有存在的必要，即可以通过输出流的方式关闭该窗口public void aliReturn(HttpServletResponse response, HttpServletRequest request) throws IOException {    // 订单号    String orderCode = request.getParameter("out_trade_no");    // 交易状态    String tradeStatus = request.getParameter("trade_status");    // 验签    if (AlipayNotify.verify(getNotifyData(request))) {        if (tradeStatus.equals("TRADE_FINISHED") || tradeStatus.equals("TRADE_SUCCESS")) {            // 更新订单信息            updateOrderInfo(orderCode, OrderPay.aliPay.getCode());            // 页面跳转            response.setContentType("text/html;charset=gb2312");     // 通过输出流关闭窗口            PrintWriter writer = response.getWriter();            writer.println("&lt;html&gt;&lt;head&gt;&lt;title&gt; CLOSE &lt;/title&gt;&lt;/head&gt;");            writer.println("&lt;body&gt;");            writer.println("&lt;script type=\"text/javascript\"&gt;window.close();&lt;/script&gt;");            writer.println("&lt;/body&gt;&lt;/html&gt;");        }    }}  轮询订单状态，实现支付完成后页面自动跳转          由于支付回执是异步的，所以即使捕获到异步回执也无法实现支付页面的自动跳转      所以需要在支付页面打开时设置一个ajax轮询订单状态，一旦订单状态更新，则进行页面跳转      // 页面关闭$(“.modal-header button.close:last”).click(function () {    // 停止轮询    clearInterval(checkTimer);});// 轮询订单状态checkTimer = setInterval(function () {    // 窗口是否打开    if ($(“.order-pay-panel”).length &lt;= 0) {        clearInterval(checkTimer);    }    // 获取订单状态    $.ts.doAction(“/api/order/review/check/“, {        orderId: orderId    }, function () {        // 订单已支付        if (!this.data) {            $.ts.closeWindow();            g_index.loadMainContentWithState(“/order/manage”);        $.ts.toastr.success(“订单已支付成功！”);        }    }, “”, “”, “”);}, 3000);]]></content>
@@ -736,6 +880,27 @@
           <tag> java </tag>
         
           <tag> wechatpay </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[MyBatis新增返回id]]></title>
+      <url>/java/mybatis/2017/02/08/MyBatis%E6%96%B0%E5%A2%9E%E8%BF%94%E5%9B%9Eid/</url>
+      <content type="text"><![CDATA[  新增一条数据到数据库，并返回该数据的id&lt;insert id="saveSendMessage" keyColumn="id" keyProperty="id" useGeneratedKeys="true" parameterType="SendMessageDTO"&gt;	...&lt;/insert&gt;]]></content>
+      <categories>
+        
+          <category> java </category>
+        
+          <category> mybatis </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> java </tag>
+        
+          <tag> mybatis </tag>
         
       </tags>
       <tags></tags>
