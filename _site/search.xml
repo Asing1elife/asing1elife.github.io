@@ -75,6 +75,71 @@
     </entry>
   
     <entry>
+      <title><![CDATA[Hibernate 双向关联转换 JSON 防止死循环]]></title>
+      <url>/java/hibernate/2018/05/17/Hibernate-%E5%8F%8C%E5%90%91%E5%85%B3%E8%81%94%E8%BD%AC%E6%8D%A2-JSON-%E9%98%B2%E6%AD%A2%E6%AD%BB%E5%BE%AA%E7%8E%AF/</url>
+      <content type="text"><![CDATA[  Hibernate 中经常存在双向关联的情况，此处将数据转换为 JSON 格式则可能导致死循环获取数据时只需要单向关联  这种情况下父类需要子类数据，而子类不需要父类数据@Entity@Table(name = "ht_feedback_template")public class FeedbackTemplate extends BaseModel {    @OneToMany(mappedBy = "feedbackTemplate", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)    @OrderBy("indexNo asc")    private Set&lt;FeedbackQuestion&gt; questions;    public Set&lt;FeedbackQuestion&gt; getQuestions() {        return questions;    }    public void setQuestions(Set&lt;FeedbackQuestion&gt; questions) {        this.questions = questions;    }}  在子类中对父类的引用字段加上 @JsonIgnore 即可@Entity@Table(name = "ht_feedback_question")public class FeedbackQuestion extends BaseModel {    @ManyToOne    @JsonIgnore    private FeedbackTemplate feedbackTemplate;    public FeedbackTemplate getFeedbackTemplate() {        return feedbackTemplate;    }    public void setFeedbackTemplate(FeedbackTemplate feedbackTemplate) {        this.feedbackTemplate = feedbackTemplate;    }}获取数据时确实需要双向关联  在父类对子类的引用字段加上 @JsonManagedReference@Entity@Table(name = "ht_feedback_template")public class FeedbackTemplate extends BaseModel {    @OneToMany(mappedBy = "feedbackTemplate", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)    @OrderBy("indexNo asc")  @JsonManagedReference    private Set&lt;FeedbackQuestion&gt; questions;    public Set&lt;FeedbackQuestion&gt; getQuestions() {        return questions;    }    public void setQuestions(Set&lt;FeedbackQuestion&gt; questions) {        this.questions = questions;    }}  在子类中对父类的引用字段加上 @JsonBackReference 即可@Entity@Table(name = "ht_feedback_question")public class FeedbackQuestion extends BaseModel {    @ManyToOne  @JsonBackReference    private FeedbackTemplate feedbackTemplate;    public FeedbackTemplate getFeedbackTemplate() {        return feedbackTemplate;    }    public void setFeedbackTemplate(FeedbackTemplate feedbackTemplate) {        this.feedbackTemplate = feedbackTemplate;    }}]]></content>
+      <categories>
+        
+          <category> java </category>
+        
+          <category> hibernate </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> java </tag>
+        
+          <tag> hibernate </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[Hibernate Criteria 模糊查询]]></title>
+      <url>/java/hibernate/2018/05/14/Hibernate-Criteria-%E6%A8%A1%E7%B3%8A%E6%9F%A5%E8%AF%A2/</url>
+      <content type="text"><![CDATA[  使用 Hibernate 的 Criteria 可以快速进行模糊查询实现方式  进行模糊查询时需要指定匹配模式，否则会出现无搜索结果的情况，例如 MatchMode.ANYWHERE  如果匹配的条件设置到类的属性，需要使用 createAlias() 指定别名，否则会抛出无法找到 user.name 属性Criterion userCri = Restrictions.like("user.name", username, MatchMode.ANYWHERE);Criteria criteria = getSession().createCriteria(trainingCri, userCri);criteria.createAlias("user", "user", JoinType.LEFT_OUTER_JOIN);criteria.list();]]></content>
+      <categories>
+        
+          <category> java </category>
+        
+          <category> hibernate </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> java </tag>
+        
+          <tag> hibernate </tag>
+        
+          <tag> criteria </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[Hibernate 执行 SQL 查询]]></title>
+      <url>/java/hibernate/2018/05/12/Hibernate-%E6%89%A7%E8%A1%8C-SQL-%E6%9F%A5%E8%AF%A2/</url>
+      <content type="text"><![CDATA[  Hibernate 支持执行原生 SQL 查询实现方式  通过 Session 对象可以使用 createSQLQuery() 方法，传入原生 SQL 语句即可  参数格式为 paramName = :paramCodepublic List&lt;Dictionary&gt; getDictionaries(String categoryCode) {    SQLQuery sqlQuery = getSession().createSQLQuery("SELECT * FROM sys_dictionary WHERE CategoryCode = :categoryCode");    sqlQuery.addEntity(Dictionary.class);    sqlQuery.setParameter("categoryCode", categoryCode);    return sqlQuery.list();}]]></content>
+      <categories>
+        
+          <category> java </category>
+        
+          <category> hibernate </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> java </tag>
+        
+          <tag> hibernate </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
       <title><![CDATA[SpringBoot通过jar包启动时MyBatis无法定位实体类]]></title>
       <url>/java/springboot/mybatis/error/2018/05/09/SpringBoot%E9%80%9A%E8%BF%87jar%E5%8C%85%E5%90%AF%E5%8A%A8%E6%97%B6MyBatis%E6%97%A0%E6%B3%95%E5%AE%9A%E4%BD%8D%E5%AE%9E%E4%BD%93%E7%B1%BB/</url>
       <content type="text"><![CDATA[  SpringBoot 通过 jar 包启动项目时，MyBatis 无法定位实体类，但通过 IDE 启动时没问题出现问题的原因  通过 jar 启动时，MyBatis 内部获得的路径不同，会导致无法根据配置文件指定的路径扫描到实体类  项目不是通过自动注入方式配置 MyBatis ，而是通过手动注入解决办法  在手动注入并指定实体类扫描路径之前，将 Spring 已经实例化的 VFS 提前指定@Bean@ConditionalOnMissingBean(SqlSessionFactoryBean.class)public SqlSessionFactory sqlSessionFactory(@Qualifier("druidDataSource") DataSource dataSource) throws Exception {    SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();    sqlSessionFactoryBean.setDataSource(dataSource);    sqlSessionFactoryBean.setMapperLocations(new PathMatchingResourcePatternResolver().getResources(mapperLocations));  // 指定VFS确保可以扫描到实体类    sqlSessionFactoryBean.setVfs(SpringBootVFS.class);    sqlSessionFactoryBean.setTypeAliasesPackage(typeAliasesPackage);    return sqlSessionFactoryBean.getObject();}]]></content>
@@ -400,6 +465,48 @@
     </entry>
   
     <entry>
+      <title><![CDATA[Hibernate防止setter()方法更新数据库]]></title>
+      <url>/java/hibernate/2018/02/05/Hibernate%E9%98%B2%E6%AD%A2setter()%E6%96%B9%E6%B3%95%E6%9B%B4%E6%96%B0%E6%95%B0%E6%8D%AE%E5%BA%93/</url>
+      <content type="text"><![CDATA[  Hibernate从数据库获取到对象后直接调用其setter()方法对内部数据做更改，可能会导致直接将数据更新至数据库产生问题的原因  Hibernate分为三种基本状态：游离态，自由态，持久态  从数据库中获取到对象属于持久态，直接进行操作会导致处于Session中的数据发生改变，从而触发数据库更新解决办法  获取到当前的Session对象，将该对象从Session中清除super.getEntityDao().getSession().evict(userWork);]]></content>
+      <categories>
+        
+          <category> java </category>
+        
+          <category> hibernate </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> java </tag>
+        
+          <tag> hibernate </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[Hibernate @OneToOne 自动新增和删除]]></title>
+      <url>/java/hibernate/2018/01/12/Hibernate-@OneToOne-%E8%87%AA%E5%8A%A8%E6%96%B0%E5%A2%9E%E5%92%8C%E5%88%A0%E9%99%A4/</url>
+      <content type="text"><![CDATA[  Hibernate创建一对一关系时两张表主表保持一致则可以实现自动新增和删除主表配置  主表对应类中需要通过@OneToOne来表示其与从表的关系@Entity@Table(name = "sys_user")public class User {    @Id    @GeneratedValue(strategy = IDENTITY)    private Long id = new Long(0);    @OneToOne(cascade = {CascadeType.ALL}, mappedBy = "user", fetch = FetchType.LAZY)    @JsonIgnore    private UserAccount userAccount;    public UserAccount getUserAccount() {        return userAccount;    }    public void setUserAccount(UserAccount userAccount) {        this.userAccount = userAccount;    }}从表配置  从表中的id需要通过@GeneratedValue和@GenericGenerator来指明该值从主表中获取  从表中同时需要通过@OneToOne来表示其与主表的关系          在维护与主表关系中需要通过@PrimaryKeyJoinColumn来表示两个表是主键关联，不存在多余外键      @Entity@Table(name = "sys_user_account")public class UserAccount {    @Id    @GeneratedValue(generator = "generator")    @GenericGenerator(name = "generator", strategy = "foreign", parameters = @Parameter(name = "property", value = "user"))    private Long id = 0L;    @OneToOne(fetch = FetchType.LAZY)    @PrimaryKeyJoinColumn    private User user;    public UserAccount() {    }    public UserAccount(User user) {        this.user = user;    }    public Long getId() {        return id;    }    public void setId(Long id) {        this.id = id;    }    public User getUser() {        return user;    }    public void setUser(User user) {        this.user = user;    }}保存操作  主表在执行保存操作时，需要将从表注入其中，同时将主表的引入也注入到从表，才能实现两个对象的双向关联  当主表的id自增成功时，由于从表保有对主表的引用，所以也可以得到主表的idpublic void save(User user) {    if (user.isNew()) {        user.setUserAccount(new UserAccount(user));        super.save(user);    } else {        super.save(userModel);    }}]]></content>
+      <categories>
+        
+          <category> java </category>
+        
+          <category> hibernate </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> java </tag>
+        
+          <tag> hibernate </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
       <title><![CDATA[SpringBoot从数据库加载配置信息]]></title>
       <url>/java/springboot/hibernate/2017/12/31/SpringBoot%E4%BB%8E%E6%95%B0%E6%8D%AE%E5%BA%93%E5%8A%A0%E8%BD%BD%E9%85%8D%E7%BD%AE%E4%BF%A1%E6%81%AF/</url>
       <content type="text"><![CDATA[  Spring Boot 通过@Value注解可实现获取配置文件中的数据，而配置文件中的数据可以通过修改MutablePropertySources从数据库注入该示例基于Hibernate实现实体类  根据Hibernate的配置，实体类对应数据库中的表即可@Entity@Table(name = "sys_config")@Inheritance(strategy = InheritanceType.SINGLE_TABLE)public class Config implements Serializable {    @Id    private Long id;    @Column    private String code;    @Column    private String value;    @Column    private String name;    @Column    private String description;  ...}服务类  服务类用于从数据库中获取列表信息@Servicepublic class SystemConfigService extends SimpleHibernateService&lt;Config, Long&gt; {   ...}配置类  该配置类会在系统启动时自动加载  根据内部逻辑会将从数据库取出的列表信息注入到MutablePropertySources属性集合中  动态注入的属性集合无需有对应的 .properties 文件存在@Configurationpublic class SystemConfig {    @Autowired    private ConfigurableEnvironment environment;    @Autowired    private SystemConfigService service;    @PostConstruct    public void initDatabasePropertySourceUsage() {        // 获取系统属性集合        MutablePropertySources propertySources = environment.getPropertySources();        try {            // 从数据库获取自定义变量列表            Map&lt;String, String&gt; collect = service.getAll().stream().collect(Collectors.toMap(Config::getCode, Config::getValue));            // 将转换后的列表加入属性中            Properties properties = new Properties();            properties.putAll(collect);            // 将属性转换为属性集合，并指定名称            PropertiesPropertySource constants = new PropertiesPropertySource("system-config", properties);            // 定义寻找属性的正则，该正则为系统默认属性集合的前缀            Pattern p = Pattern.compile("^applicationConfig.*");            // 接收系统默认属性集合的名称            String name = null;            // 标识是否找到系统默认属性集合            boolean flag = false;            // 遍历属性集合            for (PropertySource&lt;?&gt; source : propertySources) {                // 正则匹配                if (p.matcher(source.getName()).matches()) {                    // 接收名称                    name = source.getName();                    // 变更标识                    flag = true;                    break;                }            }            if (flag) {                // 找到则将自定义属性添加到该属性之前                propertySources.addBefore(name, constants);            } else {                // 没找到默认添加到第一位                propertySources.addFirst(constants);            }        } catch (Exception e) {            throw new RuntimeException(e);        }    }}工具类  由于Spring Boot不支持静态变量的自动注入，所以需要使用一个非静态的setter方法将通过@Value注解获取到的属性信息赋值给对应静态变量  @DependsOn({"systemConfig"}) 的意思是说 Constants 依赖于 SystemConfig ，所以需要确保 SystemConfig 在 Constants 之前加载@Configuration@DependsOn({"systemConfig"})public class Constants {    // 资源服务器地址    public static String RESOURCE_SERVER_URL;    @Value("${resource.server.url}")    public void setResourceServerUrl(String resourceServerUrl) {        RESOURCE_SERVER_URL = resourceServerUrl;    }}]]></content>
@@ -544,6 +651,27 @@
           <tag> mybatis </tag>
         
           <tag> cache </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[Hibernate项目搭建]]></title>
+      <url>/java/hibernate/2017/09/21/Hibernate%E9%A1%B9%E7%9B%AE%E6%90%AD%E5%BB%BA/</url>
+      <content type="text"><![CDATA[  Hibernate 作为一个全自动的持久层[ORM]框架，在项目中引入需要以下步骤基础步骤  进入 Hibernate官网 下载 Hibernate 源码包  解压源码包后进入下图中的目录，将目录中的所有 jar 包复制到项目的 lib 目录中  在项目 src 目录下新建 hibernate.cfg.xml 文件          若实体类使用注解，则需要在最后加入对实体类的映射      若实体类使用配置文件，则需要在最后引入对应配置文件      &lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN"  "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd"&gt;&lt;hibernate-configuration&gt;&lt;session-factory&gt;  &lt;!-- 数据库配置信息 --&gt;  &lt;property name="hibernate.connection.driver_class"&gt;com.mysql.jdbc.Driver&lt;/property&gt;  &lt;property name="hibernate.connection.url"&gt;jdbc:mysql:///asl_dev&lt;/property&gt;  &lt;property name="hibernate.connection.username"&gt;root&lt;/property&gt;  &lt;property name="hibernate.connection.password"&gt;root&lt;/property&gt;  &lt;!-- Hibernate 方言 --&gt;  &lt;property name="hibernate.dialect"&gt;org.hibernate.dialect.MySQLDialect&lt;/property&gt;  &lt;!-- 是否显示 sql --&gt;  &lt;property name="hibernate.show_sql"&gt;true&lt;/property&gt;  &lt;!-- 是否格式化 sql --&gt;  &lt;property name="hibernate.format_sql"&gt;true&lt;/property&gt;    &lt;!-- 注解实体类映射 --&gt;  &lt;mapping class="online.shixun.hpeu.model.GoodsModel"/&gt;  &lt;!-- 配置实体类映射 --&gt;  &lt;mapping resource="com/qingshixun/model/User.hbm.xml"/&gt;&lt;/session-factory&gt;&lt;/hibernate-configuration&gt;制作 Hibernate 工具类  通过该工具类可以便捷的重复调用 Session 对象  但如果涉及到 CUD 操作，则需要另外开启事务，并管理事务的提交或回滚public class HibernateUtil {    private static SessionFactory sessionFactory;    static {        Configuration configuration = new Configuration().configure();        StandardServiceRegistryBuilder ssrb = new StandardServiceRegistryBuilder();        StandardServiceRegistry serviceRegistry = ssrb.applySettings(configuration.getProperties()).build();        sessionFactory = configuration.buildSessionFactory(serviceRegistry);    }    public static Session getSession() {        return sessionFactory.openSession();    }}]]></content>
+      <categories>
+        
+          <category> java </category>
+        
+          <category> hibernate </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> java </tag>
+        
+          <tag> hibernate </tag>
         
       </tags>
       <tags></tags>
@@ -838,6 +966,29 @@
           <tag> mybatis </tag>
         
           <tag> error </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[Hibernate枚举映射策略]]></title>
+      <url>/java/hibernate/2017/02/15/Hibernate%E6%9E%9A%E4%B8%BE%E6%98%A0%E5%B0%84%E7%AD%96%E7%95%A5/</url>
+      <content type="text"><![CDATA[  稍微解释一下Hibernate枚举策略枚举类型映射到数据库的方式  int，即获取枚举的索引值存入数据库，从0开始  String，即获取枚举的name属性存入数据库Hibernate默认把枚举类型的字段当做基本类型(int)的字段来映射  可以通过注解的方式进行控制          @Enumerated(EnumType.ORDINAL)  默认方式，int型      @Enumerated(EnumType.STRING)  String型，会获取枚举的name属性      ]]></content>
+      <categories>
+        
+          <category> java </category>
+        
+          <category> hibernate </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> java </tag>
+        
+          <tag> hibernate </tag>
+        
+          <tag> enum </tag>
         
       </tags>
       <tags></tags>
