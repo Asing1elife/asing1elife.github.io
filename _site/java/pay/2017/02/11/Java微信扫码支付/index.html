@@ -725,7 +725,7 @@ notify_url:http://127.0.0.1:8080/sop/order/notify/wechat支付成功回调地址
     <span class="kd">private</span> <span class="n">String</span> <span class="n">err_code_des</span><span class="o">;</span>
 
     <span class="c1">// 二维码连接，trade_type=NATIVE时返回</span>
-    <span class="kd">private</span> <span class="n">String</span> <span class="n">code_url</span><span class="o">;</span><span class="err"></span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">code_url</span><span class="o">;</span>
 <span class="o">}</span>
 </code></pre></td></tr></tbody></table></div>
 </div>
@@ -1903,7 +1903,7 @@ notify_url:http://127.0.0.1:8080/sop/order/notify/wechat支付成功回调地址
             }
           }
 
-          if ('auto' === 'auto') {
+          if ('auto' === 'manual') {
             input.addEventListener('input', inputEventFunction);
           } else {
             $('.search-icon').click(inputEventFunction);

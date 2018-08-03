@@ -1,5 +1,5 @@
 ---
-title: SpringBoot&IDEA热部署
+title: SpringBoot+IDEA热部署
 date: 2018-04-18
 author: asing1elife
 categories:
