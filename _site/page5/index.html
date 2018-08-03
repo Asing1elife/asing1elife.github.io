@@ -312,7 +312,7 @@
       
       
       <a class="category-list-link" href="/category/#/java">java</a>
-      <span class="category-list-count">55</span>
+      <span class="category-list-count">61</span>
     </i>
     
     <li class="category-list-item">
@@ -439,6 +439,22 @@
       
       
       
+      <a class="category-list-link" href="/category/#/jquery">jquery</a>
+      <span class="category-list-count">2</span>
+    </i>
+    
+    <li class="category-list-item">
+      
+      
+      
+      <a class="category-list-link" href="/category/#/aliyun">aliyun</a>
+      <span class="category-list-count">4</span>
+    </i>
+    
+    <li class="category-list-item">
+      
+      
+      
       <a class="category-list-link" href="/category/#/map">map</a>
       <span class="category-list-count">1</span>
     </i>
@@ -478,6 +494,571 @@
 
 
 <section id="posts" class="posts-expand">
+  
+    
+        
+<article class="post post-type- " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://localhost:4000/java/multithreading/2017/04/21/Java-Thread-join()/">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="asing1elife">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/assets/images/avatar.png">
+    </span>
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="asing1elife's blog">
+    </span> 
+    <header class="post-header">
+         
+        <h1 class="post-title" itemprop="name headline">
+               
+            <a class="post-title-link" href="/java/multithreading/2017/04/21/Java-Thread-join()/" itemprop="url">
+                Java Thread join()
+              </a>  
+        </h1>
+        
+        <div class="post-meta">
+            <span class="post-author">
+                
+                    <span class="post-meta-item-icon">
+                        <i class="fa fa-user-o"></i>
+                    </span>
+                    <span>asing1elife</span>
+                    <span class="post-meta-divider">|</span>
+                
+            </span>
+            <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span> 
+            <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-21T00:00:00+08:00">
+                2017-04-21
+            </time>
+              
+            </span>
+            
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span> 
+            <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>   
+            <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/category/#/java" itemprop="url" rel="index">
+                    <span itemprop="name">java</span>
+            </a>
+            </span>
+              ，    
+            <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/category/#/multithreading" itemprop="url" rel="index">
+                    <span itemprop="name">multithreading</span>
+            </a>
+            </span>
+              
+            </span>
+                    
+        </div>
+    </header>
+    
+    <div class="post-body" itemprop="articleBody">
+            
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <blockquote>
+  <p>join() 是 Thread 提供的一个方法，线程启动后可直接调用<br />
+join() 是等待线程终止</p>
+</blockquote>
+
+
+
+    <!--noindex-->
+    <div class="post-button text-center">
+        <a class="btn" href="/java/multithreading/2017/04/21/Java-Thread-join()/#" rel="contents">
+              阅读全文 &raquo;
+            </a>
+    </div>
+    <!--/noindex-->
+     
+    </div>
+    <div>
+        
+    </div>
+    <div>
+        
+    </div>
+    <div>
+        
+    </div>
+    <footer class="post-footer">
+               
+        <div class="post-eof"></div>
+         
+    </footer>
+    <script src="//cdn.jsdelivr.net/jquery/2.1.3/jquery.min.js"></script>
+    <script>
+    // 彩虹颜色数组
+    var colors = ['#e5e1de', '#72c02c', '#3398dc', '#d6e2ee', '#009', '#4263a3', '#f00', '#e64b3b',
+        '#a10f2b', '#9a69cb', '#6639b6', '#e81c62', '#e57d20', '#fe541e', '#ebc71d', '#29d6e6', '#00bed6', '#18ba9b',
+        '#9c8061', '#585f69'
+    ]
+
+    $(function() {
+        // 为所有标签自动添加由新窗口打开属性
+        $('a[href^="http"]').each(function() {
+            $(this).attr('target', '_blank')
+        })
+
+        // 为所有加粗标签添加颜色
+        $('div.posts-expand strong').each(function() {
+            var $this = $(this)
+
+            $this.css({
+                backgroundColor: colors[getRandom(colors.length)]
+            })
+        })
+    })
+
+    function getRandom(max) {
+        return Math.floor(Math.random() * Math.floor(max))
+    }
+    </script>
+</article>
+  
+    
+        
+<article class="post post-type- " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://localhost:4000/java/multithreading/2017/04/18/Java-Thread-%E7%8A%B6%E6%80%81%E8%BD%AC%E6%8D%A2/">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="asing1elife">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/assets/images/avatar.png">
+    </span>
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="asing1elife's blog">
+    </span> 
+    <header class="post-header">
+         
+        <h1 class="post-title" itemprop="name headline">
+               
+            <a class="post-title-link" href="/java/multithreading/2017/04/18/Java-Thread-%E7%8A%B6%E6%80%81%E8%BD%AC%E6%8D%A2/" itemprop="url">
+                Java Thread 状态转换
+              </a>  
+        </h1>
+        
+        <div class="post-meta">
+            <span class="post-author">
+                
+                    <span class="post-meta-item-icon">
+                        <i class="fa fa-user-o"></i>
+                    </span>
+                    <span>asing1elife</span>
+                    <span class="post-meta-divider">|</span>
+                
+            </span>
+            <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span> 
+            <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-18T00:00:00+08:00">
+                2017-04-18
+            </time>
+              
+            </span>
+            
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span> 
+            <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>   
+            <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/category/#/java" itemprop="url" rel="index">
+                    <span itemprop="name">java</span>
+            </a>
+            </span>
+              ，    
+            <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/category/#/multithreading" itemprop="url" rel="index">
+                    <span itemprop="name">multithreading</span>
+            </a>
+            </span>
+              
+            </span>
+                    
+        </div>
+    </header>
+    
+    <div class="post-body" itemprop="articleBody">
+            
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <blockquote>
+  <p>下图对 Thread 的所有状态进行流程描述</p>
+</blockquote>
+
+
+
+    <!--noindex-->
+    <div class="post-button text-center">
+        <a class="btn" href="/java/multithreading/2017/04/18/Java-Thread-%E7%8A%B6%E6%80%81%E8%BD%AC%E6%8D%A2/#" rel="contents">
+              阅读全文 &raquo;
+            </a>
+    </div>
+    <!--/noindex-->
+     
+    </div>
+    <div>
+        
+    </div>
+    <div>
+        
+    </div>
+    <div>
+        
+    </div>
+    <footer class="post-footer">
+               
+        <div class="post-eof"></div>
+         
+    </footer>
+    <script src="//cdn.jsdelivr.net/jquery/2.1.3/jquery.min.js"></script>
+    <script>
+    // 彩虹颜色数组
+    var colors = ['#e5e1de', '#72c02c', '#3398dc', '#d6e2ee', '#009', '#4263a3', '#f00', '#e64b3b',
+        '#a10f2b', '#9a69cb', '#6639b6', '#e81c62', '#e57d20', '#fe541e', '#ebc71d', '#29d6e6', '#00bed6', '#18ba9b',
+        '#9c8061', '#585f69'
+    ]
+
+    $(function() {
+        // 为所有标签自动添加由新窗口打开属性
+        $('a[href^="http"]').each(function() {
+            $(this).attr('target', '_blank')
+        })
+
+        // 为所有加粗标签添加颜色
+        $('div.posts-expand strong').each(function() {
+            var $this = $(this)
+
+            $this.css({
+                backgroundColor: colors[getRandom(colors.length)]
+            })
+        })
+    })
+
+    function getRandom(max) {
+        return Math.floor(Math.random() * Math.floor(max))
+    }
+    </script>
+</article>
+  
+    
+        
+<article class="post post-type- " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://localhost:4000/java/multithreading/2017/04/17/Java-%E7%BB%A7%E6%89%BF-Thread-%E7%B1%BB/">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="asing1elife">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/assets/images/avatar.png">
+    </span>
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="asing1elife's blog">
+    </span> 
+    <header class="post-header">
+         
+        <h1 class="post-title" itemprop="name headline">
+               
+            <a class="post-title-link" href="/java/multithreading/2017/04/17/Java-%E7%BB%A7%E6%89%BF-Thread-%E7%B1%BB/" itemprop="url">
+                Java 继承 Thread 类
+              </a>  
+        </h1>
+        
+        <div class="post-meta">
+            <span class="post-author">
+                
+                    <span class="post-meta-item-icon">
+                        <i class="fa fa-user-o"></i>
+                    </span>
+                    <span>asing1elife</span>
+                    <span class="post-meta-divider">|</span>
+                
+            </span>
+            <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span> 
+            <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-17T00:00:00+08:00">
+                2017-04-17
+            </time>
+              
+            </span>
+            
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span> 
+            <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>   
+            <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/category/#/java" itemprop="url" rel="index">
+                    <span itemprop="name">java</span>
+            </a>
+            </span>
+              ，    
+            <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/category/#/multithreading" itemprop="url" rel="index">
+                    <span itemprop="name">multithreading</span>
+            </a>
+            </span>
+              
+            </span>
+                    
+        </div>
+    </header>
+    
+    <div class="post-body" itemprop="articleBody">
+            
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <blockquote>
+  <p>如果只是启动一个线程，则可通过继承 Thread 类来实现<br />
+但一般推荐使用 Runnable - <a href="http://asing1elife.com/java/multithreading/2017/04/17/Java-实现-Runnable-接口/">Java 实现 Runnable 接口</a><br />
+Thread 类实际上也是实现了 Runnable 接口</p>
+</blockquote>
+
+
+
+    <!--noindex-->
+    <div class="post-button text-center">
+        <a class="btn" href="/java/multithreading/2017/04/17/Java-%E7%BB%A7%E6%89%BF-Thread-%E7%B1%BB/#" rel="contents">
+              阅读全文 &raquo;
+            </a>
+    </div>
+    <!--/noindex-->
+     
+    </div>
+    <div>
+        
+    </div>
+    <div>
+        
+    </div>
+    <div>
+        
+    </div>
+    <footer class="post-footer">
+               
+        <div class="post-eof"></div>
+         
+    </footer>
+    <script src="//cdn.jsdelivr.net/jquery/2.1.3/jquery.min.js"></script>
+    <script>
+    // 彩虹颜色数组
+    var colors = ['#e5e1de', '#72c02c', '#3398dc', '#d6e2ee', '#009', '#4263a3', '#f00', '#e64b3b',
+        '#a10f2b', '#9a69cb', '#6639b6', '#e81c62', '#e57d20', '#fe541e', '#ebc71d', '#29d6e6', '#00bed6', '#18ba9b',
+        '#9c8061', '#585f69'
+    ]
+
+    $(function() {
+        // 为所有标签自动添加由新窗口打开属性
+        $('a[href^="http"]').each(function() {
+            $(this).attr('target', '_blank')
+        })
+
+        // 为所有加粗标签添加颜色
+        $('div.posts-expand strong').each(function() {
+            var $this = $(this)
+
+            $this.css({
+                backgroundColor: colors[getRandom(colors.length)]
+            })
+        })
+    })
+
+    function getRandom(max) {
+        return Math.floor(Math.random() * Math.floor(max))
+    }
+    </script>
+</article>
+  
+    
+        
+<article class="post post-type- " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://localhost:4000/java/multithreading/2017/04/17/Java-%E5%AE%9E%E7%8E%B0-Runnable-%E6%8E%A5%E5%8F%A3/">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="asing1elife">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/assets/images/avatar.png">
+    </span>
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="asing1elife's blog">
+    </span> 
+    <header class="post-header">
+         
+        <h1 class="post-title" itemprop="name headline">
+               
+            <a class="post-title-link" href="/java/multithreading/2017/04/17/Java-%E5%AE%9E%E7%8E%B0-Runnable-%E6%8E%A5%E5%8F%A3/" itemprop="url">
+                Java 实现 Runnable 接口
+              </a>  
+        </h1>
+        
+        <div class="post-meta">
+            <span class="post-author">
+                
+                    <span class="post-meta-item-icon">
+                        <i class="fa fa-user-o"></i>
+                    </span>
+                    <span>asing1elife</span>
+                    <span class="post-meta-divider">|</span>
+                
+            </span>
+            <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span> 
+            <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-17T00:00:00+08:00">
+                2017-04-17
+            </time>
+              
+            </span>
+            
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span> 
+            <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>   
+            <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/category/#/java" itemprop="url" rel="index">
+                    <span itemprop="name">java</span>
+            </a>
+            </span>
+              ，    
+            <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/category/#/multithreading" itemprop="url" rel="index">
+                    <span itemprop="name">multithreading</span>
+            </a>
+            </span>
+              
+            </span>
+                    
+        </div>
+    </header>
+    
+    <div class="post-body" itemprop="articleBody">
+            
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <blockquote>
+  <p>与 <a href="http://asing1elife.com/java/multithreading/2017/04/17/Java-继承-Thread-类/">Java 继承 Thread 类</a> 一样，实现 Runnable 接口也是启动 Java 线程的一种方式<br />
+通过继承 Thread 类实现多线程的对象，不适合资源共享，而实现 Runnable 接口，则适合资源共享<br />
+不论是通过继承 Thread 类或者实现 Runnable 接口来实现多线程，最终都是通过 Thread 的 API 控制线程</p>
+</blockquote>
+
+
+
+    <!--noindex-->
+    <div class="post-button text-center">
+        <a class="btn" href="/java/multithreading/2017/04/17/Java-%E5%AE%9E%E7%8E%B0-Runnable-%E6%8E%A5%E5%8F%A3/#" rel="contents">
+              阅读全文 &raquo;
+            </a>
+    </div>
+    <!--/noindex-->
+     
+    </div>
+    <div>
+        
+    </div>
+    <div>
+        
+    </div>
+    <div>
+        
+    </div>
+    <footer class="post-footer">
+               
+        <div class="post-eof"></div>
+         
+    </footer>
+    <script src="//cdn.jsdelivr.net/jquery/2.1.3/jquery.min.js"></script>
+    <script>
+    // 彩虹颜色数组
+    var colors = ['#e5e1de', '#72c02c', '#3398dc', '#d6e2ee', '#009', '#4263a3', '#f00', '#e64b3b',
+        '#a10f2b', '#9a69cb', '#6639b6', '#e81c62', '#e57d20', '#fe541e', '#ebc71d', '#29d6e6', '#00bed6', '#18ba9b',
+        '#9c8061', '#585f69'
+    ]
+
+    $(function() {
+        // 为所有标签自动添加由新窗口打开属性
+        $('a[href^="http"]').each(function() {
+            $(this).attr('target', '_blank')
+        })
+
+        // 为所有加粗标签添加颜色
+        $('div.posts-expand strong').each(function() {
+            var $this = $(this)
+
+            $this.css({
+                backgroundColor: colors[getRandom(colors.length)]
+            })
+        })
+    })
+
+    function getRandom(max) {
+        return Math.floor(Math.random() * Math.floor(max))
+    }
+    </script>
+</article>
   
     
         
@@ -1309,581 +1890,6 @@
         
     </div>
     <footer class="post-footer">
-               
-        <div class="post-eof"></div>
-         
-    </footer>
-    <script src="//cdn.jsdelivr.net/jquery/2.1.3/jquery.min.js"></script>
-    <script>
-    // 彩虹颜色数组
-    var colors = ['#e5e1de', '#72c02c', '#3398dc', '#d6e2ee', '#009', '#4263a3', '#f00', '#e64b3b',
-        '#a10f2b', '#9a69cb', '#6639b6', '#e81c62', '#e57d20', '#fe541e', '#ebc71d', '#29d6e6', '#00bed6', '#18ba9b',
-        '#9c8061', '#585f69'
-    ]
-
-    $(function() {
-        // 为所有标签自动添加由新窗口打开属性
-        $('a[href^="http"]').each(function() {
-            $(this).attr('target', '_blank')
-        })
-
-        // 为所有加粗标签添加颜色
-        $('div.posts-expand strong').each(function() {
-            var $this = $(this)
-
-            $this.css({
-                backgroundColor: colors[getRandom(colors.length)]
-            })
-        })
-    })
-
-    function getRandom(max) {
-        return Math.floor(Math.random() * Math.floor(max))
-    }
-    </script>
-</article>
-  
-    
-        
-<article class="post post-type- " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://localhost:4000/java/mybatis/2017/03/22/MyBatis%E7%9A%84settings%E9%85%8D%E7%BD%AE%E8%A1%A8/">
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="asing1elife">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/assets/images/avatar.png">
-    </span>
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="asing1elife's blog">
-    </span> 
-    <header class="post-header">
-         
-        <h1 class="post-title" itemprop="name headline">
-               
-            <a class="post-title-link" href="/java/mybatis/2017/03/22/MyBatis%E7%9A%84settings%E9%85%8D%E7%BD%AE%E8%A1%A8/" itemprop="url">
-                MyBatis的settings配置表
-              </a>  
-        </h1>
-        
-        <div class="post-meta">
-            <span class="post-author">
-                
-                    <span class="post-meta-item-icon">
-                        <i class="fa fa-user-o"></i>
-                    </span>
-                    <span>asing1elife</span>
-                    <span class="post-meta-divider">|</span>
-                
-            </span>
-            <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span> 
-            <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-22T00:00:00+08:00">
-                2017-03-22
-            </time>
-              
-            </span>
-            
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span> 
-            <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>   
-            <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/category/#/java" itemprop="url" rel="index">
-                    <span itemprop="name">java</span>
-            </a>
-            </span>
-              ，    
-            <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/category/#/mybatis" itemprop="url" rel="index">
-                    <span itemprop="name">mybatis</span>
-            </a>
-            </span>
-              
-            </span>
-                    
-        </div>
-    </header>
-    
-    <div class="post-body" itemprop="articleBody">
-            
-  
-  
-
-
-
-
-
-
-
-
-
-
-
-
-  <blockquote>
-  <p><code class="highlighter-rouge">&lt;settings/&gt;</code> 标签是 MyBatis 中的属性配置项，可以改变 MyBatis 的运行时行为</p>
-</blockquote>
-
-
-
-    <!--noindex-->
-    <div class="post-button text-center">
-        <a class="btn" href="/java/mybatis/2017/03/22/MyBatis%E7%9A%84settings%E9%85%8D%E7%BD%AE%E8%A1%A8/#" rel="contents">
-              阅读全文 &raquo;
-            </a>
-    </div>
-    <!--/noindex-->
-     
-    </div>
-    <div>
-        
-    </div>
-    <div>
-        
-    </div>
-    <div>
-        
-    </div>
-    <footer class="post-footer">
-               
-        <div class="post-eof"></div>
-         
-    </footer>
-    <script src="//cdn.jsdelivr.net/jquery/2.1.3/jquery.min.js"></script>
-    <script>
-    // 彩虹颜色数组
-    var colors = ['#e5e1de', '#72c02c', '#3398dc', '#d6e2ee', '#009', '#4263a3', '#f00', '#e64b3b',
-        '#a10f2b', '#9a69cb', '#6639b6', '#e81c62', '#e57d20', '#fe541e', '#ebc71d', '#29d6e6', '#00bed6', '#18ba9b',
-        '#9c8061', '#585f69'
-    ]
-
-    $(function() {
-        // 为所有标签自动添加由新窗口打开属性
-        $('a[href^="http"]').each(function() {
-            $(this).attr('target', '_blank')
-        })
-
-        // 为所有加粗标签添加颜色
-        $('div.posts-expand strong').each(function() {
-            var $this = $(this)
-
-            $this.css({
-                backgroundColor: colors[getRandom(colors.length)]
-            })
-        })
-    })
-
-    function getRandom(max) {
-        return Math.floor(Math.random() * Math.floor(max))
-    }
-    </script>
-</article>
-  
-    
-        
-<article class="post post-type- " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://localhost:4000/java/mybatis/error/2017/02/18/MyBatis%E9%98%B2%E6%AD%A2%E6%AD%BB%E5%BE%AA%E7%8E%AF/">
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="asing1elife">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/assets/images/avatar.png">
-    </span>
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="asing1elife's blog">
-    </span> 
-    <header class="post-header">
-         
-        <h1 class="post-title" itemprop="name headline">
-               
-            <a class="post-title-link" href="/java/mybatis/error/2017/02/18/MyBatis%E9%98%B2%E6%AD%A2%E6%AD%BB%E5%BE%AA%E7%8E%AF/" itemprop="url">
-                MyBatis防止死循环
-              </a>  
-        </h1>
-        
-        <div class="post-meta">
-            <span class="post-author">
-                
-                    <span class="post-meta-item-icon">
-                        <i class="fa fa-user-o"></i>
-                    </span>
-                    <span>asing1elife</span>
-                    <span class="post-meta-divider">|</span>
-                
-            </span>
-            <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span> 
-            <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-02-18T00:00:00+08:00">
-                2017-02-18
-            </time>
-              
-            </span>
-            
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span> 
-            <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>   
-            <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/category/#/java" itemprop="url" rel="index">
-                    <span itemprop="name">java</span>
-            </a>
-            </span>
-              ，    
-            <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/category/#/mybatis" itemprop="url" rel="index">
-                    <span itemprop="name">mybatis</span>
-            </a>
-            </span>
-              ，    
-            <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/category/#/error" itemprop="url" rel="index">
-                    <span itemprop="name">error</span>
-            </a>
-            </span>
-              
-            </span>
-                    
-        </div>
-    </header>
-    
-    <div class="post-body" itemprop="articleBody">
-            
-  
-  
-
-
-
-
-
-
-
-
-
-
-
-
-  <blockquote>
-  <p>mybatis的mapper文件中如果存在错误，会导致项目启动时加载mapper进入死循环，却不输出错误</p>
-</blockquote>
-
-
-
-    <!--noindex-->
-    <div class="post-button text-center">
-        <a class="btn" href="/java/mybatis/error/2017/02/18/MyBatis%E9%98%B2%E6%AD%A2%E6%AD%BB%E5%BE%AA%E7%8E%AF/#" rel="contents">
-              阅读全文 &raquo;
-            </a>
-    </div>
-    <!--/noindex-->
-     
-    </div>
-    <div>
-        
-    </div>
-    <div>
-        
-    </div>
-    <div>
-        
-    </div>
-    <footer class="post-footer">
-               
-        <div class="post-eof"></div>
-         
-    </footer>
-    <script src="//cdn.jsdelivr.net/jquery/2.1.3/jquery.min.js"></script>
-    <script>
-    // 彩虹颜色数组
-    var colors = ['#e5e1de', '#72c02c', '#3398dc', '#d6e2ee', '#009', '#4263a3', '#f00', '#e64b3b',
-        '#a10f2b', '#9a69cb', '#6639b6', '#e81c62', '#e57d20', '#fe541e', '#ebc71d', '#29d6e6', '#00bed6', '#18ba9b',
-        '#9c8061', '#585f69'
-    ]
-
-    $(function() {
-        // 为所有标签自动添加由新窗口打开属性
-        $('a[href^="http"]').each(function() {
-            $(this).attr('target', '_blank')
-        })
-
-        // 为所有加粗标签添加颜色
-        $('div.posts-expand strong').each(function() {
-            var $this = $(this)
-
-            $this.css({
-                backgroundColor: colors[getRandom(colors.length)]
-            })
-        })
-    })
-
-    function getRandom(max) {
-        return Math.floor(Math.random() * Math.floor(max))
-    }
-    </script>
-</article>
-  
-    
-        
-<article class="post post-type- " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://localhost:4000/java/hibernate/2017/02/15/Hibernate%E6%9E%9A%E4%B8%BE%E6%98%A0%E5%B0%84%E7%AD%96%E7%95%A5/">
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="asing1elife">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/assets/images/avatar.png">
-    </span>
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="asing1elife's blog">
-    </span> 
-    <header class="post-header">
-         
-        <h1 class="post-title" itemprop="name headline">
-               
-            <a class="post-title-link" href="/java/hibernate/2017/02/15/Hibernate%E6%9E%9A%E4%B8%BE%E6%98%A0%E5%B0%84%E7%AD%96%E7%95%A5/" itemprop="url">
-                Hibernate枚举映射策略
-              </a>  
-        </h1>
-        
-        <div class="post-meta">
-            <span class="post-author">
-                
-                    <span class="post-meta-item-icon">
-                        <i class="fa fa-user-o"></i>
-                    </span>
-                    <span>asing1elife</span>
-                    <span class="post-meta-divider">|</span>
-                
-            </span>
-            <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span> 
-            <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-02-15T00:00:00+08:00">
-                2017-02-15
-            </time>
-              
-            </span>
-            
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span> 
-            <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>   
-            <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/category/#/java" itemprop="url" rel="index">
-                    <span itemprop="name">java</span>
-            </a>
-            </span>
-              ，    
-            <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/category/#/hibernate" itemprop="url" rel="index">
-                    <span itemprop="name">hibernate</span>
-            </a>
-            </span>
-              
-            </span>
-                    
-        </div>
-    </header>
-    
-    <div class="post-body" itemprop="articleBody">
-            
-  
-  
-
-
-
-
-
-
-
-
-
-
-
-
-  <blockquote>
-  <p>稍微解释一下Hibernate枚举策略</p>
-</blockquote>
-
-
-
-    <!--noindex-->
-    <div class="post-button text-center">
-        <a class="btn" href="/java/hibernate/2017/02/15/Hibernate%E6%9E%9A%E4%B8%BE%E6%98%A0%E5%B0%84%E7%AD%96%E7%95%A5/#" rel="contents">
-              阅读全文 &raquo;
-            </a>
-    </div>
-    <!--/noindex-->
-     
-    </div>
-    <div>
-        
-    </div>
-    <div>
-        
-    </div>
-    <div>
-        
-    </div>
-    <footer class="post-footer">
-               
-        <div class="post-eof"></div>
-         
-    </footer>
-    <script src="//cdn.jsdelivr.net/jquery/2.1.3/jquery.min.js"></script>
-    <script>
-    // 彩虹颜色数组
-    var colors = ['#e5e1de', '#72c02c', '#3398dc', '#d6e2ee', '#009', '#4263a3', '#f00', '#e64b3b',
-        '#a10f2b', '#9a69cb', '#6639b6', '#e81c62', '#e57d20', '#fe541e', '#ebc71d', '#29d6e6', '#00bed6', '#18ba9b',
-        '#9c8061', '#585f69'
-    ]
-
-    $(function() {
-        // 为所有标签自动添加由新窗口打开属性
-        $('a[href^="http"]').each(function() {
-            $(this).attr('target', '_blank')
-        })
-
-        // 为所有加粗标签添加颜色
-        $('div.posts-expand strong').each(function() {
-            var $this = $(this)
-
-            $this.css({
-                backgroundColor: colors[getRandom(colors.length)]
-            })
-        })
-    })
-
-    function getRandom(max) {
-        return Math.floor(Math.random() * Math.floor(max))
-    }
-    </script>
-</article>
-  
-    
-        
-<article class="post post-type- " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://localhost:4000/java/pay/2017/02/14/Java%E6%94%AF%E4%BB%98%E5%AE%9D%E6%89%AB%E7%A0%81%E6%94%AF%E4%BB%98-%E6%97%A7/">
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="asing1elife">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/assets/images/avatar.png">
-    </span>
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="asing1elife's blog">
-    </span> 
-    <header class="post-header">
-         
-        <h1 class="post-title" itemprop="name headline">
-               
-            <a class="post-title-link" href="/java/pay/2017/02/14/Java%E6%94%AF%E4%BB%98%E5%AE%9D%E6%89%AB%E7%A0%81%E6%94%AF%E4%BB%98-%E6%97%A7/" itemprop="url">
-                Java支付宝扫码支付[旧]
-              </a>  
-        </h1>
-        
-        <div class="post-meta">
-            <span class="post-author">
-                
-                    <span class="post-meta-item-icon">
-                        <i class="fa fa-user-o"></i>
-                    </span>
-                    <span>asing1elife</span>
-                    <span class="post-meta-divider">|</span>
-                
-            </span>
-            <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span> 
-            <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-02-14T00:00:00+08:00">
-                2017-02-14
-            </time>
-              
-            </span>
-            
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span> 
-            <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>   
-            <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/category/#/java" itemprop="url" rel="index">
-                    <span itemprop="name">java</span>
-            </a>
-            </span>
-              ，    
-            <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/category/#/pay" itemprop="url" rel="index">
-                    <span itemprop="name">pay</span>
-            </a>
-            </span>
-              
-            </span>
-                    
-        </div>
-    </header>
-    
-    <div class="post-body" itemprop="articleBody">
-            
-  
-  
-
-
-
-
-
-
-
-
-
-
-
-
-  <blockquote>
-  <p>在实际开发过程中，首先采用当面付模式进行开发，但没有成功，个人认为当面付更适合线下模式<br />
-之后改用即时到账模式才成功接入支付宝扫码支付功能<br />
-以下内容是基于即时到账模式开发<br />
-要使用支付宝即时到账接口，首先需要签约即时到账产品， <a href="https://b.alipay.com/order/productDetail.htm?productId=2015110218012942">申请地址</a><br />
-审核进度通常需要1个工作日，但实际几小时即可<br />
-之后需要获取和设置如下关键信息<br />
-pid:2088621150311111          合作伙伴身份ID<br />
-key:zrqyf6dfli7dvji4mmi4sw1111111111      MD5密钥<br />
-notify_url:http://127.0.0.1:8080/sop/order/notify/ali    异步通知回调地址<br />
-return_url:http://127.0.0.1:8080/sop/order/notify/ali/return  同步通知回调地址</p>
-</blockquote>
-
-
-
-    <!--noindex-->
-    <div class="post-button text-center">
-        <a class="btn" href="/java/pay/2017/02/14/Java%E6%94%AF%E4%BB%98%E5%AE%9D%E6%89%AB%E7%A0%81%E6%94%AF%E4%BB%98-%E6%97%A7/#" rel="contents">
-              阅读全文 &raquo;
-            </a>
-    </div>
-    <!--/noindex-->
-     
-    </div>
-    <div>
-        
-    </div>
-    <div>
-        
-    </div>
-    <div>
-        
-    </div>
-    <footer class="post-footer">
                 
     </footer>
     <script src="//cdn.jsdelivr.net/jquery/2.1.3/jquery.min.js"></script>
@@ -1926,7 +1932,7 @@ return_url:http://127.0.0.1:8080/sop/order/notify/ali/return  同步通知回调
 
 
 
-    <a class="extend prev" rel="prev" href="/page4"><i class="fa fa-angle-left"></i></a> <a class="page-number" href="/">1</a> <span class="space">&hellip;</span> <a class="page-number" href="/page4">4</a> <span class="page-number current">5</span> <a class="page-number" href="/page6">6</a> <a class="extend prev" rel="next" href="/page6"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page4"><i class="fa fa-angle-left"></i></a> <a class="page-number" href="/">1</a> <span class="space">&hellip;</span> <a class="page-number" href="/page4">4</a> <span class="page-number current">5</span> <a class="page-number" href="/page6">6</a> <a class="page-number" href="/page7">7</a> <a class="extend prev" rel="next" href="/page6"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1972,7 +1978,7 @@ return_url:http://127.0.0.1:8080/sop/order/notify/ali/return  同步通知回调
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">56</span>
+                <span class="site-state-item-count">62</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -1983,7 +1989,7 @@ return_url:http://127.0.0.1:8080/sop/order/notify/ali/return  同步通知回调
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/">
-                <span class="site-state-item-count">20</span>
+                <span class="site-state-item-count">22</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -1994,7 +2000,7 @@ return_url:http://127.0.0.1:8080/sop/order/notify/ali/return  同步通知回调
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/">
-                <span class="site-state-item-count">36</span>
+                <span class="site-state-item-count">43</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

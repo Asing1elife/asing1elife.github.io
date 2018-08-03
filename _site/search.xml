@@ -352,6 +352,29 @@
     </entry>
   
     <entry>
+      <title><![CDATA[Java 实现阿里云直播推流在线列表查询]]></title>
+      <url>/java/aliyun/2018/04/12/Java-%E5%AE%9E%E7%8E%B0%E9%98%BF%E9%87%8C%E4%BA%91%E7%9B%B4%E6%92%AD%E6%8E%A8%E6%B5%81%E5%9C%A8%E7%BA%BF%E5%88%97%E8%A1%A8%E6%9F%A5%E8%AF%A2/</url>
+      <content type="text"><![CDATA[  阿里云直播推流在线列表可以通过 API 的方式进行查询获取官网查询推流在线列表初始化配置  Constants.ALI_ACCESS_KEY_ID 是阿里云服务密钥 id ，所有服务共用  Constants.ALI_ACCESS_SECRET 是阿里云服务密钥，所有服务共用  将客户端的初始化放置在静态块中可以保证配置只初始化一次private static IAcsClient iAcsClient;static {    // 初始化配置    String regionId = "cn-shanghai";    DefaultProfile profile = DefaultProfile.getProfile(regionId, Constants.ALI_ACCESS_KEY_ID, Constants.ALI_ACCESS_SECRET);    iAcsClient = new DefaultAcsClient(profile);    // 本地调试    // System.setProperty("http.proxyHost", "127.0.0.1");    // System.setProperty("http.proxyPort", "8080");}查询推流在线列表  Constants.ALI_LIVE_PULL_URL 是阿里云直播的推流地址  Constants.ALI_LIVE_APP_NAME 是阿流云直播的应用名称          如果不指定，则会查询出所有的应用的推流列表      只能是单纯的应用名称，和阿里云直播控制台设置的保持一直        获取到推流在线列表后，只需要进行流名称的匹配即可public Boolean checkLiveBegin(String streamName) {    // 查询推流在线列表    DescribeLiveStreamsOnlineListRequest listRequest = new DescribeLiveStreamsOnlineListRequest();    listRequest.setDomainName(Constants.ALI_LIVE_PULL_URL);    listRequest.setAppName(Constants.ALI_LIVE_APP_NAME.replace("/", ""));    try {        DescribeLiveStreamsOnlineListResponse response = iAcsClient.getAcsResponse(listRequest);        // 获取当前推流列表        List&lt;LiveStreamOnlineInfo&gt; onlineInfos = response.getOnlineInfo();        for (LiveStreamOnlineInfo onlineInfo : onlineInfos) {            if (onlineInfo.getStreamName().equals(streamName)) {                return true;            }        }    } catch (ClientException e) {        logger.error("获取拉流信息失败！", e);    }    return false;}]]></content>
+      <categories>
+        
+          <category> java </category>
+        
+          <category> aliyun </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> java </tag>
+        
+          <tag> aliyun </tag>
+        
+          <tag> live </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
       <title><![CDATA[Java支付宝订单查询]]></title>
       <url>/java/pay/2018/04/01/Java-%E6%94%AF%E4%BB%98%E5%AE%9D%E8%AE%A2%E5%8D%95%E6%9F%A5%E8%AF%A2/</url>
       <content type="text"><![CDATA[  电脑网站支付成功后可通过支付宝接口主动查询订单结果前置条件  该方法基于 Java 支付宝扫码支付 (新) 实现调用查询接口进行订单查询public class AliQueryServiceImpl extends AliCoreServiceImpl {    public Boolean getPayResult(Long orderId) {        AlipayTradeQueryRequest queryRequest = new AlipayTradeQueryRequest();        queryRequest.setBizModel(generateOrderInfo(orderId));        AlipayTradeQueryResponse response = null;        try {            response = alipayClient.execute(queryRequest);        } catch (AlipayApiException e) {            logger.error("支付宝查询订单" + orderId + "失败！", e);        }        if (response == null) {            logger.error("支付宝未获取订单" + orderId + "详情！");            return false;        }        if (response.isSuccess()) {            if (response.getTradeStatus().equals(TRADE_STATUS_SUCCESS) || response.getTradeStatus().equals(TRADE_STATUS_FINISHED)) {                // 更新订单状态                updateOrderInfo(response.getOutTradeNo(), OrderPay.aliPay.getCode());                return true;            }            logger.error("支付宝订单" + orderId + "交易失败，交易状态：" + response.getTradeStatus());            return false;        } else {            logger.error("支付宝订单" + orderId + "查询失败！");            return false;        }    }    private AlipayTradeQueryModel generateOrderInfo(Long orderId) {        OrderDTO order = orderManageService.getOrder(orderId);        AlipayTradeQueryModel model = new AlipayTradeQueryModel();        model.setOutTradeNo(order.getCode());        return model;    }}]]></content>
@@ -432,6 +455,85 @@
           <tag> map </tag>
         
           <tag> spring </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[Java 实现阿里云直播]]></title>
+      <url>/java/jquery/aliyun/2018/03/19/Java-%E5%AE%9E%E7%8E%B0%E9%98%BF%E9%87%8C%E4%BA%91%E7%9B%B4%E6%92%AD/</url>
+      <content type="text"><![CDATA[  阿里云播放器直接在线点播视频以及直播技术，此处记录直播实现过程官网阿里云直播-快速入门 准备步骤  创建 阿里云账号  根据 流程 完成实名认证，以确保可以使用阿里云相应服务  在密钥管理页面获取阿里云访问密钥，AccessKeyId 和 AccessKeySecret  开通阿里云直播服务关键点  阿里云直播服务端提供了 一系列 API ，但如果只是单纯的直播[推流和拉流] ，实际不需要使用这些 API推流准备  推流即直播人员进行视频播放的操作，这需要使用推流客户端 第三方推流工具 OBS  在推流工具中需要指定推流地址、流名称、鉴权密钥  如果上述信息阿里云验证合法，既可以开始直播，在阿里云后端可以看到正在直播的流信息拉流准备  拉流即直播观众通过视频播放器在线获取直播信息，播放器使用 阿里云播放器 即可，该播放器目前只是阿里云的点播和直播服务  获取拉流地址后传入播放器，即可开始观看直播Java 开发注意点  在阿里云直播的文档中有提供 Java SDK          目前 SDK 中推荐引入的版本号是 2.3.0 ，但其实所有 API 参照的都是最新版 SDK ，最新的版本号可在 阿里云SDK频道 找到        但如果只是单纯的直播[推流和拉流] ，则不需要进行以上操作  推流的关键点在于 直播鉴权          此处介绍的直播鉴权只是说的 auth_key 的拼接和验证规则      完整的推流和拉流地址并不知这些，需要依旧案例参考      获取推流地址  此处获取的只是推流地址的房间号及其他请求参数  完整的推流地址需要加上阿里云直播中心地址和用户的产品名称          直播中心地址 http://video-center.alivecdn.com      产品名称[支持自定义] /appName/        vhost 用于接收拉流地址，即申请阿里云直播时准备的直播域名  此处使用 Java MD5加密 实现字串加密，加密后长度需要是 32 位  加密串中的 Constants.ALI_LIVE_PRIVATE_KEY  可在阿里云后端的直播鉴权处获取// 获取推流地址public String getPushUri(String roomName, Long endTime) {    return getRoomName(roomName) + "vhost=" + Constants.ALI_LIVE_PULL_URL + "&amp;" + generateAuthKey(roomName, endTime);}// 房间号private String getRoomName(String roomName) {    return roomName + "?";}// 完整验签串private String generateAuthKey(String roomName, Long endTime) {    return "auth_key=" + endTime + generateUuid() + generateEncryptStr(roomName, endTime);}// 唯一标识private String generateUuid() {    String uuid = "0";    String uid = "0";    return "-" + uuid + "-" + uid + "-";}// 验签密钥private String generateEncryptStr(String roomName, Long endTime) {    String uri = Constants.ALI_LIVE_APP_NAME + roomName;    return md5(uri + "-" + endTime + generateUuid() + Constants.ALI_LIVE_PRIVATE_KEY);}获取拉流地址  此处获取的拉流地址是完整的，因为拉流地址是直接获取后传入前端的阿里云播放器中  注意房间名后面加的后缀 .m3u8 用于表示接受的直播视频类型，阿里云官方还提供其他几种类型，可在文档中查看  拉流地址和推流地址最大的区别在于请求地址的不同，拉流是请求自己提供给阿里云的直播域名，而拉流是请求阿里云的直播中心  而且推流时需要指定 vhost 告知阿里云直播域名，但拉流时不需要  获取到拉流地址后可直接参照 Java + jQuery 实现阿里云播放器接口 实现播放器的对接          在播放器的的配置中指明 isLive: true 表名是直播操作      上述笔记中实现的是点播接口，利用的通过 vid 获取 playAuth 的方式，这不适用于直播      直播需要直接指定 source: url 即可      public String getPullUrl(String roomName, Long endTime) {    roomName += ".m3u8";    return "http://" + Constants.ALI_LIVE_PULL_URL + generateUri(roomName) + generateAuthKey(roomName, endTime);}// 获取请求参数private String generateUri(String roomName) {	return Constants.ALI_LIVE_APP_NAME + getRoomName(roomName);}// 房间号private String getRoomName(String roomName) {    return roomName + "?";}// 完整验签串private String generateAuthKey(String roomName, Long endTime) {    return "auth_key=" + endTime + generateUuid() + generateEncryptStr(roomName, endTime);}// 唯一标识private String generateUuid() {    String uuid = "0";    String uid = "0";    return "-" + uuid + "-" + uid + "-";}// 验签密钥private String generateEncryptStr(String roomName, Long endTime) {    String uri = Constants.ALI_LIVE_APP_NAME + roomName;    return md5(uri + "-" + endTime + generateUuid() + Constants.ALI_LIVE_PRIVATE_KEY);}]]></content>
+      <categories>
+        
+          <category> java </category>
+        
+          <category> jquery </category>
+        
+          <category> aliyun </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> java </tag>
+        
+          <tag> jquery </tag>
+        
+          <tag> aliyun </tag>
+        
+          <tag> player </tag>
+        
+          <tag> live </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[Java 实现阿里云短信]]></title>
+      <url>/java/aliyun/2018/03/11/Java-%E5%AE%9E%E7%8E%B0%E9%98%BF%E9%87%8C%E4%BA%91%E7%9F%AD%E4%BF%A1/</url>
+      <content type="text"><![CDATA[  阿里云提供一套短信发送的服务可通过 Java 进行对接官网短信发送API(SendSms)—阿里云准备步骤  创建 阿里云账号  根据 流程 完成实名认证，以确保可以使用阿里云相应服务  在密钥管理页面获取阿里云访问密钥，AccessKeyId 和 AccessKeySecret  想要成功发送一条短信需要获取 短信签名 和 短信模版在项目 pom 中引入对接所需要的 jar 包&lt;dependency&gt;    &lt;groupId&gt;com.aliyun&lt;/groupId&gt;    &lt;artifactId&gt;aliyun-java-sdk-core&lt;/artifactId&gt;    &lt;version&gt;3.2.2&lt;/version&gt;&lt;/dependency&gt;&lt;dependency&gt;    &lt;groupId&gt;com.aliyun&lt;/groupId&gt;    &lt;artifactId&gt;aliyun-java-sdk-dysmsapi&lt;/artifactId&gt;    &lt;version&gt;1.0.0&lt;/version&gt;&lt;/dependency&gt;&lt;/dependencies&gt;获取对接需要的数据  将 AccessKeyId 、AccessKeySecret 、SignName 、TemplateCode 进行相应存储新建 MessageServiceImpl 类用于和阿里云短信接口对接@Servicepublic class MessageServiceImpl extends AbstractBaseService {		...}在上述类中生成一个静态块用于在初始化对接信息  Constants.ALI_ACCESS_KEY_ID 和 Constants.ALI_ACCESS_SECRET 是密钥，成对生成和使用  其他参数信息按照阿里云开发手册说明，均不需要改变// 用于从阿里云获取数据的权限客户端private static IAcsClient iAcsClient;static {    // 超时时间    System.setProperty("sun.net.client.defaultConnectTimeout", "10000");    System.setProperty("sun.net.client.defaultReadTimeout", "10000");    // 初始化配置    String regionId = "cn-hangzhou";    DefaultProfile profile = DefaultProfile.getProfile(regionId, Constants.ALI_ACCESS_KEY_ID, Constants.ALI_ACCESS_SECRET);    try {        String productId = "Dysmsapi";        String domain = "dysmsapi.aliyuncs.com";        DefaultProfile.addEndpoint(regionId, regionId, productId, domain);    } catch (ClientException e) {        throw new TSharkException("初始化短信接口配置失败！", e);    }    // 初始化权限客户端    iAcsClient = new DefaultAcsClient(profile);}创建用于发送短信的 sendMessage 方法  发送短信之前通常需要验证短信是否已发送，防止重复发送  为了验证短信是否发送可将通过短信发送的验证码存放于 Redis 中  Constants.ALI_MESSAGE_SIGN_NAME 是从阿里云获取的短信签名  为提高公用性，发送短信的方法支持从外部调用时传入具体模版编号  短信接口调用时如果出现异常反馈，请参照 短信接口调用错误码@Autowiredprivate RedisHelper redisHelper;public Boolean sendMessage(String mobile, String template) {    // 有效性验证    if (checkMobile(mobile)) {        throw new TSharkException("验证码已发送，请稍后再试！");    }    SendSmsRequest request = new SendSmsRequest();    SendSmsResponse response = null;    // 生成随机数    String random = String.valueOf(new Random().nextInt(999999));    request.setMethod(MethodType.POST);    request.setPhoneNumbers(mobile);    request.setSignName(Constants.ALI_MESSAGE_SIGN_NAME);    request.setTemplateCode(template);    request.setTemplateParam("{\"name\":\"" + mobile + "\", \"code\":\"" + random + "\"}");    try {        response = iAcsClient.getAcsResponse(request);    } catch (ClientException e) {        throw new TSharkException("接收短信回执失败！", e);    }    boolean result = response.getCode() != null &amp;&amp; response.getCode().equals("OK");    if (result) {        // 保存随机数        saveRandom(mobile, random);    }    return result;}通过 Redis 验证短信是否发送private Boolean checkMobile(String mobile) {    String randomKey = "random:" + mobile;    return redisHelper.get(randomKey) != null;}短信发送成功后需要将手机号和验证码成对存储于 Redis 中，以供之后使用private void saveRandom(String mobile, String random) {    String randomKey = "random:" + mobile;    if (checkMobile(mobile)) {        return;    }    redisHelper.set(randomKey, random);    // 5分钟失效    redisHelper.expire(randomKey, 5, TimeUnit.MINUTES);}]]></content>
+      <categories>
+        
+          <category> java </category>
+        
+          <category> aliyun </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> java </tag>
+        
+          <tag> aliyun </tag>
+        
+          <tag> message </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[Java + jQuery 实现阿里云点播]]></title>
+      <url>/java/jquery/aliyun/2018/03/11/Java-+-jQuery-%E5%AE%9E%E7%8E%B0%E9%98%BF%E9%87%8C%E4%BA%91%E7%82%B9%E6%92%AD/</url>
+      <content type="text"><![CDATA[  阿里云播放器直接在线点播视频以及直播技术，此处记录点播实现过程官网获取阿里云视频播放凭证阿里云Aliplayer播放器准备步骤  创建 阿里云账号  根据 流程 完成实名认证，以确保可以使用阿里云相应服务  在密钥管理页面获取阿里云访问密钥，AccessKeyId 和 AccessKeySecret后端相关操作在项目 pom 中引入所需 jar 包&lt;dependency&gt;    &lt;groupId&gt;com.aliyun&lt;/groupId&gt;    &lt;artifactId&gt;aliyun-java-sdk-core&lt;/artifactId&gt;    &lt;version&gt;3.2.2&lt;/version&gt;&lt;/dependency&gt;&lt;dependency&gt;    &lt;groupId&gt;com.aliyun&lt;/groupId&gt;    &lt;artifactId&gt;aliyun-java-sdk-vod&lt;/artifactId&gt;    &lt;version&gt;2.7.0&lt;/version&gt;&lt;/dependency&gt;获取对接需要的数据  将 AccessKeyId 、AccessKeySecret 进行相应存储新建 VideoController 用于接收前端获取视频播放凭证的请求@Controller@RequestMapping("/api/video")public class VideoController extends AbstractBaseController {    @Autowired    private VideoServiceImpl videoServiceImpl;    /**     * 获取播放凭证     *     * @param videoId     * @return     */    @RequestMapping(value = "/auth", method = RequestMethod.POST)    @ResponseBody    public ResponseData playAuth(@RequestParam final String videoId) {        return new SimpleActionHandler(request) {            @Override            protected void doHandle(ResponseData responseData) throws Exception {                responseData.setData(videoServiceImpl.getVideoPlayAuth(videoId));            }        }.handle();    }}新建 VideoServiceImpl 用于和阿里云播放器接口对接@Servicepublic class VideoServiceImpl extends AbstractBaseService {	...}在 VideoServiceImpl 中添加获取客户端的 getClient() 方法  Constants.ALI_ACCESS_KEY_ID 和 Constants.ALI_ACCESS_SECRET 是密钥，成对生成和使用  其他参数信息按照阿里云开发手册说明，均不需要改变private DefaultAcsClient getClient() {    // 初始化配置    DefaultProfile profile = DefaultProfile.getProfile("cn-shanghai", Constants.ALI_ACCESS_KEY_ID, Constants.ALI_ACCESS_SECRET);    // 获取客户端    return new DefaultAcsClient(profile);}通过外部传入的视频 id 从客户端获取视频播放凭证public String getVideoPlayAuth(String videoId) {    GetVideoPlayAuthRequest request = new GetVideoPlayAuthRequest();    GetVideoPlayAuthResponse response = null;    // 播放id    request.setVideoId(videoId);    try {        response = getClient().getAcsResponse(request);    } catch (ClientException e) {        logger.error("视频客户端获取失败！", e);    }    if (response != null) {        return response.getPlayAuth();    }    return null;}前端相关操作引入播放器所需要的 css/js 文件  以下引入的 js 文件为通用版本，包括了 flash 和 h5 的播放器  如果只想单独引入 flash 或 h5 ，只需要将名称中间加上对应标识即可，例如 aliplayer-h5-min.js  css 文件为公有版本，无需区分类型&lt;link rel="stylesheet" href="//g.alicdn.com/de/prismplayer/2.5.1/skins/default/aliplayer-min.css"/&gt;&lt;script charset="utf-8" type="text/javascript" src="//g.alicdn.com/de/prismplayer/2.5.1/aliplayer-min.js"&gt;&lt;/script&gt;准备待转化为播放器的标签内容  标签中的 data-id 是将视频传入到阿里云播放器后端之后返回的一个 vid  该 vid 可以通过 接口上传 也可以通过阿里云后端上传，此处不做介绍&lt;div class="prism-player" id="prismPlayer" data-id="281fc1687cb245658dc5e7462e54bc66"&gt;&lt;/div&gt;初始化视频播放器  $.ts.doAction 是经过封装后的 ajax 操作  Aliplayer({...}) 则是具体的播放器初始化操作var playerTag = target.find("#prismPlayer");var videoId = playerTag.data("id");// 移除文字标识playerTag.empty();// 非空验证if (videoId === undefined) {    return;}$.ts.doAction("/api/video/auth", {    videoId: videoId}, function () {    Aliplayer({        id: "prismPlayer",        autoplay: true,        width: "100%",        vid: videoId,        playauth: this.data    });}, '', '', '');]]></content>
+      <categories>
+        
+          <category> java </category>
+        
+          <category> jquery </category>
+        
+          <category> aliyun </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> java </tag>
+        
+          <tag> jquery </tag>
+        
+          <tag> aliyun </tag>
+        
+          <tag> player </tag>
         
       </tags>
       <tags></tags>
@@ -1207,6 +1309,25 @@
     </entry>
   
     <entry>
+      <title><![CDATA[Java MD5加密]]></title>
+      <url>/java/2017/02/09/Java-MD5%E5%8A%A0%E5%AF%86/</url>
+      <content type="text"><![CDATA[  md5加密简要算法生成 16 位加密串/** * 利用MD5进行加密 * * @param str 待加密的字符串 * @return 加密后的字符串 */private String EncoderByMd5(String str) throws Exception {	// 生成一个MD5加密计算摘要	MessageDigest md = MessageDigest.getInstance("MD5");	// 计算md5函数	md.update(str.getBytes());	// digest()最后确定返回md5 hash值，返回值为8为字符串。因为md5 hash值是16位的hex值，实际上就是8位的字符	// BigInteger函数则将8位的字符串转换成16位hex值，用字符串来表示；得到字符串形式的hash值	return new BigInteger(1, md.digest()).toString(16);}生成 32 位加密串private String md5(String input) {    MessageDigest md = null;    try {        md = MessageDigest.getInstance("MD5");        md.update(input.getBytes());        String md5 = new BigInteger(1, md.digest()).toString(16);        return fillMD5(md5);    } catch (NoSuchAlgorithmException e) {        logger.error("字串加密失败！", e);    }    return null;}/** * 加密串补齐32位 */private String fillMD5(String md5) {    return md5.length() == 32 ? md5 : fillMD5("0" + md5);}]]></content>
+      <categories>
+        
+          <category> java </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> java </tag>
+        
+          <tag> md5 </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
       <title><![CDATA[MyBatis新增返回id]]></title>
       <url>/java/mybatis/2017/02/08/MyBatis%E6%96%B0%E5%A2%9E%E8%BF%94%E5%9B%9Eid/</url>
       <content type="text"><![CDATA[  新增一条数据到数据库，并返回该数据的id&lt;insert id="saveSendMessage" keyColumn="id" keyProperty="id" useGeneratedKeys="true" parameterType="SendMessageDTO"&gt;	...&lt;/insert&gt;]]></content>
@@ -1283,6 +1404,25 @@
           <tag> java </tag>
         
           <tag> string </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[Zip4j解压文件]]></title>
+      <url>/java/2017/01/04/Zip4j%E8%A7%A3%E5%8E%8B%E6%96%87%E4%BB%B6/</url>
+      <content type="text"><![CDATA[  使用 zip4j 可以快速对文件进行解压缩处理官网zip4j特性  支持Zip文件的创建、添加、解压、更新、移除  可读写有密码保护的Zip文件  支持AES 128/256算法加密  支持标准Zip算法加密  支持Zip64格式  支持分块Zip文件的创建和解压  支持Unicode编码的文件名  支持进度监控添加Maven依赖&lt;dependency&gt;    &lt;groupId&gt;net.lingala.zip4j&lt;/groupId&gt;    &lt;artifactId&gt;zip4j&lt;/artifactId&gt;    &lt;version&gt;1.3.2&lt;/version&gt;&lt;/dependency&gt;解压实现// 获取Zip文件ZipFile zipFile = new ZipFile(file);// 指定文件名编码zipFile.setFileNameCharset("GBK");// 验证文件有效性if (!zipFile.isValidZipFile()) {    responseData.setError("压缩文件已损坏！");    return;}// 解压目录File fileDir = new File(newFile);// 目录不存在则创建if (fileDir.isDirectory() &amp;&amp; !fileDir.exists()) {    fileDir.mkdir();}// 解压zipFile.extractAll(newFile);]]></content>
+      <categories>
+        
+          <category> java </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> java </tag>
+        
+          <tag> zip </tag>
         
       </tags>
       <tags></tags>
