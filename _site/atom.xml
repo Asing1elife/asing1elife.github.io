@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.5.2">Jekyll</generator><link href="http://localhost:4000/atom.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2018-08-19T20:34:40+08:00</updated><id>http://localhost:4000/</id><title type="html">asing1elife’s blog</title><subtitle>- 说好为我泡花茶</subtitle><author><name>asing1elife</name></author><entry><title type="html">vuex 在非组件中调用 mutations 方法</title><link href="http://localhost:4000/vue/vuex/2018/08/14/vuex-%E5%9C%A8%E9%9D%9E%E7%BB%84%E4%BB%B6%E4%B8%AD%E8%B0%83%E7%94%A8-mutations-%E6%96%B9%E6%B3%95/" rel="alternate" type="text/html" title="vuex 在非组件中调用 mutations 方法" /><published>2018-08-14T00:00:00+08:00</published><updated>2018-08-14T00:00:00+08:00</updated><id>http://localhost:4000/vue/vuex/2018/08/14/vuex%20%E5%9C%A8%E9%9D%9E%E7%BB%84%E4%BB%B6%E4%B8%AD%E8%B0%83%E7%94%A8%20mutations%20%E6%96%B9%E6%B3%95</id><content type="html" xml:base="http://localhost:4000/vue/vuex/2018/08/14/vuex-%E5%9C%A8%E9%9D%9E%E7%BB%84%E4%BB%B6%E4%B8%AD%E8%B0%83%E7%94%A8-mutations-%E6%96%B9%E6%B3%95/">&lt;blockquote&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.5.2">Jekyll</generator><link href="http://localhost:4000/atom.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2018-08-19T21:04:49+08:00</updated><id>http://localhost:4000/</id><title type="html">asing1elife’s blog</title><subtitle>- 说好为我泡花茶</subtitle><author><name>asing1elife</name></author><entry><title type="html">vuex 在非组件中调用 mutations 方法</title><link href="http://localhost:4000/vue/vuex/2018/08/14/vuex-%E5%9C%A8%E9%9D%9E%E7%BB%84%E4%BB%B6%E4%B8%AD%E8%B0%83%E7%94%A8-mutations-%E6%96%B9%E6%B3%95/" rel="alternate" type="text/html" title="vuex 在非组件中调用 mutations 方法" /><published>2018-08-14T00:00:00+08:00</published><updated>2018-08-14T00:00:00+08:00</updated><id>http://localhost:4000/vue/vuex/2018/08/14/vuex%20%E5%9C%A8%E9%9D%9E%E7%BB%84%E4%BB%B6%E4%B8%AD%E8%B0%83%E7%94%A8%20mutations%20%E6%96%B9%E6%B3%95</id><content type="html" xml:base="http://localhost:4000/vue/vuex/2018/08/14/vuex-%E5%9C%A8%E9%9D%9E%E7%BB%84%E4%BB%B6%E4%B8%AD%E8%B0%83%E7%94%A8-mutations-%E6%96%B9%E6%B3%95/">&lt;blockquote&gt;
   &lt;p&gt;一般情况下调用 mutations.js 中的方法都是在组件中，如果想在非组件中调用，则需要使用如下方式&lt;/p&gt;
 &lt;/blockquote&gt;
 
@@ -58,7 +58,17 @@
 	&lt;span class=&quot;nx&quot;&gt;store&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;dispatch&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'setUserInfo'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;user&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;</content><author><name>asing1elife</name></author><category term="vue" /><category term="vuex" /><summary type="html">一般情况下调用 actions.js 中的方法都是在组件中，如果想在非组件中调用，则需要如下方式</summary></entry><entry><title type="html">v-for 遍历 Map</title><link href="http://localhost:4000/vue/2018/08/11/v-for-%E9%81%8D%E5%8E%86-Map/" rel="alternate" type="text/html" title="v-for 遍历 Map" /><published>2018-08-11T00:00:00+08:00</published><updated>2018-08-11T00:00:00+08:00</updated><id>http://localhost:4000/vue/2018/08/11/v-for%20%E9%81%8D%E5%8E%86%20Map</id><content type="html" xml:base="http://localhost:4000/vue/2018/08/11/v-for-%E9%81%8D%E5%8E%86-Map/">&lt;blockquote&gt;
+&lt;/div&gt;</content><author><name>asing1elife</name></author><category term="vue" /><category term="vuex" /><summary type="html">一般情况下调用 actions.js 中的方法都是在组件中，如果想在非组件中调用，则需要如下方式</summary></entry><entry><title type="html">JS 判断对象是否为空</title><link href="http://localhost:4000/javascript/es6/2018/08/14/JS-%E5%88%A4%E6%96%AD%E5%AF%B9%E8%B1%A1%E6%98%AF%E5%90%A6%E4%B8%BA%E7%A9%BA/" rel="alternate" type="text/html" title="JS 判断对象是否为空" /><published>2018-08-14T00:00:00+08:00</published><updated>2018-08-14T00:00:00+08:00</updated><id>http://localhost:4000/javascript/es6/2018/08/14/JS%20%E5%88%A4%E6%96%AD%E5%AF%B9%E8%B1%A1%E6%98%AF%E5%90%A6%E4%B8%BA%E7%A9%BA</id><content type="html" xml:base="http://localhost:4000/javascript/es6/2018/08/14/JS-%E5%88%A4%E6%96%AD%E5%AF%B9%E8%B1%A1%E6%98%AF%E5%90%A6%E4%B8%BA%E7%A9%BA/">&lt;blockquote&gt;
+  &lt;p&gt;ES6 新增了 Object.keys() 可将对象自身可枚举属性转换为数组&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;实现方式&quot;&gt;实现方式&lt;/h2&gt;
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;obj&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{}&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;objArr&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;Object&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;keys&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;obj&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;objArr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;length&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// 0&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;</content><author><name>asing1elife</name></author><category term="javascript" /><category term="es6" /><summary type="html">ES6 新增了 Object.keys() 可将对象自身可枚举属性转换为数组</summary></entry><entry><title type="html">v-for 遍历 Map</title><link href="http://localhost:4000/vue/2018/08/11/v-for-%E9%81%8D%E5%8E%86-Map/" rel="alternate" type="text/html" title="v-for 遍历 Map" /><published>2018-08-11T00:00:00+08:00</published><updated>2018-08-11T00:00:00+08:00</updated><id>http://localhost:4000/vue/2018/08/11/v-for%20%E9%81%8D%E5%8E%86%20Map</id><content type="html" xml:base="http://localhost:4000/vue/2018/08/11/v-for-%E9%81%8D%E5%8E%86-Map/">&lt;blockquote&gt;
   &lt;p&gt;通常情况下都是使用 v-for 遍历 List 或 Array ，但 v-for 对于 Map 遍历也是支持的&lt;/p&gt;
 &lt;/blockquote&gt;
 
@@ -1030,7 +1040,16 @@
 &lt;ol&gt;
   &lt;li&gt;Linux 环境需要前往 Tomcat 的 /bin 目录下，需要 &lt;strong&gt;./catalina.sh&lt;/strong&gt; 中的 &lt;code class=&quot;highlighter-rouge&quot;&gt;JAVA_OPTS&lt;/code&gt; 内容如下&lt;/li&gt;
   &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;JAVA_OPTS=&quot;$JAVA_OPTS -Dspring.profiles.active=prod&quot;&lt;/code&gt;&lt;/li&gt;
-&lt;/ol&gt;</content><author><name>asing1elife</name></author><category term="java" /><category term="springmvc" /><category term="profile" /><category term="spring" /><summary type="html">SpringMVC 可以使用 Spring 本身提供的 profile 特性对多环境配置文件进行统一集成，自动切换</summary></entry><entry><title type="html">连接 MySQL 抛出 Establishing SSL connection 警告</title><link href="http://localhost:4000/java/database/2018/07/11/%E8%BF%9E%E6%8E%A5-MySQL-%E6%8A%9B%E5%87%BA-Establishing-SSL-connection-%E8%AD%A6%E5%91%8A/" rel="alternate" type="text/html" title="连接 MySQL 抛出 Establishing SSL connection 警告" /><published>2018-07-11T00:00:00+08:00</published><updated>2018-07-11T00:00:00+08:00</updated><id>http://localhost:4000/java/database/2018/07/11/%E8%BF%9E%E6%8E%A5%20MySQL%20%E6%8A%9B%E5%87%BA%20Establishing%20SSL%20connection%20%E8%AD%A6%E5%91%8A</id><content type="html" xml:base="http://localhost:4000/java/database/2018/07/11/%E8%BF%9E%E6%8E%A5-MySQL-%E6%8A%9B%E5%87%BA-Establishing-SSL-connection-%E8%AD%A6%E5%91%8A/">&lt;blockquote&gt;
+&lt;/ol&gt;</content><author><name>asing1elife</name></author><category term="java" /><category term="springmvc" /><category term="profile" /><category term="spring" /><summary type="html">SpringMVC 可以使用 Spring 本身提供的 profile 特性对多环境配置文件进行统一集成，自动切换</summary></entry><entry><title type="html">高德地图 JS API</title><link href="http://localhost:4000/javascript/amap/2018/07/22/%E9%AB%98%E5%BE%B7%E5%9C%B0%E5%9B%BE-JS-API/" rel="alternate" type="text/html" title="高德地图 JS API" /><published>2018-07-22T00:00:00+08:00</published><updated>2018-07-22T00:00:00+08:00</updated><id>http://localhost:4000/javascript/amap/2018/07/22/%E9%AB%98%E5%BE%B7%E5%9C%B0%E5%9B%BE%20JS%20API</id><content type="html" xml:base="http://localhost:4000/javascript/amap/2018/07/22/%E9%AB%98%E5%BE%B7%E5%9C%B0%E5%9B%BE-JS-API/">&lt;blockquote&gt;
+  &lt;p&gt;高德地图对于开发者提供一套 JS API ，可用于将高德地图集成到网站中&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;官网&quot;&gt;官网&lt;/h2&gt;
+&lt;ol&gt;
+  &lt;li&gt;&lt;a href=&quot;https://lbs.amap.com/dev/index&quot;&gt;开发者平台&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://lbs.amap.com/api/javascript-api/example/map/map-show&quot;&gt;代码在线调试&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://lbs.amap.com/api/javascript-api/guide/abc/prepare&quot;&gt;开发手册&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;</content><author><name>asing1elife</name></author><category term="javascript" /><category term="amap" /><summary type="html">高德地图对于开发者提供一套 JS API ，可用于将高德地图集成到网站中</summary></entry><entry><title type="html">连接 MySQL 抛出 Establishing SSL connection 警告</title><link href="http://localhost:4000/java/database/2018/07/11/%E8%BF%9E%E6%8E%A5-MySQL-%E6%8A%9B%E5%87%BA-Establishing-SSL-connection-%E8%AD%A6%E5%91%8A/" rel="alternate" type="text/html" title="连接 MySQL 抛出 Establishing SSL connection 警告" /><published>2018-07-11T00:00:00+08:00</published><updated>2018-07-11T00:00:00+08:00</updated><id>http://localhost:4000/java/database/2018/07/11/%E8%BF%9E%E6%8E%A5%20MySQL%20%E6%8A%9B%E5%87%BA%20Establishing%20SSL%20connection%20%E8%AD%A6%E5%91%8A</id><content type="html" xml:base="http://localhost:4000/java/database/2018/07/11/%E8%BF%9E%E6%8E%A5-MySQL-%E6%8A%9B%E5%87%BA-Establishing-SSL-connection-%E8%AD%A6%E5%91%8A/">&lt;blockquote&gt;
   &lt;p&gt;Java 连接 MySQL 时控制台出现多条 Establishing SSL connection without 警告&lt;/p&gt;
 &lt;/blockquote&gt;
 
@@ -1065,103 +1084,4 @@
   &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
 &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;</content><author><name>asing1elife</name></author><category term="vue" /><category term="javascript" /><category term="dom" /><summary type="html">如果底部页面内容过多出现滚动条，此时弹出遮罩层后，在遮罩层滑动页面也会导致底部页面响应滚动操作</summary></entry><entry><title type="html">Vue 动态赋值 class</title><link href="http://localhost:4000/vue/2018/06/29/Vue-%E5%8A%A8%E6%80%81%E8%B5%8B%E5%80%BC-class/" rel="alternate" type="text/html" title="Vue 动态赋值 class" /><published>2018-06-29T00:00:00+08:00</published><updated>2018-06-29T00:00:00+08:00</updated><id>http://localhost:4000/vue/2018/06/29/Vue%20%E5%8A%A8%E6%80%81%E8%B5%8B%E5%80%BC%20class</id><content type="html" xml:base="http://localhost:4000/vue/2018/06/29/Vue-%E5%8A%A8%E6%80%81%E8%B5%8B%E5%80%BC-class/">&lt;blockquote&gt;
-  &lt;p&gt;Vue 在操作 DOM 元素的 class 属性时，有以下多种方法&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h2 id=&quot;比较通用的是否赋值方式&quot;&gt;比较通用的是否赋值方式&lt;/h2&gt;
-&lt;ol&gt;
-  &lt;li&gt;通过以下 &lt;code class=&quot;highlighter-rouge&quot;&gt;:class=&quot;{show: show}&quot;&lt;/code&gt; 的方式可以决定该元素是否拥有名称为 &lt;code class=&quot;highlighter-rouge&quot;&gt;show&lt;/code&gt; 的 class
-    &lt;ul&gt;
-      &lt;li&gt;data() 中的 show 属性为 true ，则赋予 show class ，否则不赋予&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;template&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;
-	&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;div&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;watch-mooc-panel&quot;&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;kr&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;{show: show}&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;/div&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;gt;
-&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;/template&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;gt;
-&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;script&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;type&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;text/ecmascript-6&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;
-  &lt;span class=&quot;kr&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;default&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'mooc'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-    &lt;span class=&quot;nx&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-      &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;na&quot;&gt;show&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt;
-      &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;/script&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;gt;
-&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;style&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;scoped&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;lang&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;stylus&quot;&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;rel&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;stylesheet/stylus&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;watch&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;mooc&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;panel&lt;/span&gt;
-      &lt;span class=&quot;nx&quot;&gt;width&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;100&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;%&lt;/span&gt;
-      &lt;span class=&quot;nx&quot;&gt;height&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;100&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;%&lt;/span&gt;
-      &lt;span class=&quot;nx&quot;&gt;position&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;absolute&lt;/span&gt;
-      &lt;span class=&quot;nx&quot;&gt;transition&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;background&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;color&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;s&lt;/span&gt;
-      &lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;show&lt;/span&gt;
-        &lt;span class=&quot;nx&quot;&gt;background&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;color&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;000000&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;/style&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;gt;
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;h2 id=&quot;使用三目运算符的方式&quot;&gt;使用三目运算符的方式&lt;/h2&gt;
-&lt;ol&gt;
-  &lt;li&gt;注意使用三木运算符添加的属性语法和上述方式存在明显区别&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;template&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;
-	&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;div&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;watch-mooc-panel&quot;&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;kr&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;show ? 'show' : 'hide'&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;/div&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;gt;
-&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;/template&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;gt;
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;</content><author><name>asing1elife</name></author><category term="vue" /><category term="dom" /><summary type="html">Vue 在操作 DOM 元素的 class 属性时，有以下多种方法</summary></entry><entry><title type="html">Mint-UI Infinite Scroll 无限滚动运用</title><link href="http://localhost:4000/vue/mintui/2018/06/25/Mint-UI-Infinite-Scroll-%E6%97%A0%E9%99%90%E6%BB%9A%E5%8A%A8%E8%BF%90%E7%94%A8/" rel="alternate" type="text/html" title="Mint-UI Infinite Scroll 无限滚动运用" /><published>2018-06-25T00:00:00+08:00</published><updated>2018-06-25T00:00:00+08:00</updated><id>http://localhost:4000/vue/mintui/2018/06/25/Mint-UI%20Infinite%20Scroll%20%E6%97%A0%E9%99%90%E6%BB%9A%E5%8A%A8%E8%BF%90%E7%94%A8</id><content type="html" xml:base="http://localhost:4000/vue/mintui/2018/06/25/Mint-UI-Infinite-Scroll-%E6%97%A0%E9%99%90%E6%BB%9A%E5%8A%A8%E8%BF%90%E7%94%A8/">&lt;blockquote&gt;
-  &lt;p&gt;Mint-UI 自带一个支持无限滚动的组件，以下是用法&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h2 id=&quot;官网文档&quot;&gt;官网文档&lt;/h2&gt;
-&lt;p&gt;&lt;a href=&quot;https://mint-ui.github.io/docs/#/zh-cn2/infinite-scroll&quot;&gt;Infinite Scroll&lt;/a&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;使用方法&quot;&gt;使用方法&lt;/h2&gt;
-&lt;ol&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;v-infinite-scroll&lt;/code&gt; 指定加载内容的方法，在满足触发条件时，则会加载
-    &lt;ul&gt;
-      &lt;li&gt;注意如果内容加载的分页方法就一个，此处指定后，则不需要再通过 &lt;code class=&quot;highlighter-rouge&quot;&gt;created()&lt;/code&gt; 调用分页方法，否则一开始会加载两次&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;infinite-scroll-distance&lt;/code&gt; 触发方法的阈值，底部距离的像素值&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;div class=&quot;language-html highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;div&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;real-content&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;v-infinite-scroll=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;getMoocs&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;infinite-scroll-distance=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;10&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
-  &lt;span class=&quot;nt&quot;&gt;&amp;lt;div&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;hot-item&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;v-for=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;mooc in moocs&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;:key=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;mooc.hexId&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
-    ...
-  &lt;span class=&quot;nt&quot;&gt;&amp;lt;/div&amp;gt;&lt;/span&gt;
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;/div&amp;gt;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;h2 id=&quot;注意点&quot;&gt;注意点&lt;/h2&gt;
-&lt;ol&gt;
-  &lt;li&gt;值得注意的是该组件提供了一个 &lt;code class=&quot;highlighter-rouge&quot;&gt;infinite-scroll-disabled&lt;/code&gt; 属性，文档中的说明是&lt;strong&gt;若为真，则无限滚动不会被触发&lt;/strong&gt;
-    &lt;ul&gt;
-      &lt;li&gt;这很容易让人理解为当分页检测到没有下一页后，则不再触发无限滚动，但其实根本达不到这个效果&lt;/li&gt;
-      &lt;li&gt;翻阅 &lt;a href=&quot;https://github.com/ElemeFE/vue-infinite-scroll/issues/25&quot;&gt;官方 GitHub 上作者的解释&lt;/a&gt; 才知道这个属性其实为了防止分页内容在加载过程中重复加载，当内容加载完毕后，会被内部重置&lt;/li&gt;
-      &lt;li&gt;所以要实现到达尾页后不再重复发起分页请求，需要通过以下方法&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nx&quot;&gt;getMoocs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-	&lt;span class=&quot;c1&quot;&gt;// 检测是否存在下一页&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;!&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;page&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;hasNext&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-
-  &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;$fetch&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;mooc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;page&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;page&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;then&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;page&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Page&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-
-    &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;moocs&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;_&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;concat&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;moocs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;list&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;</content><author><name>asing1elife</name></author><category term="vue" /><category term="mintui" /><summary type="html">Mint-UI 自带一个支持无限滚动的组件，以下是用法</summary></entry></feed>
+&lt;/div&gt;</content><author><name>asing1elife</name></author><category term="vue" /><category term="javascript" /><category term="dom" /><summary type="html">如果底部页面内容过多出现滚动条，此时弹出遮罩层后，在遮罩层滑动页面也会导致底部页面响应滚动操作</summary></entry></feed>

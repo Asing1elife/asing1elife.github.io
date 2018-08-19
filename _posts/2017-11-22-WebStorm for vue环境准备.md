@@ -4,9 +4,11 @@ date: 2017-11-22
 author: asing1elife
 categories:
  - vue
+ - intellij
  - webstorm
 tags:
  - vue
+ - intellij
  - webstorm
 ---
 > 在WebStorm中导入项目后，vue的语法默认不能被识别，所以需要做到如下配置  
