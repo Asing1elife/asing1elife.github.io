@@ -1,0 +1,1856 @@
+
+<!doctype html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/assets/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/assets/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/assets/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/assets/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="vue-aliplayer 阿里云播放器适配 vue #vue/plugin 阿里云播放器本身没对 vue 进行专门优化，以下借助 github 上一个库进行优化">
+<meta name="keywords" content="asing1elife java web vue html css mac">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vue Aliplayer 阿里云播放器适配 vue">
+<meta property="og:url" content="http://localhost:4000/2018/05/02/vue-aliplayer-%E9%98%BF%E9%87%8C%E4%BA%91%E6%92%AD%E6%94%BE%E5%99%A8%E9%80%82%E9%85%8D-vue/">
+<meta property="og:site_name" content="asing1elife's blog">
+<meta property="og:description" content="vue-aliplayer 阿里云播放器适配 vue #vue/plugin 阿里云播放器本身没对 vue 进行专门优化，以下借助 github 上一个库进行优化">
+<meta property="og:locale" content="zh-Hans">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Vue Aliplayer 阿里云播放器适配 vue">
+<meta name="twitter:description" content="vue-aliplayer 阿里云播放器适配 vue #vue/plugin 阿里云播放器本身没对 vue 进行专门优化，以下借助 github 上一个库进行优化">
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://localhost:4000/"/>
+
+
+
+
+
+  <title>Vue Aliplayer 阿里云播放器适配 vue | asing1elife's blog</title>
+  
+
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?0023f540f6c22accebb8249a2bc19b6a";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> <div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">asing1elife's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">x1anx1an is my wife</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+            首页
+          </a>
+        </li>
+      
+        
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+            归档
+          </a>
+        </li>
+      
+        
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        
+          <div class="main-category">
+            
+
+
+            
+  <ul class="category-list">
+    
+    <li class="category-list-item">
+      
+      
+      
+      <a class="category-list-link" href="/category/#/java">java</a>
+      <span class="category-list-count">77</span>
+    </i>
+    
+    <li class="category-list-item">
+      
+      
+      
+      <a class="category-list-link" href="/category/#/springmvc">springmvc</a>
+      <span class="category-list-count">13</span>
+    </i>
+    
+    <li class="category-list-item">
+      
+      
+      
+      <a class="category-list-link" href="/category/#/tomcat">tomcat</a>
+      <span class="category-list-count">1</span>
+    </i>
+    
+    <li class="category-list-item">
+      
+      
+      
+      <a class="category-list-link" href="/category/#/relfect">relfect</a>
+      <span class="category-list-count">1</span>
+    </i>
+    
+    <li class="category-list-item">
+      
+      
+      
+      <a class="category-list-link" href="/category/#/validate">validate</a>
+      <span class="category-list-count">2</span>
+    </i>
+    
+    <li class="category-list-item">
+      
+      
+      
+      <a class="category-list-link" href="/category/#/mybatis">mybatis</a>
+      <span class="category-list-count">10</span>
+    </i>
+    
+    <li class="category-list-item">
+      
+      
+      
+      <a class="category-list-link" href="/category/#/pay">pay</a>
+      <span class="category-list-count">5</span>
+    </i>
+    
+    <li class="category-list-item">
+      
+      
+      
+      <a class="category-list-link" href="/category/#/hibernate">hibernate</a>
+      <span class="category-list-count">8</span>
+    </i>
+    
+    <li class="category-list-item">
+      
+      
+      
+      <a class="category-list-link" href="/category/#/error">error</a>
+      <span class="category-list-count">8</span>
+    </i>
+    
+    <li class="category-list-item">
+      
+      
+      
+      <a class="category-list-link" href="/category/#/maven">maven</a>
+      <span class="category-list-count">5</span>
+    </i>
+    
+    <li class="category-list-item">
+      
+      
+      
+      <a class="category-list-link" href="/category/#/poi">poi</a>
+      <span class="category-list-count">1</span>
+    </i>
+    
+    <li class="category-list-item">
+      
+      
+      
+      <a class="category-list-link" href="/category/#/springboot">springboot</a>
+      <span class="category-list-count">16</span>
+    </i>
+    
+    <li class="category-list-item">
+      
+      
+      
+      <a class="category-list-link" href="/category/#/openoffice">openoffice</a>
+      <span class="category-list-count">2</span>
+    </i>
+    
+    <li class="category-list-item">
+      
+      
+      
+      <a class="category-list-link" href="/category/#/linux">linux</a>
+      <span class="category-list-count">1</span>
+    </i>
+    
+    <li class="category-list-item">
+      
+      
+      
+      <a class="category-list-link" href="/category/#/proxy">proxy</a>
+      <span class="category-list-count">2</span>
+    </i>
+    
+    <li class="category-list-item">
+      
+      
+      
+      <a class="category-list-link" href="/category/#/multithreading">multithreading</a>
+      <span class="category-list-count">7</span>
+    </i>
+    
+    <li class="category-list-item">
+      
+      
+      
+      <a class="category-list-link" href="/category/#/database">database</a>
+      <span class="category-list-count">2</span>
+    </i>
+    
+    <li class="category-list-item">
+      
+      
+      
+      <a class="category-list-link" href="/category/#/mysql">mysql</a>
+      <span class="category-list-count">1</span>
+    </i>
+    
+    <li class="category-list-item">
+      
+      
+      
+      <a class="category-list-link" href="/category/#/struts">struts</a>
+      <span class="category-list-count">1</span>
+    </i>
+    
+    <li class="category-list-item">
+      
+      
+      
+      <a class="category-list-link" href="/category/#/i18n">i18n</a>
+      <span class="category-list-count">1</span>
+    </i>
+    
+    <li class="category-list-item">
+      
+      
+      
+      <a class="category-list-link" href="/category/#/vue">vue</a>
+      <span class="category-list-count">46</span>
+    </i>
+    
+    <li class="category-list-item">
+      
+      
+      
+      <a class="category-list-link" href="/category/#/webstorm">webstorm</a>
+      <span class="category-list-count">1</span>
+    </i>
+    
+    <li class="category-list-item">
+      
+      
+      
+      <a class="category-list-link" href="/category/#/webpack">webpack</a>
+      <span class="category-list-count">1</span>
+    </i>
+    
+    <li class="category-list-item">
+      
+      
+      
+      <a class="category-list-link" href="/category/#/jdk8">jdk8</a>
+      <span class="category-list-count">1</span>
+    </i>
+    
+    <li class="category-list-item">
+      
+      
+      
+      <a class="category-list-link" href="/category/#/components">components</a>
+      <span class="category-list-count">1</span>
+    </i>
+    
+    <li class="category-list-item">
+      
+      
+      
+      <a class="category-list-link" href="/category/#/list">list</a>
+      <span class="category-list-count">1</span>
+    </i>
+    
+    <li class="category-list-item">
+      
+      
+      
+      <a class="category-list-link" href="/category/#/jquery">jquery</a>
+      <span class="category-list-count">2</span>
+    </i>
+    
+    <li class="category-list-item">
+      
+      
+      
+      <a class="category-list-link" href="/category/#/aliyun">aliyun</a>
+      <span class="category-list-count">4</span>
+    </i>
+    
+    <li class="category-list-item">
+      
+      
+      
+      <a class="category-list-link" href="/category/#/map">map</a>
+      <span class="category-list-count">1</span>
+    </i>
+    
+    <li class="category-list-item">
+      
+      
+      
+      <a class="category-list-link" href="/category/#/crossdomain">crossdomain</a>
+      <span class="category-list-count">1</span>
+    </i>
+    
+    <li class="category-list-item">
+      
+      
+      
+      <a class="category-list-link" href="/category/#/frame">frame</a>
+      <span class="category-list-count">5</span>
+    </i>
+    
+    <li class="category-list-item">
+      
+      
+      
+      <a class="category-list-link" href="/category/#/mintui">mintui</a>
+      <span class="category-list-count">2</span>
+    </i>
+    
+    <li class="category-list-item">
+      
+      
+      
+      <a class="category-list-link" href="/category/#/swagger">swagger</a>
+      <span class="category-list-count">1</span>
+    </i>
+    
+    <li class="category-list-item">
+      
+      
+      
+      <a class="category-list-link" href="/category/#/software">software</a>
+      <span class="category-list-count">1</span>
+    </i>
+    
+    <li class="category-list-item">
+      
+      
+      
+      <a class="category-list-link" href="/category/#/eslint">eslint</a>
+      <span class="category-list-count">3</span>
+    </i>
+    
+    <li class="category-list-item">
+      
+      
+      
+      <a class="category-list-link" href="/category/#/javascript">javascript</a>
+      <span class="category-list-count">7</span>
+    </i>
+    
+    <li class="category-list-item">
+      
+      
+      
+      <a class="category-list-link" href="/category/#/vuex">vuex</a>
+      <span class="category-list-count">3</span>
+    </i>
+    
+    <li class="category-list-item">
+      
+      
+      
+      <a class="category-list-link" href="/category/#/elementui">elementui</a>
+      <span class="category-list-count">2</span>
+    </i>
+    
+    <li class="category-list-item">
+      
+      
+      
+      <a class="category-list-link" href="/category/#/shiro">shiro</a>
+      <span class="category-list-count">2</span>
+    </i>
+    
+  </ul>
+
+          </div>
+        
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+<div id="posts" class="posts-expand">
+  
+      
+<article class="post post-type- " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://localhost:4000/2018/05/02/vue-aliplayer-%E9%98%BF%E9%87%8C%E4%BA%91%E6%92%AD%E6%94%BE%E5%99%A8%E9%80%82%E9%85%8D-vue/">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="asing1elife">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/assets/images/avatar.png">
+    </span>
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="asing1elife's blog">
+    </span> 
+    <header class="post-header">
+         
+        <h1 class="post-title" itemprop="name headline">
+              Vue Aliplayer 阿里云播放器适配 vue 
+        </h1>
+        
+        <div class="post-meta">
+            <span class="post-author">
+                
+            </span>
+            <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span> 
+            <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-02T00:00:00+08:00">
+                2018-05-02
+            </time>
+              
+            </span>
+                     
+            <div class="post-description">
+                
+            </div>
+             
+        </div>
+    </header>
+    
+    <div class="post-body" itemprop="articleBody">
+           
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <h1 id="vue-aliplayer-阿里云播放器适配-vue">vue-aliplayer 阿里云播放器适配 vue</h1>
+<p>#vue/plugin</p>
+<blockquote>
+  <p>阿里云播放器本身没对 vue 进行专门优化，以下借助 github 上一个库进行优化</p>
+</blockquote>
+
+<h2 id="官网">官网</h2>
+<p><a href="https://github.com/slacrey/vue-aliplayer">vue-aliplayer</a></p>
+
+<h2 id="插件源码">插件源码</h2>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6<br/>7<br/>8<br/>9<br/>10<br/>11<br/>12<br/>13<br/>14<br/>15<br/>16<br/>17<br/>18<br/>19<br/>20<br/>21<br/>22<br/>23<br/>24<br/>25<br/>26<br/>27<br/>28<br/>29<br/>30<br/>31<br/>32<br/>33<br/>34<br/>35<br/>36<br/>37<br/>38<br/>39<br/>40<br/>41<br/>42<br/>43<br/>44<br/>45<br/>46<br/>47<br/>48<br/>49<br/>50<br/>51<br/>52<br/>53<br/>54<br/>55<br/>56<br/>57<br/>58<br/>59<br/>60<br/>61<br/>62<br/>63<br/>64<br/>65<br/>66<br/>67<br/>68<br/>69<br/>70<br/>71<br/>72<br/>73<br/>74<br/>75<br/>76<br/>77<br/>78<br/>79<br/>80<br/>81<br/>82<br/>83<br/>84<br/>85<br/>86<br/>87<br/>88<br/>89<br/>90<br/>91<br/>92<br/>93<br/>94<br/>95<br/>96<br/>97<br/>98<br/>99<br/>100<br/>101<br/>102<br/>103<br/>104<br/>105<br/>106<br/>107<br/>108<br/>109<br/>110<br/>111<br/>112<br/>113<br/>114<br/>115<br/>116<br/>117<br/>118<br/>119<br/>120<br/>121<br/>122<br/>123<br/>124<br/>125<br/>126<br/>127<br/>128<br/>129<br/>130<br/>131<br/>132<br/>133<br/>134<br/>135<br/>136<br/>137<br/>138<br/>139<br/>140<br/>141<br/>142<br/>143<br/>144<br/>145<br/>146<br/>147<br/>148<br/>149<br/>150<br/>151<br/>152<br/>153<br/>154<br/>155<br/>156<br/>157<br/>158<br/>159<br/>160<br/>161<br/>162<br/>163<br/>164<br/>165<br/>166<br/>167<br/>168<br/>169<br/>170<br/>171<br/>172<br/>173<br/>174<br/>175<br/>176<br/>177<br/>178<br/>179<br/>180<br/>181<br/>182<br/>183<br/>184<br/>185<br/>186<br/>187<br/>188<br/>189<br/>190<br/>191<br/>192<br/>193<br/>194<br/>195<br/>196<br/>197<br/>198<br/>199<br/>200<br/>201<br/>202<br/>203<br/>204<br/>205<br/>206<br/>207<br/>208<br/>209<br/>210<br/>211<br/>212<br/>213<br/>214<br/>215<br/>216<br/>217<br/>218<br/>219<br/>220<br/>221<br/>222<br/>223<br/>224<br/>225<br/>226<br/>227<br/>228<br/>229<br/>230<br/>231<br/>232<br/>233<br/>234<br/>235<br/>236<br/>237<br/>238<br/>239<br/>240<br/>241<br/>242<br/>243<br/>244<br/>245<br/>246<br/>247<br/>248<br/>249<br/>250<br/>251<br/>252<br/>253<br/>254<br/>255<br/>256<br/>257<br/>258<br/>259<br/>260<br/>261<br/>262<br/>263<br/>264<br/>265<br/>266<br/>267<br/>268<br/>269<br/>270<br/>271<br/>272<br/>273<br/>274<br/>275<br/>276<br/>277<br/>278<br/>279<br/>280<br/>281<br/>282<br/>283<br/>284<br/>285<br/>286<br/>287<br/>288<br/>289<br/>290<br/>291<br/>292</pre></td><td class="code"><pre class="highlight"><code><span class="o">&lt;</span><span class="nx">template</span><span class="o">&gt;</span>
+  <span class="o">&lt;</span><span class="nx">div</span> <span class="kr">class</span><span class="o">=</span><span class="s1">'prism-player'</span> <span class="err">:</span><span class="nx">id</span><span class="o">=</span><span class="s1">'playerId'</span> <span class="err">:</span><span class="nx">style</span><span class="o">=</span><span class="s1">'playStyle'</span><span class="o">&gt;&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span><span class="o">&lt;</span><span class="sr">/template</span><span class="err">&gt;
+</span>
+<span class="o">&lt;</span><span class="nx">script</span><span class="o">&gt;</span>
+  <span class="kr">export</span> <span class="k">default</span> <span class="p">{</span>
+    <span class="na">name</span><span class="p">:</span> <span class="s1">'Aliplayer'</span><span class="p">,</span>
+    <span class="na">props</span><span class="p">:</span> <span class="p">{</span>
+      <span class="na">playStyle</span><span class="p">:</span> <span class="p">{</span>
+        <span class="na">type</span><span class="p">:</span> <span class="nb">String</span><span class="p">,</span>
+        <span class="na">default</span><span class="p">:</span> <span class="s1">''</span>
+      <span class="p">},</span>
+      <span class="na">aliplayerSdkPath</span><span class="p">:</span> <span class="p">{</span>
+        <span class="c1">// Aliplayer 代码的路径</span>
+        <span class="na">type</span><span class="p">:</span> <span class="nb">String</span><span class="p">,</span>
+        <span class="na">default</span><span class="p">:</span> <span class="s1">'//g.alicdn.com/de/prismplayer/2.6.0/aliplayer-min.js'</span>
+      <span class="p">},</span>
+      <span class="na">autoplay</span><span class="p">:</span> <span class="p">{</span>
+        <span class="na">type</span><span class="p">:</span> <span class="nb">Boolean</span><span class="p">,</span>
+        <span class="na">default</span><span class="p">:</span> <span class="kc">false</span>
+      <span class="p">},</span>
+      <span class="na">isLive</span><span class="p">:</span> <span class="p">{</span>
+        <span class="na">type</span><span class="p">:</span> <span class="nb">Boolean</span><span class="p">,</span>
+        <span class="na">default</span><span class="p">:</span> <span class="kc">false</span>
+      <span class="p">},</span>
+      <span class="na">playsinline</span><span class="p">:</span> <span class="p">{</span>
+        <span class="na">type</span><span class="p">:</span> <span class="nb">Boolean</span><span class="p">,</span>
+        <span class="na">default</span><span class="p">:</span> <span class="kc">false</span>
+      <span class="p">},</span>
+      <span class="na">width</span><span class="p">:</span> <span class="p">{</span>
+        <span class="na">type</span><span class="p">:</span> <span class="nb">String</span><span class="p">,</span>
+        <span class="na">default</span><span class="p">:</span> <span class="s1">'100%'</span>
+      <span class="p">},</span>
+      <span class="na">height</span><span class="p">:</span> <span class="p">{</span>
+        <span class="na">type</span><span class="p">:</span> <span class="nb">String</span><span class="p">,</span>
+        <span class="na">default</span><span class="p">:</span> <span class="s1">'320px'</span>
+      <span class="p">},</span>
+      <span class="na">controlBarVisibility</span><span class="p">:</span> <span class="p">{</span>
+        <span class="na">type</span><span class="p">:</span> <span class="nb">String</span><span class="p">,</span>
+        <span class="na">default</span><span class="p">:</span> <span class="s1">'always'</span>
+      <span class="p">},</span>
+      <span class="na">useH5Prism</span><span class="p">:</span> <span class="p">{</span>
+        <span class="na">type</span><span class="p">:</span> <span class="nb">Boolean</span><span class="p">,</span>
+        <span class="na">default</span><span class="p">:</span> <span class="kc">false</span>
+      <span class="p">},</span>
+      <span class="na">useFlashPrism</span><span class="p">:</span> <span class="p">{</span>
+        <span class="na">type</span><span class="p">:</span> <span class="nb">Boolean</span><span class="p">,</span>
+        <span class="na">default</span><span class="p">:</span> <span class="kc">false</span>
+      <span class="p">},</span>
+      <span class="na">vid</span><span class="p">:</span> <span class="p">{</span>
+        <span class="na">type</span><span class="p">:</span> <span class="nb">String</span><span class="p">,</span>
+        <span class="na">default</span><span class="p">:</span> <span class="s1">''</span>
+      <span class="p">},</span>
+      <span class="na">playauth</span><span class="p">:</span> <span class="p">{</span>
+        <span class="na">type</span><span class="p">:</span> <span class="nb">String</span><span class="p">,</span>
+        <span class="na">default</span><span class="p">:</span> <span class="s1">''</span>
+      <span class="p">},</span>
+      <span class="na">source</span><span class="p">:</span> <span class="p">{</span>
+        <span class="na">type</span><span class="p">:</span> <span class="nb">String</span><span class="p">,</span>
+        <span class="na">default</span><span class="p">:</span> <span class="s1">''</span>
+      <span class="p">},</span>
+      <span class="na">cover</span><span class="p">:</span> <span class="p">{</span>
+        <span class="na">type</span><span class="p">:</span> <span class="nb">String</span><span class="p">,</span>
+        <span class="na">default</span><span class="p">:</span> <span class="s1">''</span>
+      <span class="p">},</span>
+      <span class="na">format</span><span class="p">:</span> <span class="p">{</span>
+        <span class="na">type</span><span class="p">:</span> <span class="nb">String</span><span class="p">,</span>
+        <span class="na">default</span><span class="p">:</span> <span class="s1">'m3u8'</span>
+      <span class="p">},</span>
+      <span class="na">x5_video_position</span><span class="p">:</span> <span class="p">{</span>
+        <span class="na">type</span><span class="p">:</span> <span class="nb">String</span><span class="p">,</span>
+        <span class="na">default</span><span class="p">:</span> <span class="s1">'top'</span>
+      <span class="p">},</span>
+      <span class="na">x5_type</span><span class="p">:</span> <span class="p">{</span>
+        <span class="na">type</span><span class="p">:</span> <span class="nb">String</span><span class="p">,</span>
+        <span class="na">default</span><span class="p">:</span> <span class="s1">'h5'</span>
+      <span class="p">},</span>
+      <span class="na">x5_fullscreen</span><span class="p">:</span> <span class="p">{</span>
+        <span class="na">type</span><span class="p">:</span> <span class="nb">Boolean</span><span class="p">,</span>
+        <span class="na">default</span><span class="p">:</span> <span class="kc">false</span>
+      <span class="p">},</span>
+      <span class="na">x5_orientation</span><span class="p">:</span> <span class="p">{</span>
+        <span class="na">type</span><span class="p">:</span> <span class="nb">Number</span><span class="p">,</span>
+        <span class="na">default</span><span class="p">:</span> <span class="mi">2</span>
+      <span class="p">},</span>
+      <span class="na">autoPlayDelay</span><span class="p">:</span> <span class="p">{</span>
+        <span class="na">type</span><span class="p">:</span> <span class="nb">Number</span><span class="p">,</span>
+        <span class="na">default</span><span class="p">:</span> <span class="mi">0</span>
+      <span class="p">},</span>
+      <span class="na">autoPlayDelayDisplayText</span><span class="p">:</span> <span class="p">{</span>
+        <span class="na">type</span><span class="p">:</span> <span class="nb">String</span>
+      <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="nx">data</span> <span class="p">()</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="p">{</span>
+        <span class="na">playerId</span><span class="p">:</span> <span class="s1">'aliplayer_'</span> <span class="o">+</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">()</span> <span class="o">*</span> <span class="mi">100000000000000000</span><span class="p">,</span>
+        <span class="na">scriptTagStatus</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="na">instance</span><span class="p">:</span> <span class="kc">null</span>
+      <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="nx">created</span> <span class="p">()</span> <span class="p">{</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nb">window</span><span class="p">.</span><span class="nx">Aliplayer</span> <span class="o">!==</span> <span class="kc">undefined</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// 如果全局对象存在，说明编辑器代码已经初始化完成，直接加载编辑器</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">scriptTagStatus</span> <span class="o">=</span> <span class="mi">2</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">initAliplayer</span><span class="p">()</span>
+      <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="c1">// 如果全局对象不存在，说明编辑器代码还没有加载完成，需要加载编辑器代码</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">insertScriptTag</span><span class="p">()</span>
+      <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="nx">mounted</span> <span class="p">()</span> <span class="p">{</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nb">window</span><span class="p">.</span><span class="nx">Aliplayer</span> <span class="o">!==</span> <span class="kc">undefined</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// 如果全局对象存在，说明编辑器代码已经初始化完成，直接加载编辑器</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">scriptTagStatus</span> <span class="o">=</span> <span class="mi">2</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">initAliplayer</span><span class="p">()</span>
+      <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="c1">// 如果全局对象不存在，说明编辑器代码还没有加载完成，需要加载编辑器代码</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">insertScriptTag</span><span class="p">()</span>
+      <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="na">methods</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nx">insertScriptTag</span> <span class="p">()</span> <span class="p">{</span>
+        <span class="kr">const</span> <span class="nx">_this</span> <span class="o">=</span> <span class="k">this</span>
+        <span class="kd">let</span> <span class="nx">playerScriptTag</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">'playerScriptTag'</span><span class="p">)</span>
+        <span class="c1">// 如果这个tag不存在，则生成相关代码tag以加载代码</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">playerScriptTag</span> <span class="o">===</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+          <span class="nx">playerScriptTag</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">'script'</span><span class="p">)</span>
+          <span class="nx">playerScriptTag</span><span class="p">.</span><span class="nx">type</span> <span class="o">=</span> <span class="s1">'text/javascript'</span>
+          <span class="nx">playerScriptTag</span><span class="p">.</span><span class="nx">src</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">aliplayerSdkPath</span>
+          <span class="nx">playerScriptTag</span><span class="p">.</span><span class="nx">id</span> <span class="o">=</span> <span class="s1">'playerScriptTag'</span>
+          <span class="kd">let</span> <span class="nx">s</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementsByTagName</span><span class="p">(</span><span class="s1">'head'</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+          <span class="nx">s</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">playerScriptTag</span><span class="p">)</span>
+        <span class="p">}</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">playerScriptTag</span><span class="p">.</span><span class="nx">loaded</span><span class="p">)</span> <span class="p">{</span>
+          <span class="nx">_this</span><span class="p">.</span><span class="nx">scriptTagStatus</span><span class="o">++</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+          <span class="nx">playerScriptTag</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">'load'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+            <span class="nx">_this</span><span class="p">.</span><span class="nx">scriptTagStatus</span><span class="o">++</span>
+            <span class="nx">playerScriptTag</span><span class="p">.</span><span class="nx">loaded</span> <span class="o">=</span> <span class="kc">true</span>
+            <span class="nx">_this</span><span class="p">.</span><span class="nx">initAliplayer</span><span class="p">()</span>
+          <span class="p">})</span>
+        <span class="p">}</span>
+        <span class="nx">_this</span><span class="p">.</span><span class="nx">initAliplayer</span><span class="p">()</span>
+      <span class="p">},</span>
+      <span class="nx">initAliplayer</span> <span class="p">()</span> <span class="p">{</span>
+        <span class="kr">const</span> <span class="nx">_this</span> <span class="o">=</span> <span class="k">this</span>
+        <span class="c1">// scriptTagStatus 为 2 的时候，说明两个必需引入的 js 文件都已经被引入，且加载完成</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">_this</span><span class="p">.</span><span class="nx">scriptTagStatus</span> <span class="o">===</span> <span class="mi">2</span> <span class="o">&amp;&amp;</span> <span class="nx">_this</span><span class="p">.</span><span class="nx">instance</span> <span class="o">===</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+          <span class="c1">// Vue 异步执行 DOM 更新，这样一来代码执行到这里的时候可能 template 里面的 script 标签还没真正创建</span>
+          <span class="c1">// 所以，我们只能在 nextTick 里面初始化 Aliplayer</span>
+          <span class="nx">_this</span><span class="p">.</span><span class="nx">$nextTick</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+            <span class="nx">_this</span><span class="p">.</span><span class="nx">instance</span> <span class="o">=</span> <span class="nb">window</span><span class="p">.</span><span class="nx">Aliplayer</span><span class="p">({</span>
+              <span class="na">id</span><span class="p">:</span> <span class="nx">_this</span><span class="p">.</span><span class="nx">playerId</span><span class="p">,</span>
+              <span class="na">autoplay</span><span class="p">:</span> <span class="nx">_this</span><span class="p">.</span><span class="nx">autoplay</span><span class="p">,</span>
+              <span class="na">isLive</span><span class="p">:</span> <span class="nx">_this</span><span class="p">.</span><span class="nx">isLive</span><span class="p">,</span>
+              <span class="na">playsinline</span><span class="p">:</span> <span class="nx">_this</span><span class="p">.</span><span class="nx">playsinline</span><span class="p">,</span>
+              <span class="na">format</span><span class="p">:</span> <span class="nx">_this</span><span class="p">.</span><span class="nx">format</span><span class="p">,</span>
+              <span class="na">width</span><span class="p">:</span> <span class="nx">_this</span><span class="p">.</span><span class="nx">width</span><span class="p">,</span>
+              <span class="na">height</span><span class="p">:</span> <span class="nx">_this</span><span class="p">.</span><span class="nx">height</span><span class="p">,</span>
+              <span class="na">controlBarVisibility</span><span class="p">:</span> <span class="nx">_this</span><span class="p">.</span><span class="nx">controlBarVisibility</span><span class="p">,</span>
+              <span class="na">useH5Prism</span><span class="p">:</span> <span class="nx">_this</span><span class="p">.</span><span class="nx">useH5Prism</span><span class="p">,</span>
+              <span class="na">useFlashPrism</span><span class="p">:</span> <span class="nx">_this</span><span class="p">.</span><span class="nx">useFlashPrism</span><span class="p">,</span>
+              <span class="na">vid</span><span class="p">:</span> <span class="nx">_this</span><span class="p">.</span><span class="nx">vid</span><span class="p">,</span>
+              <span class="na">playauth</span><span class="p">:</span> <span class="nx">_this</span><span class="p">.</span><span class="nx">playauth</span><span class="p">,</span>
+              <span class="na">source</span><span class="p">:</span> <span class="nx">_this</span><span class="p">.</span><span class="nx">source</span><span class="p">,</span>
+              <span class="na">cover</span><span class="p">:</span> <span class="nx">_this</span><span class="p">.</span><span class="nx">cover</span><span class="p">,</span>
+              <span class="na">x5_video_position</span><span class="p">:</span> <span class="nx">_this</span><span class="p">.</span><span class="nx">x5_video_position</span><span class="p">,</span>
+              <span class="na">x5_type</span><span class="p">:</span> <span class="nx">_this</span><span class="p">.</span><span class="nx">x5_type</span><span class="p">,</span>
+              <span class="na">x5_fullscreen</span><span class="p">:</span> <span class="nx">_this</span><span class="p">.</span><span class="nx">x5_fullscreen</span><span class="p">,</span>
+              <span class="na">x5_orientation</span><span class="p">:</span> <span class="nx">_this</span><span class="p">.</span><span class="nx">x5_orientation</span><span class="p">,</span>
+              <span class="na">autoPlayDelay</span><span class="p">:</span> <span class="nx">_this</span><span class="p">.</span><span class="nx">autoPlayDelay</span><span class="p">,</span>
+              <span class="na">autoPlayDelayDisplayText</span><span class="p">:</span> <span class="nx">_this</span><span class="p">.</span><span class="nx">autoPlayDelayDisplayText</span>
+            <span class="p">})</span>
+            <span class="c1">// 绑定事件，当 AliPlayer 初始化完成后，将编辑器实例通过自定义的 ready 事件交出去</span>
+            <span class="nx">_this</span><span class="p">.</span><span class="nx">instance</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">'ready'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+              <span class="k">this</span><span class="p">.</span><span class="nx">$emit</span><span class="p">(</span><span class="s1">'ready'</span><span class="p">,</span> <span class="nx">_this</span><span class="p">.</span><span class="nx">instance</span><span class="p">)</span>
+            <span class="p">})</span>
+            <span class="nx">_this</span><span class="p">.</span><span class="nx">instance</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">'play'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+              <span class="k">this</span><span class="p">.</span><span class="nx">$emit</span><span class="p">(</span><span class="s1">'play'</span><span class="p">,</span> <span class="nx">_this</span><span class="p">.</span><span class="nx">instance</span><span class="p">)</span>
+            <span class="p">})</span>
+            <span class="nx">_this</span><span class="p">.</span><span class="nx">instance</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">'pause'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+              <span class="k">this</span><span class="p">.</span><span class="nx">$emit</span><span class="p">(</span><span class="s1">'pause'</span><span class="p">,</span> <span class="nx">_this</span><span class="p">.</span><span class="nx">instance</span><span class="p">)</span>
+            <span class="p">})</span>
+            <span class="nx">_this</span><span class="p">.</span><span class="nx">instance</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">'ended'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+              <span class="k">this</span><span class="p">.</span><span class="nx">$emit</span><span class="p">(</span><span class="s1">'ended'</span><span class="p">,</span> <span class="nx">_this</span><span class="p">.</span><span class="nx">instance</span><span class="p">)</span>
+            <span class="p">})</span>
+            <span class="nx">_this</span><span class="p">.</span><span class="nx">instance</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">'liveStreamStop'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+              <span class="k">this</span><span class="p">.</span><span class="nx">$emit</span><span class="p">(</span><span class="s1">'liveStreamStop'</span><span class="p">,</span> <span class="nx">_this</span><span class="p">.</span><span class="nx">instance</span><span class="p">)</span>
+            <span class="p">})</span>
+            <span class="nx">_this</span><span class="p">.</span><span class="nx">instance</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">'m3u8Retry'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+              <span class="k">this</span><span class="p">.</span><span class="nx">$emit</span><span class="p">(</span><span class="s1">'m3u8Retry'</span><span class="p">,</span> <span class="nx">_this</span><span class="p">.</span><span class="nx">instance</span><span class="p">)</span>
+            <span class="p">})</span>
+            <span class="nx">_this</span><span class="p">.</span><span class="nx">instance</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">'hideBar'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+              <span class="k">this</span><span class="p">.</span><span class="nx">$emit</span><span class="p">(</span><span class="s1">'hideBar'</span><span class="p">,</span> <span class="nx">_this</span><span class="p">.</span><span class="nx">instance</span><span class="p">)</span>
+            <span class="p">})</span>
+            <span class="nx">_this</span><span class="p">.</span><span class="nx">instance</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">'waiting'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+              <span class="k">this</span><span class="p">.</span><span class="nx">$emit</span><span class="p">(</span><span class="s1">'waiting'</span><span class="p">,</span> <span class="nx">_this</span><span class="p">.</span><span class="nx">instance</span><span class="p">)</span>
+            <span class="p">})</span>
+            <span class="nx">_this</span><span class="p">.</span><span class="nx">instance</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">'snapshoted'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+              <span class="k">this</span><span class="p">.</span><span class="nx">$emit</span><span class="p">(</span><span class="s1">'snapshoted'</span><span class="p">,</span> <span class="nx">_this</span><span class="p">.</span><span class="nx">instance</span><span class="p">)</span>
+            <span class="p">})</span>
+          <span class="p">})</span>
+        <span class="p">}</span>
+      <span class="p">},</span>
+      <span class="cm">/**
+       * 播放视频
+       */</span>
+      <span class="na">play</span><span class="p">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">instance</span><span class="p">.</span><span class="nx">play</span><span class="p">()</span>
+      <span class="p">},</span>
+      <span class="cm">/**
+       * 暂停视频
+       */</span>
+      <span class="na">pause</span><span class="p">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">instance</span><span class="p">.</span><span class="nx">pause</span><span class="p">()</span>
+      <span class="p">},</span>
+      <span class="cm">/**
+       * 重播视频
+       */</span>
+      <span class="na">replay</span><span class="p">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">instance</span><span class="p">.</span><span class="nx">replay</span><span class="p">()</span>
+      <span class="p">},</span>
+      <span class="cm">/**
+       * 跳转到某个时刻进行播放
+       * @argument time 的单位为秒
+       */</span>
+      <span class="na">seek</span><span class="p">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">time</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">instance</span><span class="p">.</span><span class="nx">seek</span><span class="p">(</span><span class="nx">time</span><span class="p">)</span>
+      <span class="p">},</span>
+      <span class="cm">/**
+       * 获取当前时间 单位秒
+       */</span>
+      <span class="na">getCurrentTime</span><span class="p">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">instance</span><span class="p">.</span><span class="nx">getCurrentTime</span><span class="p">()</span>
+      <span class="p">},</span>
+      <span class="cm">/**
+       *获取视频总时长，返回的单位为秒
+       * @returns 返回的单位为秒
+       */</span>
+      <span class="na">getDuration</span><span class="p">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">instance</span><span class="p">.</span><span class="nx">getDuration</span><span class="p">()</span>
+      <span class="p">},</span>
+      <span class="cm">/**
+       获取当前的音量，返回值为0-1的实数ios和部分android会失效
+       */</span>
+      <span class="na">getVolume</span><span class="p">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">instance</span><span class="p">.</span><span class="nx">getVolume</span><span class="p">()</span>
+      <span class="p">},</span>
+      <span class="cm">/**
+       设置音量，vol为0-1的实数，ios和部分android会失效
+       */</span>
+      <span class="na">setVolume</span><span class="p">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">vol</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">instance</span><span class="p">.</span><span class="nx">setVolume</span><span class="p">(</span><span class="nx">vol</span><span class="p">)</span>
+      <span class="p">},</span>
+      <span class="cm">/**
+       *直接播放视频url，time为可选值（单位秒）目前只支持同种格式（mp4/flv/m3u8）之间切换暂不支持直播rtmp流切换
+       *@argument url 视频地址
+       *@argument time 跳转到多少秒
+       */</span>
+      <span class="na">loadByUrl</span><span class="p">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">url</span><span class="p">,</span> <span class="nx">time</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">instance</span><span class="p">.</span><span class="nx">loadByUrl</span><span class="p">(</span><span class="nx">url</span><span class="p">,</span> <span class="nx">time</span><span class="p">)</span>
+      <span class="p">},</span>
+      <span class="cm">/**
+       * 设置播放速度
+       *@argument speed 速度
+       */</span>
+      <span class="na">setSpeed</span><span class="p">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">speed</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">instance</span><span class="p">.</span><span class="nx">setSpeed</span><span class="p">(</span><span class="nx">speed</span><span class="p">)</span>
+      <span class="p">},</span>
+      <span class="cm">/**
+       * 设置播放器大小w,h可分别为400px像素或60%百分比chrome浏览器下flash播放器分别不能小于397x297
+       *@argument w 播放器宽度
+       *@argument h 播放器高度
+       */</span>
+      <span class="na">setPlayerSize</span><span class="p">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">w</span><span class="p">,</span> <span class="nx">h</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">instance</span><span class="p">.</span><span class="nx">setPlayerSize</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span> <span class="nx">h</span><span class="p">)</span>
+      <span class="p">},</span>
+      <span class="cm">/**
+       * 目前只支持HTML5界面上的重载功能,暂不支持直播rtmp流切换m3u8）之间切换,暂不支持直播rtmp流切换
+       *@argument vid 视频id
+       *@argument playauth 播放凭证
+       */</span>
+      <span class="na">reloaduserPlayInfoAndVidRequestMts</span><span class="p">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">vid</span><span class="p">,</span> <span class="nx">playauth</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">instance</span><span class="p">.</span><span class="nx">reloaduserPlayInfoAndVidRequestMts</span><span class="p">(</span><span class="nx">vid</span><span class="p">,</span> <span class="nx">playauth</span><span class="p">)</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="o">&lt;</span><span class="sr">/script</span><span class="err">&gt;
+</span>
+<span class="o">&lt;</span><span class="nx">style</span><span class="o">&gt;</span>
+  <span class="err">@</span><span class="kr">import</span> <span class="nx">url</span><span class="p">(</span><span class="c1">//g.alicdn.com/de/prismplayer/2.6.0/skins/default/aliplayer-min.css);</span>
+<span class="o">&lt;</span><span class="sr">/style</span><span class="err">&gt;
+</span></code></pre></td></tr></tbody></table></div>
+</div>
+
+<h2 id="组件封装">组件封装</h2>
+<ol>
+  <li>插件本身属性过多，正常开发中不一定用得到，因此对插件进行再一次封装为组件，方便程序调用及适当扩展</li>
+  <li>该组件主要实现了一下功能
+    <ol>
+      <li>播放器高度自适应</li>
+      <li>自动获取视频播放地址，播放地址的实现参见 <a href="http://asing1elife.com/java/jquery/aliyun/2018/03/11/Java-+-jQuery-实现阿里云点播/">Java + jQuery 实现阿里云点播</a></li>
+    </ol>
+  </li>
+</ol>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6<br/>7<br/>8<br/>9<br/>10<br/>11<br/>12<br/>13<br/>14<br/>15<br/>16<br/>17<br/>18<br/>19<br/>20<br/>21<br/>22<br/>23<br/>24<br/>25<br/>26<br/>27<br/>28<br/>29<br/>30<br/>31<br/>32<br/>33<br/>34<br/>35<br/>36<br/>37<br/>38<br/>39<br/>40<br/>41<br/>42<br/>43<br/>44<br/>45<br/>46<br/>47<br/>48<br/>49<br/>50<br/>51<br/>52</pre></td><td class="code"><pre class="highlight"><code><span class="o">&lt;</span><span class="nx">template</span><span class="o">&gt;</span>
+  <span class="o">&lt;</span><span class="nx">ali</span><span class="o">-</span><span class="nx">player</span> <span class="nx">v</span><span class="o">-</span><span class="k">if</span><span class="o">=</span><span class="s2">"playAuth"</span> <span class="err">:</span><span class="nx">vid</span><span class="o">=</span><span class="s2">"vid"</span> <span class="err">:</span><span class="nx">playauth</span><span class="o">=</span><span class="s2">"playAuth"</span> <span class="err">:</span><span class="nx">height</span><span class="o">=</span><span class="s2">"height"</span><span class="o">&gt;&lt;</span><span class="sr">/ali-player</span><span class="err">&gt;
+</span><span class="o">&lt;</span><span class="sr">/template</span><span class="err">&gt;
+</span>
+<span class="o">&lt;</span><span class="nx">script</span> <span class="nx">type</span><span class="o">=</span><span class="s2">"text/ecmascript-6"</span><span class="o">&gt;</span>
+  <span class="kr">import</span> <span class="nx">aliPlayer</span> <span class="nx">from</span> <span class="s1">'./ali-player/ali-player'</span>
+
+  <span class="kr">export</span> <span class="k">default</span> <span class="p">{</span>
+    <span class="na">name</span><span class="p">:</span> <span class="s1">'in-video'</span><span class="p">,</span>
+    <span class="na">props</span><span class="p">:</span> <span class="p">{</span>
+      <span class="na">vid</span><span class="p">:</span> <span class="p">{</span>
+        <span class="na">type</span><span class="p">:</span> <span class="nb">String</span><span class="p">,</span>
+        <span class="na">default</span><span class="p">:</span> <span class="s1">'0'</span>
+      <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="nx">data</span> <span class="p">()</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="p">{</span>
+        <span class="na">playAuth</span><span class="p">:</span> <span class="s1">''</span>
+      <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="na">watch</span><span class="p">:</span> <span class="p">{</span>
+      <span class="s1">'vid'</span> <span class="p">(</span><span class="nx">val</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">_getPlayAuth</span><span class="p">(</span><span class="nx">val</span><span class="p">)</span>
+      <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="na">computed</span><span class="p">:</span> <span class="p">{</span>
+      <span class="c1">// 高度自适应</span>
+      <span class="nx">height</span> <span class="p">()</span> <span class="p">{</span>
+        <span class="kd">let</span> <span class="nx">width</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">documentElement</span><span class="p">.</span><span class="nx">clientWidth</span>
+
+        <span class="k">return</span> <span class="err">`</span><span class="nx">$</span><span class="p">{</span><span class="nx">width</span> <span class="o">/</span> <span class="mf">1.7777778</span><span class="p">}</span><span class="nx">px</span><span class="err">`</span>
+      <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="na">methods</span><span class="p">:</span> <span class="p">{</span>
+      <span class="c1">// 获取视频鉴权地址</span>
+      <span class="nx">_getPlayAuth</span> <span class="p">(</span><span class="nx">val</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">$fetch</span><span class="p">.</span><span class="nx">video</span><span class="p">.</span><span class="nx">auth</span><span class="p">({</span>
+          <span class="na">videoId</span><span class="p">:</span> <span class="nx">val</span>
+        <span class="p">}).</span><span class="nx">then</span><span class="p">((</span><span class="nx">res</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+          <span class="k">this</span><span class="p">.</span><span class="nx">playAuth</span> <span class="o">=</span> <span class="nx">res</span><span class="p">.</span><span class="nx">data</span>
+        <span class="p">})</span>
+      <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="na">components</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nx">aliPlayer</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="o">&lt;</span><span class="sr">/script</span><span class="err">&gt;
+</span>
+<span class="o">&lt;</span><span class="nx">style</span> <span class="nx">lang</span><span class="o">=</span><span class="s2">"stylus"</span> <span class="nx">rel</span><span class="o">=</span><span class="s2">"stylesheet/stylus"</span><span class="o">&gt;</span>
+
+<span class="o">&lt;</span><span class="sr">/style</span><span class="err">&gt;
+</span></code></pre></td></tr></tbody></table></div>
+</div>
+
+ 
+    </div>
+    <div>
+         
+ 
+    </div>
+    <div>
+         
+ 
+    </div>
+    <div>
+         
+ 
+    </div>
+    <footer class="post-footer">
+               
+        <div class="post-nav" id="post-nav-id">
+            <div class="post-nav-next post-nav-item">
+                
+                <a href="/vue/frame/2018/05/07/Cube-ui-%E5%9F%BA%E4%BA%8E-vue-%E7%9A%84%E7%A7%BB%E5%8A%A8%E7%BB%84%E4%BB%B6%E5%BA%93/" rel="next" title="Cube-ui 基于 vue 的移动组件库">
+                <i class="fa fa-chevron-left"></i> Cube-ui 基于 vue 的移动组件库
+              </a> 
+            </div>
+            <span class="post-nav-divider"></span>
+            <div class="post-nav-prev post-nav-item">
+                
+                <a href="/vue/2018/04/25/Vue-%E5%AE%9E%E7%8E%B0-slot-%E5%A4%9A%E5%B1%82%E5%B5%8C%E5%A5%97/" rel="prev" title="Vue 实现 slot 多层嵌套">
+                Vue 实现 slot 多层嵌套 <i class="fa fa-chevron-right"></i>
+              </a> 
+            </div>
+        </div>
+          
+    </footer>
+    <script src="//cdn.jsdelivr.net/jquery/2.1.3/jquery.min.js"></script>
+    <script>
+    // 彩虹颜色数组
+    var colors = ['#e5e1de', '#72c02c', '#3398dc', '#d6e2ee', '#009', '#4263a3', '#f00', '#e64b3b',
+        '#a10f2b', '#9a69cb', '#6639b6', '#e81c62', '#e57d20', '#fe541e', '#ebc71d', '#29d6e6', '#00bed6', '#18ba9b',
+        '#9c8061', '#585f69'
+    ]
+
+    $(function() {
+        // 为所有标签自动添加由新窗口打开属性
+        $('a[href^="http"]').each(function() {
+            $(this).attr('target', '_blank')
+        })
+
+        // 为所有加粗标签添加颜色
+        $('div.posts-expand strong').each(function() {
+            var $this = $(this)
+
+            $this.css({
+                backgroundColor: colors[getRandom(colors.length)]
+            })
+        })
+    })
+
+    function getRandom(max) {
+        return Math.floor(Math.random() * Math.floor(max))
+    }
+    </script>
+</article>
+  <div class="post-spread">
+    
+  </div>
+</div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="gitalk-container"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+        
+        
+        
+
+
+
+
+
+
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/assets/images/avatar.png"
+               alt="asing1elife" />
+          <p class="site-author-name" itemprop="name">asing1elife</p>
+           
+              <p class="site-description motion-element" itemprop="description">- 说好为我泡花茶</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">124</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/">
+                <span class="site-state-item-count">39</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/">
+                <span class="site-state-item-count">77</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              
+              
+              <span class="links-of-author-item">
+                <a href="https://github.com/asing1elife" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              
+              
+              <span class="links-of-author-item">
+                <a href="https://weibo.com/201277592" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+
+
+
+
+
+
+
+            
+              <div class="post-toc-content">
+    <ol class=nav>
+      <li class="nav-item nav-level-1"> <a class="nav-link" href="#vue-aliplayer-阿里云播放器适配-vue"> <span class="nav-number">1</span> <span class="nav-text">vue-aliplayer 阿里云播放器适配 vue</span> </a> <ol class="nav-child"> <li class="nav-item nav-level-2"> <a class="nav-link" href="#官网"> <span class="nav-number">1.1</span> <span class="nav-text">官网</span> </a> </li> <li class="nav-item nav-level-2"> <a class="nav-link" href="#插件源码"> <span class="nav-number">1.2</span> <span class="nav-text">插件源码</span> </a> </li> <li class="nav-item nav-level-2"> <a class="nav-link" href="#组件封装"> <span class="nav-number">1.3</span> <span class="nav-text">组件封装</span> </a> </li> </ol> </li>
+    </ol>
+  </div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">asing1elife</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://jekyllrb.com">Jekyll</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/simpleyyt/jekyll-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+   
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/assets/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/assets/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  <script type="text/javascript" src="/assets/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/assets/js/src/post-details.js?v=5.1.1"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/assets/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+<script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.js"></script>
+<script type="text/javascript">
+      var gitalk = new Gitalk({
+        clientID: 'ef9f962e9ae383f53506',
+        clientSecret: '1b2ceaa93a86016c9efa2457abd876206c87d15c',
+        repo: 'asing1elife.github.io',
+        owner: 'asing1elife',
+        admin: ['asing1elife'],
+        id: md5('/2018/05/02/vue-aliplayer-%E9%98%BF%E9%87%8C%E4%BA%91%E6%92%AD%E6%94%BE%E5%99%A8%E9%80%82%E9%85%8D-vue/'),
+        labels: ['gitalk'],
+        perPage: 50,
+        distractionFreeMode: true
+      });
+      gitalk.render('gitalk-container');
+</script>
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+    
+
+  
+
+
+
+
+
+  
+
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'manual') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+  
+
+
+  
+
+  
+
+  
+
+  <script type="text/javascript">
+    $(function () {
+      $('.sidebar-toggle').on('click', function () {
+        var $sidebar = $('#sidebar')
+        var $mainCategory = $('.main .main-category')
+
+        if ($sidebar.width() === 320) {
+          $mainCategory.css('transform', 'translateX(0)')
+        } else {
+          $mainCategory.css('transform', 'translateX(-160px)')
+        }
+      })
+    })
+  </script>
+</body>
+</html>
+

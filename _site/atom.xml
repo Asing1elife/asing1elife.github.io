@@ -1,4 +1,79 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.5.2">Jekyll</generator><link href="http://localhost:4000/atom.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2018-08-10T10:22:50+08:00</updated><id>http://localhost:4000/</id><title type="html">asing1elife’s blog</title><subtitle>- 说好为我泡花茶</subtitle><author><name>asing1elife</name></author><entry><title type="html">简单封装浏览器 cookie 工具类</title><link href="http://localhost:4000/vue/2018/08/10/%E7%AE%80%E5%8D%95%E5%B0%81%E8%A3%85%E6%B5%8F%E8%A7%88%E5%99%A8-cookie-%E5%B7%A5%E5%85%B7%E7%B1%BB/" rel="alternate" type="text/html" title="简单封装浏览器 cookie 工具类" /><published>2018-08-10T00:00:00+08:00</published><updated>2018-08-10T00:00:00+08:00</updated><id>http://localhost:4000/vue/2018/08/10/%E7%AE%80%E5%8D%95%E5%B0%81%E8%A3%85%E6%B5%8F%E8%A7%88%E5%99%A8%20cookie%20%E5%B7%A5%E5%85%B7%E7%B1%BB</id><content type="html" xml:base="http://localhost:4000/vue/2018/08/10/%E7%AE%80%E5%8D%95%E5%B0%81%E8%A3%85%E6%B5%8F%E8%A7%88%E5%99%A8-cookie-%E5%B7%A5%E5%85%B7%E7%B1%BB/">&lt;blockquote&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.5.2">Jekyll</generator><link href="http://localhost:4000/atom.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2018-08-19T20:34:40+08:00</updated><id>http://localhost:4000/</id><title type="html">asing1elife’s blog</title><subtitle>- 说好为我泡花茶</subtitle><author><name>asing1elife</name></author><entry><title type="html">vuex 在非组件中调用 mutations 方法</title><link href="http://localhost:4000/vue/vuex/2018/08/14/vuex-%E5%9C%A8%E9%9D%9E%E7%BB%84%E4%BB%B6%E4%B8%AD%E8%B0%83%E7%94%A8-mutations-%E6%96%B9%E6%B3%95/" rel="alternate" type="text/html" title="vuex 在非组件中调用 mutations 方法" /><published>2018-08-14T00:00:00+08:00</published><updated>2018-08-14T00:00:00+08:00</updated><id>http://localhost:4000/vue/vuex/2018/08/14/vuex%20%E5%9C%A8%E9%9D%9E%E7%BB%84%E4%BB%B6%E4%B8%AD%E8%B0%83%E7%94%A8%20mutations%20%E6%96%B9%E6%B3%95</id><content type="html" xml:base="http://localhost:4000/vue/vuex/2018/08/14/vuex-%E5%9C%A8%E9%9D%9E%E7%BB%84%E4%BB%B6%E4%B8%AD%E8%B0%83%E7%94%A8-mutations-%E6%96%B9%E6%B3%95/">&lt;blockquote&gt;
+  &lt;p&gt;一般情况下调用 mutations.js 中的方法都是在组件中，如果想在非组件中调用，则需要使用如下方式&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;在组件中调用&quot;&gt;在组件中调用&lt;/h2&gt;
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kr&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;mapMutations&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'vuex'&lt;/span&gt;
+&lt;span class=&quot;kr&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;SET_IS_LOGIN&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'store/mutation-types'&lt;/span&gt;
+
+&lt;span class=&quot;kr&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;default&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+	&lt;span class=&quot;na&quot;&gt;methods&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+		&lt;span class=&quot;p&quot;&gt;...&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;mapMutations&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
+			&lt;span class=&quot;na&quot;&gt;set_is_login&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;SET_IS_LOGIN&lt;/span&gt;
+		&lt;span class=&quot;p&quot;&gt;}),&lt;/span&gt;
+		&lt;span class=&quot;nx&quot;&gt;init&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+			&lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;set_is_login&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+		&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+	&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;在非组件中调用&quot;&gt;在非组件中调用&lt;/h2&gt;
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kr&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;store&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'store'&lt;/span&gt;
+&lt;span class=&quot;kr&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;SET_IS_LOGIN&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'store/mutation-types'&lt;/span&gt;
+
+&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;init&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+	&lt;span class=&quot;nx&quot;&gt;store&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;commit&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;SET_IS_LOGIN&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;</content><author><name>asing1elife</name></author><category term="vue" /><category term="vuex" /><summary type="html">一般情况下调用 mutations.js 中的方法都是在组件中，如果想在非组件中调用，则需要使用如下方式</summary></entry><entry><title type="html">vuex 在非组件中调用 actions 方法</title><link href="http://localhost:4000/vue/vuex/2018/08/14/vuex-%E5%9C%A8%E9%9D%9E%E7%BB%84%E4%BB%B6%E4%B8%AD%E8%B0%83%E7%94%A8-actions-%E6%96%B9%E6%B3%95/" rel="alternate" type="text/html" title="vuex 在非组件中调用 actions 方法" /><published>2018-08-14T00:00:00+08:00</published><updated>2018-08-14T00:00:00+08:00</updated><id>http://localhost:4000/vue/vuex/2018/08/14/vuex%20%E5%9C%A8%E9%9D%9E%E7%BB%84%E4%BB%B6%E4%B8%AD%E8%B0%83%E7%94%A8%20actions%20%E6%96%B9%E6%B3%95</id><content type="html" xml:base="http://localhost:4000/vue/vuex/2018/08/14/vuex-%E5%9C%A8%E9%9D%9E%E7%BB%84%E4%BB%B6%E4%B8%AD%E8%B0%83%E7%94%A8-actions-%E6%96%B9%E6%B3%95/">&lt;blockquote&gt;
+  &lt;p&gt;一般情况下调用 actions.js 中的方法都是在组件中，如果想在非组件中调用，则需要如下方式&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;在组件中&quot;&gt;在组件中&lt;/h2&gt;
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kr&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;mapActions&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'vuex'&lt;/span&gt;
+
+&lt;span class=&quot;kr&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;default&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+	&lt;span class=&quot;na&quot;&gt;methods&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+		&lt;span class=&quot;p&quot;&gt;...&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;mapActions&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;
+			&lt;span class=&quot;s1&quot;&gt;'setUserInfo'&lt;/span&gt;
+		&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
+	&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+	&lt;span class=&quot;nx&quot;&gt;init&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+		&lt;span class=&quot;kd&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;user&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{}&lt;/span&gt;
+		
+		&lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;setUserInfo&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;user&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+	&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;在非组件中&quot;&gt;在非组件中&lt;/h2&gt;
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kr&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;store&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'store'&lt;/span&gt;
+
+&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;init&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+	&lt;span class=&quot;kd&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;user&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{}&lt;/span&gt;
+
+	&lt;span class=&quot;nx&quot;&gt;store&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;dispatch&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'setUserInfo'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;user&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;</content><author><name>asing1elife</name></author><category term="vue" /><category term="vuex" /><summary type="html">一般情况下调用 actions.js 中的方法都是在组件中，如果想在非组件中调用，则需要如下方式</summary></entry><entry><title type="html">v-for 遍历 Map</title><link href="http://localhost:4000/vue/2018/08/11/v-for-%E9%81%8D%E5%8E%86-Map/" rel="alternate" type="text/html" title="v-for 遍历 Map" /><published>2018-08-11T00:00:00+08:00</published><updated>2018-08-11T00:00:00+08:00</updated><id>http://localhost:4000/vue/2018/08/11/v-for%20%E9%81%8D%E5%8E%86%20Map</id><content type="html" xml:base="http://localhost:4000/vue/2018/08/11/v-for-%E9%81%8D%E5%8E%86-Map/">&lt;blockquote&gt;
+  &lt;p&gt;通常情况下都是使用 v-for 遍历 List 或 Array ，但 v-for 对于 Map 遍历也是支持的&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;遍历方式&quot;&gt;遍历方式&lt;/h2&gt;
+&lt;ol&gt;
+  &lt;li&gt;下列代码展现的是一种比较复杂的情况，在 Map 的 value 中存放的是一个 List
+```javascript&lt;/li&gt;
+&lt;/ol&gt;
+&lt;ul v-for=&quot;(value, key) in questions&quot; :key=&quot;key&quot;&gt;
+	&lt;li&gt;&lt;/li&gt;
+	&lt;ul v-for=&quot;val in value&quot; :key=&quot;val.hexId&quot;&gt;
+		&lt;li&gt;&lt;/li&gt;
+	&lt;/ul&gt;
+&lt;/ul&gt;
+&lt;p&gt;```&lt;/p&gt;</content><author><name>asing1elife</name></author><category term="vue" /><category term="for" /><category term="map" /><summary type="html">通常情况下都是使用 v-for 遍历 List 或 Array ，但 v-for 对于 Map 遍历也是支持的</summary></entry><entry><title type="html">简单封装浏览器 cookie 工具类</title><link href="http://localhost:4000/vue/2018/08/10/%E7%AE%80%E5%8D%95%E5%B0%81%E8%A3%85%E6%B5%8F%E8%A7%88%E5%99%A8-cookie-%E5%B7%A5%E5%85%B7%E7%B1%BB/" rel="alternate" type="text/html" title="简单封装浏览器 cookie 工具类" /><published>2018-08-10T00:00:00+08:00</published><updated>2018-08-10T00:00:00+08:00</updated><id>http://localhost:4000/vue/2018/08/10/%E7%AE%80%E5%8D%95%E5%B0%81%E8%A3%85%E6%B5%8F%E8%A7%88%E5%99%A8%20cookie%20%E5%B7%A5%E5%85%B7%E7%B1%BB</id><content type="html" xml:base="http://localhost:4000/vue/2018/08/10/%E7%AE%80%E5%8D%95%E5%B0%81%E8%A3%85%E6%B5%8F%E8%A7%88%E5%99%A8-cookie-%E5%B7%A5%E5%85%B7%E7%B1%BB/">&lt;blockquote&gt;
   &lt;p&gt;目前主流浏览器一般都支持 cookie ，以下对 cookie 的操作进行简单封装，以方便使用&lt;/p&gt;
 &lt;/blockquote&gt;
 
@@ -153,7 +228,7 @@
 所以本文通过 JWT 对 Shiro 原生的 Session 控制进行替换，从而实现用户信息的前后传递及判断&lt;/p&gt;
 &lt;/blockquote&gt;
 
-&lt;h2 id=&quot;设计资料&quot;&gt;设计资料&lt;/h2&gt;
+&lt;h2 id=&quot;涉及资料&quot;&gt;涉及资料&lt;/h2&gt;
 &lt;ol&gt;
   &lt;li&gt;&lt;a href=&quot;https://github.com/Smith-Cruise/Spring-Boot-Shiro&quot;&gt;一个已经实现的例子&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://jwt.io&quot;&gt;JWT官网&lt;/a&gt;&lt;/li&gt;
@@ -955,372 +1030,138 @@
 &lt;ol&gt;
   &lt;li&gt;Linux 环境需要前往 Tomcat 的 /bin 目录下，需要 &lt;strong&gt;./catalina.sh&lt;/strong&gt; 中的 &lt;code class=&quot;highlighter-rouge&quot;&gt;JAVA_OPTS&lt;/code&gt; 内容如下&lt;/li&gt;
   &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;JAVA_OPTS=&quot;$JAVA_OPTS -Dspring.profiles.active=prod&quot;&lt;/code&gt;&lt;/li&gt;
-&lt;/ol&gt;</content><author><name>asing1elife</name></author><category term="java" /><category term="springmvc" /><category term="profile" /><category term="spring" /><summary type="html">SpringMVC 可以使用 Spring 本身提供的 profile 特性对多环境配置文件进行统一集成，自动切换</summary></entry><entry><title type="html">SpringBoot前后分离项目实现自定义登录拦截</title><link href="http://localhost:4000/java/springboot/shiro/2018/06/24/SpringBoot%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB%E9%A1%B9%E7%9B%AE%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%AE%9A%E4%B9%89%E7%99%BB%E5%BD%95%E6%8B%A6%E6%88%AA/" rel="alternate" type="text/html" title="SpringBoot前后分离项目实现自定义登录拦截" /><published>2018-06-24T00:00:00+08:00</published><updated>2018-06-24T00:00:00+08:00</updated><id>http://localhost:4000/java/springboot/shiro/2018/06/24/SpringBoot%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB%E9%A1%B9%E7%9B%AE%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%AE%9A%E4%B9%89%E7%99%BB%E5%BD%95%E6%8B%A6%E6%88%AA</id><content type="html" xml:base="http://localhost:4000/java/springboot/shiro/2018/06/24/SpringBoot%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB%E9%A1%B9%E7%9B%AE%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%AE%9A%E4%B9%89%E7%99%BB%E5%BD%95%E6%8B%A6%E6%88%AA/">&lt;blockquote&gt;
-  &lt;p&gt;通常的 shiro 登录拦截对于 &lt;code class=&quot;highlighter-rouge&quot;&gt;/login&lt;/code&gt; 操作可设置为 &lt;code class=&quot;highlighter-rouge&quot;&gt;authc&lt;/code&gt; 模式，但前后分离的项目直接设置会导致无法获取登录信息&lt;/p&gt;
+&lt;/ol&gt;</content><author><name>asing1elife</name></author><category term="java" /><category term="springmvc" /><category term="profile" /><category term="spring" /><summary type="html">SpringMVC 可以使用 Spring 本身提供的 profile 特性对多环境配置文件进行统一集成，自动切换</summary></entry><entry><title type="html">连接 MySQL 抛出 Establishing SSL connection 警告</title><link href="http://localhost:4000/java/database/2018/07/11/%E8%BF%9E%E6%8E%A5-MySQL-%E6%8A%9B%E5%87%BA-Establishing-SSL-connection-%E8%AD%A6%E5%91%8A/" rel="alternate" type="text/html" title="连接 MySQL 抛出 Establishing SSL connection 警告" /><published>2018-07-11T00:00:00+08:00</published><updated>2018-07-11T00:00:00+08:00</updated><id>http://localhost:4000/java/database/2018/07/11/%E8%BF%9E%E6%8E%A5%20MySQL%20%E6%8A%9B%E5%87%BA%20Establishing%20SSL%20connection%20%E8%AD%A6%E5%91%8A</id><content type="html" xml:base="http://localhost:4000/java/database/2018/07/11/%E8%BF%9E%E6%8E%A5-MySQL-%E6%8A%9B%E5%87%BA-Establishing-SSL-connection-%E8%AD%A6%E5%91%8A/">&lt;blockquote&gt;
+  &lt;p&gt;Java 连接 MySQL 时控制台出现多条 Establishing SSL connection without 警告&lt;/p&gt;
 &lt;/blockquote&gt;
-
-&lt;h2 id=&quot;自定义登录拦截的实现&quot;&gt;自定义登录拦截的实现&lt;/h2&gt;
-&lt;ol&gt;
-  &lt;li&gt;要实现自定义的登录拦截是继承 &lt;code class=&quot;highlighter-rouge&quot;&gt;FormAuthenticationFilter&lt;/code&gt; 接口&lt;/li&gt;
-  &lt;li&gt;对接口中的 &lt;code class=&quot;highlighter-rouge&quot;&gt;onLoginSuccess&lt;/code&gt; 和 &lt;code class=&quot;highlighter-rouge&quot;&gt;onLoginFailure&lt;/code&gt; 重写
-    &lt;ul&gt;
-      &lt;li&gt;从而根据登录成功和失败进行不同的操作记录&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;LoginFormAuthenticationFilter&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;extends&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;FormAuthenticationFilter&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-
-  &lt;span class=&quot;c1&quot;&gt;// springBoot中存在与配置类的service类需要提供get/set方法手动收入，如果使用@Autowired会导致报错&lt;/span&gt;
-    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;MemberLoginRecordServiceImpl&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;memberLoginRecordService&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-
-    &lt;span class=&quot;nd&quot;&gt;@Override&lt;/span&gt;
-    &lt;span class=&quot;kd&quot;&gt;protected&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;boolean&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;onLoginSuccess&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;AuthenticationToken&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;token&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Subject&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;subject&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; 
-&lt;span class=&quot;n&quot;&gt;ServletRequest&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;request&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ServletResponse&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;response&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;throws&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Exception&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;c1&quot;&gt;// 处理会员登录成功操作&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;memberLoginRecordService&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;doAfterSuccessfullyLogin&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;request&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;subject&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-
-        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;super&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;onLoginSuccess&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;token&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;subject&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;request&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;response&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-    &lt;span class=&quot;nd&quot;&gt;@Override&lt;/span&gt;
-    &lt;span class=&quot;kd&quot;&gt;protected&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;boolean&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;onLoginFailure&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;AuthenticationToken&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;token&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;AuthenticationException&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; 
-&lt;span class=&quot;n&quot;&gt;ServletRequest&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;request&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ServletResponse&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;response&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;super&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;onLoginFailure&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;token&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;request&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;response&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;MemberLoginRecordServiceImpl&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;getMemberLoginRecordService&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;memberLoginRecordService&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;setMemberLoginRecordService&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;MemberLoginRecordServiceImpl&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;memberLoginRecordService&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;memberLoginRecordService&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;memberLoginRecordService&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;h2 id=&quot;将重写的拦截器注入到-shiro-配置中&quot;&gt;将重写的拦截器注入到 shiro 配置中&lt;/h2&gt;
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nd&quot;&gt;@Configuration&lt;/span&gt;
-&lt;span class=&quot;nd&quot;&gt;@ConditionalOnWebApplication&lt;/span&gt;
-&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;ShiroConfiguration&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;extends&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;BaseShiroConfiguration&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-
-  &lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;
-
-  	&lt;span class=&quot;c1&quot;&gt;// 手动注入自定义拦截器需要用到的service&lt;/span&gt;
-  	&lt;span class=&quot;c1&quot;&gt;// 注入该service即可，service内部的其他类可实现自动注入&lt;/span&gt;
-    &lt;span class=&quot;nd&quot;&gt;@Bean&lt;/span&gt;
-    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;MemberLoginRecordServiceImpl&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;memberLoginRecordService&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;MemberLoginRecordServiceImpl&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ShiroFilterFactoryBean&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;shiroFilterFactoryBean&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;DefaultWebSecurityManager&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;securityManager&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;throws&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Exception&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;ShiroFilterFactoryBean&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;shiroFilterFactoryBean&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ShiroFilterFactoryBean&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;shiroFilterFactoryBean&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;setSecurityManager&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;securityManager&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-
-  		&lt;span class=&quot;c1&quot;&gt;// 指定登录链接&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;shiroFilterFactoryBean&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;setLoginUrl&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;/login&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-
-        &lt;span class=&quot;n&quot;&gt;Map&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Filter&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;filters&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;LinkedHashMap&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Filter&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;();&lt;/span&gt;
-        
-  		&lt;span class=&quot;c1&quot;&gt;// 配置自定义表单拦截器&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;LoginFormAuthenticationFilter&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;authcFilter&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;LoginFormAuthenticationFilter&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;authcFilter&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;setRememberMeParam&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;rememberMe&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-  		&lt;span class=&quot;c1&quot;&gt;// 注入上述引用的service类&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;authcFilter&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;setMemberLoginRecordService&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;memberLoginRecordService&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;());&lt;/span&gt;
-  		&lt;span class=&quot;c1&quot;&gt;// 选择指定拦截器的规则&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;filters&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;put&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;authc&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;authcFilter&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-
-        &lt;span class=&quot;n&quot;&gt;shiroFilterFactoryBean&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;setFilters&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;filters&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-
-  		&lt;span class=&quot;c1&quot;&gt;// 配置不同接口规则&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;Map&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;filterChainDefinitionMap&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;LinkedHashMap&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;();&lt;/span&gt;
-  		&lt;span class=&quot;c1&quot;&gt;// 登出操作由shiro管理&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;filterChainDefinitionMap&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;put&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;/logout&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;anon&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-  		&lt;span class=&quot;c1&quot;&gt;// 以下规则可直接访问&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;filterChainDefinitionMap&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;put&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;/api/portals/**&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;anon&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-
-  		&lt;span class=&quot;c1&quot;&gt;// 以下规则需要认证访问&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;filterChainDefinitionMap&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;put&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;/login&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;authc&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;filterChainDefinitionMap&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;put&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;/api/**&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;authc&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-
-        &lt;span class=&quot;n&quot;&gt;shiroFilterFactoryBean&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;setFilterChainDefinitionMap&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;filterChainDefinitionMap&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-
-        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;shiroFilterFactoryBean&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;h2 id=&quot;以上方式在前后分离项目中会出现的问题&quot;&gt;以上方式在前后分离项目中会出现的问题&lt;/h2&gt;
-&lt;ol&gt;
-  &lt;li&gt;由于项目是前后分离的，前端发起的直接是访问 &lt;code class=&quot;highlighter-rouge&quot;&gt;loginController&lt;/code&gt; 的请求&lt;/li&gt;
-  &lt;li&gt;该请求由于配置了 &lt;code class=&quot;highlighter-rouge&quot;&gt;authc&lt;/code&gt; 规则，则需要认证才能访问&lt;/li&gt;
-  &lt;li&gt;所以就导致以上配置方式会直接报错&lt;/li&gt;
-  &lt;li&gt;而如果将 &lt;code class=&quot;highlighter-rouge&quot;&gt;/login&lt;/code&gt; 请求配置为 &lt;code class=&quot;highlighter-rouge&quot;&gt;anon&lt;/code&gt; 规则，则会导致登录操作无法被自定义表单拦截器拦截&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h2 id=&quot;解决方式&quot;&gt;解决方式&lt;/h2&gt;
-&lt;ol&gt;
-  &lt;li&gt;重写 &lt;code class=&quot;highlighter-rouge&quot;&gt;FormAuthenticationFilter&lt;/code&gt; 接口的 &lt;code class=&quot;highlighter-rouge&quot;&gt;onAccessDenied&lt;/code&gt; 方法&lt;/li&gt;
-  &lt;li&gt;判断当前访问该规则的请求是否为登录请求&lt;/li&gt;
-  &lt;li&gt;如果是登录请求则再次判断是否为登录提交请求 &lt;code class=&quot;highlighter-rouge&quot;&gt;this.isLoginRequest&lt;/code&gt;
-    &lt;ul&gt;
-      &lt;li&gt;因为正常的登录请求中会存在一个访问登录页面和提交登录表单两个操作&lt;/li&gt;
-      &lt;li&gt;而前后分离项目发起的必然是提交登录表单 &lt;code class=&quot;highlighter-rouge&quot;&gt;this.isLoginSubmission&lt;/code&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;如果不是登录请求则返回 false&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nd&quot;&gt;@Override&lt;/span&gt;
-&lt;span class=&quot;kd&quot;&gt;protected&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;boolean&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;onAccessDenied&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ServletRequest&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;request&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ServletResponse&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;response&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;throws&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Exception&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;isLoginRequest&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;request&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;response&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;isLoginSubmission&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;request&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;response&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;</content><author><name>asing1elife</name></author><category term="java" /><category term="springboot" /><category term="shiro" /><summary type="html">通常的 shiro 登录拦截对于 /login 操作可设置为 authc 模式，但前后分离的项目直接设置会导致无法获取登录信息</summary></entry><entry><title type="html">SpringBoot实现全局异常捕获</title><link href="http://localhost:4000/java/springboot/2018/06/07/SpringBoot%E5%AE%9E%E7%8E%B0%E5%85%A8%E5%B1%80%E5%BC%82%E5%B8%B8%E6%8D%95%E8%8E%B7/" rel="alternate" type="text/html" title="SpringBoot实现全局异常捕获" /><published>2018-06-07T00:00:00+08:00</published><updated>2018-06-07T00:00:00+08:00</updated><id>http://localhost:4000/java/springboot/2018/06/07/SpringBoot%E5%AE%9E%E7%8E%B0%E5%85%A8%E5%B1%80%E5%BC%82%E5%B8%B8%E6%8D%95%E8%8E%B7</id><content type="html" xml:base="http://localhost:4000/java/springboot/2018/06/07/SpringBoot%E5%AE%9E%E7%8E%B0%E5%85%A8%E5%B1%80%E5%BC%82%E5%B8%B8%E6%8D%95%E8%8E%B7/">&lt;blockquote&gt;
-  &lt;p&gt;SpringBoot 对异常可以进行全局捕获，按照如下操作即可&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h2 id=&quot;创建全局异常捕获器&quot;&gt;创建全局异常捕获器&lt;/h2&gt;
-&lt;ol&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;@RestControllerAdvice&lt;/code&gt; 是对 &lt;code class=&quot;highlighter-rouge&quot;&gt;@RestController&lt;/code&gt; 的加强
-    &lt;ul&gt;
-      &lt;li&gt;该注解是 Spring2.3 之后提供的新功能，主要用于对原生 Controller 做一些低侵入性的增加辅助&lt;/li&gt;
-      &lt;li&gt;被该注解标注的类，其中的方法会被应用到 &lt;code class=&quot;highlighter-rouge&quot;&gt;@RestController&lt;/code&gt; 中&lt;/li&gt;
-      &lt;li&gt;作用与 &lt;code class=&quot;highlighter-rouge&quot;&gt;@RestController&lt;/code&gt; 中被标注 &lt;code class=&quot;highlighter-rouge&quot;&gt;@RequestMapping&lt;/code&gt; 的方法&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;@ExceptionHandler&lt;/code&gt; 是自定义错误处理器，使用时可以注明具体需要处理的错误类型
-    &lt;ul&gt;
-      &lt;li&gt;一般需要标注默认异常和自定义异常即可&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;该错误捕获方式是将所有错误向上一直抛出至 Spring 容器，由 Spring 自行处理
-    &lt;ul&gt;
-      &lt;li&gt;所以如果在之前进行了 try-catch 操作，会导致 Spring 无法捕获到该异常&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nd&quot;&gt;@RestControllerAdvice&lt;/span&gt;
-&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;GlobalExceptionHandler&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Logger&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;log&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;LoggerFactory&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getLogger&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;getClass&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;());&lt;/span&gt;
-
-    &lt;span class=&quot;nd&quot;&gt;@ExceptionHandler&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;TSharkException&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ResponseData&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;handleTSharkException&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;TSharkException&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;error&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getMessage&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;());&lt;/span&gt;
-
-        &lt;span class=&quot;n&quot;&gt;ResponseData&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;responseData&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ResponseData&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;responseData&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;setError&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getMessage&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;());&lt;/span&gt;
-
-        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;responseData&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-    &lt;span class=&quot;nd&quot;&gt;@ExceptionHandler&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Exception&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ResponseData&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;handleException&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Exception&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;error&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getMessage&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;());&lt;/span&gt;
-
-        &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;exceptionMessage&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-
-        &lt;span class=&quot;n&quot;&gt;ResponseData&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;responseData&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ResponseData&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-
-        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getMessage&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;contains&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;rollback&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-            &lt;span class=&quot;n&quot;&gt;exceptionMessage&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;数据已被关联或使用，无法删除！&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-        &lt;span class=&quot;n&quot;&gt;responseData&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;setError&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;exceptionMessage&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-
-        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;responseData&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;</content><author><name>asing1elife</name></author><category term="java" /><category term="springboot" /><category term="exception" /><summary type="html">SpringBoot 对异常可以进行全局捕获，按照如下操作即可</summary></entry><entry><title type="html">Hibernate 双向关联转换 JSON 防止死循环</title><link href="http://localhost:4000/java/hibernate/2018/05/17/Hibernate-%E5%8F%8C%E5%90%91%E5%85%B3%E8%81%94%E8%BD%AC%E6%8D%A2-JSON-%E9%98%B2%E6%AD%A2%E6%AD%BB%E5%BE%AA%E7%8E%AF/" rel="alternate" type="text/html" title="Hibernate 双向关联转换 JSON 防止死循环" /><published>2018-05-17T00:00:00+08:00</published><updated>2018-05-17T00:00:00+08:00</updated><id>http://localhost:4000/java/hibernate/2018/05/17/Hibernate%20%E5%8F%8C%E5%90%91%E5%85%B3%E8%81%94%E8%BD%AC%E6%8D%A2%20JSON%20%E9%98%B2%E6%AD%A2%E6%AD%BB%E5%BE%AA%E7%8E%AF</id><content type="html" xml:base="http://localhost:4000/java/hibernate/2018/05/17/Hibernate-%E5%8F%8C%E5%90%91%E5%85%B3%E8%81%94%E8%BD%AC%E6%8D%A2-JSON-%E9%98%B2%E6%AD%A2%E6%AD%BB%E5%BE%AA%E7%8E%AF/">&lt;blockquote&gt;
-  &lt;p&gt;Hibernate 中经常存在双向关联的情况，此处将数据转换为 JSON 格式则可能导致死循环&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h2 id=&quot;获取数据时只需要单向关联&quot;&gt;获取数据时只需要单向关联&lt;/h2&gt;
-&lt;ol&gt;
-  &lt;li&gt;这种情况下父类需要子类数据，而子类不需要父类数据&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nd&quot;&gt;@Entity&lt;/span&gt;
-&lt;span class=&quot;nd&quot;&gt;@Table&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ht_feedback_template&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;FeedbackTemplate&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;extends&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;BaseModel&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;nd&quot;&gt;@OneToMany&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mappedBy&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;feedbackTemplate&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cascade&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;CascadeType&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;ALL&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;},&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;fetch&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;FetchType&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;LAZY&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;nd&quot;&gt;@OrderBy&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;indexNo asc&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Set&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;FeedbackQuestion&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;questions&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-
-    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Set&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;FeedbackQuestion&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;getQuestions&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;questions&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;setQuestions&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Set&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;FeedbackQuestion&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;questions&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;questions&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;questions&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;在子类中对父类的引用字段加上 &lt;code class=&quot;highlighter-rouge&quot;&gt;@JsonIgnore&lt;/code&gt; 即可&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nd&quot;&gt;@Entity&lt;/span&gt;
-&lt;span class=&quot;nd&quot;&gt;@Table&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ht_feedback_question&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;FeedbackQuestion&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;extends&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;BaseModel&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;nd&quot;&gt;@ManyToOne&lt;/span&gt;
-    &lt;span class=&quot;nd&quot;&gt;@JsonIgnore&lt;/span&gt;
-    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;FeedbackTemplate&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;feedbackTemplate&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-
-    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;FeedbackTemplate&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;getFeedbackTemplate&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;feedbackTemplate&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;setFeedbackTemplate&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;FeedbackTemplate&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;feedbackTemplate&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;feedbackTemplate&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;feedbackTemplate&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;h2 id=&quot;获取数据时确实需要双向关联&quot;&gt;获取数据时确实需要双向关联&lt;/h2&gt;
-&lt;ol&gt;
-  &lt;li&gt;在父类对子类的引用字段加上 &lt;code class=&quot;highlighter-rouge&quot;&gt;@JsonManagedReference&lt;/code&gt;&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nd&quot;&gt;@Entity&lt;/span&gt;
-&lt;span class=&quot;nd&quot;&gt;@Table&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ht_feedback_template&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;FeedbackTemplate&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;extends&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;BaseModel&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;nd&quot;&gt;@OneToMany&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mappedBy&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;feedbackTemplate&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cascade&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;CascadeType&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;ALL&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;},&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;fetch&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;FetchType&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;LAZY&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;nd&quot;&gt;@OrderBy&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;indexNo asc&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-  &lt;span class=&quot;nd&quot;&gt;@JsonManagedReference&lt;/span&gt;
-    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Set&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;FeedbackQuestion&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;questions&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-
-    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Set&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;FeedbackQuestion&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;getQuestions&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;questions&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;setQuestions&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Set&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;FeedbackQuestion&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;questions&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;questions&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;questions&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;在子类中对父类的引用字段加上 &lt;code class=&quot;highlighter-rouge&quot;&gt;@JsonBackReference&lt;/code&gt; 即可&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nd&quot;&gt;@Entity&lt;/span&gt;
-&lt;span class=&quot;nd&quot;&gt;@Table&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ht_feedback_question&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;FeedbackQuestion&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;extends&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;BaseModel&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;nd&quot;&gt;@ManyToOne&lt;/span&gt;
-  &lt;span class=&quot;nd&quot;&gt;@JsonBackReference&lt;/span&gt;
-    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;FeedbackTemplate&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;feedbackTemplate&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-
-    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;FeedbackTemplate&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;getFeedbackTemplate&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;feedbackTemplate&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;setFeedbackTemplate&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;FeedbackTemplate&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;feedbackTemplate&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;feedbackTemplate&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;feedbackTemplate&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;</content><author><name>asing1elife</name></author><category term="java" /><category term="hibernate" /><summary type="html">Hibernate 中经常存在双向关联的情况，此处将数据转换为 JSON 格式则可能导致死循环</summary></entry><entry><title type="html">Hibernate Criteria 模糊查询</title><link href="http://localhost:4000/java/hibernate/2018/05/14/Hibernate-Criteria-%E6%A8%A1%E7%B3%8A%E6%9F%A5%E8%AF%A2/" rel="alternate" type="text/html" title="Hibernate Criteria 模糊查询" /><published>2018-05-14T00:00:00+08:00</published><updated>2018-05-14T00:00:00+08:00</updated><id>http://localhost:4000/java/hibernate/2018/05/14/Hibernate%20Criteria%20%E6%A8%A1%E7%B3%8A%E6%9F%A5%E8%AF%A2</id><content type="html" xml:base="http://localhost:4000/java/hibernate/2018/05/14/Hibernate-Criteria-%E6%A8%A1%E7%B3%8A%E6%9F%A5%E8%AF%A2/">&lt;blockquote&gt;
-  &lt;p&gt;使用 Hibernate 的 Criteria 可以快速进行模糊查询&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h2 id=&quot;实现方式&quot;&gt;实现方式&lt;/h2&gt;
-&lt;ol&gt;
-  &lt;li&gt;进行模糊查询时需要指定匹配模式，否则会出现无搜索结果的情况，例如 &lt;code class=&quot;highlighter-rouge&quot;&gt;MatchMode.ANYWHERE&lt;/code&gt;&lt;/li&gt;
-  &lt;li&gt;如果匹配的条件设置到类的属性，需要使用 &lt;code class=&quot;highlighter-rouge&quot;&gt;createAlias()&lt;/code&gt; 指定别名，否则会抛出无法找到 &lt;code class=&quot;highlighter-rouge&quot;&gt;user.name&lt;/code&gt; 属性&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;Criterion&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;userCri&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Restrictions&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;like&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;user.name&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;username&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;MatchMode&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;ANYWHERE&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;Criteria&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;criteria&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;getSession&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;createCriteria&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;trainingCri&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;userCri&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;criteria&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;createAlias&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;user&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;user&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;JoinType&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;LEFT_OUTER_JOIN&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;criteria&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;list&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;</content><author><name>asing1elife</name></author><category term="java" /><category term="hibernate" /><category term="criteria" /><summary type="html">使用 Hibernate 的 Criteria 可以快速进行模糊查询</summary></entry><entry><title type="html">Hibernate 执行 SQL 查询</title><link href="http://localhost:4000/java/hibernate/2018/05/12/Hibernate-%E6%89%A7%E8%A1%8C-SQL-%E6%9F%A5%E8%AF%A2/" rel="alternate" type="text/html" title="Hibernate 执行 SQL 查询" /><published>2018-05-12T00:00:00+08:00</published><updated>2018-05-12T00:00:00+08:00</updated><id>http://localhost:4000/java/hibernate/2018/05/12/Hibernate%20%E6%89%A7%E8%A1%8C%20SQL%20%E6%9F%A5%E8%AF%A2</id><content type="html" xml:base="http://localhost:4000/java/hibernate/2018/05/12/Hibernate-%E6%89%A7%E8%A1%8C-SQL-%E6%9F%A5%E8%AF%A2/">&lt;blockquote&gt;
-  &lt;p&gt;Hibernate 支持执行原生 SQL 查询&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h2 id=&quot;实现方式&quot;&gt;实现方式&lt;/h2&gt;
-&lt;ol&gt;
-  &lt;li&gt;通过 &lt;code class=&quot;highlighter-rouge&quot;&gt;Session&lt;/code&gt; 对象可以使用 &lt;code class=&quot;highlighter-rouge&quot;&gt;createSQLQuery()&lt;/code&gt; 方法，传入原生 SQL 语句即可&lt;/li&gt;
-  &lt;li&gt;参数格式为 &lt;code class=&quot;highlighter-rouge&quot;&gt;paramName = :paramCode&lt;/code&gt;&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Dictionary&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;getDictionaries&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;categoryCode&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;SQLQuery&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sqlQuery&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;getSession&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;createSQLQuery&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;SELECT * FROM sys_dictionary WHERE CategoryCode = :categoryCode&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;sqlQuery&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;addEntity&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Dictionary&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;sqlQuery&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;setParameter&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;categoryCode&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;categoryCode&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-
-    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sqlQuery&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;list&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;</content><author><name>asing1elife</name></author><category term="java" /><category term="hibernate" /><summary type="html">Hibernate 支持执行原生 SQL 查询</summary></entry><entry><title type="html">SpringBoot通过jar包启动时MyBatis无法定位实体类</title><link href="http://localhost:4000/java/springboot/mybatis/error/2018/05/09/SpringBoot%E9%80%9A%E8%BF%87jar%E5%8C%85%E5%90%AF%E5%8A%A8%E6%97%B6MyBatis%E6%97%A0%E6%B3%95%E5%AE%9A%E4%BD%8D%E5%AE%9E%E4%BD%93%E7%B1%BB/" rel="alternate" type="text/html" title="SpringBoot通过jar包启动时MyBatis无法定位实体类" /><published>2018-05-09T00:00:00+08:00</published><updated>2018-05-09T00:00:00+08:00</updated><id>http://localhost:4000/java/springboot/mybatis/error/2018/05/09/SpringBoot%E9%80%9A%E8%BF%87jar%E5%8C%85%E5%90%AF%E5%8A%A8%E6%97%B6MyBatis%E6%97%A0%E6%B3%95%E5%AE%9A%E4%BD%8D%E5%AE%9E%E4%BD%93%E7%B1%BB</id><content type="html" xml:base="http://localhost:4000/java/springboot/mybatis/error/2018/05/09/SpringBoot%E9%80%9A%E8%BF%87jar%E5%8C%85%E5%90%AF%E5%8A%A8%E6%97%B6MyBatis%E6%97%A0%E6%B3%95%E5%AE%9A%E4%BD%8D%E5%AE%9E%E4%BD%93%E7%B1%BB/">&lt;blockquote&gt;
-  &lt;p&gt;SpringBoot 通过 jar 包启动项目时，MyBatis 无法定位实体类，但通过 IDE 启动时没问题&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h2 id=&quot;出现问题的原因&quot;&gt;出现问题的原因&lt;/h2&gt;
-&lt;ol&gt;
-  &lt;li&gt;通过 jar 启动时，MyBatis 内部获得的路径不同，会导致无法根据配置文件指定的路径扫描到实体类&lt;/li&gt;
-  &lt;li&gt;项目不是通过自动注入方式配置 MyBatis ，而是通过手动注入&lt;/li&gt;
-&lt;/ol&gt;
 
 &lt;h2 id=&quot;解决办法&quot;&gt;解决办法&lt;/h2&gt;
 &lt;ol&gt;
-  &lt;li&gt;在手动注入并指定实体类扫描路径之前，将 Spring 已经实例化的 VFS 提前指定&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nd&quot;&gt;@Bean&lt;/span&gt;
-&lt;span class=&quot;nd&quot;&gt;@ConditionalOnMissingBean&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;SqlSessionFactoryBean&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;SqlSessionFactory&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;sqlSessionFactory&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nd&quot;&gt;@Qualifier&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;druidDataSource&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;DataSource&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dataSource&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;throws&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Exception&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;SqlSessionFactoryBean&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sqlSessionFactoryBean&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;SqlSessionFactoryBean&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;sqlSessionFactoryBean&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;setDataSource&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dataSource&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;sqlSessionFactoryBean&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;setMapperLocations&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;PathMatchingResourcePatternResolver&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getResources&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mapperLocations&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;));&lt;/span&gt;
-  &lt;span class=&quot;c1&quot;&gt;// 指定VFS确保可以扫描到实体类&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;sqlSessionFactoryBean&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;setVfs&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;SpringBootVFS&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;sqlSessionFactoryBean&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;setTypeAliasesPackage&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;typeAliasesPackage&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-
-    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sqlSessionFactoryBean&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getObject&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+  &lt;li&gt;在连接数据库的 url 最后加上 &lt;code class=&quot;highlighter-rouge&quot;&gt;useSSL=false&lt;/code&gt; 即可
+    &lt;div class=&quot;language-xml highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;jdbc:mysql://localhost:3306/hts_lb?characterEncoding=UTF-8&lt;span class=&quot;err&quot;&gt;&amp;amp;&lt;/span&gt;tinyInt1isBit=false&lt;span class=&quot;err&quot;&gt;&amp;amp;&lt;/span&gt;useSSL=false
 &lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;</content><author><name>asing1elife</name></author><category term="java" /><category term="springboot" /><category term="mybatis" /><category term="error" /><summary type="html">SpringBoot 通过 jar 包启动项目时，MyBatis 无法定位实体类，但通过 IDE 启动时没问题</summary></entry><entry><title type="html">SpringBoot多环境配置</title><link href="http://localhost:4000/java/springboot/2018/05/09/SpringBoot%E5%A4%9A%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" rel="alternate" type="text/html" title="SpringBoot多环境配置" /><published>2018-05-09T00:00:00+08:00</published><updated>2018-05-09T00:00:00+08:00</updated><id>http://localhost:4000/java/springboot/2018/05/09/SpringBoot%E5%A4%9A%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE</id><content type="html" xml:base="http://localhost:4000/java/springboot/2018/05/09/SpringBoot%E5%A4%9A%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/">&lt;blockquote&gt;
-  &lt;p&gt;SpringBoot 在开发时可以配置多个环境进行便捷切换&lt;/p&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;</content><author><name>asing1elife</name></author><category term="java" /><category term="mysql" /><summary type="html">Java 连接 MySQL 时控制台出现多条 Establishing SSL connection without 警告</summary></entry><entry><title type="html">移动端弹出遮罩层时防止底部页面滚动</title><link href="http://localhost:4000/vue/javascript/2018/07/10/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%BC%B9%E5%87%BA%E9%81%AE%E7%BD%A9%E5%B1%82%E6%97%B6%E9%98%B2%E6%AD%A2%E5%BA%95%E9%83%A8%E9%A1%B5%E9%9D%A2%E6%BB%9A%E5%8A%A8/" rel="alternate" type="text/html" title="移动端弹出遮罩层时防止底部页面滚动" /><published>2018-07-10T00:00:00+08:00</published><updated>2018-07-10T00:00:00+08:00</updated><id>http://localhost:4000/vue/javascript/2018/07/10/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%BC%B9%E5%87%BA%E9%81%AE%E7%BD%A9%E5%B1%82%E6%97%B6%E9%98%B2%E6%AD%A2%E5%BA%95%E9%83%A8%E9%A1%B5%E9%9D%A2%E6%BB%9A%E5%8A%A8</id><content type="html" xml:base="http://localhost:4000/vue/javascript/2018/07/10/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%BC%B9%E5%87%BA%E9%81%AE%E7%BD%A9%E5%B1%82%E6%97%B6%E9%98%B2%E6%AD%A2%E5%BA%95%E9%83%A8%E9%A1%B5%E9%9D%A2%E6%BB%9A%E5%8A%A8/">&lt;blockquote&gt;
+  &lt;p&gt;如果底部页面内容过多出现滚动条，此时弹出遮罩层后，在遮罩层滑动页面也会导致底部页面响应滚动操作&lt;/p&gt;
 &lt;/blockquote&gt;
 
-&lt;h2 id=&quot;创建多个环境配置文件&quot;&gt;创建多个环境配置文件&lt;/h2&gt;
-&lt;p&gt;&lt;img src=&quot;http://asing1elife.com/sources/images/2D5C30D2-EA97-41C2-B323-4F7A77EFD1F7.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
+&lt;h2 id=&quot;解决办法&quot;&gt;解决办法&lt;/h2&gt;
 &lt;ol&gt;
-  &lt;li&gt;首先需要创建多个对应的配置文件，如上图&lt;/li&gt;
-  &lt;li&gt;然后在 &lt;strong&gt;application.yml&lt;/strong&gt; 中通过如下语法进行匹配
+  &lt;li&gt;监听遮罩层的打开和关闭
     &lt;ul&gt;
-      &lt;li&gt;项目启动时会根据指定的尾缀自动去匹配对应的配置文件&lt;/li&gt;
+      &lt;li&gt;打开时设置底部页面的 &lt;code class=&quot;highlighter-rouge&quot;&gt;position: fixed&lt;/code&gt;&lt;/li&gt;
+      &lt;li&gt;关闭时恢复默认布局 &lt;code class=&quot;highlighter-rouge&quot;&gt;position: static&lt;/code&gt;&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;div class=&quot;language-yaml highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;s&quot;&gt;spring&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
-  &lt;span class=&quot;s&quot;&gt;profiles&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
-    &lt;span class=&quot;s&quot;&gt;active&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;dev&lt;/span&gt;
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nx&quot;&gt;watch&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;s1&quot;&gt;'popupVisible'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;val&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;val&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;$refs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;portal&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;style&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;position&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'fixed'&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;$refs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;portal&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;style&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;position&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'static'&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;</content><author><name>asing1elife</name></author><category term="vue" /><category term="javascript" /><category term="dom" /><summary type="html">如果底部页面内容过多出现滚动条，此时弹出遮罩层后，在遮罩层滑动页面也会导致底部页面响应滚动操作</summary></entry><entry><title type="html">Vue 动态赋值 class</title><link href="http://localhost:4000/vue/2018/06/29/Vue-%E5%8A%A8%E6%80%81%E8%B5%8B%E5%80%BC-class/" rel="alternate" type="text/html" title="Vue 动态赋值 class" /><published>2018-06-29T00:00:00+08:00</published><updated>2018-06-29T00:00:00+08:00</updated><id>http://localhost:4000/vue/2018/06/29/Vue%20%E5%8A%A8%E6%80%81%E8%B5%8B%E5%80%BC%20class</id><content type="html" xml:base="http://localhost:4000/vue/2018/06/29/Vue-%E5%8A%A8%E6%80%81%E8%B5%8B%E5%80%BC-class/">&lt;blockquote&gt;
+  &lt;p&gt;Vue 在操作 DOM 元素的 class 属性时，有以下多种方法&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;比较通用的是否赋值方式&quot;&gt;比较通用的是否赋值方式&lt;/h2&gt;
+&lt;ol&gt;
+  &lt;li&gt;通过以下 &lt;code class=&quot;highlighter-rouge&quot;&gt;:class=&quot;{show: show}&quot;&lt;/code&gt; 的方式可以决定该元素是否拥有名称为 &lt;code class=&quot;highlighter-rouge&quot;&gt;show&lt;/code&gt; 的 class
+    &lt;ul&gt;
+      &lt;li&gt;data() 中的 show 属性为 true ，则赋予 show class ，否则不赋予&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;template&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;
+	&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;div&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;watch-mooc-panel&quot;&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;kr&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;{show: show}&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;/div&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;gt;
+&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;/template&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;gt;
+&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;script&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;type&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;text/ecmascript-6&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;kr&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;default&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'mooc'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;show&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;/script&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;gt;
+&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;style&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;scoped&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;lang&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;stylus&quot;&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;rel&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;stylesheet/stylus&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;watch&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;mooc&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;panel&lt;/span&gt;
+      &lt;span class=&quot;nx&quot;&gt;width&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;100&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;%&lt;/span&gt;
+      &lt;span class=&quot;nx&quot;&gt;height&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;100&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;%&lt;/span&gt;
+      &lt;span class=&quot;nx&quot;&gt;position&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;absolute&lt;/span&gt;
+      &lt;span class=&quot;nx&quot;&gt;transition&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;background&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;color&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;s&lt;/span&gt;
+      &lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;show&lt;/span&gt;
+        &lt;span class=&quot;nx&quot;&gt;background&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;color&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;000000&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;/style&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;使用三目运算符的方式&quot;&gt;使用三目运算符的方式&lt;/h2&gt;
+&lt;ol&gt;
+  &lt;li&gt;注意使用三木运算符添加的属性语法和上述方式存在明显区别&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;template&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;
+	&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;div&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;watch-mooc-panel&quot;&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;kr&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;show ? 'show' : 'hide'&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;/div&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;gt;
+&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;/template&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;</content><author><name>asing1elife</name></author><category term="vue" /><category term="dom" /><summary type="html">Vue 在操作 DOM 元素的 class 属性时，有以下多种方法</summary></entry><entry><title type="html">Mint-UI Infinite Scroll 无限滚动运用</title><link href="http://localhost:4000/vue/mintui/2018/06/25/Mint-UI-Infinite-Scroll-%E6%97%A0%E9%99%90%E6%BB%9A%E5%8A%A8%E8%BF%90%E7%94%A8/" rel="alternate" type="text/html" title="Mint-UI Infinite Scroll 无限滚动运用" /><published>2018-06-25T00:00:00+08:00</published><updated>2018-06-25T00:00:00+08:00</updated><id>http://localhost:4000/vue/mintui/2018/06/25/Mint-UI%20Infinite%20Scroll%20%E6%97%A0%E9%99%90%E6%BB%9A%E5%8A%A8%E8%BF%90%E7%94%A8</id><content type="html" xml:base="http://localhost:4000/vue/mintui/2018/06/25/Mint-UI-Infinite-Scroll-%E6%97%A0%E9%99%90%E6%BB%9A%E5%8A%A8%E8%BF%90%E7%94%A8/">&lt;blockquote&gt;
+  &lt;p&gt;Mint-UI 自带一个支持无限滚动的组件，以下是用法&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;官网文档&quot;&gt;官网文档&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;https://mint-ui.github.io/docs/#/zh-cn2/infinite-scroll&quot;&gt;Infinite Scroll&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;使用方法&quot;&gt;使用方法&lt;/h2&gt;
+&lt;ol&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;v-infinite-scroll&lt;/code&gt; 指定加载内容的方法，在满足触发条件时，则会加载
+    &lt;ul&gt;
+      &lt;li&gt;注意如果内容加载的分页方法就一个，此处指定后，则不需要再通过 &lt;code class=&quot;highlighter-rouge&quot;&gt;created()&lt;/code&gt; 调用分页方法，否则一开始会加载两次&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;infinite-scroll-distance&lt;/code&gt; 触发方法的阈值，底部距离的像素值&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;div class=&quot;language-html highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;div&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;real-content&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;v-infinite-scroll=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;getMoocs&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;infinite-scroll-distance=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;10&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;&amp;lt;div&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;hot-item&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;v-for=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;mooc in moocs&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;:key=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;mooc.hexId&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+    ...
+  &lt;span class=&quot;nt&quot;&gt;&amp;lt;/div&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/div&amp;gt;&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;h2 id=&quot;项目打包实现动态指定配置文件&quot;&gt;项目打包实现动态指定配置文件&lt;/h2&gt;
+&lt;h2 id=&quot;注意点&quot;&gt;注意点&lt;/h2&gt;
 &lt;ol&gt;
-  &lt;li&gt;执行 &lt;code class=&quot;highlighter-rouge&quot;&gt;java -jar xxx.jar&lt;/code&gt;  会直接按照默认配置进行打包&lt;/li&gt;
-  &lt;li&gt;执行 &lt;code class=&quot;highlighter-rouge&quot;&gt;java -jar xxx.jar --spring.profiles.active=test&lt;/code&gt; 则可以动态指定配置文件&lt;/li&gt;
-&lt;/ol&gt;</content><author><name>asing1elife</name></author><category term="java" /><category term="springboot" /><summary type="html">SpringBoot 在开发时可以配置多个环境进行便捷切换</summary></entry></feed>
+  &lt;li&gt;值得注意的是该组件提供了一个 &lt;code class=&quot;highlighter-rouge&quot;&gt;infinite-scroll-disabled&lt;/code&gt; 属性，文档中的说明是&lt;strong&gt;若为真，则无限滚动不会被触发&lt;/strong&gt;
+    &lt;ul&gt;
+      &lt;li&gt;这很容易让人理解为当分页检测到没有下一页后，则不再触发无限滚动，但其实根本达不到这个效果&lt;/li&gt;
+      &lt;li&gt;翻阅 &lt;a href=&quot;https://github.com/ElemeFE/vue-infinite-scroll/issues/25&quot;&gt;官方 GitHub 上作者的解释&lt;/a&gt; 才知道这个属性其实为了防止分页内容在加载过程中重复加载，当内容加载完毕后，会被内部重置&lt;/li&gt;
+      &lt;li&gt;所以要实现到达尾页后不再重复发起分页请求，需要通过以下方法&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nx&quot;&gt;getMoocs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+	&lt;span class=&quot;c1&quot;&gt;// 检测是否存在下一页&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;!&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;page&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;hasNext&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+  &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;$fetch&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;mooc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;page&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;page&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;then&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;page&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Page&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;moocs&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;_&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;concat&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;moocs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;list&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;</content><author><name>asing1elife</name></author><category term="vue" /><category term="mintui" /><summary type="html">Mint-UI 自带一个支持无限滚动的组件，以下是用法</summary></entry></feed>

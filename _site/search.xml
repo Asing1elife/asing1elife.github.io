@@ -2,6 +2,69 @@
 <search>
   
     <entry>
+      <title><![CDATA[vuex 在非组件中调用 mutations 方法]]></title>
+      <url>/vue/vuex/2018/08/14/vuex-%E5%9C%A8%E9%9D%9E%E7%BB%84%E4%BB%B6%E4%B8%AD%E8%B0%83%E7%94%A8-mutations-%E6%96%B9%E6%B3%95/</url>
+      <content type="text"><![CDATA[  一般情况下调用 mutations.js 中的方法都是在组件中，如果想在非组件中调用，则需要使用如下方式在组件中调用import {mapMutations} from 'vuex'import {SET_IS_LOGIN} from 'store/mutation-types'export default {	methods: {		...mapMutations({			set_is_login: SET_IS_LOGIN		}),		init() {			this.set_is_login(true)		}	}}在非组件中调用import store from 'store'import {SET_IS_LOGIN} from 'store/mutation-types'function init() {	store.commit(SET_IS_LOGIN, true)}]]></content>
+      <categories>
+        
+          <category> vue </category>
+        
+          <category> vuex </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> vue </tag>
+        
+          <tag> vuex </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[vuex 在非组件中调用 actions 方法]]></title>
+      <url>/vue/vuex/2018/08/14/vuex-%E5%9C%A8%E9%9D%9E%E7%BB%84%E4%BB%B6%E4%B8%AD%E8%B0%83%E7%94%A8-actions-%E6%96%B9%E6%B3%95/</url>
+      <content type="text"><![CDATA[  一般情况下调用 actions.js 中的方法都是在组件中，如果想在非组件中调用，则需要如下方式在组件中import {mapActions} from 'vuex'export default {	methods: {		...mapActions([			'setUserInfo'		])	},	init() {		let user = {}				this.setUserInfo(user)	}}在非组件中import store from 'store'function init() {	let user = {}	store.dispatch('setUserInfo', user)}]]></content>
+      <categories>
+        
+          <category> vue </category>
+        
+          <category> vuex </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> vue </tag>
+        
+          <tag> vuex </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[v-for 遍历 Map]]></title>
+      <url>/vue/2018/08/11/v-for-%E9%81%8D%E5%8E%86-Map/</url>
+      <content type="text"><![CDATA[  通常情况下都是使用 v-for 遍历 List 或 Array ，但 v-for 对于 Map 遍历也是支持的遍历方式  下列代码展现的是一种比较复杂的情况，在 Map 的 value 中存放的是一个 List```javascript					```]]></content>
+      <categories>
+        
+          <category> vue </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> vue </tag>
+        
+          <tag> for </tag>
+        
+          <tag> map </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
       <title><![CDATA[简单封装浏览器 cookie 工具类]]></title>
       <url>/vue/2018/08/10/%E7%AE%80%E5%8D%95%E5%B0%81%E8%A3%85%E6%B5%8F%E8%A7%88%E5%99%A8-cookie-%E5%B7%A5%E5%85%B7%E7%B1%BB/</url>
       <content type="text"><![CDATA[  目前主流浏览器一般都支持 cookie ，以下对 cookie 的操作进行简单封装，以方便使用主体封装类import { storagePrefix } from 'assets/scripts/config/config'import { verify, uri } from 'assets/scripts/tools'/** * cookies操作类 */export default new class Cookie {  /**   * 构造函数   */  constructor() {    this.defaults = {}    this.expiresMultiplier = 60 * 60 * 24    this.prefix = storagePrefix  }  /**   * 根据key获取cookie的值   * @param {string} key 键   * @returns {object} 值   */  get(key) {    if (!key) {      throw new Error('没有找到key。')    }    if (typeof key === 'object') {      throw new Error('key不能是一个对象。')    }    let cookies = this.all()    let value = cookies[this.prefix + key]    try {      value = JSON.parse(value)    } catch (e) {      value = {}    }    return value  }  /**   * 设置cookies   * @param key 键   * @param value 值   * @param options 选项   * @returns {Cookie}   */  set(key, value, options) {    options = verify.isObject(options) ? options : {expires: options}    let expires = options.expires !== undefined ? options.expires : (this.defaults.expires || '')    let expiresType = typeof (expires)    if (expiresType === 'string' &amp;&amp; expires !== '') {      expires = new Date(expires)    } else if (expiresType === 'number') {      expires = new Date(+new Date() + 1000 * this.expiresMultiplier * expires)    }    if (expires !== '' &amp;&amp; 'toGMTString' in expires) {      expires = ';expires=' + expires.toGMTString()    }    let path = options.path || this.defaults.path    path = path ? ';path=' + path : ''    let domain = options.domain || this.defaults.domain    domain = domain ? ';domain=' + domain : ''    let secure = options.secure || this.defaults.secure ? ';secure' : ''    if (options.secure === false) secure = ''    document.cookie = uri.encode(this.prefix + key) + '=' + uri.encode(JSON.stringify(value)) + expires + path + domain + secure    return this  }  /**   * 删除cookie   * @param {string||array} keys 删除cookie的key   * @returns {Cookie}   */  remove(keys) {    keys = verify.isArray(keys) ? keys : [keys]    for (let i = 0, l = keys.length; i &lt; l; i++) {      this.set(keys[i], '', -1)    }    return this  }  /**   * 获取所有的cookie   * @returns {object} cookie对象   */  all() {    let cookie = document.cookie    if (cookie === '') return {}    let cookieArr = cookie.split('; ')    let result = {}    for (let i = 0, l = cookieArr.length; i &lt; l; i++) {      let item = cookieArr[i].split('=')      let key = uri.decode(item.shift())      let value = uri.decode(item.join(''))      result[key] = value    }    return result  }}verify 工具类export default new class Verify {  // 验证url是否正确，true/false  isUrl (url) {    return (/(http|ftp|https):\/\/[\w\-_]+(\.[\w\-_]+)+([\w\-.,@?^=%&amp;:/~+#]*[\w\-@?^=%&amp;/~+#])?/i).test(url)  }    // 验证手机号码是否正确， true/false  isTel (tel) {    return (/^1[3|4|5|8][0-9]\d{4,8}$/).test(tel)  }    // 判断是否是object对象  isObject (value) {    return !!value &amp;&amp; Object.prototype.toString.call(value) === '[object Object]'  }    // 判断是否是数组  isArray (value) {    return Object.prototype.toString.call(value) === '[object Array]'  }}uri 工具类export default new class Uri {  decode (value) {    return decodeURIComponent(value)  }    encode (value) {    return encodeURIComponent(value)  }}config 基础配置// 本地存储的前缀export const storagePrefix = 'tshark_quick_storage_']]></content>
@@ -23,7 +86,7 @@
     <entry>
       <title><![CDATA[SpringBoot+Shiro前后端分离项目通过JWT实现自动登录]]></title>
       <url>/java/springboot/shiro/vue/2018/08/09/SpringBoot+Shiro%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB%E9%A1%B9%E7%9B%AE%E9%80%9A%E8%BF%87JWT%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%8A%A8%E7%99%BB%E5%BD%95/</url>
-      <content type="text"><![CDATA[  虽然 Shiro 本身可以支持扩展 RememberMe 功能，但仅限于传统项目因为 Shiro 的用户信息是基于 Session 进行管理，在前后端分离的项目中无法实现 Session 状态的前后统一所以本文通过 JWT 对 Shiro 原生的 Session 控制进行替换，从而实现用户信息的前后传递及判断设计资料  一个已经实现的例子  JWT官网  JWT源码导入项目所需的依赖  对于 SpringBoot 和 Shiro 的依赖此处不重复介绍  以下是 JWT 的依赖包，就一个即可&lt;dependency&gt;  &lt;groupId&gt;com.auth0&lt;/groupId&gt;  &lt;artifactId&gt;java-jwt&lt;/artifactId&gt;  &lt;version&gt;3.2.0&lt;/version&gt;&lt;/dependency&gt;创建 JWTToken 替换 Shiro 原生 Token  Shiro 原生的 Token 中存在用户名和密码以及其他信息 [验证码，记住我]  在 JWT 的 Token 中因为已将用户名和密码通过加密处理整合到一个加密串中，所以只需要一个 token 字段即可public class JWTToken implements AuthenticationToken {    // 密钥    private String token;    public JWTToken(String token) {        this.token = token;    }    @Override    public Object getPrincipal() {        return token;    }    @Override    public Object getCredentials() {        return token;    }}创建 JWTUtil 整合 JWT 相关操作  在这个工具类中可以实现对用户名和密码的加密处理，校验 token 是否正确，获取用户名等操作  Algorithm algorithm = Algorithm.HMAC256(password) 是对密码进行加密后再与用户名混淆在一起  在签名时可以通过 .withExpiresAt(date) 指定 token 的过期时间public class JWTUtil {    // 过期时间30天    private static final long EXPIRE_TIME = 24 * 60 * 30 * 1000;    /**     * 校验token是否正确     *     * @param token    密钥     * @param username 登录名     * @param password 密码     * @return     */    public static boolean verify(String token, String username, String password) {        try {            Algorithm algorithm = Algorithm.HMAC256(password);            JWTVerifier verifier = JWT.require(algorithm).withClaim("username", username).build();            DecodedJWT jwt = verifier.verify(token);            return true;        } catch (Exception e) {            return false;        }    }    /**     * 获取登录名     *     * @param token     * @return     */    public static String getUsername(String token) {        try {            DecodedJWT jwt = JWT.decode(token);            return jwt.getClaim("username").asString();        } catch (JWTDecodeException e) {            return null;        }    }    /**     * 生成签名     *     * @param username     * @param password     * @return     */    public static String sign(String username, String password) {        try {            // 指定过期时间            Date date = new Date(System.currentTimeMillis() + EXPIRE_TIME);            Algorithm algorithm = Algorithm.HMAC256(password);            return JWT.create()                    .withClaim("username", username)                    .withExpiresAt(date)                    .sign(algorithm);        } catch (UnsupportedEncodingException e) {            return null;        }    }}创建 JWTFilter 实现前端请求统一拦截及处理  executeLogin() 方法中的 getSubject(request, response).login(token) 就是触发 Shiro Realm 自身的登录控制，具体内容需要手动实现  executeLogin() 始终返回 true 的原因是因为具体的是否登录成功的判断，需要在 Realm 中手动实现，此处不做统一判断  LOGIN_SIGN 是前端放置在 headers 头文件中的登录标识，如果用户发起的请求是需要登录才能正常返回的，那么头文件中就必须存在该标识并携带有效值public class JWTFilter extends BasicHttpAuthenticationFilter {    // 登录标识    private static String LOGIN_SIGN = "Authorization";    /**     * 检测用户是否登录     * 检测header里面是否包含Authorization字段即可     *     * @param request     * @param response     * @return     */    @Override    protected boolean isLoginAttempt(ServletRequest request, ServletResponse response) {        HttpServletRequest req = (HttpServletRequest) request;        String authorization = req.getHeader(LOGIN_SIGN);        return authorization != null;    }    @Override    protected boolean executeLogin(ServletRequest request, ServletResponse response) throws Exception {        HttpServletRequest req = (HttpServletRequest) request;        String header = req.getHeader(LOGIN_SIGN);        JWTToken token = new JWTToken(header);        getSubject(request, response).login(token);        return true;    }    @Override    protected boolean isAccessAllowed(ServletRequest request, ServletResponse response, Object mappedValue) {        if (isLoginAttempt(request, response)) {            try {                executeLogin(request, response);            } catch (Exception e) {                throw new TSharkException("登录权限不足！", e);            }        }        return true;    }    /**     * 对跨域提供支持     *     * @param request     * @param response     * @return     * @throws Exception     */    @Override    protected boolean preHandle(ServletRequest request, ServletResponse response) throws Exception {        HttpServletRequest httpServletRequest = (HttpServletRequest) request;        HttpServletResponse httpServletResponse = (HttpServletResponse) response;        httpServletResponse.setHeader("Access-control-Allow-Origin", httpServletRequest.getHeader("Origin"));        httpServletResponse.setHeader("Access-Control-Allow-Methods", "GET,POST,OPTIONS,PUT,DELETE");        httpServletResponse.setHeader("Access-Control-Allow-Headers", httpServletRequest.getHeader("Access-Control-Request-Headers"));        // 跨域时会首先发送一个option请求，这里我们给option请求直接返回正常状态        if (httpServletRequest.getMethod().equals(RequestMethod.OPTIONS.name())) {            httpServletResponse.setStatus(HttpStatus.OK.value());            return false;        }        return super.preHandle(request, response);    }}自定义 ShiroDatabaseRealm 实现 Shiro Realm 的登录控制  重写 Realm 的 supports()  方法是通过 JWT 进行登录判断的关键          因为前文中创建了 JWTToken 用于替换 Shiro 原生 token      所以必须在此方法中显式的进行替换，否则在进行判断时会一直失败        登录的合法验证通常包括 token 是否有效 、用户名是否存在 、密码是否正确          通过 JWTUtil 对前端传入的 token 进行处理获取到用户名      然后使用用户名前往数据库获取到用户密码      再将用户面传入 JWTUtil 进行验证即可      public class ShiroDatabaseRealm extends AuthorizingRealm {    private Logger logger = LoggerFactory.getLogger(this.getClass());    @Autowired    private ShiroAuthService shiroAuthService;    @Override    protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {        logger.info("doGetAuthorizationInfo+" + principals.toString());        String username = JWTUtil.getUsername(principals.toString());        MemberDTO member = shiroAuthService.getPrincipal(username);        SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();        List&lt;String&gt; userPermissions = shiroAuthService.getPermissions(member.getId());        // 基于Permission的权限信息        info.addStringPermissions(userPermissions);        return info;    }    /**     * 使用JWT替代原生Token     *     * @param token     * @return     */    @Override    public boolean supports(AuthenticationToken token) {        return token instanceof JWTToken;    }    @Override    protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authcToken) throws AuthenticationException {        String token = (String) authcToken.getCredentials();        String username = JWTUtil.getUsername(token);        MemberDTO member = shiroAuthService.getPrincipal(username);        // 用户不会空        if (member != null) {            // 判断是否禁用            if (member.getStatus().equals(MemberStatus.disableStatus)) {                throw new DisabledAccountException("901");            }            // 密码验证            if (!JWTUtil.verify(token, username, member.getLoginPassword())) {                throw new UnknownAccountException("900");            }            return new SimpleAuthenticationInfo(token, token, "realm");        } else {            throw new UnknownAccountException("900");        }    }}在 ShiroConfiguration 中将所有的请求指向 JWT  指定手工实现的 ShiroDatabaseRealm 用于传入 DefaultWebSecurityManager  在 securityManager 中关闭默认的 Session 控制          因为在前后分离项目中前端是无法获取到后端 Session 的，即无法实现用户登录状态的同步        在 shiroFilterFactoryBean() 中传入自定义的 TokenFilter          并将所有的请求指向该过滤器 filterRuleMap.put("/**", "jwt")      @Configuration@ConditionalOnWebApplicationpublic class ShiroConfiguration {    @Bean    public ShiroDatabaseRealm shiroDatabaseRealm() {        return new ShiroDatabaseRealm();    }    @Bean("securityManager")    public DefaultWebSecurityManager securityManager(ShiroDatabaseRealm shiroDatabaseRealm) {        DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();        securityManager.setRealm(shiroDatabaseRealm);        // 关闭自带session        DefaultSessionStorageEvaluator evaluator = new DefaultSessionStorageEvaluator();        evaluator.setSessionStorageEnabled(false);        DefaultSubjectDAO subjectDAO = new DefaultSubjectDAO();        subjectDAO.setSessionStorageEvaluator(evaluator);        securityManager.setSubjectDAO(subjectDAO);        return securityManager;    }    @Bean("shiroFilter")    public ShiroFilterFactoryBean shiroFilterFactoryBean(DefaultWebSecurityManager securityManager) {        ShiroFilterFactoryBean factoryBean = new ShiroFilterFactoryBean();        Map&lt;String, Filter&gt; filterMap = new HashMap&lt;&gt;();        filterMap.put("jwt", new JWTFilter());        factoryBean.setFilters(filterMap);        factoryBean.setSecurityManager(securityManager);        Map&lt;String, String&gt; filterRuleMap = new HashMap&lt;&gt;();        filterRuleMap.put("/**", "jwt");        factoryBean.setFilterChainDefinitionMap(filterRuleMap);        return factoryBean;    }    @Bean    @DependsOn("lifecycleBeanPostProcessor")    public DefaultAdvisorAutoProxyCreator defaultAdvisorAutoProxyCreator() {        DefaultAdvisorAutoProxyCreator defaultAdvisorAutoProxyCreator = new DefaultAdvisorAutoProxyCreator();        defaultAdvisorAutoProxyCreator.setProxyTargetClass(true);        return defaultAdvisorAutoProxyCreator;    }    @Bean    public LifecycleBeanPostProcessor lifecycleBeanPostProcessor() {        return new LifecycleBeanPostProcessor();    }    @Bean    public AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor(DefaultWebSecurityManager securityManager) {        AuthorizationAttributeSourceAdvisor advisor = new AuthorizationAttributeSourceAdvisor();        advisor.setSecurityManager(securityManager);        return advisor;    }}执行登录操作时对用户信息进行基础验证并签名返回  ResponseData 是前后分离项目中用于统一后端返回数据的类，必不可少          一般包含状态值和返回的具体内容      @RestController@RequestMapping("")@Api("用户登录")public class LoginController extends AbstractBaseController {    @Autowired    private LoginServiceImpl loginService;    @PostMapping("/login")    @ApiOperation("登录")    public ResponseData login(@RequestParam String username, @RequestParam String password) {        return new SimpleActionHandler(request) {            @Override            public void doAction(ResponseData responseData) throws Exception {                responseData.setData(loginService.jwtLogin(username, password));            }        }.handle();    }}  进行登录操作处理时需要判断数据有效性，即 数据是否为空，密码是否正确  一般为了用户隐私和安全起见，数据库中存入的密码都是经过 不可逆混淆 处理的          所以此处在通过 JWTUtil 签名之前，需要将用户传入的密码进行相同混淆，再将混淆后的两个密码进行对比      如果密码正确，通过相同规则混淆后的密码也会相同      @Servicepublic class LoginServiceImpl extends AbstractBaseService {    @Autowired    private MemberServiceImpl memberService;    /**     * 用户登录     *     * @param username     * @param password     * @return     */    public String jwtLogin(String username, String password) {        Assert.notNull(username, "用户名不能为空");        Assert.notNull(password, "密码不能为空");        // 获取用户密码混淆值        MemberDTO member = memberService.getMemberSalt(username);        // 加密当前用户输入密码        byte[] bytePassword = DigestUtil.sha1(password.getBytes(), EncodeUtils.hexDecode(member.getSalt()), Constants.PASSWORD_HASH_INTERATIONS);        String encodePassword = EncodeUtils.hexEncode(bytePassword);        if (!encodePassword.equals(member.getLoginPassword())) {            throw new TSharkException("900");        }        return JWTUtil.sign(username, encodePassword);    }}在前端的请求发起基类中对头文件进行统一传递  由于本项目用的 SPA 模式，除了欢迎页不需要登录，其余页面都需要登录后才能访问          因此在基类中对头文件进行统一处理，默认所有请求都会传递用户登录状态      个别不需要传递登录状态的，再进行单独处理        在头文件中指定 Authorization 自定义信息，对应的 token 值是用户登录后存入到 vuex 中的数组import axios from 'axios'import router from 'router'import store from 'store'import qs from 'qs'import { SET_USER_INFO } from 'store/mutation-types'import * as config from 'assets/scripts/config/config'axios.defaults.withCredentials = trueconst setUserInfo = function (user) {  store.commit(SET_USER_INFO, user)}const getUserInfo = function () {  return store.state.userInfo.token}export default function fetch(options) {  return new Promise((resolve, reject) =&gt; {    const instance = axios.create({      baseURL: `${config.serverBaseUrl}mop`,      timeout: 10000,      withCredentials: true,      credentials: 'include'    })    // 针对头文件是否为空，会做一些权限控制    if (options.headers === undefined) {      // 没有指定头文件的使用默认头文件，需要传入用户信息      options.headers = {        'Content-Type': 'application/x-www-form-urlencoded',        'Authorization': getUserInfo()      }    }    // 表单提交格式需要进行参数转换    if (options.headers['Content-Type'].indexOf('x-www-form') !== -1) {      // 参数格式转换      options.data = qs.stringify(options.data)    }    instance(options).then((response) =&gt; {      let result = response.data      // 无数据      if (!result) {        return false      }      // 未授权      if (result.status === config.UNAUTHORIZED_CODE || result.data === config.UNAUTHORIZED_CODE) {        // 清空用户信息        setUserInfo(null)        // 跳转至登录界面        router.replace({name: 'portal'})        return false      }      resolve(result)      return false    }).catch((error) =&gt; {      reject(error)      // 清空用户信息      setUserInfo(null)      router.replace({name: 'portal'})    })  })}单独处理不需要头文件的请求  由于 fetch.js 中对头文件存在 undefined 的判断，所以外部如果传入头文件，则可以替换默认的头文件配置import fetch from 'assets/scripts/fetch/fetch'import * as config from 'assets/scripts/config/config'let baseUrl = '/api/portals'/** * 轮播列表 */export function covers() {  const url = `${baseUrl}/covers`  return fetch({    url: url,    method: config.GET,    headers: config.VISITOR_HEADER  })}  实际开发中通常会存在一个 config.js 文件，用于存储一系列通用配置信息// 游客头文件export const VISITOR_HEADER = {  'Content-Type': 'application/x-www-form-urlencoded'}用户登录成功后将后端返回的 token 值存入 cookie  登录操作实际应该对用户名和密码进行有效性判断，以及登录失败后的错误提示，此处都省略，重点突出将 token 值存入 vuex 的步骤&lt;template&gt;  &lt;div ref="portal" class="container portal-panel"&gt;	  ...    &lt;mt-field placeholder="请输入手机号或邮箱" v-model.trim="user.username" :state="state.username"                         @keyup.enter.native="sendLogin"&gt;&lt;/mt-field&gt;    &lt;mt-field placeholder="请输入密码" type="password" v-model.trim="user.password" :state="state.password"                        @keyup.enter.native="sendLogin"&gt;&lt;/mt-field&gt;    &lt;mt-button type="primary" @click.native="sendCaptcha"&gt;&lt;/mt-button&gt;	  ...  &lt;/div&gt;&lt;/template&gt;&lt;script type="text/ecmascript-6"&gt;  import { mapMutations } from 'vuex'  import { SET_USER_INFO } from 'store/mutation-types'  export default {    name: 'portal',    data() {      return {        countDown: 0,        timer: null,        user: {          username: '',          password: ''        }      }    },    methods: {      ...mapMutations({        set_user_info: SET_USER_INFO      }),      // 用户登录      sendLogin() {        ...        this.$fetch.login.login({          username: this.user.username,          password: this.user.password        }).then((res) =&gt; {			...          this.$toast.success('登录成功')          this.set_user_info({            token: res.data,            isLogin: true          })			...        })      }		...  }&lt;/script&gt;&lt;style lang="stylus" rel="stylesheet/stylus"&gt;  ...&lt;/style&gt;vuex 处理 token 值  在 mutations.js 中，当存入用户信息时          一份存入 session ，供日常使用      一份存入 cookie ，有效期 30 天，供自动登录使用，具体的 cookie 存值方式，请参见 简单封装浏览器 cookie 工具类        同时需要确保，当用户手动退出后执行用户信息清除时，需要同时清除 cookie/** vuex所有的mutation */// 引入mutations-typesimport * as types from './mutation-types'import { sessionStorage, cookieStorage } from 'assets/scripts/storage'// 定义mutation，其内部是一些修改方法const mutations = {  // 第一个参数是状态值  // 第二个参数为提交状态修改是传入的对象参数  [types.SET_USER_INFO](state, userInfo) {    state.userInfo = userInfo || {}    if (userInfo === null) {      sessionStorage.remove('userInfo')      cookieStorage.remove('userInfo')    } else {      sessionStorage.set('userInfo', userInfo)      cookieStorage.set('userInfo', userInfo, 30)    }  }	...}// 暴露给外部export default mutations在请求首页时判断是否可以自动登录  在 router.js 的最后添加 router.beforeEach() ，可以在链接跳转之前执行一些预判操作  如果 cookie 中存在用户登录信息，则将信息取出重新放入 vuex ，并在后续操作中直接跳转至登录后的首屏页面/** * 全局路由配置 * 路由开始之前的操作 */router.beforeEach((to, from, next) =&gt; {  // 获取当前请求的名称  // let toName = to.name  // 获取当前请求的路径  let toPath = to.path  // 请求首页时判断用户是否存在本地登录信息  if (toPath.indexOf('portal') === 1) {    // 获取用户信息    let userInfo = cookieStorage.get('userInfo')    // 存在用户信息    if (userInfo !== undefined &amp;&amp; userInfo.token !== undefined) {      // 将用户信息重新进行状态管理      store.commit(SET_USER_INFO, userInfo)    }  }  // 获取用户登录标识  let isLogin = store.state.userInfo.isLogin  // 用户未登录，且请求的不是首页或首页子页面  if (!isLogin &amp;&amp; toPath.indexOf('portal') !== 1) {    // 跳转到登录页面    next({      name: 'portal'    })  } else {    // 用户已登录，且请求的是登录页面    if (isLogin &amp;&amp; toPath.indexOf('portal') === 1) {      // 跳转到首页      next({        path: serverBaseUrl      })    } else {      // 默认操作      next()    }  }})]]></content>
+      <content type="text"><![CDATA[  虽然 Shiro 本身可以支持扩展 RememberMe 功能，但仅限于传统项目因为 Shiro 的用户信息是基于 Session 进行管理，在前后端分离的项目中无法实现 Session 状态的前后统一所以本文通过 JWT 对 Shiro 原生的 Session 控制进行替换，从而实现用户信息的前后传递及判断涉及资料  一个已经实现的例子  JWT官网  JWT源码导入项目所需的依赖  对于 SpringBoot 和 Shiro 的依赖此处不重复介绍  以下是 JWT 的依赖包，就一个即可&lt;dependency&gt;  &lt;groupId&gt;com.auth0&lt;/groupId&gt;  &lt;artifactId&gt;java-jwt&lt;/artifactId&gt;  &lt;version&gt;3.2.0&lt;/version&gt;&lt;/dependency&gt;创建 JWTToken 替换 Shiro 原生 Token  Shiro 原生的 Token 中存在用户名和密码以及其他信息 [验证码，记住我]  在 JWT 的 Token 中因为已将用户名和密码通过加密处理整合到一个加密串中，所以只需要一个 token 字段即可public class JWTToken implements AuthenticationToken {    // 密钥    private String token;    public JWTToken(String token) {        this.token = token;    }    @Override    public Object getPrincipal() {        return token;    }    @Override    public Object getCredentials() {        return token;    }}创建 JWTUtil 整合 JWT 相关操作  在这个工具类中可以实现对用户名和密码的加密处理，校验 token 是否正确，获取用户名等操作  Algorithm algorithm = Algorithm.HMAC256(password) 是对密码进行加密后再与用户名混淆在一起  在签名时可以通过 .withExpiresAt(date) 指定 token 的过期时间public class JWTUtil {    // 过期时间30天    private static final long EXPIRE_TIME = 24 * 60 * 30 * 1000;    /**     * 校验token是否正确     *     * @param token    密钥     * @param username 登录名     * @param password 密码     * @return     */    public static boolean verify(String token, String username, String password) {        try {            Algorithm algorithm = Algorithm.HMAC256(password);            JWTVerifier verifier = JWT.require(algorithm).withClaim("username", username).build();            DecodedJWT jwt = verifier.verify(token);            return true;        } catch (Exception e) {            return false;        }    }    /**     * 获取登录名     *     * @param token     * @return     */    public static String getUsername(String token) {        try {            DecodedJWT jwt = JWT.decode(token);            return jwt.getClaim("username").asString();        } catch (JWTDecodeException e) {            return null;        }    }    /**     * 生成签名     *     * @param username     * @param password     * @return     */    public static String sign(String username, String password) {        try {            // 指定过期时间            Date date = new Date(System.currentTimeMillis() + EXPIRE_TIME);            Algorithm algorithm = Algorithm.HMAC256(password);            return JWT.create()                    .withClaim("username", username)                    .withExpiresAt(date)                    .sign(algorithm);        } catch (UnsupportedEncodingException e) {            return null;        }    }}创建 JWTFilter 实现前端请求统一拦截及处理  executeLogin() 方法中的 getSubject(request, response).login(token) 就是触发 Shiro Realm 自身的登录控制，具体内容需要手动实现  executeLogin() 始终返回 true 的原因是因为具体的是否登录成功的判断，需要在 Realm 中手动实现，此处不做统一判断  LOGIN_SIGN 是前端放置在 headers 头文件中的登录标识，如果用户发起的请求是需要登录才能正常返回的，那么头文件中就必须存在该标识并携带有效值public class JWTFilter extends BasicHttpAuthenticationFilter {    // 登录标识    private static String LOGIN_SIGN = "Authorization";    /**     * 检测用户是否登录     * 检测header里面是否包含Authorization字段即可     *     * @param request     * @param response     * @return     */    @Override    protected boolean isLoginAttempt(ServletRequest request, ServletResponse response) {        HttpServletRequest req = (HttpServletRequest) request;        String authorization = req.getHeader(LOGIN_SIGN);        return authorization != null;    }    @Override    protected boolean executeLogin(ServletRequest request, ServletResponse response) throws Exception {        HttpServletRequest req = (HttpServletRequest) request;        String header = req.getHeader(LOGIN_SIGN);        JWTToken token = new JWTToken(header);        getSubject(request, response).login(token);        return true;    }    @Override    protected boolean isAccessAllowed(ServletRequest request, ServletResponse response, Object mappedValue) {        if (isLoginAttempt(request, response)) {            try {                executeLogin(request, response);            } catch (Exception e) {                throw new TSharkException("登录权限不足！", e);            }        }        return true;    }    /**     * 对跨域提供支持     *     * @param request     * @param response     * @return     * @throws Exception     */    @Override    protected boolean preHandle(ServletRequest request, ServletResponse response) throws Exception {        HttpServletRequest httpServletRequest = (HttpServletRequest) request;        HttpServletResponse httpServletResponse = (HttpServletResponse) response;        httpServletResponse.setHeader("Access-control-Allow-Origin", httpServletRequest.getHeader("Origin"));        httpServletResponse.setHeader("Access-Control-Allow-Methods", "GET,POST,OPTIONS,PUT,DELETE");        httpServletResponse.setHeader("Access-Control-Allow-Headers", httpServletRequest.getHeader("Access-Control-Request-Headers"));        // 跨域时会首先发送一个option请求，这里我们给option请求直接返回正常状态        if (httpServletRequest.getMethod().equals(RequestMethod.OPTIONS.name())) {            httpServletResponse.setStatus(HttpStatus.OK.value());            return false;        }        return super.preHandle(request, response);    }}自定义 ShiroDatabaseRealm 实现 Shiro Realm 的登录控制  重写 Realm 的 supports()  方法是通过 JWT 进行登录判断的关键          因为前文中创建了 JWTToken 用于替换 Shiro 原生 token      所以必须在此方法中显式的进行替换，否则在进行判断时会一直失败        登录的合法验证通常包括 token 是否有效 、用户名是否存在 、密码是否正确          通过 JWTUtil 对前端传入的 token 进行处理获取到用户名      然后使用用户名前往数据库获取到用户密码      再将用户面传入 JWTUtil 进行验证即可      public class ShiroDatabaseRealm extends AuthorizingRealm {    private Logger logger = LoggerFactory.getLogger(this.getClass());    @Autowired    private ShiroAuthService shiroAuthService;    @Override    protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {        logger.info("doGetAuthorizationInfo+" + principals.toString());        String username = JWTUtil.getUsername(principals.toString());        MemberDTO member = shiroAuthService.getPrincipal(username);        SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();        List&lt;String&gt; userPermissions = shiroAuthService.getPermissions(member.getId());        // 基于Permission的权限信息        info.addStringPermissions(userPermissions);        return info;    }    /**     * 使用JWT替代原生Token     *     * @param token     * @return     */    @Override    public boolean supports(AuthenticationToken token) {        return token instanceof JWTToken;    }    @Override    protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authcToken) throws AuthenticationException {        String token = (String) authcToken.getCredentials();        String username = JWTUtil.getUsername(token);        MemberDTO member = shiroAuthService.getPrincipal(username);        // 用户不会空        if (member != null) {            // 判断是否禁用            if (member.getStatus().equals(MemberStatus.disableStatus)) {                throw new DisabledAccountException("901");            }            // 密码验证            if (!JWTUtil.verify(token, username, member.getLoginPassword())) {                throw new UnknownAccountException("900");            }            return new SimpleAuthenticationInfo(token, token, "realm");        } else {            throw new UnknownAccountException("900");        }    }}在 ShiroConfiguration 中将所有的请求指向 JWT  指定手工实现的 ShiroDatabaseRealm 用于传入 DefaultWebSecurityManager  在 securityManager 中关闭默认的 Session 控制          因为在前后分离项目中前端是无法获取到后端 Session 的，即无法实现用户登录状态的同步        在 shiroFilterFactoryBean() 中传入自定义的 TokenFilter          并将所有的请求指向该过滤器 filterRuleMap.put("/**", "jwt")      @Configuration@ConditionalOnWebApplicationpublic class ShiroConfiguration {    @Bean    public ShiroDatabaseRealm shiroDatabaseRealm() {        return new ShiroDatabaseRealm();    }    @Bean("securityManager")    public DefaultWebSecurityManager securityManager(ShiroDatabaseRealm shiroDatabaseRealm) {        DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();        securityManager.setRealm(shiroDatabaseRealm);        // 关闭自带session        DefaultSessionStorageEvaluator evaluator = new DefaultSessionStorageEvaluator();        evaluator.setSessionStorageEnabled(false);        DefaultSubjectDAO subjectDAO = new DefaultSubjectDAO();        subjectDAO.setSessionStorageEvaluator(evaluator);        securityManager.setSubjectDAO(subjectDAO);        return securityManager;    }    @Bean("shiroFilter")    public ShiroFilterFactoryBean shiroFilterFactoryBean(DefaultWebSecurityManager securityManager) {        ShiroFilterFactoryBean factoryBean = new ShiroFilterFactoryBean();        Map&lt;String, Filter&gt; filterMap = new HashMap&lt;&gt;();        filterMap.put("jwt", new JWTFilter());        factoryBean.setFilters(filterMap);        factoryBean.setSecurityManager(securityManager);        Map&lt;String, String&gt; filterRuleMap = new HashMap&lt;&gt;();        filterRuleMap.put("/**", "jwt");        factoryBean.setFilterChainDefinitionMap(filterRuleMap);        return factoryBean;    }    @Bean    @DependsOn("lifecycleBeanPostProcessor")    public DefaultAdvisorAutoProxyCreator defaultAdvisorAutoProxyCreator() {        DefaultAdvisorAutoProxyCreator defaultAdvisorAutoProxyCreator = new DefaultAdvisorAutoProxyCreator();        defaultAdvisorAutoProxyCreator.setProxyTargetClass(true);        return defaultAdvisorAutoProxyCreator;    }    @Bean    public LifecycleBeanPostProcessor lifecycleBeanPostProcessor() {        return new LifecycleBeanPostProcessor();    }    @Bean    public AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor(DefaultWebSecurityManager securityManager) {        AuthorizationAttributeSourceAdvisor advisor = new AuthorizationAttributeSourceAdvisor();        advisor.setSecurityManager(securityManager);        return advisor;    }}执行登录操作时对用户信息进行基础验证并签名返回  ResponseData 是前后分离项目中用于统一后端返回数据的类，必不可少          一般包含状态值和返回的具体内容      @RestController@RequestMapping("")@Api("用户登录")public class LoginController extends AbstractBaseController {    @Autowired    private LoginServiceImpl loginService;    @PostMapping("/login")    @ApiOperation("登录")    public ResponseData login(@RequestParam String username, @RequestParam String password) {        return new SimpleActionHandler(request) {            @Override            public void doAction(ResponseData responseData) throws Exception {                responseData.setData(loginService.jwtLogin(username, password));            }        }.handle();    }}  进行登录操作处理时需要判断数据有效性，即 数据是否为空，密码是否正确  一般为了用户隐私和安全起见，数据库中存入的密码都是经过 不可逆混淆 处理的          所以此处在通过 JWTUtil 签名之前，需要将用户传入的密码进行相同混淆，再将混淆后的两个密码进行对比      如果密码正确，通过相同规则混淆后的密码也会相同      @Servicepublic class LoginServiceImpl extends AbstractBaseService {    @Autowired    private MemberServiceImpl memberService;    /**     * 用户登录     *     * @param username     * @param password     * @return     */    public String jwtLogin(String username, String password) {        Assert.notNull(username, "用户名不能为空");        Assert.notNull(password, "密码不能为空");        // 获取用户密码混淆值        MemberDTO member = memberService.getMemberSalt(username);        // 加密当前用户输入密码        byte[] bytePassword = DigestUtil.sha1(password.getBytes(), EncodeUtils.hexDecode(member.getSalt()), Constants.PASSWORD_HASH_INTERATIONS);        String encodePassword = EncodeUtils.hexEncode(bytePassword);        if (!encodePassword.equals(member.getLoginPassword())) {            throw new TSharkException("900");        }        return JWTUtil.sign(username, encodePassword);    }}在前端的请求发起基类中对头文件进行统一传递  由于本项目用的 SPA 模式，除了欢迎页不需要登录，其余页面都需要登录后才能访问          因此在基类中对头文件进行统一处理，默认所有请求都会传递用户登录状态      个别不需要传递登录状态的，再进行单独处理        在头文件中指定 Authorization 自定义信息，对应的 token 值是用户登录后存入到 vuex 中的数组import axios from 'axios'import router from 'router'import store from 'store'import qs from 'qs'import { SET_USER_INFO } from 'store/mutation-types'import * as config from 'assets/scripts/config/config'axios.defaults.withCredentials = trueconst setUserInfo = function (user) {  store.commit(SET_USER_INFO, user)}const getUserInfo = function () {  return store.state.userInfo.token}export default function fetch(options) {  return new Promise((resolve, reject) =&gt; {    const instance = axios.create({      baseURL: `${config.serverBaseUrl}mop`,      timeout: 10000,      withCredentials: true,      credentials: 'include'    })    // 针对头文件是否为空，会做一些权限控制    if (options.headers === undefined) {      // 没有指定头文件的使用默认头文件，需要传入用户信息      options.headers = {        'Content-Type': 'application/x-www-form-urlencoded',        'Authorization': getUserInfo()      }    }    // 表单提交格式需要进行参数转换    if (options.headers['Content-Type'].indexOf('x-www-form') !== -1) {      // 参数格式转换      options.data = qs.stringify(options.data)    }    instance(options).then((response) =&gt; {      let result = response.data      // 无数据      if (!result) {        return false      }      // 未授权      if (result.status === config.UNAUTHORIZED_CODE || result.data === config.UNAUTHORIZED_CODE) {        // 清空用户信息        setUserInfo(null)        // 跳转至登录界面        router.replace({name: 'portal'})        return false      }      resolve(result)      return false    }).catch((error) =&gt; {      reject(error)      // 清空用户信息      setUserInfo(null)      router.replace({name: 'portal'})    })  })}单独处理不需要头文件的请求  由于 fetch.js 中对头文件存在 undefined 的判断，所以外部如果传入头文件，则可以替换默认的头文件配置import fetch from 'assets/scripts/fetch/fetch'import * as config from 'assets/scripts/config/config'let baseUrl = '/api/portals'/** * 轮播列表 */export function covers() {  const url = `${baseUrl}/covers`  return fetch({    url: url,    method: config.GET,    headers: config.VISITOR_HEADER  })}  实际开发中通常会存在一个 config.js 文件，用于存储一系列通用配置信息// 游客头文件export const VISITOR_HEADER = {  'Content-Type': 'application/x-www-form-urlencoded'}用户登录成功后将后端返回的 token 值存入 cookie  登录操作实际应该对用户名和密码进行有效性判断，以及登录失败后的错误提示，此处都省略，重点突出将 token 值存入 vuex 的步骤&lt;template&gt;  &lt;div ref="portal" class="container portal-panel"&gt;	  ...    &lt;mt-field placeholder="请输入手机号或邮箱" v-model.trim="user.username" :state="state.username"                         @keyup.enter.native="sendLogin"&gt;&lt;/mt-field&gt;    &lt;mt-field placeholder="请输入密码" type="password" v-model.trim="user.password" :state="state.password"                        @keyup.enter.native="sendLogin"&gt;&lt;/mt-field&gt;    &lt;mt-button type="primary" @click.native="sendCaptcha"&gt;&lt;/mt-button&gt;	  ...  &lt;/div&gt;&lt;/template&gt;&lt;script type="text/ecmascript-6"&gt;  import { mapMutations } from 'vuex'  import { SET_USER_INFO } from 'store/mutation-types'  export default {    name: 'portal',    data() {      return {        countDown: 0,        timer: null,        user: {          username: '',          password: ''        }      }    },    methods: {      ...mapMutations({        set_user_info: SET_USER_INFO      }),      // 用户登录      sendLogin() {        ...        this.$fetch.login.login({          username: this.user.username,          password: this.user.password        }).then((res) =&gt; {			...          this.$toast.success('登录成功')          this.set_user_info({            token: res.data,            isLogin: true          })			...        })      }		...  }&lt;/script&gt;&lt;style lang="stylus" rel="stylesheet/stylus"&gt;  ...&lt;/style&gt;vuex 处理 token 值  在 mutations.js 中，当存入用户信息时          一份存入 session ，供日常使用      一份存入 cookie ，有效期 30 天，供自动登录使用，具体的 cookie 存值方式，请参见 简单封装浏览器 cookie 工具类        同时需要确保，当用户手动退出后执行用户信息清除时，需要同时清除 cookie/** vuex所有的mutation */// 引入mutations-typesimport * as types from './mutation-types'import { sessionStorage, cookieStorage } from 'assets/scripts/storage'// 定义mutation，其内部是一些修改方法const mutations = {  // 第一个参数是状态值  // 第二个参数为提交状态修改是传入的对象参数  [types.SET_USER_INFO](state, userInfo) {    state.userInfo = userInfo || {}    if (userInfo === null) {      sessionStorage.remove('userInfo')      cookieStorage.remove('userInfo')    } else {      sessionStorage.set('userInfo', userInfo)      cookieStorage.set('userInfo', userInfo, 30)    }  }	...}// 暴露给外部export default mutations在请求首页时判断是否可以自动登录  在 router.js 的最后添加 router.beforeEach() ，可以在链接跳转之前执行一些预判操作  如果 cookie 中存在用户登录信息，则将信息取出重新放入 vuex ，并在后续操作中直接跳转至登录后的首屏页面/** * 全局路由配置 * 路由开始之前的操作 */router.beforeEach((to, from, next) =&gt; {  // 获取当前请求的名称  // let toName = to.name  // 获取当前请求的路径  let toPath = to.path  // 请求首页时判断用户是否存在本地登录信息  if (toPath.indexOf('portal') === 1) {    // 获取用户信息    let userInfo = cookieStorage.get('userInfo')    // 存在用户信息    if (userInfo !== undefined &amp;&amp; userInfo.token !== undefined) {      // 将用户信息重新进行状态管理      store.commit(SET_USER_INFO, userInfo)    }  }  // 获取用户登录标识  let isLogin = store.state.userInfo.isLogin  // 用户未登录，且请求的不是首页或首页子页面  if (!isLogin &amp;&amp; toPath.indexOf('portal') !== 1) {    // 跳转到登录页面    next({      name: 'portal'    })  } else {    // 用户已登录，且请求的是登录页面    if (isLogin &amp;&amp; toPath.indexOf('portal') === 1) {      // 跳转到首页      next({        path: serverBaseUrl      })    } else {      // 默认操作      next()    }  }})]]></content>
       <categories>
         
           <category> java </category>
@@ -75,6 +138,90 @@
     </entry>
   
     <entry>
+      <title><![CDATA[连接 MySQL 抛出 Establishing SSL connection 警告]]></title>
+      <url>/java/database/2018/07/11/%E8%BF%9E%E6%8E%A5-MySQL-%E6%8A%9B%E5%87%BA-Establishing-SSL-connection-%E8%AD%A6%E5%91%8A/</url>
+      <content type="text"><![CDATA[  Java 连接 MySQL 时控制台出现多条 Establishing SSL connection without 警告解决办法  在连接数据库的 url 最后加上 useSSL=false 即可    jdbc:mysql://localhost:3306/hts_lb?characterEncoding=UTF-8&amp;tinyInt1isBit=false&amp;useSSL=false      ]]></content>
+      <categories>
+        
+          <category> java </category>
+        
+          <category> database </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> java </tag>
+        
+          <tag> mysql </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[移动端弹出遮罩层时防止底部页面滚动]]></title>
+      <url>/vue/javascript/2018/07/10/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%BC%B9%E5%87%BA%E9%81%AE%E7%BD%A9%E5%B1%82%E6%97%B6%E9%98%B2%E6%AD%A2%E5%BA%95%E9%83%A8%E9%A1%B5%E9%9D%A2%E6%BB%9A%E5%8A%A8/</url>
+      <content type="text"><![CDATA[  如果底部页面内容过多出现滚动条，此时弹出遮罩层后，在遮罩层滑动页面也会导致底部页面响应滚动操作解决办法  监听遮罩层的打开和关闭          打开时设置底部页面的 position: fixed      关闭时恢复默认布局 position: static      watch: {  'popupVisible'(val) {    if (val) {      this.$refs.portal.style.position = 'fixed'    } else {      this.$refs.portal.style.position = 'static'    }  }}]]></content>
+      <categories>
+        
+          <category> vue </category>
+        
+          <category> javascript </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> vue </tag>
+        
+          <tag> javascript </tag>
+        
+          <tag> dom </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[Vue 动态赋值 class]]></title>
+      <url>/vue/2018/06/29/Vue-%E5%8A%A8%E6%80%81%E8%B5%8B%E5%80%BC-class/</url>
+      <content type="text"><![CDATA[  Vue 在操作 DOM 元素的 class 属性时，有以下多种方法比较通用的是否赋值方式  通过以下 :class="{show: show}" 的方式可以决定该元素是否拥有名称为 show 的 class          data() 中的 show 属性为 true ，则赋予 show class ，否则不赋予      &lt;template&gt;	&lt;div class="watch-mooc-panel" :class="{show: show}"&gt;&lt;/div&gt;&lt;/template&gt;&lt;script type="text/ecmascript-6"&gt;  export default {    name: 'mooc',    data() {      return {        show: false      }    }  }&lt;/script&gt;&lt;style scoped lang="stylus" rel="stylesheet/stylus"&gt;    .watch-mooc-panel      width 100%      height 100%      position absolute      transition background-color .3s      &amp;.show        background-color #000000&lt;/style&gt;使用三目运算符的方式  注意使用三木运算符添加的属性语法和上述方式存在明显区别&lt;template&gt;	&lt;div class="watch-mooc-panel" :class="show ? 'show' : 'hide'"&gt;&lt;/div&gt;&lt;/template&gt;]]></content>
+      <categories>
+        
+          <category> vue </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> vue </tag>
+        
+          <tag> dom </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[Mint-UI Infinite Scroll 无限滚动运用]]></title>
+      <url>/vue/mintui/2018/06/25/Mint-UI-Infinite-Scroll-%E6%97%A0%E9%99%90%E6%BB%9A%E5%8A%A8%E8%BF%90%E7%94%A8/</url>
+      <content type="text"><![CDATA[  Mint-UI 自带一个支持无限滚动的组件，以下是用法官网文档Infinite Scroll使用方法  v-infinite-scroll 指定加载内容的方法，在满足触发条件时，则会加载          注意如果内容加载的分页方法就一个，此处指定后，则不需要再通过 created() 调用分页方法，否则一开始会加载两次        infinite-scroll-distance 触发方法的阈值，底部距离的像素值&lt;div class="real-content" v-infinite-scroll="getMoocs" infinite-scroll-distance="10"&gt;  &lt;div class="hot-item" v-for="mooc in moocs" :key="mooc.hexId"&gt;    ...  &lt;/div&gt;&lt;/div&gt;注意点  值得注意的是该组件提供了一个 infinite-scroll-disabled 属性，文档中的说明是若为真，则无限滚动不会被触发          这很容易让人理解为当分页检测到没有下一页后，则不再触发无限滚动，但其实根本达不到这个效果      翻阅 官方 GitHub 上作者的解释 才知道这个属性其实为了防止分页内容在加载过程中重复加载，当内容加载完毕后，会被内部重置      所以要实现到达尾页后不再重复发起分页请求，需要通过以下方法      getMoocs() {	// 检测是否存在下一页  if (!this.page.hasNext) {    return false  }  this.$fetch.mooc.page(this.page).then((res) =&gt; {    this.page = new Page(res.data)    this.moocs = _.concat(this.moocs, res.data.list)  })}]]></content>
+      <categories>
+        
+          <category> vue </category>
+        
+          <category> mintui </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> vue </tag>
+        
+          <tag> mintui </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
       <title><![CDATA[SpringBoot前后分离项目实现自定义登录拦截]]></title>
       <url>/java/springboot/shiro/2018/06/24/SpringBoot%E5%89%8D%E5%90%8E%E5%88%86%E7%A6%BB%E9%A1%B9%E7%9B%AE%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%AE%9A%E4%B9%89%E7%99%BB%E5%BD%95%E6%8B%A6%E6%88%AA/</url>
       <content type="text"><![CDATA[  通常的 shiro 登录拦截对于 /login 操作可设置为 authc 模式，但前后分离的项目直接设置会导致无法获取登录信息自定义登录拦截的实现  要实现自定义的登录拦截是继承 FormAuthenticationFilter 接口  对接口中的 onLoginSuccess 和 onLoginFailure 重写          从而根据登录成功和失败进行不同的操作记录      public class LoginFormAuthenticationFilter extends FormAuthenticationFilter {  // springBoot中存在与配置类的service类需要提供get/set方法手动收入，如果使用@Autowired会导致报错    private MemberLoginRecordServiceImpl memberLoginRecordService;    @Override    protected boolean onLoginSuccess(AuthenticationToken token, Subject subject, ServletRequest request, ServletResponse response) throws Exception {        // 处理会员登录成功操作        memberLoginRecordService.doAfterSuccessfullyLogin(request, subject);        return super.onLoginSuccess(token, subject, request, response);    }    @Override    protected boolean onLoginFailure(AuthenticationToken token, AuthenticationException e, ServletRequest request, ServletResponse response) {        return super.onLoginFailure(token, e, request, response);    }    public MemberLoginRecordServiceImpl getMemberLoginRecordService() {        return memberLoginRecordService;    }    public void setMemberLoginRecordService(MemberLoginRecordServiceImpl memberLoginRecordService) {        this.memberLoginRecordService = memberLoginRecordService;    }}将重写的拦截器注入到 shiro 配置中@Configuration@ConditionalOnWebApplicationpublic class ShiroConfiguration extends BaseShiroConfiguration {  ...  	// 手动注入自定义拦截器需要用到的service  	// 注入该service即可，service内部的其他类可实现自动注入    @Bean    public MemberLoginRecordServiceImpl memberLoginRecordService() {        return new MemberLoginRecordServiceImpl();    }    public ShiroFilterFactoryBean shiroFilterFactoryBean(DefaultWebSecurityManager securityManager) throws Exception {        ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();        shiroFilterFactoryBean.setSecurityManager(securityManager);  		// 指定登录链接        shiroFilterFactoryBean.setLoginUrl("/login");        Map&lt;String, Filter&gt; filters = new LinkedHashMap&lt;String, Filter&gt;();          		// 配置自定义表单拦截器        LoginFormAuthenticationFilter authcFilter = new LoginFormAuthenticationFilter();        authcFilter.setRememberMeParam("rememberMe");  		// 注入上述引用的service类        authcFilter.setMemberLoginRecordService(memberLoginRecordService());  		// 选择指定拦截器的规则        filters.put("authc", authcFilter);        shiroFilterFactoryBean.setFilters(filters);  		// 配置不同接口规则        Map&lt;String, String&gt; filterChainDefinitionMap = new LinkedHashMap&lt;String, String&gt;();  		// 登出操作由shiro管理        filterChainDefinitionMap.put("/logout", "anon");  		// 以下规则可直接访问        filterChainDefinitionMap.put("/api/portals/**", "anon");  		// 以下规则需要认证访问        filterChainDefinitionMap.put("/login", "authc");        filterChainDefinitionMap.put("/api/**", "authc");        shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);        return shiroFilterFactoryBean;    }}以上方式在前后分离项目中会出现的问题  由于项目是前后分离的，前端发起的直接是访问 loginController 的请求  该请求由于配置了 authc 规则，则需要认证才能访问  所以就导致以上配置方式会直接报错  而如果将 /login 请求配置为 anon 规则，则会导致登录操作无法被自定义表单拦截器拦截解决方式  重写 FormAuthenticationFilter 接口的 onAccessDenied 方法  判断当前访问该规则的请求是否为登录请求  如果是登录请求则再次判断是否为登录提交请求 this.isLoginRequest          因为正常的登录请求中会存在一个访问登录页面和提交登录表单两个操作      而前后分离项目发起的必然是提交登录表单 this.isLoginSubmission        如果不是登录请求则返回 false@Overrideprotected boolean onAccessDenied(ServletRequest request, ServletResponse response) throws Exception {    if (this.isLoginRequest(request, response) &amp;&amp; this.isLoginSubmission(request, response)) {        return true;    }    return false;}]]></content>
@@ -100,6 +247,69 @@
     </entry>
   
     <entry>
+      <title><![CDATA[Vue 项目在 IE11 中数据更改后页面数据无变化]]></title>
+      <url>/vue/javascript/2018/06/23/Vue-%E9%A1%B9%E7%9B%AE%E5%9C%A8-IE11-%E4%B8%AD%E6%95%B0%E6%8D%AE%E6%9B%B4%E6%94%B9%E5%90%8E%E9%A1%B5%E9%9D%A2%E6%95%B0%E6%8D%AE%E6%97%A0%E5%8F%98%E5%8C%96/</url>
+      <content type="text"><![CDATA[  在 IE11 中运行 Vue 项目会发现提交表单数据后，列表数据没有变化出现问题的原因  在 IE11 中，如果 GET 请求相同的 URL ，浏览器默认会使用之前的缓存数据，而不是重新请求接口解决的方式  针对 IE 浏览器，在每个请求末尾都添加一个时间戳，保证每个请求都是独立的即可  因为其他浏览器不存在此问题，所以添加时对浏览器进行判断，只为 IE 添加if (window.ActiveXObject || 'ActiveXObject' in window) {  options.url = `${options.url}?${new Date().getTime()}`}]]></content>
+      <categories>
+        
+          <category> vue </category>
+        
+          <category> javascript </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> vue </tag>
+        
+          <tag> javascript </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[URLSearchParams 在 IE11 中无法被识别]]></title>
+      <url>/vue/javascript/2018/06/23/URLSearchParams-%E5%9C%A8-IE11-%E4%B8%AD%E6%97%A0%E6%B3%95%E8%A2%AB%E8%AF%86%E5%88%AB/</url>
+      <content type="text"><![CDATA[  URLSearchParams 是用于拼接请求参数的工具类，但在 IE11 中无法被直接识别解决办法  在项目中安装 url-search-params-polyfill  在需要使用 URLSearchParams 的类中引入即可  引入之后可以按照正常操作使用 URLSearchParamsimport 'url-search-params-polyfill'...function dataTruncateMap (objs) {  let data = new URLSearchParams()  ...}]]></content>
+      <categories>
+        
+          <category> vue </category>
+        
+          <category> javascript </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> vue </tag>
+        
+          <tag> javascript </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[Touch UI 基于 Vue 的移动端框架]]></title>
+      <url>/vue/frame/2018/06/07/Touch-UI-%E5%9F%BA%E4%BA%8E-Vue-%E7%9A%84%E7%A7%BB%E5%8A%A8%E7%AB%AF%E6%A1%86%E6%9E%B6/</url>
+      <content type="text"><![CDATA[  完全免费的高质量移动端框架官网Touch UI]]></content>
+      <categories>
+        
+          <category> vue </category>
+        
+          <category> frame </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> vue </tag>
+        
+          <tag> frame </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
       <title><![CDATA[SpringBoot实现全局异常捕获]]></title>
       <url>/java/springboot/2018/06/07/SpringBoot%E5%AE%9E%E7%8E%B0%E5%85%A8%E5%B1%80%E5%BC%82%E5%B8%B8%E6%8D%95%E8%8E%B7/</url>
       <content type="text"><![CDATA[  SpringBoot 对异常可以进行全局捕获，按照如下操作即可创建全局异常捕获器  @RestControllerAdvice 是对 @RestController 的加强          该注解是 Spring2.3 之后提供的新功能，主要用于对原生 Controller 做一些低侵入性的增加辅助      被该注解标注的类，其中的方法会被应用到 @RestController 中      作用与 @RestController 中被标注 @RequestMapping 的方法        @ExceptionHandler 是自定义错误处理器，使用时可以注明具体需要处理的错误类型          一般需要标注默认异常和自定义异常即可        该错误捕获方式是将所有错误向上一直抛出至 Spring 容器，由 Spring 自行处理          所以如果在之前进行了 try-catch 操作，会导致 Spring 无法捕获到该异常      @RestControllerAdvicepublic class GlobalExceptionHandler {    public Logger log = LoggerFactory.getLogger(getClass());    @ExceptionHandler(TSharkException.class)    public ResponseData handleTSharkException(TSharkException e) {        log.error(e.getMessage());        ResponseData responseData = new ResponseData();        responseData.setError(e.getMessage());        return responseData;    }    @ExceptionHandler(Exception.class)    public ResponseData handleException(Exception e) {        log.error(e.getMessage());        String exceptionMessage = "";        ResponseData responseData = new ResponseData();        if (e.getMessage().contains("rollback")) {            exceptionMessage = "数据已被关联或使用，无法删除！";        }        responseData.setError(exceptionMessage);        return responseData;    }}]]></content>
@@ -117,6 +327,159 @@
           <tag> springboot </tag>
         
           <tag> exception </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[elementui elform 支持回车提交]]></title>
+      <url>/vue/elementui/2018/06/06/elementui-elform-%E6%94%AF%E6%8C%81%E5%9B%9E%E8%BD%A6%E6%8F%90%E4%BA%A4/</url>
+      <content type="text"><![CDATA[  el-form 组件默认不支持回车提交，需要对提交按钮进行一下更改实现方式  在表单的提交按钮上添加 Vue 原生属性 native-type="submit" 可以让按钮变为表单提交按钮  当表单中只有一个输入框时，按钮会默认为提交按钮  设置默认的提交按钮后需要阻止表单默认提交事件，在表单上添加 @submit.native.prevent 即可&lt;el-form ref="form" :model="user" :rules="rules" class="login-form" @submit.native.prevent&gt;  &lt;el-row :gutter="20"&gt;    &lt;el-col :span="24"&gt;      &lt;el-form-item prop="username"&gt;        &lt;el-input v-model="user.username" placeholder="请输入用户名" autofocus&gt;          &lt;in-icon slot="prefix" :name="userIcon"&gt;&lt;/in-icon&gt;        &lt;/el-input&gt;      &lt;/el-form-item&gt;      &lt;el-form-item prop="password"&gt;        &lt;el-input v-model="user.password" type="password" placeholder="请输入密码"&gt;          &lt;in-icon slot="prefix" :name="passwordIcon"&gt;&lt;/in-icon&gt;        &lt;/el-input&gt;      &lt;/el-form-item&gt;      &lt;el-form-item&gt;        &lt;el-button type="primary" native-type="submit" class="submit-btn" @click="submitForm"&gt;登录&lt;/el-button&gt;      &lt;/el-form-item&gt;    &lt;/el-col&gt;  &lt;/el-row&gt;&lt;/el-form&gt;]]></content>
+      <categories>
+        
+          <category> vue </category>
+        
+          <category> elementui </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> vue </tag>
+        
+          <tag> elementui </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[Element-ui 桌面端组件库]]></title>
+      <url>/vue/frame/elementui/2018/06/06/Element-ui-%E6%A1%8C%E9%9D%A2%E7%AB%AF%E7%BB%84%E4%BB%B6%E5%BA%93/</url>
+      <content type="text"><![CDATA[  Element-ui 是一套基于 Vue 2.0 的桌面端组件库官网Element-ui]]></content>
+      <categories>
+        
+          <category> vue </category>
+        
+          <category> frame </category>
+        
+          <category> elementui </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> vue </tag>
+        
+          <tag> frame </tag>
+        
+          <tag> elementui </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[使用节流函数防止请求重复发送]]></title>
+      <url>/vue/javascript/2018/05/28/%E4%BD%BF%E7%94%A8%E8%8A%82%E6%B5%81%E5%87%BD%E6%95%B0%E9%98%B2%E6%AD%A2%E8%AF%B7%E6%B1%82%E9%87%8D%E5%A4%8D%E5%8F%91%E9%80%81/</url>
+      <content type="text"><![CDATA[  在注入输入框监听的事件中，快速的输入可能会导致请求频繁发送构造节流函数  节流函数接收两个参数，一个是待执行方法体，一个是延迟时间export function debounce(func, delay) {	// 定义一个timer用于控制延迟	let timer	return function (...args) {		// 定时器存在则清空		if (timer) {			clearTimeout(timer)		}		// 初始化定时器		timer = setTimeout(() =&gt; {			// 在延迟达到或调用原有时间			func.apply(this, args)		}, delay)	}}运用节流函数  在 Vue 的监听中可以使用节流函数来派发监听方法  表示才 200 毫秒内重复触发该方法，不会重复派发this.$watch('query', debounce((newQuery) =&gt; {	this.$emit(query, newQuery)}, 200))]]></content>
+      <categories>
+        
+          <category> vue </category>
+        
+          <category> javascript </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> vue </tag>
+        
+          <tag> javascript </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[v-charts 基于 Vue 和 ECharts 封装的图表插件]]></title>
+      <url>/vue/javascript/2018/05/24/v-charts-%E5%9F%BA%E4%BA%8E-Vue-%E5%92%8C-ECharts-%E5%B0%81%E8%A3%85%E7%9A%84%E5%9B%BE%E8%A1%A8%E6%8F%92%E4%BB%B6/</url>
+      <content type="text"><![CDATA[  基于 Vue 和 ECharts 封装的图标插件官网v-charts]]></content>
+      <categories>
+        
+          <category> vue </category>
+        
+          <category> javascript </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> vue </tag>
+        
+          <tag> javascript </tag>
+        
+          <tag> charts </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[Vuex 属性与 v-model 绑定]]></title>
+      <url>/vue/vuex/2018/05/23/Vuex-%E5%B1%9E%E6%80%A7%E4%B8%8E-v-model-%E7%BB%91%E5%AE%9A/</url>
+      <content type="text"><![CDATA[  由于 Vuex 提供的是 mapGetters 和 mapActions 对属性行获取和操作，所以无法直接适配 v-model 的双向绑定形式官网Vuex 表单数据绑定 解决方式  上述 vuex 的官方文档中提供了适配 v-model 的解决方式  一种是重写 input 的双向绑定  另外一种是提供单独的计算属性，并写明 get / set 方法，将 vuex 的 mapGetters / mapActions 分别赋值  个人认为第二种方式更实用]]></content>
+      <categories>
+        
+          <category> vue </category>
+        
+          <category> vuex </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> vue </tag>
+        
+          <tag> vuex </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[js-base64 使用 JS 解码 base64]]></title>
+      <url>/vue/javascript/2018/05/21/js-base64-%E4%BD%BF%E7%94%A8-JS-%E8%A7%A3%E7%A0%81-base64/</url>
+      <content type="text"><![CDATA[  使用 JS 解码 base64官网js-base64]]></content>
+      <categories>
+        
+          <category> vue </category>
+        
+          <category> javascript </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> vue </tag>
+        
+          <tag> javascript </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[create-keyframe-animation	使用 JS 创建 CSS 动画]]></title>
+      <url>/vue/javascript/2018/05/17/create-keyframe-animation-%E4%BD%BF%E7%94%A8-JS-%E5%88%9B%E5%BB%BA-CSS-%E5%8A%A8%E7%94%BB/</url>
+      <content type="text"><![CDATA[#vue/plugin #javascript/plugin  实现通过 JS 编写 CSS3 动画官网create-keyframe-animation]]></content>
+      <categories>
+        
+          <category> vue </category>
+        
+          <category> javascript </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> vue </tag>
+        
+          <tag> javascript </tag>
         
       </tags>
       <tags></tags>
@@ -182,6 +545,23 @@
           <tag> java </tag>
         
           <tag> hibernate </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[vuedraggable 拖拽排序]]></title>
+      <url>/vue/2018/05/11/vuedraggable-%E6%8B%96%E6%8B%BD%E6%8E%92%E5%BA%8F/</url>
+      <content type="text"><![CDATA[  vuedraggable 可实现列表的拖拽排序官网vuedraggable]]></content>
+      <categories>
+        
+          <category> vue </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> vue </tag>
         
       </tags>
       <tags></tags>
@@ -263,6 +643,27 @@
     </entry>
   
     <entry>
+      <title><![CDATA[Vue 实现路由过渡动画]]></title>
+      <url>/vue/2018/05/08/Vue-%E5%AE%9E%E7%8E%B0%E8%B7%AF%E7%94%B1%E8%BF%87%E6%B8%A1%E5%8A%A8%E7%94%BB/</url>
+      <content type="text"><![CDATA[  在进行路由跳转时，可以加上动画效果准备工作  编写动画效果.slide-right-enter-active,.slide-right-leave-active,.slide-left-enter-active,.slide-left-leave-active {  will-change: transform;  transition: all 500ms;  position: absolute;}.slide-right-enter {  opacity: 0;  transform: translate3d(-100%, 0, 0);}.slide-right-leave-active {  opacity: 0;  transform: translate3d(100%, 0, 0);}.slide-left-enter {  opacity: 0;  transform: translate3d(100%, 0, 0);}.slide-left-leave-active {  opacity: 0;  transform: translate3d(-100%, 0, 0);}实现步骤  为路由可能跳转到的组件添加索引，确保动画的过渡效果是有序的          在 meta 中可以添加自定义参数，此处添加 index 用于表示索引      children: [  {    path: 'hot',    name: 'hot',    component: hot,    meta: {      index: 0    }  },  {    path: 'mooc',    name: 'mooc',    component: mooc,    meta: {      index: 1    }  },  {    path: 'self',    name: 'self',    component: self,    meta: {      index: 2    }  },  {    path: 'training/:id',    name: 'training',    component: training,    props: true,    meta: {      index: 3    }  }]  在需要跳转的路由外层包裹 &lt;transition&gt; 组件          同时为组件指定可能执行的动画效果      &lt;transition :name="transitionName"&gt;  &lt;router-view&gt;&lt;/router-view&gt;&lt;/transition&gt;  通过监听路由变化判断具体执行哪个动画          可以通过路由的参数获取到之前设置的索引，从而判断动画效果是向左还是向右      watch: {  '$route' (to, from) {    console.log(to)    let toName = to.name    const toIndex = to.meta.index    const fromIndex = from.meta.index    this.transitionName = toIndex &lt; fromIndex ? 'slide-right' : 'slide-left'  }}]]></content>
+      <categories>
+        
+          <category> vue </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> vue </tag>
+        
+          <tag> transition </tag>
+        
+          <tag> animate </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
       <title><![CDATA[SpringBoot集成ActiveMQ抛出java.lang.NoClassDefFoundError异常]]></title>
       <url>/java/springboot/springmvc/maven/error/2018/05/08/SpringBoot%E9%9B%86%E6%88%90ActiveMQ%E6%8A%9B%E5%87%BANoClassDefFoundError/</url>
       <content type="text"><![CDATA[  SpringBoot 在集成 JMS 及 ActiveMQ 时抛出 java.lang.NoClassDefFoundError: javax/jms/JMSContext 异常出现问题的原因  spring 5.0 以上版本不会自动导入 JMS 2.0 的依赖  但是 activemq-core 5.7  版本需要 JMS 2.0 的依赖解决办法  手动加入 JMS 2.0 依赖&lt;dependency&gt;    &lt;groupId&gt;javax.jms&lt;/groupId&gt;    &lt;artifactId&gt;javax.jms-api&lt;/artifactId&gt;    &lt;version&gt;2.0.1&lt;/version&gt;&lt;/dependency&gt;  在 activemq-core 5.7 中移除低版本的默认引入&lt;dependency&gt;    &lt;groupId&gt;org.apache.activemq&lt;/groupId&gt;    &lt;artifactId&gt;activemq-core&lt;/artifactId&gt;    &lt;version&gt;5.7.0&lt;/version&gt;    &lt;exclusions&gt;        &lt;exclusion&gt;            &lt;artifactId&gt;spring-context&lt;/artifactId&gt;            &lt;groupId&gt;org.springframework&lt;/groupId&gt;        &lt;/exclusion&gt;        &lt;exclusion&gt;            &lt;groupId&gt;org.apache.geronimo.specs&lt;/groupId&gt;            &lt;artifactId&gt;geronimo-jms_1.1_spec&lt;/artifactId&gt;        &lt;/exclusion&gt;    &lt;/exclusions&gt;&lt;/dependency&gt;]]></content>
@@ -290,6 +691,156 @@
           <tag> maven </tag>
         
           <tag> error </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[Cube-ui 基于 vue 的移动组件库]]></title>
+      <url>/vue/frame/2018/05/07/Cube-ui-%E5%9F%BA%E4%BA%8E-vue-%E7%9A%84%E7%A7%BB%E5%8A%A8%E7%BB%84%E4%BB%B6%E5%BA%93/</url>
+      <content type="text"><![CDATA[  cube-ui 是滴滴团队开源的一套基于 vue 的移动组件库官网  Github  使用文档]]></content>
+      <categories>
+        
+          <category> vue </category>
+        
+          <category> frame </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> vue </tag>
+        
+          <tag> frame </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[Vue Aliplayer 阿里云播放器适配 vue]]></title>
+      <url>/2018/05/02/vue-aliplayer-%E9%98%BF%E9%87%8C%E4%BA%91%E6%92%AD%E6%94%BE%E5%99%A8%E9%80%82%E9%85%8D-vue/</url>
+      <content type="text"><![CDATA[vue-aliplayer 阿里云播放器适配 vue#vue/plugin  阿里云播放器本身没对 vue 进行专门优化，以下借助 github 上一个库进行优化官网vue-aliplayer插件源码&lt;template&gt;  &lt;div class='prism-player' :id='playerId' :style='playStyle'&gt;&lt;/div&gt;&lt;/template&gt;&lt;script&gt;  export default {    name: 'Aliplayer',    props: {      playStyle: {        type: String,        default: ''      },      aliplayerSdkPath: {        // Aliplayer 代码的路径        type: String,        default: '//g.alicdn.com/de/prismplayer/2.6.0/aliplayer-min.js'      },      autoplay: {        type: Boolean,        default: false      },      isLive: {        type: Boolean,        default: false      },      playsinline: {        type: Boolean,        default: false      },      width: {        type: String,        default: '100%'      },      height: {        type: String,        default: '320px'      },      controlBarVisibility: {        type: String,        default: 'always'      },      useH5Prism: {        type: Boolean,        default: false      },      useFlashPrism: {        type: Boolean,        default: false      },      vid: {        type: String,        default: ''      },      playauth: {        type: String,        default: ''      },      source: {        type: String,        default: ''      },      cover: {        type: String,        default: ''      },      format: {        type: String,        default: 'm3u8'      },      x5_video_position: {        type: String,        default: 'top'      },      x5_type: {        type: String,        default: 'h5'      },      x5_fullscreen: {        type: Boolean,        default: false      },      x5_orientation: {        type: Number,        default: 2      },      autoPlayDelay: {        type: Number,        default: 0      },      autoPlayDelayDisplayText: {        type: String      }    },    data () {      return {        playerId: 'aliplayer_' + Math.random() * 100000000000000000,        scriptTagStatus: 0,        instance: null      }    },    created () {      if (window.Aliplayer !== undefined) {        // 如果全局对象存在，说明编辑器代码已经初始化完成，直接加载编辑器        this.scriptTagStatus = 2        this.initAliplayer()      } else {        // 如果全局对象不存在，说明编辑器代码还没有加载完成，需要加载编辑器代码        this.insertScriptTag()      }    },    mounted () {      if (window.Aliplayer !== undefined) {        // 如果全局对象存在，说明编辑器代码已经初始化完成，直接加载编辑器        this.scriptTagStatus = 2        this.initAliplayer()      } else {        // 如果全局对象不存在，说明编辑器代码还没有加载完成，需要加载编辑器代码        this.insertScriptTag()      }    },    methods: {      insertScriptTag () {        const _this = this        let playerScriptTag = document.getElementById('playerScriptTag')        // 如果这个tag不存在，则生成相关代码tag以加载代码        if (playerScriptTag === null) {          playerScriptTag = document.createElement('script')          playerScriptTag.type = 'text/javascript'          playerScriptTag.src = this.aliplayerSdkPath          playerScriptTag.id = 'playerScriptTag'          let s = document.getElementsByTagName('head')[0]          s.appendChild(playerScriptTag)        }        if (playerScriptTag.loaded) {          _this.scriptTagStatus++        } else {          playerScriptTag.addEventListener('load', () =&gt; {            _this.scriptTagStatus++            playerScriptTag.loaded = true            _this.initAliplayer()          })        }        _this.initAliplayer()      },      initAliplayer () {        const _this = this        // scriptTagStatus 为 2 的时候，说明两个必需引入的 js 文件都已经被引入，且加载完成        if (_this.scriptTagStatus === 2 &amp;&amp; _this.instance === null) {          // Vue 异步执行 DOM 更新，这样一来代码执行到这里的时候可能 template 里面的 script 标签还没真正创建          // 所以，我们只能在 nextTick 里面初始化 Aliplayer          _this.$nextTick(() =&gt; {            _this.instance = window.Aliplayer({              id: _this.playerId,              autoplay: _this.autoplay,              isLive: _this.isLive,              playsinline: _this.playsinline,              format: _this.format,              width: _this.width,              height: _this.height,              controlBarVisibility: _this.controlBarVisibility,              useH5Prism: _this.useH5Prism,              useFlashPrism: _this.useFlashPrism,              vid: _this.vid,              playauth: _this.playauth,              source: _this.source,              cover: _this.cover,              x5_video_position: _this.x5_video_position,              x5_type: _this.x5_type,              x5_fullscreen: _this.x5_fullscreen,              x5_orientation: _this.x5_orientation,              autoPlayDelay: _this.autoPlayDelay,              autoPlayDelayDisplayText: _this.autoPlayDelayDisplayText            })            // 绑定事件，当 AliPlayer 初始化完成后，将编辑器实例通过自定义的 ready 事件交出去            _this.instance.on('ready', () =&gt; {              this.$emit('ready', _this.instance)            })            _this.instance.on('play', () =&gt; {              this.$emit('play', _this.instance)            })            _this.instance.on('pause', () =&gt; {              this.$emit('pause', _this.instance)            })            _this.instance.on('ended', () =&gt; {              this.$emit('ended', _this.instance)            })            _this.instance.on('liveStreamStop', () =&gt; {              this.$emit('liveStreamStop', _this.instance)            })            _this.instance.on('m3u8Retry', () =&gt; {              this.$emit('m3u8Retry', _this.instance)            })            _this.instance.on('hideBar', () =&gt; {              this.$emit('hideBar', _this.instance)            })            _this.instance.on('waiting', () =&gt; {              this.$emit('waiting', _this.instance)            })            _this.instance.on('snapshoted', () =&gt; {              this.$emit('snapshoted', _this.instance)            })          })        }      },      /**       * 播放视频       */      play: function () {        this.instance.play()      },      /**       * 暂停视频       */      pause: function () {        this.instance.pause()      },      /**       * 重播视频       */      replay: function () {        this.instance.replay()      },      /**       * 跳转到某个时刻进行播放       * @argument time 的单位为秒       */      seek: function (time) {        this.instance.seek(time)      },      /**       * 获取当前时间 单位秒       */      getCurrentTime: function () {        return this.instance.getCurrentTime()      },      /**       *获取视频总时长，返回的单位为秒       * @returns 返回的单位为秒       */      getDuration: function () {        return this.instance.getDuration()      },      /**       获取当前的音量，返回值为0-1的实数ios和部分android会失效       */      getVolume: function () {        return this.instance.getVolume()      },      /**       设置音量，vol为0-1的实数，ios和部分android会失效       */      setVolume: function (vol) {        this.instance.setVolume(vol)      },      /**       *直接播放视频url，time为可选值（单位秒）目前只支持同种格式（mp4/flv/m3u8）之间切换暂不支持直播rtmp流切换       *@argument url 视频地址       *@argument time 跳转到多少秒       */      loadByUrl: function (url, time) {        this.instance.loadByUrl(url, time)      },      /**       * 设置播放速度       *@argument speed 速度       */      setSpeed: function (speed) {        this.instance.setSpeed(speed)      },      /**       * 设置播放器大小w,h可分别为400px像素或60%百分比chrome浏览器下flash播放器分别不能小于397x297       *@argument w 播放器宽度       *@argument h 播放器高度       */      setPlayerSize: function (w, h) {        this.instance.setPlayerSize(w, h)      },      /**       * 目前只支持HTML5界面上的重载功能,暂不支持直播rtmp流切换m3u8）之间切换,暂不支持直播rtmp流切换       *@argument vid 视频id       *@argument playauth 播放凭证       */      reloaduserPlayInfoAndVidRequestMts: function (vid, playauth) {        this.instance.reloaduserPlayInfoAndVidRequestMts(vid, playauth)      }    }  }&lt;/script&gt;&lt;style&gt;  @import url(//g.alicdn.com/de/prismplayer/2.6.0/skins/default/aliplayer-min.css);&lt;/style&gt;组件封装  插件本身属性过多，正常开发中不一定用得到，因此对插件进行再一次封装为组件，方便程序调用及适当扩展  该组件主要实现了一下功能          播放器高度自适应      自动获取视频播放地址，播放地址的实现参见 Java + jQuery 实现阿里云点播      &lt;template&gt;  &lt;ali-player v-if="playAuth" :vid="vid" :playauth="playAuth" :height="height"&gt;&lt;/ali-player&gt;&lt;/template&gt;&lt;script type="text/ecmascript-6"&gt;  import aliPlayer from './ali-player/ali-player'  export default {    name: 'in-video',    props: {      vid: {        type: String,        default: '0'      }    },    data () {      return {        playAuth: ''      }    },    watch: {      'vid' (val) {        this._getPlayAuth(val)      }    },    computed: {      // 高度自适应      height () {        let width = document.documentElement.clientWidth        return `${width / 1.7777778}px`      }    },    methods: {      // 获取视频鉴权地址      _getPlayAuth (val) {        this.$fetch.video.auth({          videoId: val        }).then((res) =&gt; {          this.playAuth = res.data        })      }    },    components: {      aliPlayer    }  }&lt;/script&gt;&lt;style lang="stylus" rel="stylesheet/stylus"&gt;&lt;/style&gt;]]></content>
+      <categories>
+        
+      </categories>
+      <tags>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[Vue 实现 slot 多层嵌套]]></title>
+      <url>/vue/2018/04/25/Vue-%E5%AE%9E%E7%8E%B0-slot-%E5%A4%9A%E5%B1%82%E5%B5%8C%E5%A5%97/</url>
+      <content type="text"><![CDATA[  在引用一些框架时，通常他们自己就已经有插槽，但有时需要对插槽进行拓展定义基础组件，向插槽中再插入一个插槽  在基础组件中引入了 Mint-UI 的 mt-header 组件  并通过其提供的具名插槽向组件右侧插入内容  但该组件是我们自定义的，我们并不知道组件被调用时会被插入什么内容  所以在该组件中插入该具名插槽的内容也是一个插槽  关键点在于这个插入的未知内容的插槽也必须是具名的&lt;template&gt;  &lt;mt-header&gt;    &lt;img class="logo" src="./images/logo.png" alt="logo" slot="left"&gt;    &lt;slot name="button" slot="right"&gt;&lt;/slot&gt;  &lt;/mt-header&gt;&lt;/template&gt;子组件引用基础组件，像二级插槽中插入具体内容，并指定二级插槽的名称  在引入组件时，只需要将待插入的内容插槽名称与基础组件中覆写的插槽名称对应即可&lt;template&gt;  &lt;div class="portal-panel"&gt;    &lt;in-header&gt;      &lt;div class="btn-group" slot="button"&gt;        &lt;mt-button&gt;登录&lt;/mt-button&gt;        &lt;mt-button&gt;注册&lt;/mt-button&gt;      &lt;/div&gt;    &lt;/in-header&gt;  &lt;/div&gt;&lt;/template&gt;]]></content>
+      <categories>
+        
+          <category> vue </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> vue </tag>
+        
+          <tag> slot </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[Vue 项目启动抛出 Syntax Error/ Unexpected token]]></title>
+      <url>/vue/2018/04/20/Vue-%E9%A1%B9%E7%9B%AE%E5%90%AF%E5%8A%A8%E6%8A%9B%E5%87%BA-Syntax-Error-Unexpected-token/</url>
+      <content type="text"><![CDATA[  项目启动时抛出了标识符无法识别的错误错误原因  ES6 新增了不少标识符，但浏览器大多无法直接识别，需要借助 babel 对 ES6 代码进行转义  项目启动时抛出如下错误，表示 ... 运算符没能被识别，该运算符属于 ES6 的解构运算符  出现该问题的原因基本上可以定位是项目没有配置 babel          即时 package.json 文件中已经引入 babel ，但仍然需要在项目根目录创建一个 .balbelrc 文件进行配置      解决方式  在项目根目录创建 .babelrc 文件即可实现对 babel 的基本配置{  "presets": [    ["env", {      "modules": false    }],    "stage-2"  ],  "plugins": ["transform-runtime", "transform-vue-jsx"]}]]></content>
+      <categories>
+        
+          <category> vue </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> vue </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[Vue 项目启动抛出 Expected indentation of 2 spaces but found 1 tab]]></title>
+      <url>/vue/eslint/2018/04/20/Vue-%E9%A1%B9%E7%9B%AE%E5%90%AF%E5%8A%A8%E6%8A%9B%E5%87%BA-Expected-indentation-of-2-spaces-but-found-1-tab/</url>
+      <content type="text"><![CDATA[  该问题是由于 ESLint 的验证规则不匹配解决方式  在 .eslintrc.js 文件的 rules 中加入 'no-tabs': 'off' 即可不检测该问题// https://eslint.org/docs/user-guide/configuringmodule.exports = {	...  'rules': {		...		'no-tabs': 'off'  }}]]></content>
+      <categories>
+        
+          <category> vue </category>
+        
+          <category> eslint </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> vue </tag>
+        
+          <tag> eslint </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[Vue 项目启动抛出 Error/ No PostCSS Config found in]]></title>
+      <url>/vue/2018/04/20/Vue-%E9%A1%B9%E7%9B%AE%E5%90%AF%E5%8A%A8%E6%8A%9B%E5%87%BA-Error-No-PostCSS-Config-found-in/</url>
+      <content type="text"><![CDATA[  项目启动时抛出 Error: No PostCSS Config found in … 的错误表示某个 css 文件不能被引入解决办法  在项目根目录创建 postcss.config.js 文件，并配置以下内容module.exports = {    plugins: {      'autoprefixer': {browsers: 'last 5 version'}    }  } ]]></content>
+      <categories>
+        
+          <category> vue </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> vue </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[ESLint 代码规范性验证]]></title>
+      <url>/vue/eslint/2018/04/20/ESLint-%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83%E6%80%A7%E9%AA%8C%E8%AF%81/</url>
+      <content type="text"><![CDATA[  ESLint 是可组装的JavaScript和JSX检查工具官网ESLint - Pluggable JavaScript linter - ESLint中文]]></content>
+      <categories>
+        
+          <category> vue </category>
+        
+          <category> eslint </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> vue </tag>
+        
+          <tag> eslint </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[Vue 项目启动抛出 Module build failed/ Error/ No ESLint configuration found.]]></title>
+      <url>/vue/eslint/2018/04/19/Vue-%E9%A1%B9%E7%9B%AE%E5%90%AF%E5%8A%A8%E6%8A%9B%E5%87%BA-Module-build-failed-Error-No-ESLint-configuration-found</url>
+      <content type="text"><![CDATA[  项目启动时控制台抛出 Module build failed: Error: No ESLint configuration found. 的错误出现错误的原因  因为项目根路径缺少 ESLint 的配置文件解决问题的方式  将 ESLint 相关配置文件添加至项目根路径// https://eslint.org/docs/user-guide/configuringmodule.exports = {  root: true,  parser: 'babel-eslint',  parserOptions: {    sourceType: 'module'  },  env: {    browser: true,  },  // https://github.com/standard/standard/blob/master/docs/RULES-en.md  extends: 'standard',  // required to lint *.vue files  plugins: [    'html'  ],  // add your custom rules here  'rules': {    // allow paren-less arrow functions    'arrow-parens': 0,    // allow async-await    'generator-star-spacing': 0,    // allow debugger during development    'no-debugger': process.env.NODE_ENV === 'production' ? 2 : 0,    // 忽略函数空格检测    'space-before-function-paren': 0,    // 中缀操作符周围要不要有空格    'space-infix-ops': 0,    'no-trailing-spaces': 0,    'new-parens': 0  }}/build//config//dist//*.js]]></content>
+      <categories>
+        
+          <category> vue </category>
+        
+          <category> eslint </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> vue </tag>
+        
+          <tag> eslint </tag>
         
       </tags>
       <tags></tags>
@@ -400,6 +951,52 @@
     </entry>
   
     <entry>
+      <title><![CDATA[Muse UI]]></title>
+      <url>/vue/frame/2018/04/16/Muse-UI/</url>
+      <content type="text"><![CDATA[  Muse-ui 基于 Vue 2.0 和 Material Design 的 UI 组件库官网  Github  使用文档]]></content>
+      <categories>
+        
+          <category> vue </category>
+        
+          <category> frame </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> vue </tag>
+        
+          <tag> frame </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[Mint-ui 基于 vue 的移动端框架]]></title>
+      <url>/vue/frame/mintui/2018/04/16/Mint-ui-%E5%9F%BA%E4%BA%8E-vue-%E7%9A%84%E7%A7%BB%E5%8A%A8%E7%AB%AF%E6%A1%86%E6%9E%B6/</url>
+      <content type="text"><![CDATA[  Mint UI 是由饿了么前端团队推出的基于 Vue.js 的移动端组件库官网  Github  使用文档]]></content>
+      <categories>
+        
+          <category> vue </category>
+        
+          <category> frame </category>
+        
+          <category> mintui </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> vue </tag>
+        
+          <tag> frame </tag>
+        
+          <tag> mintui </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
       <title><![CDATA[Java 实现阿里云直播推流在线列表查询]]></title>
       <url>/java/aliyun/2018/04/12/Java-%E5%AE%9E%E7%8E%B0%E9%98%BF%E9%87%8C%E4%BA%91%E7%9B%B4%E6%92%AD%E6%8E%A8%E6%B5%81%E5%9C%A8%E7%BA%BF%E5%88%97%E8%A1%A8%E6%9F%A5%E8%AF%A2/</url>
       <content type="text"><![CDATA[  阿里云直播推流在线列表可以通过 API 的方式进行查询获取官网查询推流在线列表初始化配置  Constants.ALI_ACCESS_KEY_ID 是阿里云服务密钥 id ，所有服务共用  Constants.ALI_ACCESS_SECRET 是阿里云服务密钥，所有服务共用  将客户端的初始化放置在静态块中可以保证配置只初始化一次private static IAcsClient iAcsClient;static {    // 初始化配置    String regionId = "cn-shanghai";    DefaultProfile profile = DefaultProfile.getProfile(regionId, Constants.ALI_ACCESS_KEY_ID, Constants.ALI_ACCESS_SECRET);    iAcsClient = new DefaultAcsClient(profile);    // 本地调试    // System.setProperty("http.proxyHost", "127.0.0.1");    // System.setProperty("http.proxyPort", "8080");}查询推流在线列表  Constants.ALI_LIVE_PULL_URL 是阿里云直播的推流地址  Constants.ALI_LIVE_APP_NAME 是阿流云直播的应用名称          如果不指定，则会查询出所有的应用的推流列表      只能是单纯的应用名称，和阿里云直播控制台设置的保持一直        获取到推流在线列表后，只需要进行流名称的匹配即可public Boolean checkLiveBegin(String streamName) {    // 查询推流在线列表    DescribeLiveStreamsOnlineListRequest listRequest = new DescribeLiveStreamsOnlineListRequest();    listRequest.setDomainName(Constants.ALI_LIVE_PULL_URL);    listRequest.setAppName(Constants.ALI_LIVE_APP_NAME.replace("/", ""));    try {        DescribeLiveStreamsOnlineListResponse response = iAcsClient.getAcsResponse(listRequest);        // 获取当前推流列表        List&lt;LiveStreamOnlineInfo&gt; onlineInfos = response.getOnlineInfo();        for (LiveStreamOnlineInfo onlineInfo : onlineInfos) {            if (onlineInfo.getStreamName().equals(streamName)) {                return true;            }        }    } catch (ClientException e) {        logger.error("获取拉流信息失败！", e);    }    return false;}]]></content>
@@ -417,6 +1014,27 @@
           <tag> aliyun </tag>
         
           <tag> live </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[Java 通过 HttpConnection 解决 Ajax 请求跨域问题]]></title>
+      <url>/java/crossdomain/2018/04/02/Java-%E9%80%9A%E8%BF%87-HttpConnection-%E8%A7%A3%E5%86%B3-Ajax-%E8%AF%B7%E6%B1%82%E8%B7%A8%E5%9F%9F%E9%97%AE%E9%A2%98/</url>
+      <content type="text"><![CDATA[  $.ajax 在访问外部服务器时会出现跨域问题，尝试过很多前端的方式解决都没有效果，最终是使用 Java 发送请求得以解决包装 Java 发送 Http 请求的工具类  该工具类中包括发送 GET/POST 请求的方法  方法只需要传入请求的地址和参数列表即可  参数列表的格式为 name1=value1&amp;name2=value2public class HttpUtils {    public static String sendGet(String url, String param) {        String result = "";        BufferedReader in = null;        try {            String urlNameString = url + "?" + param;            URL realUrl = new URL(urlNameString);            // 打开和URL之间的连接            URLConnection connection = realUrl.openConnection();            // 设置通用的请求属性            connection.setRequestProperty("accept", "*/*");            connection.setRequestProperty("connection", "Keep-Alive");            connection.setRequestProperty("user-agent", "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1;SV1)");            // 建立实际的连接            connection.connect();            // 获取所有响应头字段            Map&lt;String, List&lt;String&gt;&gt; map = connection.getHeaderFields();            // 定义 BufferedReader输入流来读取URL的响应            in = new BufferedReader(new InputStreamReader(connection.getInputStream()));            String line;            while ((line = in.readLine()) != null) {                result += line;            }        } catch (Exception e) {            System.out.println("发送GET请求出现异常！" + e);            e.printStackTrace();        } finally {            try {                if (in != null) {                    in.close();                }            } catch (Exception e2) {                e2.printStackTrace();            }        }        return result;    }    public static String sendPost(String url, String param) {        PrintWriter out = null;        BufferedReader in = null;        String result = "";        try {            URL realUrl = new URL(url);            // 打开和URL之间的连接            URLConnection conn = realUrl.openConnection();            // 设置通用的请求属性            conn.setRequestProperty("accept", "*/*");            conn.setRequestProperty("connection", "Keep-Alive");            conn.setRequestProperty("user-agent", "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1;SV1)");            // 发送POST请求必须设置如下两行            conn.setDoOutput(true);            conn.setDoInput(true);            // 获取URLConnection对象对应的输出流            out = new PrintWriter(conn.getOutputStream());            // 发送请求参数            out.print(param);            // flush输出流的缓冲            out.flush();            // 定义BufferedReader输入流来读取URL的响应            in = new BufferedReader(new InputStreamReader(conn.getInputStream()));            String line;            while ((line = in.readLine()) != null) {                result += line;            }        } catch (Exception e) {            System.out.println("发送 POST 请求出现异常！"+e);            e.printStackTrace();        } finally {            try{                if(out!=null){                    out.close();                }                if(in!=null){                    in.close();                }            } catch(IOException ex){                ex.printStackTrace();            }        }        return result;    }}调用工具类  如果调用的是 GET 请求请求参数会被拼接到链接之后，这是参数列表则需要对各种符号进行转码  URLEncoder.encode(input, "UTF-8") 是 java.net.URLEncoder 包中的方法String result = sendGet("http://120.27.199.194:7001/run", "code=" + URLEncoder.encode(input, "UTF-8"));]]></content>
+      <categories>
+        
+          <category> java </category>
+        
+          <category> crossdomain </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> java </tag>
+        
+          <tag> crossdomain </tag>
         
       </tags>
       <tags></tags>
@@ -638,6 +1256,27 @@
     </entry>
   
     <entry>
+      <title><![CDATA[Vue获取组件name属性]]></title>
+      <url>/vue/components/2018/02/05/Vue%E8%8E%B7%E5%8F%96%E7%BB%84%E4%BB%B6name%E5%B1%9E%E6%80%A7/</url>
+      <content type="text"><![CDATA[  Vue在编写组件时一般都会显式的指明其name属性获取name属性this.$options.name]]></content>
+      <categories>
+        
+          <category> vue </category>
+        
+          <category> components </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> vue </tag>
+        
+          <tag> components </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
       <title><![CDATA[Hibernate防止setter()方法更新数据库]]></title>
       <url>/java/hibernate/2018/02/05/Hibernate%E9%98%B2%E6%AD%A2setter()%E6%96%B9%E6%B3%95%E6%9B%B4%E6%96%B0%E6%95%B0%E6%8D%AE%E5%BA%93/</url>
       <content type="text"><![CDATA[  Hibernate从数据库获取到对象后直接调用其setter()方法对内部数据做更改，可能会导致直接将数据更新至数据库产生问题的原因  Hibernate分为三种基本状态：游离态，自由态，持久态  从数据库中获取到对象属于持久态，直接进行操作会导致处于Session中的数据发生改变，从而触发数据库更新解决办法  获取到当前的Session对象，将该对象从Session中清除super.getEntityDao().getSession().evict(userWork);]]></content>
@@ -653,6 +1292,65 @@
           <tag> java </tag>
         
           <tag> hibernate </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[Vue集成highlight.js]]></title>
+      <url>/vue/2018/02/03/Vue%E9%9B%86%E6%88%90highlight.js/</url>
+      <content type="text"><![CDATA[  highlight.js是一个比较实用的语法高亮插件，但其默认并不能在Vue中直接使用在项目的package.json文件中安装highlight.js{	...	"dependencies": {		...		"highlight.js": "^9.12.0"	},	...}编写集成文件，稍后会作为自定义插件引入Vueimport Hljs from 'highlight.js'import 'highlight.js/styles/googlecode.css'let Highlight = {}Highlight.install = (Vue, options) =&gt; {  Vue.directive('highlight', (el) =&gt; {    let blocks = el.querySelectorAll('pre code')        blocks.forEach((block) =&gt; {      Hljs.highlightBlock(block)    })  })}export default Highlight在main.js中引入上述文件...import Highlight from './assets/plugins/highlight/highlight.js'Vue.use(Highlight)...在需要使用到语法高亮的标签上使用v-highlight并传入待显示内容  由于定义的监听规则是带 pre code 的内容，所以可能需要手动为待显示内容进行一次标签包裹&lt;div v-highlight v-html="showFileContent"&gt;&lt;/div&gt;]]></content>
+      <categories>
+        
+          <category> vue </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> vue </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[Vue自定义v-model]]></title>
+      <url>/vue/2018/02/02/Vue%E8%87%AA%E5%AE%9A%E4%B9%89v-model/</url>
+      <content type="text"><![CDATA[  Vue的v-model双向绑定非常实用，对于自定义组件也可以自定义实现v-model实现方案  在组件的 props 中定义 value 值用于接收父级传入的内容props: {  value: {    type: Boolean,    default: false  }}  在组件的 data() 中定义将 value 另存为的实际值data () {  return {    show: false  }}  在组件的 watch 中监听两个值的变化          监听 value 变化的目的是将最新的值专递给组件中的实际值      监听 show 变化的目的是当实际值发生变化时告知父容器传入值已发生变化      watch: {  value (val) {    if (val === this.show) {      return false    }    this.show = val  },  show (val) {    this.$emit('input', val)  }}  在父容器中使用 v-model 传入需要双向绑定的值即可]]></content>
+      <categories>
+        
+          <category> vue </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> vue </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[Java8 Lambda遍历集合]]></title>
+      <url>/java/jdk8/2018/01/20/Java8-Lambda%E9%81%8D%E5%8E%86%E9%9B%86%E5%90%88/</url>
+      <content type="text"><![CDATA[  Java8支持使用Lambda语法对集合进行遍历，语法如下ListallQuestions.forEach(question -&gt; {    if (question.getType().getCode().equals(typeCode)) {        filterQuestions.add(question);    }});Mapitems.forEach((k, v) -&gt; {    System.out.println("Item : " + k + " Count : " + v);    if("E".equals(k)) {        System.out.println("Hello E");    }});]]></content>
+      <categories>
+        
+          <category> java </category>
+        
+          <category> jdk8 </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> java </tag>
+        
+          <tag> jdk8 </tag>
+        
+          <tag> for </tag>
+        
+          <tag> map </tag>
         
       </tags>
       <tags></tags>
@@ -732,6 +1430,44 @@
     </entry>
   
     <entry>
+      <title><![CDATA[Vue支持JSX语法]]></title>
+      <url>/vue/2017/12/18/Vue%E6%94%AF%E6%8C%81JSX%E8%AF%AD%E6%B3%95/</url>
+      <content type="text"><![CDATA[  Vue中的渲染函数可以支持JSX语法，但需要进行如下配置官网渲染函数 &amp; JSX — Vue.js为项目添加依赖  首先需要引入 babel-plugin-transform-vue-jsx 插件          在::package.json::中的 devDependencies 加入如下配置      插件官网中提到的 babel-preset-env 可能已经存在，所以未指出      "babel-plugin-syntax-jsx": "^6.18.0","babel-plugin-transform-vue-jsx": "^3.5.0","babel-helper-vue-jsx-merge-props": "^2.0.3",在.babelrc中加入如下配置  transform-vue-jsx 是上述操作中导入的插件名称{  "presets": [    ["env", {      "modules": false    }],    "stage-2"  ],  "plugins": ["transform-runtime", "transform-vue-jsx"]}完成以上两点后即可按照Vue for JSX的语法进行编写，但编译器中可能会报错，需要做如下更改  将 &lt;script/&gt; 脚本类型改为 type="text/jsx"&lt;script type="text/jsx"&gt;	...&lt;/script&gt;]]></content>
+      <categories>
+        
+          <category> vue </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> vue </tag>
+        
+          <tag> jsx </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[Vue元素点击时获取当前对象]]></title>
+      <url>/vue/2017/12/16/Vue%E5%85%83%E7%B4%A0%E7%82%B9%E5%87%BB%E6%97%B6%E8%8E%B7%E5%8F%96%E5%BD%93%E5%89%8D%E5%AF%B9%E8%B1%A1/</url>
+      <content type="text"><![CDATA[  vue中在元素点击时获取当前对象需要手动传入当前对象在点击时传入当前对象  $event 表示当前被点击的对象&lt;el-menu-item v-for="submenu in menu.submenus" @click="clickSubmenu(submenu.operations, $event)"&gt;	&lt;/el-menu-item&gt;在触发的方法中通过声明参数进行接收clickSubmenu (operations, event) {  if (event &amp;&amp; hasClass(event.$el, 'is-active')) {    return false  }}]]></content>
+      <categories>
+        
+          <category> vue </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> vue </tag>
+        
+          <tag> dom </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
       <title><![CDATA[Maven针对SpringBoot的多项目依赖配置]]></title>
       <url>/java/maven/springboot/2017/12/16/Maven%E9%92%88%E5%AF%B9Spring-Boot%E7%9A%84%E5%A4%9A%E9%A1%B9%E7%9B%AE%E4%BE%9D%E8%B5%96%E9%85%8D%E7%BD%AE/</url>
       <content type="text"><![CDATA[  在Spring Boot中对于多项目依赖配置，可通过Maven实现创建一个父级的pom文件  在该pom中指定其 &lt;groupId/&gt;、&lt;artifactId/&gt; 、&lt;version/&gt;  &lt;packaging/&gt; 必须是pom  &lt;parent/&gt; 需要引入 spring-boot-starter-parent 表示继承Spring Boot的父级配置  &lt;modules/&gt; 中依次引入后续需要相互依赖的项目  &lt;dependencyManagement/&gt; 中对上述引入的项目进行完成依赖配置&lt;project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd"&gt;    &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;        &lt;groupId&gt;com.innovaee.hts.parent&lt;/groupId&gt;    &lt;artifactId&gt;innovaee-hts-parent&lt;/artifactId&gt;    &lt;version&gt;1.0.0.RELEASE&lt;/version&gt;    &lt;packaging&gt;pom&lt;/packaging&gt;    &lt;name&gt;innovaee-hts-parent&lt;/name&gt;    &lt;url&gt;http://maven.apache.org&lt;/url&gt;    &lt;parent&gt;        &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;        &lt;artifactId&gt;spring-boot-starter-parent&lt;/artifactId&gt;        &lt;version&gt;1.5.8.RELEASE&lt;/version&gt;    &lt;/parent&gt;    &lt;modules&gt;        &lt;module&gt;hts-admin-backend&lt;/module&gt;  ...    &lt;/modules&gt;    &lt;dependencyManagement&gt;        &lt;dependencies&gt;            &lt;dependency&gt;                &lt;groupId&gt;com.innovaee.hts&lt;/groupId&gt;                &lt;artifactId&gt;hts-admin-backend&lt;/artifactId&gt;                &lt;version&gt;0.0.1-SNAPSHOT&lt;/version&gt;            &lt;/dependency&gt;  ...        &lt;/dependencies&gt;    &lt;/dependencyManagement&gt;&lt;/project&gt;在各个子项目的pom中对依赖关系进行配置  父级不再指向Spring Boot的父级，而是上述自定义父级&lt;parent&gt;    &lt;groupId&gt;com.innovaee.hts.parent&lt;/groupId&gt;    &lt;artifactId&gt;innovaee-hts-parent&lt;/artifactId&gt;    &lt;version&gt;1.0.0.RELEASE&lt;/version&gt;&lt;/parent&gt;  从父级中获取需要的依赖配置&lt;dependency&gt;    &lt;groupId&gt;org.tshark.core&lt;/groupId&gt;    &lt;artifactId&gt;tshark-core&lt;/artifactId&gt;    &lt;version&gt;0.0.1-SNAPSHOT&lt;/version&gt;  ...&lt;/dependency&gt;在需要被打包成jar包的项目中引入Spring Boot的编译插件&lt;build&gt;    &lt;finalName&gt;hts-admin&lt;/finalName&gt;    &lt;plugins&gt;        &lt;plugin&gt;            &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;            &lt;artifactId&gt;spring-boot-maven-plugin&lt;/artifactId&gt;        &lt;/plugin&gt;    &lt;/plugins&gt;&lt;/build&gt;在父级pom所在的目录中执行打包命令对项目进行打包mvn clean package -Dmaven.test.skip=true]]></content>
@@ -751,6 +1487,213 @@
           <tag> maven </tag>
         
           <tag> springboot </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[vue-quill-editor 富文本框编辑器]]></title>
+      <url>/vue/2017/12/07/vue-quill-editor-%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A1%86%E7%BC%96%E8%BE%91%E5%99%A8/</url>
+      <content type="text"><![CDATA[  基于quilljs实现的支持vue的富文本框编辑器官网  vue-quill-editor  Toolbar Module - Quill  vue-quill-image-upload图片支持上传服务器并调整大小  在 package.json 中加入 "quill-image-extend-module": "^1.1.2" 依赖  在编辑器组件中引入以下代码&lt;template&gt;  &lt;div class="in-editor-panel"&gt;    &lt;quill-editor ref="quillEditor" v-model="content" :options="editorOption" @change="onChange"&gt;    &lt;/quill-editor&gt;  &lt;/div&gt;&lt;/template&gt;&lt;script type="text/ecmascript-6"&gt;  import 'quill/dist/quill.core.css'  import 'quill/dist/quill.snow.css'  import { quillEditor, Quill } from 'vue-quill-editor'  import { ImageExtend, QuillWatch } from 'quill-image-extend-module'  import { hasClass } from 'assets/scripts/dom/dom'  Quill.register('modules/ImageExtend', ImageExtend)  export default {    props: {      value: {        type: String,        default: ''      },      toolbarMode: {        type: Number,        default: 0      },      placeholder: {        type: String,        default: '请输入内容'      },      height: {        type: Number,        default: 170      },      imagePath: {        type: String,        default: ''      }    },    data () {      return {        content: '',        toolbars: [          [            ['bold', 'italic', 'underline', 'strike'],            ['blockquote', 'code-block'],            [{'header': 1}, {'header': 2}],            [{'list': 'ordered'}, {'list': 'bullet'}],            [{'script': 'sub'}, {'script': 'super'}],            [{'indent': '-1'}, {'indent': '+1'}],            [{'direction': 'rtl'}],            [{'size': ['small', false, 'large', 'huge']}],            [{'header': [1, 2, 3, 4, 5, 6, false]}],            [{'font': []}],            [{'color': []}, {'background': []}],            [{'align': []}],            ['clean'],            ['link', 'image', 'video']          ],          [            ['bold', 'italic', 'underline'],            ['blockquote', 'code-block'],            [{'list': 'ordered'}, {'list': 'bullet'}],            [{'header': [1, 2, 3, 4, 5, 6, false]}],            [{'color': []}, {'background': []}],            [{'align': []}],            ['link', 'image', 'video']          ],          [            ['bold', 'italic', 'underline'],            ['blockquote', 'code-block'],            [{'list': 'ordered'}, {'list': 'bullet'}],            [{'color': []}, {'background': []}],            ['insert']          ]        ],        editorOption: {          modules: {            ImageExtend: {              loading: true,              name: 'image',              size: 2,              action: `/api/file/upload/image?filePath=${JSON.stringify(this.imagePath)}`,              response: (res) =&gt; {                return res.data              }            },            toolbar: {              container: [],              handlers: {                'image': function () {                  QuillWatch.emit(this.quill.id)                }              }            }          },          placeholder: this.placeholder        }      }    },    computed: {      editor () {        return this.$refs.quillEditor.quill      }    },    watch: {      // 监听父组件传入的内容      value (newVal) {        this.$nextTick(() =&gt; {          this._listenerImage()        })        if (newVal === this.content) {          return false        }        // 传入的内容不等于编辑器自身内容，则更新        this.content = newVal      },      'content' () {        this._listenerImage()      }    },    created () {      // 指定工具栏      this.editorOption.modules.toolbar.container = this.toolbars[this.toolbarMode]    },    mounted () {      // 设置编辑器高度      this.editor.container.style.height = `${this.height}px`    },    methods: {      // 显示宽度修改框      _showWidthBox (event) {        // 获取当前图片对象        let currentImg = event.target        // 弹出宽度输入框        this.$prompt('请输入宽度', '提示', {          inputValue: currentImg.width,          confirmButtonText: '确定',          cancelButtonText: '取消'        }).then(({value}) =&gt; {          // 赋值新宽度          currentImg.width = value        }).catch(() =&gt; {})      },      // 监听图片点击      _listenerImage () {        // 获取DOM对象        let editor = document.getElementsByClassName('ql-editor')[0]        let img = editor.getElementsByTagName('img')        // 非空验证        if (img.length === 0) {          return        }        for (let i = 0; i &lt; img.length; i++) {          let currentImg = img[i]          // 绑定且防止重复绑定          currentImg.removeEventListener('dblclick', this._showWidthBox, false)          currentImg.addEventListener('dblclick', this._showWidthBox, false)        }      },      onChange () {        // 告知父组件内容发生变化        this.$emit('input', this.content)      }    },    components: {      quillEditor    }  }&lt;/script&gt;]]></content>
+      <categories>
+        
+          <category> vue </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> vue </tag>
+        
+          <tag> editor </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[vue-lazyload懒加载]]></title>
+      <url>/vue/2017/11/24/vue-lazyload%E6%87%92%E5%8A%A0%E8%BD%BD/</url>
+      <content type="text"><![CDATA[  用于vue中的懒加载插件，可实现图片懒加载等操作官网GitHub - hilongjw/vue-lazyload: A Vue.js plugin for lazyload your Image or Component in your application.]]></content>
+      <categories>
+        
+          <category> vue </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> vue </tag>
+        
+          <tag> lazyload </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[Vue生命周期图例]]></title>
+      <url>/vue/2017/11/24/Vue%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E5%9B%BE%E4%BE%8B/</url>
+      <content type="text"><![CDATA[  以下是对Vue声明周期官方图例的简单解读]]></content>
+      <categories>
+        
+          <category> vue </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> vue </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[Vue生命周期]]></title>
+      <url>/vue/2017/11/24/Vue%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/</url>
+      <content type="text"><![CDATA[  每个Vue实例都有个完整的生命周期，也就是Vue实例从创建到销毁的整个过程，实际上在这个过程中Vue的实例经历了很多变化解读生命周期图例Vue生命周期图例每个钩子函数的触发时间  beforeCreate          在实例初始化之前被调用      数据观测和初始化事件都还没开始        created          实例已经创建完之后被调用      此处已经完成数据观测和初始化事件[数据、方法的运算，watch/event回调]        beforeMount          在对象挂载之前被调用      相关联的render函数首次被执行        mounted          new Vue() 声明中的 el 被 vm.$el 替换，并挂载到实例上之后，调用此钩子      在整个生命周期中只执行一次，即时之后实例被update        beforeUpdate          数据更新时被调用      此操作发生在虚拟DOM重新渲染和打补丁之前      可在该钩子中对状态做进一步更改，此时不会触发重新渲染，而是直接执行本次渲染        updated          虚拟DOM重新渲染和打补丁之后被调用      该钩子被调用时，组件的DOM元素已经被更新，理论上可以在此时对DOM进行操作，但不推荐在此时更改实例状态，因为可能会导致无限循环      该钩子在服务器首次渲染实例时不会被调用        beforeDestroy          实例销毁之前被调用      在此时实例依旧可以被调用        destroyed          实例销毁之后被调用      该钩子执行完毕之后会带来以下操作                  实例所指向的所有属性、方法都会解绑          所有的监听事件都会被移除          所有的子实例也会被销毁                    该钩子在服务器首次渲染实例时不会被调用      ]]></content>
+      <categories>
+        
+          <category> vue </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> vue </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[better-scroll移动端滚动]]></title>
+      <url>/vue/2017/11/23/better-scroll%E7%A7%BB%E5%8A%A8%E7%AB%AF%E6%BB%9A%E5%8A%A8/</url>
+      <content type="text"><![CDATA[  better-scroll的核心借鉴了iscroll的实现，其重点解决移动端各种滚动场景需求官网  GitHub - ustbhuangyi/better-scroll: inspired by iscroll, and it has a better scroll perfermance  Document]]></content>
+      <categories>
+        
+          <category> vue </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> vue </tag>
+        
+          <tag> scroll </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[Vue编写代理请求的方法改进]]></title>
+      <url>/vue/webpack/2017/11/23/Vue%E7%BC%96%E5%86%99%E4%BB%A3%E7%90%86%E8%AF%B7%E6%B1%82%E7%9A%84%E6%96%B9%E6%B3%95%E6%94%B9%E8%BF%9B/</url>
+      <content type="text"><![CDATA[  vue升级到2.9.1后，通过其vue-cli构建的webpack项目目录结构发生以下变化发生的变化1. 在2.9.1之前，通过vue-cli构建的项目build目录如下，如左图2. 在2.9.1之后，通过vue-cli构建的项目build目录如下，如右图 ![](http://asing1elife.com/sources/images/FD738C66-A0DB-4492-959D-EB22CC7F23C4.png)  ![](http://asing1elife.com/sources/images/AD33A96F-6270-409A-94BB-C83EE75FE58D.png)3. 通过以上两张图可以明确看出新版本构建出的项目缺少了**dev-client.js**和**dev-server.js**文件造成的问题  缺少dev-server.js文件之后，所带来的问题是之前我们在需要编写代理请求时会在该文件中自定义如下路由信息，而现在应该将这些路由信息存放在哪var apiRoutes = express.Router()apiRoutes.get('/getDiscList', function (req, res) {  var url = 'https://c.y.qq.com/splcloud/fcgi-bin/fcg_get_diss_by_tag.fcg'  axios.get(url, {    headers: {      referer: 'https://c.y.qq.com/',      host: 'c.y.qq.com'    },    params: req.query  }).then((response) =&gt; {    res.json(response.data)  }).catch((e) =&gt; {    console.log(e)  })})app.use('/api', apiRoutes)解决的方式  其实在新版本中关于服务器的配置信息都被存放在webpack.dev.conf.js文件中，所以对于用来发送代理请求的自定义路由信息自然也应该存放到该文件中  只是存放的方式稍有变化，在新版本中服务器通过webpack-dev-server进行管理，所以需要在该server启动之前将代理请求接口映射完毕  webpack3内置了express() ，以下代码中的app就是express返回的对象devServer: {  ...  // 在服务器开启之前，将需要被代理的请求与本地接口进行一一对应  before (app) {    // 由于QQ音乐获取歌单列表的接口做了header信息的验证，所以需要通过代理的方式去模拟其规则范围的header，使用其允许的header发起请求    app.get('/api/getDiscList', function (req, res) {      // 真实的QQ音乐获取歌单列表的请求      const url = 'https://c.y.qq.com/splcloud/fcgi-bin/fcg_get_diss_by_tag.fcg'      // 通过axios发送异步请求      axios.get(url, {        // 在发送请求时修改头文件，模拟合法的头文件，去欺骗服务器获取请求数据        headers: {          referer: 'https://c.y.qq.com/',          host: 'c.y.qq.com'        },        // 获取参数列表        // 由于浏览器请求参数是穿透传播的，所以当前端请求getDiscList时，传递的参数在次数可以直接获取到        params: req.query      }).then((response) =&gt; {        // res是本地方法接收本地请求的返回值        // response是访问服务器接口的返回值        // 此处只需要将从服务器获取的返回值通过json的方式传递给本地请求的返回值，即实现了一次代理转发        res.json(response.data)      }).catch((e) =&gt; {        // 捕获错误信息并输出        console.error(e)      })    })  }}]]></content>
+      <categories>
+        
+          <category> vue </category>
+        
+          <category> webpack </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> vue </tag>
+        
+          <tag> webpack </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[Vue修改项目启动端口号]]></title>
+      <url>/vue/2017/11/23/Vue%E4%BF%AE%E6%94%B9%E9%A1%B9%E7%9B%AE%E5%90%AF%E5%8A%A8%E7%AB%AF%E5%8F%A3%E5%8F%B7/</url>
+      <content type="text"><![CDATA[  Vue项目启动时默认端口号是8080，如果要启动多个项目就会发生冲突，通过以下方式可修改默认端口号在项目的package.json中可以找到如下代码  start属性指定的文件就是通过开发模式启动的服务文件"scripts": {  "dev": "node build/dev-server.js",  "start": "node build/dev-server.js",  "build": "node build/build.js",  "lint": "eslint --ext .js,.vue src"}在build目录下的dev-server.js中可以找到如下代码  可以发现uri在拼接port接口之前，port接口首先根据是生产还是开发，被赋予了不同的端口号  而开发环境下的端口号来自config目录var config = require('../config')...var port = process.env.PORT || config.dev.port...var uri = 'http://localhost:' + port在config目录下的index.js中可以找到如下代码  修改此处的port即可修改开发环境下启动项目的端口号dev: {	...  port: 8090,	...}]]></content>
+      <categories>
+        
+          <category> vue </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> vue </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[Axios ajax异步库]]></title>
+      <url>/vue/2017/11/23/Axios-ajax%E5%BC%82%E6%AD%A5%E5%BA%93/</url>
+      <content type="text"><![CDATA[  axios是vue官方推荐使用的实现ajax异步的插件库官网GitHub - axios/axios: Promise based HTTP client for the browser and node.js]]></content>
+      <categories>
+        
+          <category> vue </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> vue </tag>
+        
+          <tag> axios </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[WebStorm for vue环境准备]]></title>
+      <url>/vue/webstorm/2017/11/22/WebStorm-for-vue%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87/</url>
+      <content type="text"><![CDATA[  在WebStorm中导入项目后，vue的语法默认不能被识别，所以需要做到如下配置插件  输入 Command+, 进入Preferences界面，并找到Plugins分支  点击页面底部的Browse repositories进入到插件商店  在商店中搜索 Vue ，选中并安装  重启WebStorm语法  输入 Command+, 进入Preferences界面，并找到Languages Frameworks分支  打开分支选择第一项JavaScript  将分支页面中的JavaScript language version修改为 ECMAScript 6 即可]]></content>
+      <categories>
+        
+          <category> vue </category>
+        
+          <category> webstorm </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> vue </tag>
+        
+          <tag> webstorm </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[Vue-CLI命令行工具]]></title>
+      <url>/vue/2017/11/22/Vue-CLI%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%B7%A5%E5%85%B7/</url>
+      <content type="text"><![CDATA[  vue-cli是Vue官网提供的一个命令行工具，可用于快速搭建大型单页应用在全局安装vue-clinpm install --global vue-cli创建一个基于webpack的新项目  执行该命令后会先下载templates  之后会依次要求输入一系列项目信息vue init webpack my-project跳转到项目根目录对项目进行安装npm install在项目根目录启动项目npm run dev]]></content>
+      <categories>
+        
+          <category> vue </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> vue </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[Vue 集成 Animate.css]]></title>
+      <url>/vue/2017/11/21/Vue-%E9%9B%86%E6%88%90-Animate.css/</url>
+      <content type="text"><![CDATA[  通过CSS实现了很多动画效果，可以直接调用官网Animate.css实现方式  下载 animate.css 文件并在项目的 main.js 中引入import Vue from 'vue'...import 'assets/plugins/animate/animate.css'.../* eslint-disable no-new */new Vue({  el: '#app',  render: h =&gt; h(App),  store,  router})结合 transition 组件一起使用  duration 可控制动画的加载速度&lt;transition leave-active-class="animated fadeOutRight" enter-active-class="animated fadeInRight" :duration="300"&gt;  &lt;mt-field class="search-input" placeholder="请输入搜索内容" v-show="search" v-model="searchContent"&gt;&lt;/mt-field&gt;&lt;/transition&gt;]]></content>
+      <categories>
+        
+          <category> vue </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> vue </tag>
+        
+          <tag> transition </tag>
+        
+          <tag> animate </tag>
         
       </tags>
       <tags></tags>
@@ -824,6 +1767,27 @@
           <tag> mybatis </tag>
         
           <tag> cache </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[Struts2 项目搭建]]></title>
+      <url>/java/struts/2017/09/21/Struts2-%E9%A1%B9%E7%9B%AE%E6%90%AD%E5%BB%BA/</url>
+      <content type="text"><![CDATA[  Struts2 作为一个应用开发框架，在项目中引入需要如下步骤创建一个 Web Project 并添加默认的 web.xml 文件  这个好像没啥好说的引入以下 jar 包到 lib 目录中  commons-fileupload-1.3.3.jar  commons-lang3-3.6.jar  freemarker-2.3.23.jar  javassist-3.20.0-GA.jar  log4j-api-2.8.2.jar  ognl-3.1.12.jar  struts2-core-2.5.12.jar在 web.xml 中添加 filter 配置&lt;filter&gt;	&lt;filter-name&gt;struts2&lt;/filter-name&gt;	&lt;filter-class&gt;org.apache.struts2.dispatcher.filter.StrutsPrepareAndExecuteFilter&lt;/filter-class&gt;&lt;/filter&gt;&lt;filter-mapping&gt;	&lt;filter-name&gt;struts2&lt;/filter-name&gt;	&lt;url-pattern&gt;/*&lt;/url-pattern&gt;&lt;/filter-mapping&gt;在 src 目录下添加 struts.xml 文件  要让 Struts2 支持异步的 json 数据访问在 &lt;package&gt; 的 extend 属性中添加 json-default  添加 struts2-json-plugin-2.5.12.jar 包  在对应的 &lt;action&gt;  请求的 &lt;result&gt; 中添加 type="json" 属性，并删除页面内容&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;!DOCTYPE struts PUBLIC        "-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"        "http://struts.apache.org/dtds/struts-2.5.dtd"&gt;&lt;struts&gt;	&lt;package name="default-package" extends="struts-default, json-default"&gt;		&lt;!-- name 表示请求路径 --&gt;		&lt;!-- class 表示请求路径对应的处理类 --&gt;		&lt;!-- method 表示处理类中对应的方法 --&gt;		&lt;action name="category" class="online.shixun.hpeu.action.GoodsCategoryAction" method="list"&gt;			&lt;result name="success"&gt;/WEB-INF/views/category.jsp&lt;/result&gt;		&lt;/action&gt;				&lt;!-- 异步获取商品描述 --&gt;		&lt;action name="description" class="online.shixun.hpeu.action.GoodsAction" method="description"&gt;			&lt;result name="success" type="json"&gt;&lt;/result&gt;		&lt;/action&gt;	&lt;/package&gt;&lt;/struts&gt;接收/显示数据  Struts2 的特点在于对数据的接收/显示进行封装  要获取页面传递到 action 的参数，只需要在 action 中定义对应名称的私有属性，并提供 setter 方法即可  要将数据显示到页面中，只需要在 action 中定义对应名称的私有属性，并提供 getter 方法即可public class GoodsAction {		private GoodsServiceImpl goodsService = new GoodsServiceImpl();		// 从页面接收商品类别id	private Long categoryId;		// 从页面接收商品id	private Long goodsId;		// 从DB获取商品列表，用于展示到页面上	private List&lt;GoodsModel&gt; goods;		// 从DB获取商品描述信息，用于展示到页面上	private String description;		/**	 * 加载商品列表页	 * @return	 */	public String list() {		goods = goodsService.getGoodsByCategoryId(categoryId);				return "success";	}		/**	 * 获取商品描述信息	 * @return	 */	public String description() {		// 通过商品id获取商品描述信息		description = goodsService.getGoodsById(goodsId).getDescription();				return "success";	}	public void setCategoryId(Long categoryId) {		this.categoryId = categoryId;	}	public void setGoodsId(Long goodsId) {		this.goodsId = goodsId;	}	public String getDescription() {		return description;	}	public List&lt;GoodsModel&gt; getGoods() {		return goods;	}}]]></content>
+      <categories>
+        
+          <category> java </category>
+        
+          <category> struts </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> java </tag>
+        
+          <tag> struts </tag>
         
       </tags>
       <tags></tags>
@@ -1121,6 +2085,48 @@
     </entry>
   
     <entry>
+      <title><![CDATA[Java 代理之静态代理]]></title>
+      <url>/java/proxy/2017/04/13/Java-%E4%BB%A3%E7%90%86%E4%B9%8B%E9%9D%99%E6%80%81%E4%BB%A3%E7%90%86/</url>
+      <content type="text"><![CDATA[  静态代理是指在程序运行前代理关系就已经存在其代理类和委托类会实现同一接口或是来自相同的父类定义共同接口public class Sell {	void sell();	void ad();}定义委托类public class Vendor implements Sell {	public void sell() {		System.out.println("In sell method");	}	public void ad() {		System.out.println("In ad method");	}}定义代理类  通过代理，可是实现对委托类被代理方法的修改，但不影响被代理方法的原始逻辑public class BusinessAgent implements Sell {	private Vendor vendor;	public BusinessAgent(Vendor vendor) {		this.vendor = vendor;	}	public void sell() {		System.out.println("-- before --");		vendor.sell();		System.out.println("-- after --");	}	public void add() {		System.out.println("-- before --");		vendor.ad();		System.out.println("-- after --");	}}]]></content>
+      <categories>
+        
+          <category> java </category>
+        
+          <category> proxy </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> java </tag>
+        
+          <tag> proxy </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[Java 代理之动态代理]]></title>
+      <url>/java/proxy/2017/04/13/Java-%E4%BB%A3%E7%90%86%E4%B9%8B%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86/</url>
+      <content type="text"><![CDATA[  通过使用代理可以隐藏委托类的实现，并且实现客户与委托类之间的解耦，在不修改委托类的前提下为客户做一些额外处理类型  静态代理 - Java 代理之静态代理          虽然具备代理的两个优点      但局限在于运行前必须编写好代理类        动态代理          代理类在程序运行时才被创建      其优势在于可以对多个代理类进行统一处理，而不用修改每个代理类的实现      定义 InvocationHandler 接口，充当调用处理器  java.lang.reflect.InvocationHandler 是 Java 自带的调用处理器  为处于代理类和委托类之间的中间类提供实现接口  代理类作为参数 proxy 传入  参数 method 标识具体调用代理类的哪个方法  参数 args 是这个代理类方法的参数public interface InvocationHandler {	Object invoke(Object proxy, Method method, Object[] args);}定义委托类，使用动态代理，委托类必须实现某个接口public class Sell {	void sell();	void ad();}public class Vendor implements Sell {	public void sell() {		System.out.println("In sell method");	}	public void ad() {		System.out.println("In ad method");	}}定义中介类，其必须实现 InvocationHandler 接口  该类持有一个委托类的引用  中介类和委托类构成静态代理，中介类充当代理类，委托类依旧是委托类  中介类和代理类构成静态代理，中介类充当委托类，代理类依旧是代理类  所以实际上动态代理是由两组静态代理组成public class DynamicProxy implements InvocationHandler {	private Object object;	public DynamicProxy(Object object) {		this.object = object;	}	public void invoke(Object proxy, Mehtod method, Object[] args) {		System.out.println("-- before --");		Object result = method.invoke(object, args);		System.out.println("-- after --");		return result;	}}动态生成代理类  通过调用 Proxy.newProxyInstance() 获取代理类实例，其实现指定接口并将方法滴啊用分发到指定的调用处理器  该方法的声明 public static Object newProxyInstance(ClassLoader loader, Class&lt;?&gt;[] interfaces, InvocationHandler h)  参数 loader 是定义了代理类的 ClassLoader  参数 interfaces 是代理类实现的接口列表  参数 h 是调动处理器public class MainTest {	public static void main(String[] args) {		DynamicProxy dynamicProxy = new DynamicProxy(new Vendor());		Sell sell = (Sell) Proxy.newProxyInstance(Sell.class.getClassLoader(), new Class[]{Sell.class}, dynamicProxy);		sell.sell();		sell.ad();	}}]]></content>
+      <categories>
+        
+          <category> java </category>
+        
+          <category> proxy </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> java </tag>
+        
+          <tag> proxy </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
       <title><![CDATA[OpenOffice 在 Linux 下安装使用]]></title>
       <url>/java/openoffice/linux/2017/04/11/OpenOffice-%E5%9C%A8-Linux-%E4%B8%8B%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8/</url>
       <content type="text"><![CDATA[  OpenOffice在linux下如何安装及使用官网OpenOffice安装  根据实际的 Linux 版本决定下载类型  在 tar 包所在目录，输入 tar -xzvf Apache_OpenOffice_4.1.3_Linux_x86-64_langpack-rpm_zh-CN.tar.gz 解压下载的 tar 包  接下来出来的文件在同目录下的 zn-CH  中，里面包含三个目录 RPMS readmes licenses  进入到 RPMS 中，执行 rpm -ivh *rpm 安装该目录下所有的 rpm 文件使用  进入默认安装目录 /opt/openoffice4/program 中  执行 /opt/openoffice4/program/soffice "-accept=socket,host=127.0.0.1,port=8100;urp;" -headless -nofirststartwizard &amp;  在命令的最后输入 &amp; 可确保服务在后端运行注意  若执行启动命令时报错 /opt/openoffice4/program/soffice.bin: error while loading shared libraries: libXext.so.6: cannot open shared object file: No such file or directory ，则需要安装 libXext 依赖包，根据 Linux 版本选择安装类型          执行 yum install libXext.x86_64      在 /usr/lib64 或 /usr/lib 中找到 libXext.so.6 文件，复制到 /opt/openoffice4/program/ 目录中      对复制过来的文件执行 chmod 777 libXext.so.6      ]]></content>
@@ -1215,6 +2221,25 @@
           <tag> maven </tag>
         
           <tag> pom </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[Java Protostuff 自定义序列化]]></title>
+      <url>/java/2017/04/04/Java-Protostuff-%E8%87%AA%E5%AE%9A%E4%B9%89%E5%BA%8F%E5%88%97%E5%8C%96/</url>
+      <content type="text"><![CDATA[  虽然 Java 提供内置的序列化 API Serializable ，但其效率并不是最高的Google 提供了一个效率很高的序列化 API Protobuf ，但其使用过于复杂开源社区在 Protobuf 的基础上封装出 Protostuff ，在不丢失效率的前提上，让使用步骤变得更简单一般情况下 Protostuff 序列化后的数据大小是 Serializable 的 1/10 之一，速度更是两个量级以上依赖&lt;dependency&gt;	&lt;groupId&gt;com.dyuproject.protostuff&lt;/groupId&gt;	&lt;artifactId&gt;protostuff-core&lt;/artifactId&gt;	&lt;version&gt;1.1.1&lt;/version&gt;	&lt;/dependency&gt;&lt;dependency&gt;	&lt;groupId&gt;com.dyuproject.protostuff&lt;/groupId&gt;	&lt;artifactId&gt;protostuff-runtime&lt;/artifactId&gt;	&lt;version&gt;1.1.1&lt;/version&gt;&lt;/dependency&gt;创建 Schema 序列化规则对象  规则对象只接受任何带 set/get 方法的 POJO 对象private RuntimeSchema&lt;RecordDTO&gt; schema = RuntimeSchema.createFrom(RecordDTO.class);数据序列化public void setRecord(RecordDTO record) {	// 将未序列化的对象数据通过 schema 规则进行序列化	// LinkedBuffer 缓存器的作用是当对象数据过大时，可以对数据进行缓存，从而实现分布序列化	byte[] bytes = ProtobufIOUtil.toByteArray(record, schema, LinkedBuffer.allocate(LinkedBuffer.DEFAULT_BUFFER_SIZE));}数据反序列化public RecordDTO getRecord(byte[] bytes) {	// 空的对象数据	RecordDTO record = schema.newMessage();	// 将被序列化的对象数据通过 schema 规则反序列化转换到空的对象数据中	ProtobufIOUtil.mergeFrom(bytes, record, schema);	return record;}]]></content>
+      <categories>
+        
+          <category> java </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> java </tag>
+        
+          <tag> serializable </tag>
         
       </tags>
       <tags></tags>
@@ -1588,6 +2613,44 @@
           <tag> color </tag>
         
           <tag> random </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[Java实现不重复随机数]]></title>
+      <url>/java/2017/01/20/Java%E5%AE%9E%E7%8E%B0%E4%B8%8D%E9%87%8D%E5%A4%8D%E9%9A%8F%E6%9C%BA%E6%95%B0/</url>
+      <content type="text"><![CDATA[  随机指定范围内生成N个不重复的数具体实现/** * @param min 指定范围最小值 * @param max 指定范围最大值 * @param n 随机数个数*/private int[] randomCommon(int min, int max, int n){	// 有效性判断	if (n &gt; (max - min + 1) || max &lt; min) {		return null;	}	// 按随机个数声明存放数组	int[] result = new int[n];	// 统计生成个数	int count = 0;	// 生成个数小于n之前，一直生成	while(count &lt; n) {		// 在指定范围内生成随机数		int num = (int) (Math.random() * (max - min)) + min;		// 重复标记		boolean flag = true;		// 将生成的随机数与数组中已生成的数作比较		for (int j = 0; j &lt; n; j++) {			// 重复则标记			if(num == result[j]){				flag = false;				break;			}		}		// 不重复则加入数组		if(flag) {			result[count] = num;			// 生成个数累加			count++;		}	}	return result;}]]></content>
+      <categories>
+        
+          <category> java </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> java </tag>
+        
+          <tag> random </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[HashMap和TreeMap]]></title>
+      <url>/java/2017/01/17/HashMap%E5%92%8CTreeMap/</url>
+      <content type="text"><![CDATA[介绍  Map是key-value的集合接口，其实现类包括：          HashMap - 值没有顺序      TreeMap - key值默认升序      LinkedHashMap - 值没有顺序      key排序Map&lt;String, String&gt; map = new TreeMap&lt;String, String&gt;(	new Comparator&lt;String&gt;() {		public int compare(String obj1, String obj2) {			// 降序排序			return obj2.compareTo(obj1);		}	});value排序// 这里将map.entrySet()转换成listList&lt;Map.Entry&lt;String,String&gt;&gt; list = new ArrayList&lt;Map.Entry&lt;String,String&gt;&gt;(map.entrySet());	// 然后通过比较器来实现排序	Collections.sort(list,new Comparator&lt;Map.Entry&lt;String,String&gt;&gt;() {		// 升序排序		public int compare(Entry&lt;String, String&gt; o1, Entry&lt;String, String&gt; o2) {			return o1.getValue().compareTo(o2.getValue());		}            	});]]></content>
+      <categories>
+        
+          <category> java </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> java </tag>
+        
+          <tag> map </tag>
         
       </tags>
       <tags></tags>

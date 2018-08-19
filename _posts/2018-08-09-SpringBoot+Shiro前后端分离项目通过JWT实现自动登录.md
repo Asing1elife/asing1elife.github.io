@@ -17,7 +17,7 @@ tags:
 > 因为 Shiro 的用户信息是基于 Session 进行管理，在前后端分离的项目中无法实现 Session 状态的前后统一  
 > 所以本文通过 JWT 对 Shiro 原生的 Session 控制进行替换，从而实现用户信息的前后传递及判断  
 
-## 设计资料
+## 涉及资料
 1. [一个已经实现的例子](https://github.com/Smith-Cruise/Spring-Boot-Shiro)
 2. [JWT官网](https://jwt.io)
 3. [JWT源码](https://github.com/auth0/java-jwt)
