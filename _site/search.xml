@@ -884,6 +884,23 @@
     </entry>
   
     <entry>
+      <title><![CDATA[CSS文本加省略号]]></title>
+      <url>/css/2018/04/29/CSS%E6%96%87%E6%9C%AC%E5%8A%A0%E7%9C%81%E7%95%A5%E5%8F%B7/</url>
+      <content type="text"><![CDATA[  通常的文本末尾有三个点的省略号，可以通过 CSS 实现解决方式  在文本确定宽度的前提下加入以下样式即可overflow: hidden;white-space: nowrap;text-overflow: ellipsis;可能存在的问题  在 flex 布局下会发现省略号不出现  这时候需要在父元素添加一个 overflow: hidden 即可]]></content>
+      <categories>
+        
+          <category> css </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> css </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
       <title><![CDATA[Vue 实现 slot 多层嵌套]]></title>
       <url>/vue/2018/04/25/Vue-%E5%AE%9E%E7%8E%B0-slot-%E5%A4%9A%E5%B1%82%E5%B5%8C%E5%A5%97/</url>
       <content type="text"><![CDATA[  在引用一些框架时，通常他们自己就已经有插槽，但有时需要对插槽进行拓展定义基础组件，向插槽中再插入一个插槽  在基础组件中引入了 Mint-UI 的 mt-header 组件  并通过其提供的具名插槽向组件右侧插入内容  但该组件是我们自定义的，我们并不知道组件被调用时会被插入什么内容  所以在该组件中插入该具名插槽的内容也是一个插槽  关键点在于这个插入的未知内容的插槽也必须是具名的&lt;template&gt;  &lt;mt-header&gt;    &lt;img class="logo" src="./images/logo.png" alt="logo" slot="left"&gt;    &lt;slot name="button" slot="right"&gt;&lt;/slot&gt;  &lt;/mt-header&gt;&lt;/template&gt;子组件引用基础组件，像二级插槽中插入具体内容，并指定二级插槽的名称  在引入组件时，只需要将待插入的内容插槽名称与基础组件中覆写的插槽名称对应即可&lt;template&gt;  &lt;div class="portal-panel"&gt;    &lt;in-header&gt;      &lt;div class="btn-group" slot="button"&gt;        &lt;mt-button&gt;登录&lt;/mt-button&gt;        &lt;mt-button&gt;注册&lt;/mt-button&gt;      &lt;/div&gt;    &lt;/in-header&gt;  &lt;/div&gt;&lt;/template&gt;]]></content>
@@ -897,6 +914,23 @@
           <tag> vue </tag>
         
           <tag> slot </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[CSS DOM 操作技巧汇总]]></title>
+      <url>/css/2018/04/24/CSS-DOM-%E6%93%8D%E4%BD%9C%E6%8A%80%E5%B7%A7%E6%B1%87%E6%80%BB/</url>
+      <content type="text"><![CDATA[官网30 Seconds of CSS]]></content>
+      <categories>
+        
+          <category> css </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> css </tag>
         
       </tags>
       <tags></tags>
@@ -2386,6 +2420,25 @@
     </entry>
   
     <entry>
+      <title><![CDATA[HTML5+CSS3 为 input 标签编写验证提示]]></title>
+      <url>/css/2017/08/17/HTML5+CSS3-%E4%B8%BA-input-%E6%A0%87%E7%AD%BE%E7%BC%96%E5%86%99%E9%AA%8C%E8%AF%81%E6%8F%90%E7%A4%BA/</url>
+      <content type="text"><![CDATA[  通过 HTML5 + CSS3 可以实现 input 中有无内容的友好提示方式定义 input 标签并在后面跟上 span 标签  input 标签中必须指定 required 属性    &lt;input type="number" name="age" min="0" required&gt;&lt;span class="inputTip"&gt;&lt;/span&gt;      为 input 标签编写动态 css 样式  当 input 中没有内容时其对应的伪类标签为 invalid  当 input 中存在内容时其对应的伪类标签为 valid```html```]]></content>
+      <categories>
+        
+          <category> css </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> css </tag>
+        
+          <tag> input </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
       <title><![CDATA[jQuery slice() 获取指定索引范围内的元素]]></title>
       <url>/jquery/2017/08/14/jQuery-slice()-%E8%8E%B7%E5%8F%96%E6%8C%87%E5%AE%9A%E7%B4%A2%E5%BC%95%E8%8C%83%E5%9B%B4%E5%86%85%E7%9A%84%E5%85%83%E7%B4%A0/</url>
       <content type="text"><![CDATA[  slice(start [, end]) 获取指定索引范围内的元素准备一些测试数据&lt;ul&gt;  &lt;li&gt;list item 1&lt;/li&gt;  &lt;li&gt;list item 2&lt;/li&gt;  &lt;li&gt;list item 3&lt;/li&gt;  &lt;li&gt;list item 4&lt;/li&gt;  &lt;li&gt;list item 5&lt;/li&gt;&lt;/ul&gt;将索引为 2 之后的 li 背景色改为红色$("li").slice(2).css("background-color", "red");将索引为 2 之后 4 之前，且不包含 4 的 li 背景色改为红色$("li").slice(2, 4).css("background-color", "red");]]></content>
@@ -3180,6 +3233,27 @@
     </entry>
   
     <entry>
+      <title><![CDATA[CSS滚动条上下边距]]></title>
+      <url>/css/2017/03/09/CSS%E6%BB%9A%E5%8A%A8%E6%9D%A1%E4%B8%8A%E4%B8%8B%E8%BE%B9%E8%B7%9D/</url>
+      <content type="text"><![CDATA[  父容器设置了内边距，但在内容滚动时，设置了内边距的位置依旧会出现内容解决  上下边距使用外边距  左右边距使用内边距]]></content>
+      <categories>
+        
+          <category> css </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> css </tag>
+        
+          <tag> padding </tag>
+        
+          <tag> margin </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
       <title><![CDATA[jQuery.wrap()动态添加父元素]]></title>
       <url>/jquery/2017/02/28/jQuery.wrap()%E5%8A%A8%E6%80%81%E6%B7%BB%E5%8A%A0%E7%88%B6%E5%85%83%E7%B4%A0/</url>
       <content type="text"><![CDATA[  通过 wrap() 实现动态添加父元素直接添加父元素$(".inner").wrap("&lt;div class='new'&gt;&lt;/div&gt;");添加父元素的同时执行一个方法$(".inner").wrap(function () {    return "&lt;a class='fancybox' rel='group' href='" + $(this).attr("src") + "'&gt;&lt;/a&gt;"});]]></content>
@@ -3338,6 +3412,23 @@
           <tag> java </tag>
         
           <tag> mybatis </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[CSS文字不能被选中]]></title>
+      <url>/css/2017/01/26/CSS%E6%96%87%E5%AD%97%E4%B8%8D%E8%83%BD%E8%A2%AB%E9%80%89%E4%B8%AD/</url>
+      <content type="text"><![CDATA[  确保文本文字不能被光标选中解决-moz-user-select: none;-webkit-user-select: none;user-select: none;]]></content>
+      <categories>
+        
+          <category> css </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> css </tag>
         
       </tags>
       <tags></tags>
@@ -3639,6 +3730,23 @@
     </entry>
   
     <entry>
+      <title><![CDATA[CSS绘制三角形]]></title>
+      <url>/css/2016/12/29/CSS%E7%BB%98%E5%88%B6%E4%B8%89%E8%A7%92%E5%BD%A2/</url>
+      <content type="text"><![CDATA[  CSS 绘制各种三角形⬆️向上.triangle {	width: 0;	height: 0;	border-left: 50px solid transparent;	border-right: 50px solid transparent;	border-bottom: 100px solid red;}➡️向右.triangle {	width: 0;	height: 0;	border-top: 50px solid transparent;	border-bottom: 50px solid transparent;	border-left: 100px solid red;}⬇️向下.triangle {	width: 0;	height: 0;	border-left: 50px solid transparent;	border-right: 50px solid transparent;	border-top: 100px solid red;}⬅️向左.triangle {	width: 0;	height: 0;	border-top: 50px solid transparent;	border-bottom: 50px solid transparent;	border-right: 100px solid red;}↗️向右上.triangle {	width: 0;	height: 0;	border-top: 100px solid red;	border-left: 100px solid transparent;}↖️向左上.triangle {	width: 0;	height: 0;	border-top: 100px solid red;	border-right: 100px solid transparent;}↘️向右下.triangle {	width: 0;	height: 0;	border-bottom: 100px solid red;	border-left: 100px solid transparent;}  ↙️向左下    .triangle { width: 0; height: 0; border-bottom: 100px solid red; border-right: 100px solid transparent;}      ]]></content>
+      <categories>
+        
+          <category> css </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> css </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
       <title><![CDATA[jQuery限制元素无法被选中]]></title>
       <url>/jquery/2016/12/28/jQuery%E9%99%90%E5%88%B6%E5%85%83%E7%B4%A0%E6%97%A0%E6%B3%95%E8%A2%AB%E9%80%89%E4%B8%AD/</url>
       <content type="text"><![CDATA[  效果为指定内容无法被鼠标选中问题对于网页中的某些元素，不希望其可被选中解决$("#element").attr("unselectable", "on");$("#element").css("user-select", "none");$("#element").on("selectstart", fasle);]]></content>
@@ -3764,6 +3872,23 @@
     </entry>
   
     <entry>
+      <title><![CDATA[CSS文本样式]]></title>
+      <url>/css/2016/12/27/CSS%E6%96%87%E6%9C%AC%E6%A0%B7%E5%BC%8F/</url>
+      <content type="text"><![CDATA[  一些简单的文本样式，持续更新文字缩进  text-indent: 20px字符间距  letter-spacing: 10px;文本竖向排列  writing-mode: vertical-rl;文本自动换行  word-wrap: break-word;图片相对于文本的对齐方式  vertical-align: middle;]]></content>
+      <categories>
+        
+          <category> css </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> css </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
       <title><![CDATA[jQuery获取指定子元素]]></title>
       <url>/jquery/2016/12/24/jQuery%E8%8E%B7%E5%8F%96%E6%8C%87%E5%AE%9A%E5%AD%90%E5%85%83%E7%B4%A0/</url>
       <content type="text"><![CDATA[  可通过 jQuery 获取 DOM 元素指定子元素问题  需要根据className获取指定索引元素解决currentImgPanel.find(".photo-tagger-tag").eq(0);]]></content>
@@ -3775,6 +3900,87 @@
       <tags>
         
           <tag> jquery </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[CSS改变大小过度动画]]></title>
+      <url>/css/2016/12/15/CSS%E6%94%B9%E5%8F%98%E5%A4%A7%E5%B0%8F%E8%BF%87%E5%BA%A6%E5%8A%A8%E7%94%BB/</url>
+      <content type="text"><![CDATA[  div在改变宽高时需要一段动画形式展现解决.timeline-entry {	width: 100px;	height: 200px;}.timeline-entry.active {	width: 200px;	height: 300px;	// 动画延迟时间	transition-delay: 100ms;	// 应用过度动画的属性	transition-property: width, height;	// 动画持续时间	transition-duration: 500ms;}]]></content>
+      <categories>
+        
+          <category> css </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> css </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[CSS居中]]></title>
+      <url>/css/2016/12/15/CSS%E5%B1%85%E4%B8%AD/</url>
+      <content type="text"><![CDATA[  列举 CSS 的一些居中方案水平居中父容器样式#blogManagePanel &gt; div.col-md-12 {	width: 100%;	height: 100%;}div样式#blogManagePanel .timeline-icon.bg-more {		margin: 0 auto;		// 使用相对定位可以让div不限定在父容器可视内容中		position: relative;		left: 50%;}垂直居中父容器样式#blogManagePanel &gt; div.col-md-12 {	width: 100%;	height: 100%;}div样式#blogManagePanel .timeline-icon.bg-more {	margin: 0 auto;	position: absolute;	top: 50%;}完全居中父容器样式#blogManagePanel &gt; div.col-md-12 {	width: 100%;	height: 100%;}div样式#blogManagePanel .timeline-icon.bg-more {	margin: auto;	position: absolute;	top: 0; 	left: 0; 	bottom: 0; 	right: 0;}]]></content>
+      <categories>
+        
+          <category> css </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> css </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[CSS获取每行最后一个元素]]></title>
+      <url>/css/2016/12/14/CSS%E8%8E%B7%E5%8F%96%E6%AF%8F%E8%A1%8C%E6%9C%80%E5%90%8E%E4%B8%80%E4%B8%AA%E5%85%83%E7%B4%A0/</url>
+      <content type="text"><![CDATA[  div中每一行的最后一个元素需要指定单独样式显示效果解决// :not表示排除指定元素// :nth-child表示指定第几个元素// 3n表示每行第三个元素.resource-list-item:not(:nth-child(3n)) {	margin-right: 15px;}]]></content>
+      <categories>
+        
+          <category> css </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> css </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[CSS横向滚动]]></title>
+      <url>/css/2016/12/14/CSS%E6%A8%AA%E5%90%91%E6%BB%9A%E5%8A%A8/</url>
+      <content type="text"><![CDATA[  div中的元素需要横向滚动显示效果解决.revelent-list-panel {	// 指定宽度	width: 768px;	height: 94px;	// 显示横线滚动条	overflow-x: scroll;	// 隐藏纵向滚动条	overflow-y: hidden;	// 内容不换行	white-space: nowrap;}]]></content>
+      <categories>
+        
+          <category> css </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> css </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[Css文本换行加省略号]]></title>
+      <url>/2016/12/14/CSS%E6%96%87%E6%9C%AC%E6%8D%A2%E8%A1%8C%E5%8A%A0%E7%9C%81%E7%95%A5%E5%8F%B7/</url>
+      <content type="text"><![CDATA[CSS文本换行加省略号  文本换行的后需要对超出的内容加省略号，text-overflow: ellipsis 无法实现此需求解决overflow: hidden;// 只有webkit内核浏览器支持display: -webkit-box;// 需要指定换行数-webkit-line-clamp: 5;-webkit-box-orient: vertical;]]></content>
+      <categories>
+        
+      </categories>
+      <tags>
         
       </tags>
       <tags></tags>
