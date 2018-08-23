@@ -1,0 +1,1804 @@
+
+<!doctype html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/assets/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/assets/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/assets/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="jquery,ajax," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/assets/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="$.ajax() 只有一个参数，该参数为 key-value 对象 jQuery 发送的所有 ajax 请求，都是通过调用该 ajax 方法实现">
+<meta name="keywords" content="jquery, ajax">
+<meta property="og:type" content="article">
+<meta property="og:title" content="jQuery ajax 参数列表">
+<meta property="og:url" content="http://localhost:4000/jquery/ajax/2017/04/06/jQuery-ajax-%E5%8F%82%E6%95%B0%E5%88%97%E8%A1%A8/">
+<meta property="og:site_name" content="asing1elife's blog">
+<meta property="og:description" content="$.ajax() 只有一个参数，该参数为 key-value 对象 jQuery 发送的所有 ajax 请求，都是通过调用该 ajax 方法实现">
+<meta property="og:locale" content="zh-Hans">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="jQuery ajax 参数列表">
+<meta name="twitter:description" content="$.ajax() 只有一个参数，该参数为 key-value 对象 jQuery 发送的所有 ajax 请求，都是通过调用该 ajax 方法实现">
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://localhost:4000/"/>
+
+
+
+
+
+  <title>jQuery ajax 参数列表 | asing1elife's blog</title>
+  
+
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?0023f540f6c22accebb8249a2bc19b6a";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> <div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">asing1elife's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">x1anx1an is my wife</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+            首页
+          </a>
+        </li>
+      
+        
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+            归档
+          </a>
+        </li>
+      
+        
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        
+          <div class="main-category">
+            
+
+
+            
+  <ul class="category-list">
+    
+    <li class="category-list-item">
+      
+      
+      
+      <a class="category-list-link" href="/category/#/jquery">jquery</a>
+      <span class="category-list-count">31</span>
+    </i>
+    
+    <li class="category-list-item">
+      
+      
+      
+      <a class="category-list-link" href="/category/#/ajax">ajax</a>
+      <span class="category-list-count">3</span>
+    </i>
+    
+    <li class="category-list-item">
+      
+      
+      
+      <a class="category-list-link" href="/category/#/java">java</a>
+      <span class="category-list-count">78</span>
+    </i>
+    
+    <li class="category-list-item">
+      
+      
+      
+      <a class="category-list-link" href="/category/#/springmvc">springmvc</a>
+      <span class="category-list-count">13</span>
+    </i>
+    
+    <li class="category-list-item">
+      
+      
+      
+      <a class="category-list-link" href="/category/#/tomcat">tomcat</a>
+      <span class="category-list-count">1</span>
+    </i>
+    
+    <li class="category-list-item">
+      
+      
+      
+      <a class="category-list-link" href="/category/#/javascript">javascript</a>
+      <span class="category-list-count">30</span>
+    </i>
+    
+    <li class="category-list-item">
+      
+      
+      
+      <a class="category-list-link" href="/category/#/array">array</a>
+      <span class="category-list-count">3</span>
+    </i>
+    
+    <li class="category-list-item">
+      
+      
+      
+      <a class="category-list-link" href="/category/#/json">json</a>
+      <span class="category-list-count">1</span>
+    </i>
+    
+    <li class="category-list-item">
+      
+      
+      
+      <a class="category-list-link" href="/category/#/relfect">relfect</a>
+      <span class="category-list-count">1</span>
+    </i>
+    
+    <li class="category-list-item">
+      
+      
+      
+      <a class="category-list-link" href="/category/#/validate">validate</a>
+      <span class="category-list-count">2</span>
+    </i>
+    
+    <li class="category-list-item">
+      
+      
+      
+      <a class="category-list-link" href="/category/#/mybatis">mybatis</a>
+      <span class="category-list-count">11</span>
+    </i>
+    
+    <li class="category-list-item">
+      
+      
+      
+      <a class="category-list-link" href="/category/#/pay">pay</a>
+      <span class="category-list-count">5</span>
+    </i>
+    
+    <li class="category-list-item">
+      
+      
+      
+      <a class="category-list-link" href="/category/#/hibernate">hibernate</a>
+      <span class="category-list-count">8</span>
+    </i>
+    
+    <li class="category-list-item">
+      
+      
+      
+      <a class="category-list-link" href="/category/#/error">error</a>
+      <span class="category-list-count">8</span>
+    </i>
+    
+    <li class="category-list-item">
+      
+      
+      
+      <a class="category-list-link" href="/category/#/maven">maven</a>
+      <span class="category-list-count">5</span>
+    </i>
+    
+    <li class="category-list-item">
+      
+      
+      
+      <a class="category-list-link" href="/category/#/poi">poi</a>
+      <span class="category-list-count">1</span>
+    </i>
+    
+    <li class="category-list-item">
+      
+      
+      
+      <a class="category-list-link" href="/category/#/springboot">springboot</a>
+      <span class="category-list-count">17</span>
+    </i>
+    
+    <li class="category-list-item">
+      
+      
+      
+      <a class="category-list-link" href="/category/#/openoffice">openoffice</a>
+      <span class="category-list-count">2</span>
+    </i>
+    
+    <li class="category-list-item">
+      
+      
+      
+      <a class="category-list-link" href="/category/#/linux">linux</a>
+      <span class="category-list-count">1</span>
+    </i>
+    
+    <li class="category-list-item">
+      
+      
+      
+      <a class="category-list-link" href="/category/#/crossdomain">crossdomain</a>
+      <span class="category-list-count">2</span>
+    </i>
+    
+    <li class="category-list-item">
+      
+      
+      
+      <a class="category-list-link" href="/category/#/proxy">proxy</a>
+      <span class="category-list-count">2</span>
+    </i>
+    
+    <li class="category-list-item">
+      
+      
+      
+      <a class="category-list-link" href="/category/#/multithreading">multithreading</a>
+      <span class="category-list-count">7</span>
+    </i>
+    
+    <li class="category-list-item">
+      
+      
+      
+      <a class="category-list-link" href="/category/#/database">database</a>
+      <span class="category-list-count">2</span>
+    </i>
+    
+    <li class="category-list-item">
+      
+      
+      
+      <a class="category-list-link" href="/category/#/mysql">mysql</a>
+      <span class="category-list-count">1</span>
+    </i>
+    
+    <li class="category-list-item">
+      
+      
+      
+      <a class="category-list-link" href="/category/#/struts">struts</a>
+      <span class="category-list-count">1</span>
+    </i>
+    
+    <li class="category-list-item">
+      
+      
+      
+      <a class="category-list-link" href="/category/#/i18n">i18n</a>
+      <span class="category-list-count">1</span>
+    </i>
+    
+    <li class="category-list-item">
+      
+      
+      
+      <a class="category-list-link" href="/category/#/charts">charts</a>
+      <span class="category-list-count">1</span>
+    </i>
+    
+    <li class="category-list-item">
+      
+      
+      
+      <a class="category-list-link" href="/category/#/animate">animate</a>
+      <span class="category-list-count">2</span>
+    </i>
+    
+    <li class="category-list-item">
+      
+      
+      
+      <a class="category-list-link" href="/category/#/vue">vue</a>
+      <span class="category-list-count">48</span>
+    </i>
+    
+    <li class="category-list-item">
+      
+      
+      
+      <a class="category-list-link" href="/category/#/intellij">intellij</a>
+      <span class="category-list-count">2</span>
+    </i>
+    
+    <li class="category-list-item">
+      
+      
+      
+      <a class="category-list-link" href="/category/#/webstorm">webstorm</a>
+      <span class="category-list-count">1</span>
+    </i>
+    
+    <li class="category-list-item">
+      
+      
+      
+      <a class="category-list-link" href="/category/#/jsonp">jsonp</a>
+      <span class="category-list-count">1</span>
+    </i>
+    
+    <li class="category-list-item">
+      
+      
+      
+      <a class="category-list-link" href="/category/#/webpack">webpack</a>
+      <span class="category-list-count">1</span>
+    </i>
+    
+    <li class="category-list-item">
+      
+      
+      
+      <a class="category-list-link" href="/category/#/es6">es6</a>
+      <span class="category-list-count">6</span>
+    </i>
+    
+    <li class="category-list-item">
+      
+      
+      
+      <a class="category-list-link" href="/category/#/jdk8">jdk8</a>
+      <span class="category-list-count">1</span>
+    </i>
+    
+    <li class="category-list-item">
+      
+      
+      
+      <a class="category-list-link" href="/category/#/components">components</a>
+      <span class="category-list-count">1</span>
+    </i>
+    
+    <li class="category-list-item">
+      
+      
+      
+      <a class="category-list-link" href="/category/#/list">list</a>
+      <span class="category-list-count">1</span>
+    </i>
+    
+    <li class="category-list-item">
+      
+      
+      
+      <a class="category-list-link" href="/category/#/aliyun">aliyun</a>
+      <span class="category-list-count">4</span>
+    </i>
+    
+    <li class="category-list-item">
+      
+      
+      
+      <a class="category-list-link" href="/category/#/map">map</a>
+      <span class="category-list-count">1</span>
+    </i>
+    
+    <li class="category-list-item">
+      
+      
+      
+      <a class="category-list-link" href="/category/#/frame">frame</a>
+      <span class="category-list-count">5</span>
+    </i>
+    
+    <li class="category-list-item">
+      
+      
+      
+      <a class="category-list-link" href="/category/#/mintui">mintui</a>
+      <span class="category-list-count">2</span>
+    </i>
+    
+    <li class="category-list-item">
+      
+      
+      
+      <a class="category-list-link" href="/category/#/swagger">swagger</a>
+      <span class="category-list-count">1</span>
+    </i>
+    
+    <li class="category-list-item">
+      
+      
+      
+      <a class="category-list-link" href="/category/#/software">software</a>
+      <span class="category-list-count">1</span>
+    </i>
+    
+    <li class="category-list-item">
+      
+      
+      
+      <a class="category-list-link" href="/category/#/eslint">eslint</a>
+      <span class="category-list-count">3</span>
+    </i>
+    
+    <li class="category-list-item">
+      
+      
+      
+      <a class="category-list-link" href="/category/#/idea">idea</a>
+      <span class="category-list-count">1</span>
+    </i>
+    
+    <li class="category-list-item">
+      
+      
+      
+      <a class="category-list-link" href="/category/#/vuex">vuex</a>
+      <span class="category-list-count">3</span>
+    </i>
+    
+    <li class="category-list-item">
+      
+      
+      
+      <a class="category-list-link" href="/category/#/elementui">elementui</a>
+      <span class="category-list-count">2</span>
+    </i>
+    
+    <li class="category-list-item">
+      
+      
+      
+      <a class="category-list-link" href="/category/#/shiro">shiro</a>
+      <span class="category-list-count">2</span>
+    </i>
+    
+    <li class="category-list-item">
+      
+      
+      
+      <a class="category-list-link" href="/category/#/amap">amap</a>
+      <span class="category-list-count">1</span>
+    </i>
+    
+  </ul>
+
+          </div>
+        
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+<div id="posts" class="posts-expand">
+  
+      
+<article class="post post-type- " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://localhost:4000/jquery/ajax/2017/04/06/jQuery-ajax-%E5%8F%82%E6%95%B0%E5%88%97%E8%A1%A8/">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="asing1elife">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/assets/images/avatar.png">
+    </span>
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="asing1elife's blog">
+    </span> 
+    <header class="post-header">
+         
+        <h1 class="post-title" itemprop="name headline">
+              jQuery ajax 参数列表 
+        </h1>
+        
+        <div class="post-meta">
+            <span class="post-author">
+                
+                    <span class="post-meta-item-icon">
+                        <i class="fa fa-user-o"></i>
+                    </span>
+                    <span>asing1elife</span>
+                    <span class="post-meta-divider">|</span>
+                
+            </span>
+            <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span> 
+            <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-06T00:00:00+08:00">
+                2017-04-06
+            </time>
+              
+            </span>
+            
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span> 
+            <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>   
+            <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/category/#/jquery" itemprop="url" rel="index">
+                    <span itemprop="name">jquery</span>
+            </a>
+            </span>
+              ，    
+            <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/category/#/ajax" itemprop="url" rel="index">
+                    <span itemprop="name">ajax</span>
+            </a>
+            </span>
+              
+            </span>
+                     
+            <div class="post-description">
+                
+            </div>
+             
+        </div>
+    </header>
+    
+    <div class="post-body" itemprop="articleBody">
+           
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <blockquote>
+  <p>$.ajax() 只有一个参数，该参数为 key-value 对象<br />
+jQuery 发送的所有 ajax 请求，都是通过调用该 ajax 方法实现</p>
+</blockquote>
+
+<h2 id="参数列表">参数列表</h2>
+<ol>
+  <li>accepts - Object
+    <ul>
+      <li>用于通知服务器该请求需要接受哪种类型的返回结果</li>
+      <li>有必要的话，推荐在 $.ajaxSetup() 中设置一次</li>
+    </ul>
+  </li>
+  <li>async - Boolean
+    <ul>
+      <li>默认为 true ，即异步</li>
+    </ul>
+  </li>
+  <li>beforeSend - Function
+    <ul>
+      <li>请求发送前的回调方法，默认参数为 xhr 和 settings</li>
+      <li>函数中显示返回 false 将取消本次请求</li>
+    </ul>
+  </li>
+  <li>cache - Boolean
+    <ul>
+      <li>请求是否开启缓存，默认为 true</li>
+      <li>当 dataType 的值等于 script 或 jsonp 时，默认为 false</li>
+    </ul>
+  </li>
+  <li>contents - Object
+    <ul>
+      <li>通过字符串或正则表达式配对的对象</li>
+      <li>根据给定的内容类型，解析请求的返回结果</li>
+    </ul>
+  </li>
+  <li>contentType - String
+    <ul>
+      <li>编码类型，相对应与 http 请求头域中的 Content-Type 字段</li>
+      <li>默认值为 <code class="highlighter-rouge">application/x-www-form-urlencoded; charset=UTF-8</code></li>
+    </ul>
+  </li>
+  <li>context - Object
+    <ul>
+      <li>设置 ajax 回调函数的上下文</li>
+      <li>默认上下文为 ajax 请求传入的参数设置对象</li>
+      <li>例如设置为 document.body ，则所有回调函数将以 body 为上下文</li>
+    </ul>
+  </li>
+  <li>converts - Object
+    <ul>
+      <li>数据类型转换器对象</li>
+      <li>默认为 <code class="highlighter-rouge"><span class="p">{</span><span class="nt">"* text"</span><span class="p">:</span><span class="w"> </span><span class="err">window.String</span><span class="p">,</span><span class="w"> </span><span class="nt">"text html"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"> </span><span class="nt">"text json"</span><span class="p">:</span><span class="w"> </span><span class="err">jQuery.parseJSON</span><span class="p">,</span><span class="w"> </span><span class="nt">"text xml"</span><span class="p">:</span><span class="w"> </span><span class="err">jQuery.parseXML</span><span class="p">}</span></code></li>
+      <li>可写成 <code class="highlighter-rouge">converters: {"json jsonp": function(msg){}}</code></li>
+    </ul>
+  </li>
+  <li>crossDomain - Boolean
+    <ul>
+      <li>是否跨域，默认为 false</li>
+    </ul>
+  </li>
+  <li>data - Object / Array
+    <ul>
+      <li>发送到服务器的数据，默认为 key-value 格式对象</li>
+      <li>如果将 traditional 设置为 true ，则会将 data 参数的内容序列化，如将 <code class="highlighter-rouge"><span class="p">{</span><span class="err">a:1,</span><span class="w"> </span><span class="err">b:</span><span class="w"> </span><span class="err">2</span><span class="p">}</span><span class="w"> </span><span class="err">-&gt;</span><span class="w"> </span><span class="err">&amp;a=</span><span class="mi">1</span><span class="err">&amp;b=</span><span class="mi">2</span></code></li>
+    </ul>
+  </li>
+  <li>traditional - Boolean
+    <ul>
+      <li>按照默认方式序列化 data 对象，默认为 false</li>
+    </ul>
+  </li>
+  <li>dataFilter - String
+    <ul>
+      <li>处理 XMLHttpRequest 原始响应数据的回调，默认参数为 data 和 type</li>
+      <li>data 是 ajax 返回的原始数据</li>
+      <li>type 是调用 dataType 参数的值</li>
+    </ul>
+  </li>
+  <li>dataType - String
+    <ul>
+      <li>预期服务器返回的数据类型 [ xml / html / script / json / jsonp / text ]</li>
+      <li>设置为 xml 或 text ，返回数据不会被处理</li>
+    </ul>
+  </li>
+  <li>success - Function
+    <ul>
+      <li>请求成功后的回调，默认参数为 xhr 和 textStatus 以及 successString</li>
+      <li>使用 jsonp 请求时，该方法被 <code class="highlighter-rouge">done(function (data, textStatus, jqXHR) {})</code> 替代</li>
+    </ul>
+  </li>
+  <li>error - Function
+    <ul>
+      <li>请求失败时的回调，默认参数为 xhr 和 textStatus [ null / timeout / error / abort / parsererror ] 以及 errorString</li>
+      <li>该方法可以设置为一个包含函数的数组，从而保证每个函数一次被调用</li>
+      <li>跨域脚本或 JSONP 请求时，该方法不会被调用</li>
+      <li>使用 jsonp 请求时，该方法被 <code class="highlighter-rouge">fail(function (jqXHR, textStatus, errorThrown) {})</code> 替代</li>
+    </ul>
+  </li>
+  <li>complete - Function
+    <ul>
+      <li>请求完成后的回调，默认参数为 xhr 和 textStatus [ success / notmodified / error / timeout / abort / parsererror ]</li>
+      <li>不论结果是 success 或 error ，都会触发该回调</li>
+      <li>该方法可以设置为一个包含函数的数组，从而保证每个函数一次被调用</li>
+      <li>使用 jsonp 请求时，该方法被 <code class="highlighter-rouge">always(function (data or jqXHR, textStatus, jqXHR or errorThrown) {})</code> 替代</li>
+    </ul>
+  </li>
+  <li>global - Boolean
+    <ul>
+      <li>表示是否出发全局 ajax 事件，默认为 true</li>
+      <li>设置为 false 将导致 ajaxStart / ajaxStop / ajaxSend / ajaxError 不被触发</li>
+      <li>跨域脚本或 JSONP 请求时，改值默认为 false</li>
+    </ul>
+  </li>
+  <li>headers - Object
+    <ul>
+      <li>设置请求头，默认为 key-value 格式对象</li>
+      <li>该设置会在 beforeSend 被调用之前生效，所以在 beforeSend 中可覆盖该设置</li>
+    </ul>
+  </li>
+  <li>isModified - Boolean
+    <ul>
+      <li>只有上次请求响应改变时，才允许请求成功，默认为 false</li>
+      <li>设置为 true ，若数据自上次请求后没有更改过，则会报错</li>
+      <li>已 http 包中的 Last-Modified 头信息作为判断依据</li>
+    </ul>
+  </li>
+  <li>isLocal - Boolean
+    <ul>
+      <li>将当前运行环境设置为本地，默认为 false</li>
+      <li>设置为 true ，将影响请求发送时的协议</li>
+    </ul>
+  </li>
+  <li>jsonp - String
+    <ul>
+      <li>显示指定 jsonp 请求中的回调函数的名称</li>
+      <li>若设置为 <code class="highlighter-rouge">jsonp: test</code> ，则会替换掉默认 callback ，以 <code class="highlighter-rouge">test=?</code> 传给服务器</li>
+      <li>若设置为 <code class="highlighter-rouge">jsonp: false</code>  ，则需要明确设置 jsonpCallback 的值</li>
+    </ul>
+  </li>
+  <li>jsonpCallback - String / Function
+    <ul>
+      <li>为 jsonp 请求指定一个回调函数名称或回调函数体，用来取代默认生成的随机函数名</li>
+      <li>回调函数的返回值就是 jsonpCallback 的结果</li>
+    </ul>
+  </li>
+  <li>mimeType - String
+    <ul>
+      <li>设置一个 MIME 类型，用于覆盖 xhr 的 MIME 类型</li>
+    </ul>
+  </li>
+  <li>username - String
+    <ul>
+      <li>设置认证请求中的用户名</li>
+    </ul>
+  </li>
+  <li>password - String
+    <ul>
+      <li>设置认证请求中的密码</li>
+    </ul>
+  </li>
+  <li>processData - Boolean
+    <ul>
+      <li>ajax 方法默认会将传入的 data 隐式转换为查询字符串，用于配合默认的 contentType</li>
+      <li>设置为 false ，则不会进行上述转换操作</li>
+    </ul>
+  </li>
+  <li>scriptCharset - String
+    <ul>
+      <li>只能在 <code class="highlighter-rouge">dataType: script</code> 设置后使用</li>
+      <li>设置后将影响 <script></script> 标签上的 charset 属性</li>
+      <li>仅推荐在跨域请求中使用</li>
+    </ul>
+  </li>
+  <li>statusCode - Object
+    <ul>
+      <li>一组 http 状态码和回调函数对应的 key-value 格式对象，例如 <code class="highlighter-rouge"><span class="p">{</span><span class="err">404:</span><span class="w"> </span><span class="err">function</span><span class="w"> </span><span class="err">()</span><span class="w"> </span><span class="err">{</span><span class="p">}</span><span class="err">}</span></code></li>
+      <li>可用于根据不同的 http 状态码，执行不同的回调</li>
+    </ul>
+  </li>
+  <li>timeout - Number
+    <ul>
+      <li>设置超时时间</li>
+    </ul>
+  </li>
+  <li>type - String
+    <ul>
+      <li>可设置为 8 种 http method 之一，不区分大小写</li>
+    </ul>
+  </li>
+  <li>url - String
+    <ul>
+      <li>ajax 请求的 url 地址</li>
+    </ul>
+  </li>
+  <li>xhr - Function
+    <ul>
+      <li>在回调中创建并返回 XMLHttpRequest 对象</li>
+    </ul>
+  </li>
+  <li>xhrFields - Object
+    <ul>
+      <li>设置原生的 xhr 对象，默认为 key-value 格式对象</li>
+    </ul>
+  </li>
+</ol>
+
+ 
+    </div>
+    <div>
+         
+ 
+    </div>
+    <div>
+         
+ 
+    </div>
+    <div>
+         
+ 
+    </div>
+    <footer class="post-footer">
+        
+        <div class="post-tags">
+             
+            <a href="/tag/#/jquery" rel="tag"># jquery</a>  
+            <a href="/tag/#/ajax" rel="tag"># ajax</a> 
+        </div>
+               
+        <div class="post-nav" id="post-nav-id">
+            <div class="post-nav-next post-nav-item">
+                
+                <a href="/jquery/2017/04/08/Uploadifive-%E6%89%B9%E9%87%8F%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/" rel="next" title="Uploadifive 批量文件上传">
+                <i class="fa fa-chevron-left"></i> Uploadifive 批量文件上传
+              </a> 
+            </div>
+            <span class="post-nav-divider"></span>
+            <div class="post-nav-prev post-nav-item">
+                
+                <a href="/java/springboot/springmvc/2017/04/05/Spring%E7%9A%84@Transactional%E8%AF%A6%E8%A7%A3/" rel="prev" title="Spring的@Transactional详解">
+                Spring的@Transactional详解 <i class="fa fa-chevron-right"></i>
+              </a> 
+            </div>
+        </div>
+          
+    </footer>
+    <script src="//cdn.jsdelivr.net/jquery/2.1.3/jquery.min.js"></script>
+    <script>
+    // 彩虹颜色数组
+    var colors = ['#e5e1de', '#72c02c', '#3398dc', '#d6e2ee', '#009', '#4263a3', '#f00', '#e64b3b',
+        '#a10f2b', '#9a69cb', '#6639b6', '#e81c62', '#e57d20', '#fe541e', '#ebc71d', '#29d6e6', '#00bed6', '#18ba9b',
+        '#9c8061', '#585f69'
+    ]
+
+    $(function() {
+        // 为所有标签自动添加由新窗口打开属性
+        $('a[href^="http"]').each(function() {
+            $(this).attr('target', '_blank')
+        })
+
+        // 为所有加粗标签添加颜色
+        $('div.posts-expand strong').each(function() {
+            var $this = $(this)
+
+            $this.css({
+                backgroundColor: colors[getRandom(colors.length)]
+            })
+        })
+    })
+
+    function getRandom(max) {
+        return Math.floor(Math.random() * Math.floor(max))
+    }
+    </script>
+</article>
+  <div class="post-spread">
+    
+  </div>
+</div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="gitalk-container"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+        
+        
+        
+
+
+
+
+
+
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/assets/images/avatar.png"
+               alt="asing1elife" />
+          <p class="site-author-name" itemprop="name">asing1elife</p>
+           
+              <p class="site-description motion-element" itemprop="description">- 说好为我泡花茶</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">179</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/">
+                <span class="site-state-item-count">49</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/">
+                <span class="site-state-item-count">91</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              
+              
+              <span class="links-of-author-item">
+                <a href="https://github.com/asing1elife" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              
+              
+              <span class="links-of-author-item">
+                <a href="https://weibo.com/201277592" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+
+
+
+
+
+
+
+            
+              <div class="post-toc-content">
+    <ol class=nav>
+      <li class="nav-item nav-level-2"> <a class="nav-link" href="#参数列表"> <span class="nav-number">1</span> <span class="nav-text">参数列表</span> </a> </li>
+    </ol>
+  </div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">asing1elife</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://jekyllrb.com">Jekyll</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/simpleyyt/jekyll-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+   
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/assets/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/assets/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  <script type="text/javascript" src="/assets/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/assets/js/src/post-details.js?v=5.1.1"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/assets/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+<script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.js"></script>
+<script type="text/javascript">
+      var gitalk = new Gitalk({
+        clientID: 'ef9f962e9ae383f53506',
+        clientSecret: '1b2ceaa93a86016c9efa2457abd876206c87d15c',
+        repo: 'asing1elife.github.io',
+        owner: 'asing1elife',
+        admin: ['asing1elife'],
+        id: md5('/jquery/ajax/2017/04/06/jQuery-ajax-%E5%8F%82%E6%95%B0%E5%88%97%E8%A1%A8/'),
+        labels: ['gitalk'],
+        perPage: 50,
+        distractionFreeMode: true
+      });
+      gitalk.render('gitalk-container');
+</script>
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+    
+
+  
+
+
+
+
+
+  
+
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'manual') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+  
+
+
+  
+
+  
+
+  
+
+  <script type="text/javascript">
+    $(function () {
+      $('.sidebar-toggle').on('click', function () {
+        var $sidebar = $('#sidebar')
+        var $mainCategory = $('.main .main-category')
+
+        if ($sidebar.width() === 320) {
+          $mainCategory.css('transform', 'translateX(0)')
+        } else {
+          $mainCategory.css('transform', 'translateX(-160px)')
+        }
+      })
+    })
+  </script>
+</body>
+</html>
+

@@ -2,6 +2,52 @@
 <search>
   
     <entry>
+      <title><![CDATA[SpringBoot+MyBatis 框架搭建]]></title>
+      <url>/java/springboot/mybatis/2018/08/23/SpringBoot+MyBatis-%E6%A1%86%E6%9E%B6%E6%90%AD%E5%BB%BA/</url>
+      <content type="text"><![CDATA[  基础框架使用 SpringBoot持久层使用 MyBatis数据源使用 Druid数据库使用 MySQL创建 Java Web 项目，并配置 POM  该 POM 只包含最基础的配置，没有任何多余 JAR 包&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;project xmlns="http://maven.apache.org/POM/4.0.0"         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"&gt;  &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;  &lt;!-- 项目基础信息 --&gt;  &lt;groupId&gt;com.asing1elife.newso&lt;/groupId&gt;  &lt;artifactId&gt;asl-newso&lt;/artifactId&gt;  &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;  &lt;!-- SpringBoot 基础依赖 --&gt;  &lt;parent&gt;    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;    &lt;artifactId&gt;spring-boot-starter-parent&lt;/artifactId&gt;    &lt;version&gt;2.0.2.RELEASE&lt;/version&gt;  &lt;/parent&gt;  &lt;!-- 指定编码格式和 JDK 版本 --&gt;  &lt;properties&gt;    &lt;project.build.sourceEncoding&gt;UTF-8&lt;/project.build.sourceEncoding&gt;    &lt;project.reporting.outputEncoding&gt;UTF-8&lt;/project.reporting.outputEncoding&gt;    &lt;java.version&gt;1.8&lt;/java.version&gt;  &lt;/properties&gt;  &lt;dependencies&gt;    &lt;!-- SpringBoot 相关依赖 --&gt;    &lt;dependency&gt;      &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;      &lt;artifactId&gt;spring-boot-starter-jdbc&lt;/artifactId&gt;      &lt;version&gt;2.0.2.RELEASE&lt;/version&gt;    &lt;/dependency&gt;    &lt;dependency&gt;      &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;      &lt;artifactId&gt;spring-boot-starter-web&lt;/artifactId&gt;      &lt;version&gt;2.0.2.RELEASE&lt;/version&gt;    &lt;/dependency&gt;    &lt;dependency&gt;      &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;      &lt;artifactId&gt;spring-boot-starter-tomcat&lt;/artifactId&gt;      &lt;version&gt;2.0.2.RELEASE&lt;/version&gt;    &lt;/dependency&gt;    &lt;dependency&gt;      &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;      &lt;artifactId&gt;spring-boot-starter-test&lt;/artifactId&gt;      &lt;version&gt;2.0.2.RELEASE&lt;/version&gt;    &lt;/dependency&gt;    &lt;!-- MyBatis 相关依赖 --&gt;    &lt;dependency&gt;      &lt;groupId&gt;org.mybatis.spring.boot&lt;/groupId&gt;      &lt;artifactId&gt;mybatis-spring-boot-starter&lt;/artifactId&gt;      &lt;version&gt;1.3.2&lt;/version&gt;    &lt;/dependency&gt;    &lt;!-- MySQL 相关依赖 --&gt;    &lt;dependency&gt;      &lt;groupId&gt;mysql&lt;/groupId&gt;      &lt;artifactId&gt;mysql-connector-java&lt;/artifactId&gt;      &lt;version&gt;6.0.6&lt;/version&gt;    &lt;/dependency&gt;    &lt;!-- Druid 相关依赖 --&gt;    &lt;dependency&gt;      &lt;groupId&gt;com.alibaba&lt;/groupId&gt;      &lt;artifactId&gt;druid&lt;/artifactId&gt;      &lt;version&gt;1.1.9&lt;/version&gt;    &lt;/dependency&gt;    &lt;dependency&gt;      &lt;groupId&gt;com.alibaba&lt;/groupId&gt;      &lt;artifactId&gt;druid-spring-boot-starter&lt;/artifactId&gt;      &lt;version&gt;1.1.9&lt;/version&gt;    &lt;/dependency&gt;  &lt;/dependencies&gt;&lt;/project&gt;指定端口号  在 /resources 根目录创建 application.yml 文件并添加如下内容  表示端口号为 8080  以及项目请求根路径为 /newsoserver:  port: 8080  servlet:    context-path: /newso指定数据源  在 application.yml 中添加如下内容为数据源连接信息  数据源使用过的是阿里的 Druidspring:  datasource:    name: newso_dev    url: jdbc:mysql://127.0.0.1:3306/newso_dev?useUnicode=true&amp;characterEncoding=utf-8&amp;useSSL=false    username: root    password: root    type: com.alibaba.druid.pool.DruidDataSource    driver-class-name: com.mysql.cj.jdbc.Driver    druid:      filters: stat      max-active: 20      initial-size: 1      max-wait: 60000      min-idle: 1      time-between-eviction-runs-millis: 60000      min-evictable-idle-time-millis: 300000      validation-query: select 'x'      test-while-idle: true      test-on-borrow: false      test-on-return: false      pool-prepared-statements: true      max-open-prepared-statements: 20指定 MyBatis 配置  同样可在 application.yml 中指定 MyBatis 的配置信息  mapper-locations 是指定 mapper 文件所在位置  type-aliases-package 是指定对应实体类所在位置mybatis:  mapper-locations: classpath:mapper/*.xml  type-aliases-package: com.asing1elife.newso.dto作为前后分离项目必不可少的结果集对象  前后分离项目都是采用前端发起请求，后端返回结果  为了保证后端返回结果的统一性，所以需要如下的结果集对象  只有这样前端在处理后端返回结果时，才能有规范的操作public class ResponseData {    private static final String SUCCESS_CODE = "0";    private static final String ERROR_CODE = "-1";    private String status = SUCCESS_CODE;    private Object data;    ...    public boolean isSuccess() {        return this.status.equalsIgnoreCase(SUCCESS_CODE);    }    public void setError(Object data) {        this.status = ERROR_CODE;        this.data = data;    }}控制层基础控制类  基础控制类的作用在于可以在调用逻辑层代码时有一个统一的预处理操作或者后置操作public class SimpleActionHandler {    private Logger log = LoggerFactory.getLogger(this.getClass());    // 当前请求    private String action;    public SimpleActionHandler(HttpServletRequest request) {        // 记录当前请求        this.action = request.getRequestURI();    }    public void doAction(ResponseData responseData) {        throw new RuntimeException("This method must be overide");    }    public ResponseData handle(HttpServletRequest... requests) {        ResponseData responseData = new ResponseData();        try {            doAction(responseData);        } catch (Exception e) {            log.info(this.action, e);            responseData.setError(e.getMessage());        }        return responseData;    }}创建控制层接收请求信息@RestController@RequestMapping("/api/homes")public class HomeController extends AbstractBaseController {    @GetMapping("")    public ResponseData main() {        return new SimpleActionHandler(request) {            @Override            public void doAction(ResponseData responseData) {                System.out.println("welcome");            }        }.handle();    }}MyBatis 通过自定义接口规范 DAO 层  通过 @Mapper 注解可以确保容器只扫描被注解的 DAO    @Retention(RetentionPolicy.RUNTIME)@Target(ElementType.TYPE)@Documented@Component@Mapperpublic @interface MyBatisRepository {}      创建 DAO 接口  在 DAO 接口使用自定义的注解即可保证该接口被容器扫描到@MyBatisRepositorypublic interface NewsDaoMyBatis {    List&lt;NewsDTO&gt; getNewss();}创建 Mapper 文件  Mapper 文件的 DTD 都是统一格式的，按照如下规范即可&lt;?xml version="1.0" encoding="UTF-8" ?&gt;&lt;!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"&gt;&lt;mapper namespace="com.asing1elife.newso.module.news.dao.NewsDaoMyBatis"&gt;  &lt;select id="getNewss" resultType="NewsDTO"&gt;    SELECT      ne.id,      ne.title,      ne.brief,      ne.author_id AS 'author.id',      ne.createTime    FROM      ns_news ne  &lt;/select&gt;&lt;/mapper&gt;]]></content>
+      <categories>
+        
+          <category> java </category>
+        
+          <category> springboot </category>
+        
+          <category> mybatis </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> java </tag>
+        
+          <tag> springboot </tag>
+        
+          <tag> mybatis </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[Vue 组件中监听路由变化]]></title>
+      <url>/vue/2018/08/21/Vue-%E7%BB%84%E4%BB%B6%E4%B8%AD%E7%9B%91%E5%90%AC%E8%B7%AF%E7%94%B1%E5%8F%98%E5%8C%96/</url>
+      <content type="text"><![CDATA[  在 Vue 的组件中可以通过 watch 监听到当前路由的变化实现方式  在 watch 按照如下规则书写即可  该监听会在路由发生变化时触发watch: {	'$route' (val, old) {		// 当前路由		console.log(val)		// 上一个路由		console.log(old)	}}]]></content>
+      <categories>
+        
+          <category> vue </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> vue </tag>
+        
+          <tag> watch </tag>
+        
+          <tag> router </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
       <title><![CDATA[vuex 在非组件中调用 mutations 方法]]></title>
       <url>/vue/vuex/2018/08/14/vuex-%E5%9C%A8%E9%9D%9E%E7%BB%84%E4%BB%B6%E4%B8%AD%E8%B0%83%E7%94%A8-mutations-%E6%96%B9%E6%B3%95/</url>
       <content type="text"><![CDATA[  一般情况下调用 mutations.js 中的方法都是在组件中，如果想在非组件中调用，则需要使用如下方式在组件中调用import {mapMutations} from 'vuex'import {SET_IS_LOGIN} from 'store/mutation-types'export default {	methods: {		...mapMutations({			set_is_login: SET_IS_LOGIN		}),		init() {			this.set_is_login(true)		}	}}在非组件中调用import store from 'store'import {SET_IS_LOGIN} from 'store/mutation-types'function init() {	store.commit(SET_IS_LOGIN, true)}]]></content>
@@ -1259,6 +1305,42 @@
     </entry>
   
     <entry>
+      <title><![CDATA[ajaxForm 表单异步提交]]></title>
+      <url>/jquery/2018/03/21/ajaxForm-%E8%A1%A8%E5%8D%95%E5%BC%82%E6%AD%A5%E6%8F%90%E4%BA%A4/</url>
+      <content type="text"><![CDATA[  实现表单的异步提交官网GitHub - jquery-form/form: jQuery Form Plugin]]></content>
+      <categories>
+        
+          <category> jquery </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> jquery </tag>
+        
+          <tag> form </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[QuickSearch 快捷搜索]]></title>
+      <url>/jquery/2018/03/21/QuickSearch-%E5%BF%AB%E6%8D%B7%E6%90%9C%E7%B4%A2/</url>
+      <content type="text"><![CDATA[  可实现列表的无刷新过滤官网GitHub - riklomas/quicksearch]]></content>
+      <categories>
+        
+          <category> jquery </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> jquery </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
       <title><![CDATA[Java 实现阿里云直播]]></title>
       <url>/java/jquery/aliyun/2018/03/19/Java-%E5%AE%9E%E7%8E%B0%E9%98%BF%E9%87%8C%E4%BA%91%E7%9B%B4%E6%92%AD/</url>
       <content type="text"><![CDATA[  阿里云播放器直接在线点播视频以及直播技术，此处记录直播实现过程官网阿里云直播-快速入门 准备步骤  创建 阿里云账号  根据 流程 完成实名认证，以确保可以使用阿里云相应服务  在密钥管理页面获取阿里云访问密钥，AccessKeyId 和 AccessKeySecret  开通阿里云直播服务关键点  阿里云直播服务端提供了 一系列 API ，但如果只是单纯的直播[推流和拉流] ，实际不需要使用这些 API推流准备  推流即直播人员进行视频播放的操作，这需要使用推流客户端 第三方推流工具 OBS  在推流工具中需要指定推流地址、流名称、鉴权密钥  如果上述信息阿里云验证合法，既可以开始直播，在阿里云后端可以看到正在直播的流信息拉流准备  拉流即直播观众通过视频播放器在线获取直播信息，播放器使用 阿里云播放器 即可，该播放器目前只是阿里云的点播和直播服务  获取拉流地址后传入播放器，即可开始观看直播Java 开发注意点  在阿里云直播的文档中有提供 Java SDK          目前 SDK 中推荐引入的版本号是 2.3.0 ，但其实所有 API 参照的都是最新版 SDK ，最新的版本号可在 阿里云SDK频道 找到        但如果只是单纯的直播[推流和拉流] ，则不需要进行以上操作  推流的关键点在于 直播鉴权          此处介绍的直播鉴权只是说的 auth_key 的拼接和验证规则      完整的推流和拉流地址并不知这些，需要依旧案例参考      获取推流地址  此处获取的只是推流地址的房间号及其他请求参数  完整的推流地址需要加上阿里云直播中心地址和用户的产品名称          直播中心地址 http://video-center.alivecdn.com      产品名称[支持自定义] /appName/        vhost 用于接收拉流地址，即申请阿里云直播时准备的直播域名  此处使用 Java MD5加密 实现字串加密，加密后长度需要是 32 位  加密串中的 Constants.ALI_LIVE_PRIVATE_KEY  可在阿里云后端的直播鉴权处获取// 获取推流地址public String getPushUri(String roomName, Long endTime) {    return getRoomName(roomName) + "vhost=" + Constants.ALI_LIVE_PULL_URL + "&amp;" + generateAuthKey(roomName, endTime);}// 房间号private String getRoomName(String roomName) {    return roomName + "?";}// 完整验签串private String generateAuthKey(String roomName, Long endTime) {    return "auth_key=" + endTime + generateUuid() + generateEncryptStr(roomName, endTime);}// 唯一标识private String generateUuid() {    String uuid = "0";    String uid = "0";    return "-" + uuid + "-" + uid + "-";}// 验签密钥private String generateEncryptStr(String roomName, Long endTime) {    String uri = Constants.ALI_LIVE_APP_NAME + roomName;    return md5(uri + "-" + endTime + generateUuid() + Constants.ALI_LIVE_PRIVATE_KEY);}获取拉流地址  此处获取的拉流地址是完整的，因为拉流地址是直接获取后传入前端的阿里云播放器中  注意房间名后面加的后缀 .m3u8 用于表示接受的直播视频类型，阿里云官方还提供其他几种类型，可在文档中查看  拉流地址和推流地址最大的区别在于请求地址的不同，拉流是请求自己提供给阿里云的直播域名，而拉流是请求阿里云的直播中心  而且推流时需要指定 vhost 告知阿里云直播域名，但拉流时不需要  获取到拉流地址后可直接参照 Java + jQuery 实现阿里云播放器接口 实现播放器的对接          在播放器的的配置中指明 isLive: true 表名是直播操作      上述笔记中实现的是点播接口，利用的通过 vid 获取 playAuth 的方式，这不适用于直播      直播需要直接指定 source: url 即可      public String getPullUrl(String roomName, Long endTime) {    roomName += ".m3u8";    return "http://" + Constants.ALI_LIVE_PULL_URL + generateUri(roomName) + generateAuthKey(roomName, endTime);}// 获取请求参数private String generateUri(String roomName) {	return Constants.ALI_LIVE_APP_NAME + getRoomName(roomName);}// 房间号private String getRoomName(String roomName) {    return roomName + "?";}// 完整验签串private String generateAuthKey(String roomName, Long endTime) {    return "auth_key=" + endTime + generateUuid() + generateEncryptStr(roomName, endTime);}// 唯一标识private String generateUuid() {    String uuid = "0";    String uid = "0";    return "-" + uuid + "-" + uid + "-";}// 验签密钥private String generateEncryptStr(String roomName, Long endTime) {    String uri = Constants.ALI_LIVE_APP_NAME + roomName;    return md5(uri + "-" + endTime + generateUuid() + Constants.ALI_LIVE_PRIVATE_KEY);}]]></content>
@@ -1282,6 +1364,25 @@
           <tag> player </tag>
         
           <tag> live </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[Labelauty 复选框美化]]></title>
+      <url>/jquery/2018/03/16/Labelauty-%E5%A4%8D%E9%80%89%E6%A1%86%E7%BE%8E%E5%8C%96/</url>
+      <content type="text"><![CDATA[  一款对 HTML 原生复选框进行美化的简单插件官网jquery-labelauty]]></content>
+      <categories>
+        
+          <category> jquery </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> jquery </tag>
+        
+          <tag> checkbox </tag>
         
       </tags>
       <tags></tags>
@@ -2090,6 +2191,25 @@
     </entry>
   
     <entry>
+      <title><![CDATA[Air-datepicker 日期选择器]]></title>
+      <url>/jquery/2017/10/17/Air-datepicker-%E6%97%A5%E6%9C%9F%E9%80%89%E6%8B%A9%E5%99%A8/</url>
+      <content type="text"><![CDATA[  air-datepicker 是一款基于 jQuery 的简易日期选择器官网Air Datepicker引用  引入插件所需 css/js 文件&lt;link rel="stylesheet" type="text/css" href="plugins/air-datepicker/css/datepicker.min.css"&gt;&lt;script type="text/javascript" src="plugins/jquery.min.js"&gt;&lt;/script&gt;&lt;script type="text/javascript" src="plugins/air-datepicker/js/datepicker.js"&gt;&lt;/script&gt;&lt;script type="text/javascript" src="plugins/air-datepicker/js/i18n/datepicker.zh.js"&gt;&lt;/script&gt;  定义一个 input 用户展现内容          data-language="zh" 表示插件使用中文      &lt;input type="text" class="datepicker-input" data-language="zh"&gt;  调用插件初始化方法$(function() {    $(".datepicker-input").datepicker();});API  classes 自定义 className  inline 是否一直可见          false [default]        language 指定 i18n 国际化语言          ru [default]      可如上述在 input 中指定 data-language="zh"      也可以在插件初始化方法中通过 language: zh 指定        startDate 初始化显示日期          new Date() [default]        firstDay 每周的开始时间          0-6 表示星期天到星期六      没有默认值，若不指定则根据引入的 i18n 规则决定，例如引入 zh ，则第一天为周一，引入 en ，则第一天为周日        weekends 指定一组日期为周末          [6, 0] [default]        dateFormat 日期格式          没有默认值，若不指定则根据引入的 i18n 规则决定        keyboardNav  是否允许键盘操作          true [default]        position 日期选择器相对于输入框的显示位置          bottom left [default]        offset 位置偏移值          12 [default]        view 默认视图          days [default]      可选 days months years        minView 最小视图          days [default]      可选 days months years        minDate 可被选择的最小日期          minDate: new Date() 表示今天之前的日期都不可被选中        maxDate 可被选择的最大日期  disableNavWhenOutOfRange 可选范围之外的日期是否禁止查看          true [default]        multipleDates 是否可选择多个日期          false [default]        multipleDatesSeparator 自定义多个日期之间的分隔符          , [default]        range 允许选择日期范围          false [default]      无法与 multipleDates 同时使用        todayButton 是否显示[今天]按钮          false [default]      点击按钮不会直接选择当前日期，只会跳转到当前日期所在的视图页        clearButton 是否显示[清除]按钮          false [default]        autoClose 选择日期后，自动关闭面板          false [default]        timepicker 是否开启时间选择器          false [default]        timeFormat 时间格式          没有默认值，若不指定则根据引入的 i18n 规则决定        minHours 小时数最小值          0 [default]      可选范围 0-23        maxHours 小时数最大值          23 [default]      可选范围 0-23        minMinutes 分钟数最小值          0 [default]      可选范围 0-59        maxMinutes 分钟数最大值          59 [default]      可选范围 0-59        hoursStep 小时的滑动间隔          1 [default]        minutesStep 分钟的滑动间隔          1 [default]      ]]></content>
+      <categories>
+        
+          <category> jquery </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> jquery </tag>
+        
+          <tag> datepciker </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
       <title><![CDATA[Struts2 项目搭建]]></title>
       <url>/java/struts/2017/09/21/Struts2-%E9%A1%B9%E7%9B%AE%E6%90%AD%E5%BB%BA/</url>
       <content type="text"><![CDATA[  Struts2 作为一个应用开发框架，在项目中引入需要如下步骤创建一个 Web Project 并添加默认的 web.xml 文件  这个好像没啥好说的引入以下 jar 包到 lib 目录中  commons-fileupload-1.3.3.jar  commons-lang3-3.6.jar  freemarker-2.3.23.jar  javassist-3.20.0-GA.jar  log4j-api-2.8.2.jar  ognl-3.1.12.jar  struts2-core-2.5.12.jar在 web.xml 中添加 filter 配置&lt;filter&gt;	&lt;filter-name&gt;struts2&lt;/filter-name&gt;	&lt;filter-class&gt;org.apache.struts2.dispatcher.filter.StrutsPrepareAndExecuteFilter&lt;/filter-class&gt;&lt;/filter&gt;&lt;filter-mapping&gt;	&lt;filter-name&gt;struts2&lt;/filter-name&gt;	&lt;url-pattern&gt;/*&lt;/url-pattern&gt;&lt;/filter-mapping&gt;在 src 目录下添加 struts.xml 文件  要让 Struts2 支持异步的 json 数据访问在 &lt;package&gt; 的 extend 属性中添加 json-default  添加 struts2-json-plugin-2.5.12.jar 包  在对应的 &lt;action&gt;  请求的 &lt;result&gt; 中添加 type="json" 属性，并删除页面内容&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;!DOCTYPE struts PUBLIC        "-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"        "http://struts.apache.org/dtds/struts-2.5.dtd"&gt;&lt;struts&gt;	&lt;package name="default-package" extends="struts-default, json-default"&gt;		&lt;!-- name 表示请求路径 --&gt;		&lt;!-- class 表示请求路径对应的处理类 --&gt;		&lt;!-- method 表示处理类中对应的方法 --&gt;		&lt;action name="category" class="online.shixun.hpeu.action.GoodsCategoryAction" method="list"&gt;			&lt;result name="success"&gt;/WEB-INF/views/category.jsp&lt;/result&gt;		&lt;/action&gt;				&lt;!-- 异步获取商品描述 --&gt;		&lt;action name="description" class="online.shixun.hpeu.action.GoodsAction" method="description"&gt;			&lt;result name="success" type="json"&gt;&lt;/result&gt;		&lt;/action&gt;	&lt;/package&gt;&lt;/struts&gt;接收/显示数据  Struts2 的特点在于对数据的接收/显示进行封装  要获取页面传递到 action 的参数，只需要在 action 中定义对应名称的私有属性，并提供 setter 方法即可  要将数据显示到页面中，只需要在 action 中定义对应名称的私有属性，并提供 getter 方法即可public class GoodsAction {		private GoodsServiceImpl goodsService = new GoodsServiceImpl();		// 从页面接收商品类别id	private Long categoryId;		// 从页面接收商品id	private Long goodsId;		// 从DB获取商品列表，用于展示到页面上	private List&lt;GoodsModel&gt; goods;		// 从DB获取商品描述信息，用于展示到页面上	private String description;		/**	 * 加载商品列表页	 * @return	 */	public String list() {		goods = goodsService.getGoodsByCategoryId(categoryId);				return "success";	}		/**	 * 获取商品描述信息	 * @return	 */	public String description() {		// 通过商品id获取商品描述信息		description = goodsService.getGoodsById(goodsId).getDescription();				return "success";	}	public void setCategoryId(Long categoryId) {		this.categoryId = categoryId;	}	public void setGoodsId(Long goodsId) {		this.goodsId = goodsId;	}	public String getDescription() {		return description;	}	public List&lt;GoodsModel&gt; getGoods() {		return goods;	}}]]></content>
@@ -2230,6 +2350,25 @@
     </entry>
   
     <entry>
+      <title><![CDATA[jQuery 防止子元素响应父元素的点击事件]]></title>
+      <url>/jquery/2017/08/20/jQuery-%E9%98%B2%E6%AD%A2%E5%AD%90%E5%85%83%E7%B4%A0%E5%93%8D%E5%BA%94%E7%88%B6%E5%85%83%E7%B4%A0%E7%9A%84%E7%82%B9%E5%87%BB%E4%BA%8B%E4%BB%B6/</url>
+      <content type="text"><![CDATA[  当父元素绑定了一个 click  事件后，点击其中子元素默认也会相应该事件，如下方式可避免子元素响应父元素的点击事件实现方式$(".overlay").click(function(e){  if (e.target == e.currentTarget) {		// content ...	}});]]></content>
+      <categories>
+        
+          <category> jquery </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> jquery </tag>
+        
+          <tag> dom </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
       <title><![CDATA[Javascript 为 String 提供分离字符的全局方法]]></title>
       <url>/javascript/2017/08/20/Javascript-%E4%B8%BA-String-%E6%8F%90%E4%BE%9B%E5%88%86%E7%A6%BB%E5%AD%97%E7%AC%A6%E7%9A%84%E5%85%A8%E5%B1%80%E6%96%B9%E6%B3%95/</url>
       <content type="text"><![CDATA[  在一个字符串的每个字符之间插入空格，并且这个方法可以直接被字符串调用实现方式String.prototype.spacify = function(){    return this.split("").join(" ");};]]></content>
@@ -2241,6 +2380,42 @@
       <tags>
         
           <tag> javascript </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[jQuery slice() 获取指定索引范围内的元素]]></title>
+      <url>/jquery/2017/08/14/jQuery-slice()-%E8%8E%B7%E5%8F%96%E6%8C%87%E5%AE%9A%E7%B4%A2%E5%BC%95%E8%8C%83%E5%9B%B4%E5%86%85%E7%9A%84%E5%85%83%E7%B4%A0/</url>
+      <content type="text"><![CDATA[  slice(start [, end]) 获取指定索引范围内的元素准备一些测试数据&lt;ul&gt;  &lt;li&gt;list item 1&lt;/li&gt;  &lt;li&gt;list item 2&lt;/li&gt;  &lt;li&gt;list item 3&lt;/li&gt;  &lt;li&gt;list item 4&lt;/li&gt;  &lt;li&gt;list item 5&lt;/li&gt;&lt;/ul&gt;将索引为 2 之后的 li 背景色改为红色$("li").slice(2).css("background-color", "red");将索引为 2 之后 4 之前，且不包含 4 的 li 背景色改为红色$("li").slice(2, 4).css("background-color", "red");]]></content>
+      <categories>
+        
+          <category> jquery </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> jquery </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[jQuery 禁用右键菜单、复制功能]]></title>
+      <url>/jquery/2017/06/18/jQuery-%E7%A6%81%E7%94%A8%E5%8F%B3%E9%94%AE%E8%8F%9C%E5%8D%95-%E5%A4%8D%E5%88%B6%E5%8A%9F%E8%83%BD/</url>
+      <content type="text"><![CDATA[  通过jquery禁止浏览器右键功能菜单实现$(window).on({    // 禁用右键菜单    "contextmenu": function () {        return false;    },    // 禁用复制    "keydown": function (e) {        // win : ctrl+c        // mac : cmd+c        if ((e.ctrlKey || e.metaKey) &amp;&amp; e.keyCode === 67) {            return false;        }    }});码表  字母          A - 65      B - 66      C - 67      D - 68      E - 69      F - 70      G - 71      H - 72      I - 73      J - 74      K - 75      L - 76      M - 77      N - 78      O - 79      P - 80      Q - 81      R - 82      S - 83      T - 84      U - 85      V - 86      W - 87      X - 88      Y - 89      Z - 90        数字          0 - 48      1 - 49      2 - 50      3 - 51      4 - 52      5 - 53      6 - 54      7 - 55      8 - 56      9 - 57        小键盘          0 - 96      1 - 97      2 - 98      3 - 99      4 - 100      5 - 101      6 - 102      7 - 103      8 - 104      9 - 105      * - 106      + - 107      回 - 108      - - 109      . - 110      / - 111        功能键          F1 - 112      F2 - 113      F3 - 114      F4 - 115      F5 - 116      F6 - 117      F7 - 118      F8 - 119      F9 - 120      F10 - 121      F11	- 122      F12 - 123        扩展建          BackSpace - 8      Tab - 9      Enter - 13      Shift - 16      Ctrl - 17      Alt - 18      Caps Lock - 20      Esc - 27      ]]></content>
+      <categories>
+        
+          <category> jquery </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> jquery </tag>
+        
+          <tag> keycode </tag>
         
       </tags>
       <tags></tags>
@@ -2268,6 +2443,93 @@
     </entry>
   
     <entry>
+      <title><![CDATA[jQuery 手动触发 select 值改变]]></title>
+      <url>/jquery/2017/05/31/jQuery-%E6%89%8B%E5%8A%A8%E8%A7%A6%E5%8F%91-select-%E5%80%BC%E6%94%B9%E5%8F%98/</url>
+      <content type="text"><![CDATA[  select 的 option 默认没有 click 事件，所以无法直接通过 jquery 控制 select 下某个 option 被选中为 select 定义 change 事件$myTrainingSelect.change(function () {	console.log("option change")})为需要被选中的 option 赋值 selected$myTrainingSelect.find("option[value='1'][data-type='open']").prop("selected", true);手动触发 select 的 change 事件$myTrainingSelect.trigger("change");]]></content>
+      <categories>
+        
+          <category> jquery </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> jquery </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[Swiper 轮播查看器]]></title>
+      <url>/jquery/2017/05/22/Swiper-%E8%BD%AE%E6%92%AD%E6%9F%A5%E7%9C%8B%E5%99%A8/</url>
+      <content type="text"><![CDATA[  Swiper 可以实现类似于相册图片查看的功能官网  Swiper  Swiper-中文APISwiper-API引入插件所需 css/js 文件&lt;link href="path/to/swiper.min.css" rel="stylesheet"&gt;&lt;script src="path/to/swiper.min.js" type="text/javascript"&gt;&lt;/script&gt;&lt;script src="path/to/jquery.js" type="text/javascript"&gt;&lt;/script&gt;编写插件所需的基本布局  swiper-pagination 、swiper-button-prev 、swiper-button-next 、swiper-scrollbar 都是可选的&lt;div class="swiper-container"&gt;    &lt;!-- 轮播内容容器 --&gt;    &lt;div class="swiper-wrapper"&gt;        &lt;!-- 轮播内容 --&gt;        &lt;div class="swiper-slide"&gt;Slide 1&lt;/div&gt;        &lt;div class="swiper-slide"&gt;Slide 2&lt;/div&gt;        &lt;div class="swiper-slide"&gt;Slide 3&lt;/div&gt;        ...    &lt;/div&gt;    &lt;!-- 分页点 --&gt;    &lt;div class="swiper-pagination"&gt;&lt;/div&gt;        &lt;!-- 切换按钮 --&gt;    &lt;div class="swiper-button-prev"&gt;&lt;/div&gt;    &lt;div class="swiper-button-next"&gt;&lt;/div&gt;        &lt;!-- 滚动条 --&gt;    &lt;div class="swiper-scrollbar"&gt;&lt;/div&gt;&lt;/div&gt;调用初始化方法var itemSwiper = f7.swiper(".swiper-container", {    speed: 400,    spaceBetween: 100,    prevButton: $recruitContentPanel.find(".prev-btn"),    nextButton: $recruitContentPanel.find(".next-btn")});]]></content>
+      <categories>
+        
+          <category> jquery </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> jquery </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[DateTimePicker 日期时间选择器]]></title>
+      <url>/jquery/2017/05/15/DateTimePicker-%E6%97%A5%E6%9C%9F%E6%97%B6%E9%97%B4%E9%80%89%E6%8B%A9%E5%99%A8/</url>
+      <content type="text"><![CDATA[  Bootstrap 官网的有 DatePicker 和 TimePicker ，但不支持共用所以有网友结合二者开发出 DateTimePicker 插件，可以一直从年份选择到具体时间官网DateTimePicker该插件依赖于 Bootstrap 的样式，所以需要先引入其 css 文件&lt;link href="${ctx }/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"&gt;再引入插件自身 css/js 文件&lt;link href="${ctx }/assets/plugins/bootstrap-datetimepicker/css/bootstrap-datetimepicker.css" rel="stylesheet" type="text/css"/&gt;&lt;script src="${ctx }/assets/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js" type="text/javascript"&gt;&lt;/script&gt;如果需要用到国际化，则需要引入对应语言包&lt;script src="${ctx }/assets/plugins/bootstrap-datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js" type="text/javascript"&gt;&lt;/script&gt;定义一个 input 用于展现内容&lt;input type="text" class="form-control date-time-picker" name="beginTime" readonly&gt;调用插件初始化方法$(".date-time-picker").datetimepicker({    format: "yyyy-mm-dd hh:ii",    language: "zh-CN",    weekStart: 1,    autoclose: true,    todayBtn: true,    todayHighlight: true});API  format : mm_dd_yyyy          日期时间显示的格式      关于分钟的格式符为 ii ，而不是 mm ，错写成 mm 将导致无法选择到正确的分钟数        weekStart : 0          每周的开始时间      规则是 0-6 对应周日到周六        autoclose : false          日期选择关闭后自动关闭选择面板        startView : 2 / month          默认显示的视图      支持写入数字或对应字符串      0 - hour / 1 - day / 2 - month / 3 - year / 4 - decade        minView : 0 / hour          能提供的最精确时间      规则与 startView 相同        maxView : 4 / decade          能提供的最大时间      规则与 startView 相同        todayBtn : false          显示“今天”按钮在面板最下方      为 true 则只是将日期跳转到当前日期      为 linked 则会直接选中当前日期        todayHighlight : false          高亮当前日期        keyboardNavigation : true          支持方向键改变日期        language : en          国际化支持      更改属性后还需要在插件的 locales 目录下引入对应国际化 js 文件      ]]></content>
+      <categories>
+        
+          <category> jquery </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> jquery </tag>
+        
+          <tag> datepicker </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[Raty 打星评分]]></title>
+      <url>/jquery/2017/05/12/Raty-%E6%89%93%E6%98%9F%E8%AF%84%E5%88%86/</url>
+      <content type="text"><![CDATA[  raty 可以通过很简单的方式实现打星评分功能官网jQuery Raty - A Star Rating Plugin引入插件所需 css/js 文件&lt;link href="${ctx }/assets/plugins/jquery-raty/jquery.raty.css" rel="stylesheet" type="text/css"&gt;&lt;script src="${ctx }/assets/plugins/jquery-raty/jquery.raty.js" type="text/javascript"&gt;&lt;/script&gt;定义一个 div 用于展现内容&lt;div class="course-grade-panel" data-name="totalGrade" data-score="3"&gt;&lt;/div&gt;调用插件初始化方法$courseSummaryPanel.find(".course-grade-panel").raty({	  // 指定需要显示的图片路径    path: g_rootPath + "/assets/plugins/jquery-raty/images/",	  // 定义记录评分的 input[name]    scoreName: function () {        return $(this).data("name");    },	  // 评分赋初值	  // 如果 halfShow = true ，赋值支持小数点	  // score &lt;= x.25 则忽略小数点	  // x.26 &lt;= score &lt;= x.75 则计为半颗星	  // score &gt;= x.76 则计为一颗星    score: function () {        return $(this).data("score");    },	  // 只读    readOnly: function () {        if ($(this).data("score") &gt; 0) {            return true;        }    },	  // 设定星星的数量	  number: 10,	  // 如果设置为只读模式，将鼠标放到星星上则会显示以下文字	  noRateMsg: "现在不能评分！",	  // 禁止显示半颗星	  halfShow: false,	  // 更改 halfShow 的四舍五入规则	  round: {		down: .26,		full: .6,		up: .76	  }	  // 禁止打半颗星	  half: false});]]></content>
+      <categories>
+        
+          <category> jquery </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> jquery </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[Noty 页面通知]]></title>
+      <url>/jquery/2017/05/08/Noty-%E9%A1%B5%E9%9D%A2%E9%80%9A%E7%9F%A5/</url>
+      <content type="text"><![CDATA[  noty 可以在页面上多个位置弹出通知提示文本官网NOTY - a dependency-free notification library引入插件所需 css/js 文件  noty v3 并不依赖于 jQuery ，noty v2 需要依赖 jQuery&lt;link href="${ctx }/assets/plugins/noty/css/noty.css" rel="stylesheet" type="text/css"&gt;&lt;script type="text/javascript" src="${ctx }/assets/plugins/noty/js/noty.min.js"&gt;&lt;/script&gt;调用插件初始化方法new Noty({    type: "success",    layout: "topRight",    theme: "sunset",    text: "Hello World！！！",    timeout: 3000,    progressBar: true,    closeWidth: ["button"],    animation: {        open: 'noty_effects_open',        close: 'noty_effects_close'    },    id: false,    force: false,    killer: false,    queue: "global",    container: false,    modal: false,	  callbacks: {		afterClose: function () { ... }	  }}).show();API  type : alert          消息类型      alert_success_error_warning_info        layout : topRight          显示位置      顶部：top_topLeft_topCenter/topRight      中部：center_centerLeft_centerRight      底部：bottom_bottomLeft_bottomCenter/bottomRight        theme : mint          主题样式      relax_mint_metroui_sunset_bootstrap-v3/bootstrap-v4/semanticui/nest        text : “”          显示文本        timeout : false          超时时间，默认 false 表示不超时      可填写具体毫秒数，即表示超时时间为多少毫秒        progressBar : true          是否显示进度条      只有 timeout 不为 false 时，progressBar 才有效        closeWith : [‘click’]          关闭方式      选择 click 后将会在右上角出现一个关闭按钮      选择 button 后点击文本则会关闭通知      ]]></content>
+      <categories>
+        
+          <category> jquery </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> jquery </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
       <title><![CDATA[Java Thread.wait()]]></title>
       <url>/java/multithreading/2017/05/05/Java-Thread.wait()/</url>
       <content type="text"><![CDATA[  wait() 和 notify() 必须在 synchronized 语句块中使用wait() 是强迫一个线程等待notify() 是通知一个线程继续运行功能  wait() 是针对已经获取对象锁的线程进行操作  当线程获取对象锁后，调用 wait() 主动释放对象锁，同时该线程休眠  直到其他线程调用 notify() 唤醒该线程，才继续获取对象锁，并执行  调用 notify() 唤醒线程并不是实时的，而是等相应的 synchronized 语句块执行结束，自动释放对象锁  再由 JVM 选取休眠的线程赋予对象锁，并执行，从而实现线程间同步、唤醒的操作对比  wait() 和 sleep() 都可以通过 interrupt() 打断线程的暂停状态，从而使线程立刻抛出 InterruptedException          通过 interrupt() 打断线程时，只需在 catch() 中捕获到异常即可安全结束线程      InterruptedException 是线程内部抛出，并不是 interrupt() 抛出      当线程执行普通代码时调用 interrupt() 并不会抛出异常，只有当线程进入 wait() / sleep() / join() 后才会立即抛出        wait() 和 sleep() 都可以暂定当前线程，其区别在于 wait() 在暂定的同时释放了对象锁  sleep() 是 Thread 的静态方法，wait() 是 Object 的一般方法实现public class WaitTest extends Thread {    private final Object self;    private final Object last;    public WaitTest(String name, Object self, Object last) {        super(name);        this.self = self;        this.last = last;    }    public void run() {        for (int i = 0; i &lt; 10; i++) {            // 锁住下一个对象            synchronized (last) {                // 锁住当前对象                synchronized (self) {                    if (super.getName().equals("A")) {                        System.out.println("第 " + (i + 1) + " 次运行！");                    }                    System.out.println(super.getName());                    // 等待一轮循环结束后唤醒当前线程                    self.notify();                }                try {                    // 释放下一个线程的对象锁                    last.wait();                } catch (InterruptedException e) {                    e.printStackTrace();                }            }        }    }    public static void main(String[] args) {        Object a = new Object();        Object b = new Object();        Object c = new Object();        WaitTest waitA = new WaitTest("A", a, b);        WaitTest waitB = new WaitTest("B", b, c);        WaitTest waitC = new WaitTest("C", c, a);        waitA.start();        waitB.start();        waitC.start();    }}]]></content>
@@ -2283,6 +2545,23 @@
           <tag> java </tag>
         
           <tag> multithreading </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[Pagewalkthrough 页面引导]]></title>
+      <url>/jquery/2017/05/03/Pagewalkthrough-%E9%A1%B5%E9%9D%A2%E5%BC%95%E5%AF%BC/</url>
+      <content type="text"><![CDATA[  pagewalkthrough 可以在页面上生成引导操作，指引用户按照对页面元素进行了解官网jquery-pagewalkthrough页面插件所需 js/css 文件&lt;link type="text/css" rel="stylesheet" href="${ctx }/assets/plugins/pagewalkthrough/css/jquery.pagewalkthrough.css" /&gt;&lt;script type="text/javascript" src="${ctx }/assets/plugins/jquery-1.11.1.min.js"&gt;&lt;/script&gt;&lt;script type="text/javascript" src="${ctx }/assets/plugins/pagewalkthrough/jquery.pagewalkthrough.js"&gt;&lt;/script&gt;在需要被引导的页面最下方加入引导内容&lt;div id="walkthrough-content"&gt;    &lt;div id="walkthrough-1"&gt;        &lt;h3&gt;欢迎加入轻实训在线教育平台&lt;/h3&gt;        &lt;p&gt;现在我们先对首页功能做一个初步了解&lt;/p&gt;        &lt;p&gt;点击下一步了解更多...&lt;/p&gt;    &lt;/div&gt;    &lt;div id="walkthrough-2" style="top: 0 !important;"&gt;这里是轻实训的LOGO，点击这里可以随时返回首页&lt;/div&gt;    &lt;div id="walkthrough-3"&gt;点击这里可以进入我的空间&lt;/div&gt;    &lt;div id="walkthrough-4"&gt;点击这里进入系统主菜单&lt;/div&gt;&lt;/div&gt;初始化插件$("body").pagewalkthrough({    name: "introduction",    steps: [{        popup: {            content: "#walkthrough-1",			  // 弹出方式 : modal/tooltip/mohighlight            type: "modal"        }    }, {        wrapper: "#logoImage",        popup: {            content: "#walkthrough-2",            type: "tooltip",            offsetHorizontal: 20,            offsetVertical: 50,            offsetArrowVertical: -10,			  // 弹出层位置 : top/left/right/bottom            position: "right"        }    }, {        wrapper: ".member-zone-tool",        popup: {            content: "#walkthrough-3",            type: "tooltip",            offsetHorizontal: 20,            offsetVertical: 50,            offsetArrowVertical: -30,            position: "right"        }    }, {        wrapper: "#memberProfileBtn",        popup: {            content: "#walkthrough-4",            type: "tooltip",            offsetHorizontal: 0,            offsetVertical: 50,            position: "left"        }    }],    onClose: function () {		  // 引导页关闭触发方法		  },	  // 按钮文字本地化    buttons: {        jpwClose: {            i18n: "点击关闭"        },        jpwNext: {            i18n: "下一步 &amp;rarr;"        },        jpwPrevious: {            i18n: "&amp;larr; 上一步"        },        jpwFinish: {            i18n: "完成 &amp;#10004;"        }    }});]]></content>
+      <categories>
+        
+          <category> jquery </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> jquery </tag>
         
       </tags>
       <tags></tags>
@@ -2570,6 +2849,46 @@
     </entry>
   
     <entry>
+      <title><![CDATA[Uploadifive 批量文件上传]]></title>
+      <url>/jquery/2017/04/08/Uploadifive-%E6%89%B9%E9%87%8F%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/</url>
+      <content type="text"><![CDATA[  uploadifive 的前身是 uploadify uploadify 是用 flash 实现的批量文件上传，但目前 flash 技术已被淘汰，取而代之的 HTML5 才是大势所趋于是就有了采用 HTML5 实现批量文件上传的 uploadifive官网Uploadify下载 uploadifive 的插件包，需要注意的是 uploadifive 目前是收费插件引入插件所需 js 、css 文件&lt;script src="${ctx }/assets/plugins/jquery-2.1.3.min.js" type="text/javascript"&gt;&lt;/script&gt;&lt;script src="${ctx }/assets/plugins/uploadifive/jquery.uploadifive.js" type="text/javascript"&gt;&lt;/script&gt;&lt;link href="${ctx }/assets/plugins/uploadifive/uploadifive.css" rel="stylesheet" type="text/css"/&gt; 定义一个 input 标签用于上传文件&lt;input id="fileUpload" type="file" /&gt;调用 uploadifive 初始化方法$(function () {	$("#fileUpload").uploadifive({		"uploadScript": "/api/upload/file"	});});属性  auto - Boolean - true          当文件被添加到上传队列时，会自动上传        buttonClass - String          为上传按钮指定一个类选择器        buttonText - String - SELECT FILES          定义显示在按钮上的文本内容        uploadScript - String - uploadifive.php          上传文件到服务器的后端请求路径        checkScript - String          验证待上传文件是否已存在于文件目录中的后端请求路径      文件不存在则返回 0 ，存在则返回 1        dnd - Boolean - true          允许拖拽上传文件        fileObjName - String          为待上传的文件指定字段名称供后端接收        fileSizeLimit - String          指定单个文件的大小限制      默认单位是 KB ，但可以在数字后明确标识 MB 或 GB ，插件内部会自动转换为 KB        fileType - String          指定允许上传的文件类型      支持模糊匹配，例如 image/* 只允许上传图片，image/png 则只允许上传 png 格式的图片      允许多种类型的文件则需要通过 | 进行分隔      模糊匹配采用的格式是 MIME types ，可参见 Media Types        formData - JSON          指定文件上传时需要一起提交的其他数据对象        height - Number - 30          指定上传按钮的高度        width - Number - 100          指定上传按钮的宽度        itemTemplate - String          指定文件上传队列的 HTML 模版      模版的最外层 div 必须指定类选择器为 uploadifive-queue-item      .filename 显示文件名称      .close 提供关闭按钮      .fileinfo 显示文件信息      progress-bar 显示上传进度        method - String - post          指定上传文件的提交方式      取值为 post 或 get        multi - Boolean - true          支持多文件上传        overrideEvents - JSON          可指定多个插件默认事件中的事件名称，被指定的事件将不会执行        queueID - String          指定用于显示上传队列的父级元素      若启用了 dnd 功能，则将文件拖放到该父元素中，会触发文件上传        queueSizeLimit - Number          指定上传队列中一次可容纳的最大文件数量        removeCompleted - Boolean - false          文件上传完毕后从上传队列中移除        simUploadLimit - Number          一次可上传的文件数量        truncateLength - Number          指定文件名称的截取长度      设置该值后，文件名称超过该长度将会被截取        uploadLimit - Number          指定允许上传的最大文件数量      该值的设定不会影响上传队列中可添加的文件数量      事件添加新文件到上传队列中"onAddQueueItem": function (file) {	console.log(file.name);}将文件从上传队列中删除"onCancel": function (file) {	console.log(file.name);}验证文件是否已存在"onCheck": function (file, exists) {	console.log(file.name);	console.log(exists ? "存在" : "不存在");}清空上传队列"onClearQueue": function (queue) {	console.log(queue.css());}销毁 uploadifive 实例"onDestroy": function () {	console.log("uploadifive 实例被销毁");}将文件拖拽到上传队列中"onDrop": function (files, fileDropCount) {	console.log(files.length);	console.log("拖拽文件数量：" + fileDropCount)}上传文件出错"onError": function (errorType) {	console.log("QUEUE_LIMIT_EXCEEDED: 超过上传队列允许的文件数量");	console.log("UPLOAD_LIMIT_EXCEEDED: 超过上传文件允许的文件数量");	console.log("FILE_SIZE_LIMIT_EXCEEDED: 超过上传文件允许的大小限制");	console.log("FORBIDDEN_FILE_TYPE: 被禁止上传的文件类型");	console.log("404_FILE_NOT_FOUND: 未找到文件");}浏览器不支持 HTML5"onFallback": function () {	console.loh("浏览器不支持 HTML5");}初始化 uploadifive 完成"onInit": function () {	console.log("uploadifive 已初始化完成");}文件上传中"onProgress": function (file, event) {	console.log(file.name);	console.log(event.lengthComputable ? "文件上传进度可计算" : "文件上传进度不可计算");	console.log("文件已上传" + evenet.loaded + "字节");	console.log("文件总共" + evenet.total + "字节");}上传队列中的所有文件上传完成"onQueueComplete": function (uploads) {	console.log(uploads.attempts);	console.log("上传成功的文件数量：" + uploads.successful);	console.log("上传失败的文件数量：" + uploads.errors);	console.log("上传文件总数量：" + uploads.count);}选择某个文件"onSelect": function (queue) {	console.log("被取消的文件数量：" + queue.cancelled);	console.log("上传队列中的文件数量：" + queue.count);	console.log("上传错误的文件数量：" + queue.errors);	console.log("被添加到上传队列中的文件数量：" + queue.queued);	console.log("被选择的文件数量：" + queue.selected);}文件被上传"onUpload": function (filesToUpload) {	console.log("将被上传的文件数量：" + filesToUpload);}每一个文件上传完成"onUploadComplete": function (file, data) {	console.log(file.name);	console.log("后端异步操作返回结果：" + JSON.parse(data));}每一个文件上传开始"onUploadFile": function (file) {	console.log(file.name);}方法取消文件上传  从上传队列中指定被取消上传的文件  取消上传的显示方式，为 true 表示直接取消，为 false 则会有一个淡出隐藏的效果$("#uploadFile").uploadifive("cancel", $('.uploadifive-queue-item').first().data('file'), true);清空上传队列$("#uploadFile").uploadifive("clearQueue");在控制台输出 uploadifive 详细信息$("#uploadFile").uploadifive("debug");销毁 uploadifive 实例$("#uploadFile").uploadifive("destroy");开始上传文件  从上传队列中指定被上传的文件  第二个参数未指定则默认上传队列中所有文件$("#uploadFile").uploadifive("upload", $('.uploadifive-queue-item').first().data('file'));]]></content>
+      <categories>
+        
+          <category> jquery </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> jquery </tag>
+        
+          <tag> upload </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[jQuery ajax 参数列表]]></title>
+      <url>/jquery/ajax/2017/04/06/jQuery-ajax-%E5%8F%82%E6%95%B0%E5%88%97%E8%A1%A8/</url>
+      <content type="text"><![CDATA[  $.ajax() 只有一个参数，该参数为 key-value 对象jQuery 发送的所有 ajax 请求，都是通过调用该 ajax 方法实现参数列表  accepts - Object          用于通知服务器该请求需要接受哪种类型的返回结果      有必要的话，推荐在 $.ajaxSetup() 中设置一次        async - Boolean          默认为 true ，即异步        beforeSend - Function          请求发送前的回调方法，默认参数为 xhr 和 settings      函数中显示返回 false 将取消本次请求        cache - Boolean          请求是否开启缓存，默认为 true      当 dataType 的值等于 script 或 jsonp 时，默认为 false        contents - Object          通过字符串或正则表达式配对的对象      根据给定的内容类型，解析请求的返回结果        contentType - String          编码类型，相对应与 http 请求头域中的 Content-Type 字段      默认值为 application/x-www-form-urlencoded; charset=UTF-8        context - Object          设置 ajax 回调函数的上下文      默认上下文为 ajax 请求传入的参数设置对象      例如设置为 document.body ，则所有回调函数将以 body 为上下文        converts - Object          数据类型转换器对象      默认为 {"* text": window.String, "text html": true, "text json": jQuery.parseJSON, "text xml": jQuery.parseXML}      可写成 converters: {"json jsonp": function(msg){}}        crossDomain - Boolean          是否跨域，默认为 false        data - Object / Array          发送到服务器的数据，默认为 key-value 格式对象      如果将 traditional 设置为 true ，则会将 data 参数的内容序列化，如将 {a:1, b: 2} -&gt; &amp;a=1&amp;b=2        traditional - Boolean          按照默认方式序列化 data 对象，默认为 false        dataFilter - String          处理 XMLHttpRequest 原始响应数据的回调，默认参数为 data 和 type      data 是 ajax 返回的原始数据      type 是调用 dataType 参数的值        dataType - String          预期服务器返回的数据类型 [ xml / html / script / json / jsonp / text ]      设置为 xml 或 text ，返回数据不会被处理        success - Function          请求成功后的回调，默认参数为 xhr 和 textStatus 以及 successString      使用 jsonp 请求时，该方法被 done(function (data, textStatus, jqXHR) {}) 替代        error - Function          请求失败时的回调，默认参数为 xhr 和 textStatus [ null / timeout / error / abort / parsererror ] 以及 errorString      该方法可以设置为一个包含函数的数组，从而保证每个函数一次被调用      跨域脚本或 JSONP 请求时，该方法不会被调用      使用 jsonp 请求时，该方法被 fail(function (jqXHR, textStatus, errorThrown) {}) 替代        complete - Function          请求完成后的回调，默认参数为 xhr 和 textStatus [ success / notmodified / error / timeout / abort / parsererror ]      不论结果是 success 或 error ，都会触发该回调      该方法可以设置为一个包含函数的数组，从而保证每个函数一次被调用      使用 jsonp 请求时，该方法被 always(function (data or jqXHR, textStatus, jqXHR or errorThrown) {}) 替代        global - Boolean          表示是否出发全局 ajax 事件，默认为 true      设置为 false 将导致 ajaxStart / ajaxStop / ajaxSend / ajaxError 不被触发      跨域脚本或 JSONP 请求时，改值默认为 false        headers - Object          设置请求头，默认为 key-value 格式对象      该设置会在 beforeSend 被调用之前生效，所以在 beforeSend 中可覆盖该设置        isModified - Boolean          只有上次请求响应改变时，才允许请求成功，默认为 false      设置为 true ，若数据自上次请求后没有更改过，则会报错      已 http 包中的 Last-Modified 头信息作为判断依据        isLocal - Boolean          将当前运行环境设置为本地，默认为 false      设置为 true ，将影响请求发送时的协议        jsonp - String          显示指定 jsonp 请求中的回调函数的名称      若设置为 jsonp: test ，则会替换掉默认 callback ，以 test=? 传给服务器      若设置为 jsonp: false  ，则需要明确设置 jsonpCallback 的值        jsonpCallback - String / Function          为 jsonp 请求指定一个回调函数名称或回调函数体，用来取代默认生成的随机函数名      回调函数的返回值就是 jsonpCallback 的结果        mimeType - String          设置一个 MIME 类型，用于覆盖 xhr 的 MIME 类型        username - String          设置认证请求中的用户名        password - String          设置认证请求中的密码        processData - Boolean          ajax 方法默认会将传入的 data 隐式转换为查询字符串，用于配合默认的 contentType      设置为 false ，则不会进行上述转换操作        scriptCharset - String          只能在 dataType: script 设置后使用      设置后将影响  标签上的 charset 属性      仅推荐在跨域请求中使用        statusCode - Object          一组 http 状态码和回调函数对应的 key-value 格式对象，例如 {404: function () {}}      可用于根据不同的 http 状态码，执行不同的回调        timeout - Number          设置超时时间        type - String          可设置为 8 种 http method 之一，不区分大小写        url - String          ajax 请求的 url 地址        xhr - Function          在回调中创建并返回 XMLHttpRequest 对象        xhrFields - Object          设置原生的 xhr 对象，默认为 key-value 格式对象      ]]></content>
+      <categories>
+        
+          <category> jquery </category>
+        
+          <category> ajax </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> jquery </tag>
+        
+          <tag> ajax </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
       <title><![CDATA[Spring的@Transactional详解]]></title>
       <url>/java/springboot/springmvc/2017/04/05/Spring%E7%9A%84@Transactional%E8%AF%A6%E8%A7%A3/</url>
       <content type="text"><![CDATA[  Spring 提供的事务管理机制为不同的事务 API 提供一致的编程模型管理方式  编程式事务          TransactionTemplate [推荐]      PlatformTransactionManager [基于底层]        声明式事务 [推荐]          基于 &lt;tx/&gt; 和 &lt;aop/&gt; 的 xml 配置文件      使用 @Transactional 注解 [推荐]      配置方式  使用 @Transactional 注解的声明式配置参见 SpringMVC声明式事务配置注意点  默认情况下，数据库处于紫铜提交模式，每个语句处于单独的事务中  对于正常的事务管理，应当是一组相关操作处于同一个事务中  Spring 默认将底层连接的自动提交设置为 false  有些数据连接池提供自动提交的开关设置，但 c3p0 未提供  JDBC 规范明文指出当连接对象建立时应该处理自动提交模式，对于自动提交的开关应该进行显示处理  当一个连接关闭时，未提交的事务应该回滚，虽然 JDBC 规范未明确指出，但 c3p0 默认将 autoCommitOnClose 设置为 false  MyBatis 会自动参与到 Spring 的事务管理中，只要二者引用的数据源一致@Transactional 属性  value - String          限定描述符，用于指定使用的事务管理器        isolation - enum          事务隔离级别，参见 Spring 事务隔离级别        propagation - enum          事务传播行为，参见 Spring 事务传播行为        readOnly - boolean          事务只读属性，默认读写      false = 读写，true = 只读      只读属性用于特殊情景优化，例如在使用 Hibernate 时，默认使用读写事务        timeout - int          事务超时时间，单位秒      如果超过该时间事务还没完成，则自动回滚事务      默认设置为底层事务系统的超时值，如果底层未设置，则为 none        rollbackFor - Class 对象数组，必须继承自 Throwable          导致事务回滚的异常类数组        rollbackForClassName - 类名数组，必须继承自 Throwable          导致事务回滚的异常类名称数组        noRollbackFor - Class 对象数组，必须继承自 Throwable          不会导致事务回滚的异常类数组        noRollbackForClassName - 类名数组，必须继承自 Throwable          不会导致事务回滚的异常类名称数组      ]]></content>
@@ -2656,6 +2975,23 @@
           <tag> java </tag>
         
           <tag> serializable </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[jQuery one() 防止重复点击]]></title>
+      <url>/jquery/2017/04/02/jQuery-one()-%E9%98%B2%E6%AD%A2%E9%87%8D%E5%A4%8D%E7%82%B9%E5%87%BB/</url>
+      <content type="text"><![CDATA[  $.one() 方法的意思是给指定按钮绑定一次性事件，即使用一次便失效实现方式$(".submit-btn").one("click", function () {	...});]]></content>
+      <categories>
+        
+          <category> jquery </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> jquery </tag>
         
       </tags>
       <tags></tags>
@@ -2844,6 +3180,40 @@
     </entry>
   
     <entry>
+      <title><![CDATA[jQuery.wrap()动态添加父元素]]></title>
+      <url>/jquery/2017/02/28/jQuery.wrap()%E5%8A%A8%E6%80%81%E6%B7%BB%E5%8A%A0%E7%88%B6%E5%85%83%E7%B4%A0/</url>
+      <content type="text"><![CDATA[  通过 wrap() 实现动态添加父元素直接添加父元素$(".inner").wrap("&lt;div class='new'&gt;&lt;/div&gt;");添加父元素的同时执行一个方法$(".inner").wrap(function () {    return "&lt;a class='fancybox' rel='group' href='" + $(this).attr("src") + "'&gt;&lt;/a&gt;"});]]></content>
+      <categories>
+        
+          <category> jquery </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> jquery </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[Fancybox 图片查看器]]></title>
+      <url>/jquery/2017/02/28/Fancybox-%E5%9B%BE%E7%89%87%E6%9F%A5%E7%9C%8B%E5%99%A8/</url>
+      <content type="text"><![CDATA[  快捷图片查看插件官网fancyBox - Fancy jQuery Lightbox Alternative在页面中添加插件所需要的js/css文件&lt;script type="text/javascript" src="${ctx }/assets/plugins/jquery-1.11.1.min.js"&gt;&lt;/script&gt;&lt;script type="text/javascript" src="${ctx }/assets/plugins/fancybox/js/jquery.fancybox.pack.js"&gt;&lt;/script&gt;&lt;link href="${ctx }/assets/plugins/fancybox/css/jquery.fancybox.css" rel="stylesheet" type="text/css" media="screen"&gt;在需要查看的img标签外添加一个a标签&lt;a class="fancybox" rel="group" href="image1.jpg"&gt;	&lt;img src="image1.jpg" /&gt;&lt;/a&gt;初始化插件$(".fancybox").fancybox();API  padding          图片距离弹出框的距离      整数或数组      整数表示四个方向的内边距都为该整数      数组则表示各个方向不同的值 [top, right, bottom, left]      默认值：15        margin          弹出框距离浏览器四个方向的距离      整数或数组      整数表示距离四个方向的距离都为该整数      数组则表示各个方向不同的值 [top, right, bottom, left]      默认值：20        width          当auotoSize=false时弹出框的宽度      仅适用于 iframe、swf、inline、ajax和html模式      数字或 auto      默认值：800        height          当auotoSize=false时弹出框的高度      仅适用于 iframe、swf、inline、ajax和html模式      数字或 auto      默认值：600        minWidth          弹出框的最小宽度      数字      默认值：100        minHeight          弹出框的最小高度      数字      默认值：100        maxWidth          弹出框的最大宽度      数字      默认值：9999        maxHeight          弹出框的最大高度      数字      默认值：9999        autoSize          自动尺寸      如果设置为true，则要设置autoHeight和autoWidth为true      true或false      默认值：true        autoHeight          自动调整高度      如果设置为true，那么ajax、inline、html模式下的弹出框将自动调整高度      true或false      默认值：false        autoWidth          自动调整宽度      如果设置为true，那么ajax、inline、html模式下的弹出框将自动调整宽度      true或false      默认值：false        autoResize          自动调整尺寸      设置为true，当浏览器窗口大小改变的时候将自动调整弹出框大小      布尔值      默认值：!isTouch        autoCenter          自动居中      如果设置为true，那么弹出框总是居中的      布尔值      默认值：!isTouch        fitToView          如果设置为true，弹出框将会在打开之前自动适应大小      布尔值      默认值：true        aspectRatio          如果设置为true，那么重置大小将会被图片的比例所影响      布尔值      默认值：false        topRatio          弹出框距离顶部与距离底部的比例      如果为0.5，则表示居中      数字      默认值：0.5        leftRatio          弹出框距离左边与距离右边的比例      如果为0.5，则表示居中      数字      默认值：0.5        scrolling          添加到scrollbars滚动条上的样式      auto_yes_no/visible      默认值：auto        wrapCSS          环绕元素的样式      字符串        arrows          如果设置为true，导航箭头将会被显示      布尔值      默认值：true        closeBtn          如果设置为true，将会显示关闭图标      布尔值      默认值：true        closeClick          如果设置为true，当用户点击内容的时候将会关闭弹出框      布尔值      默认值：false        nextClick          如果设置为true，当用户点击内容的时候将会导航到下一页      布尔值      默认值：false        mouseWheel          是否启用鼠标滚动切换      布尔值      默认值：true        autoPlay          是否自动播放弹出框的图片      布尔值      默认值：false        playSpeed          播放毫秒速度      数字      默认值：3000        preload          预加载的图片数      数字      默认值：3        modal          如果设置为true，将会禁止导航和关闭      布尔值      默认值：false        loop          是否循环播放      布尔值      默认值：true        scrollOutside          如果设置为true，将会视图避免垂直方向的滚动条，针对 iframe和html      布尔值      默认值：true        index          重写开始的图片索引      数字      默认值：0        type          重写内容的类型      image_inline_ajax_iframe_swf/html      默认值：null        href          重写内容的链接地址      字符串      默认值：null        content          重写被展示的内容      字符串      默认值：null        title          重写标题      字符串      默认值：null      ]]></content>
+      <categories>
+        
+          <category> jquery </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> jquery </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
       <title><![CDATA[MyBatis防止死循环]]></title>
       <url>/java/mybatis/error/2017/02/18/MyBatis%E9%98%B2%E6%AD%A2%E6%AD%BB%E5%BE%AA%E7%8E%AF/</url>
       <content type="text"><![CDATA[  mybatis的mapper文件中如果存在错误，会导致项目启动时加载mapper进入死循环，却不输出错误重新buildSqlSessionFactory()  重写org.mybatis.spring.SqlSessionFactoryBean的buildSqlSessionFactory()方法public class FixedSqlSessionFactory extends SqlSessionFactoryBean {    @Override    protected SqlSessionFactory buildSqlSessionFactory() throws IOException {        try {            return super.buildSqlSessionFactory();        }catch (Exception e){            e.printStackTrace();        }finally {            ErrorContext.instance().reset();        }        return null;    }}修改配置文件中的引用为上述包装类&lt;bean id="sqlSessionFactory" class="com.innovaee.hts.sop.web.FixedSqlSessionFactory"&gt;    &lt;property name="dataSource" ref="dataSource"/&gt;    ...&lt;/bean&gt;启动项目，则会在控制台输出具体错误信息]]></content>
@@ -3014,6 +3384,25 @@
     </entry>
   
     <entry>
+      <title><![CDATA[jQuery操作audio和video]]></title>
+      <url>/jquery/2017/01/20/jQuery%E6%93%8D%E4%BD%9Caudio%E5%92%8Cvideo/</url>
+      <content type="text"><![CDATA[  获取audio需要使用[0]，因为js操作获得的是audio对象，jQuery选择器获得的是jQuery对象，通过[0]取到的才是对应的节点对象所以不能直接使用jQuery对象去操作，需要通过[0]转换成js对应的节点对象实现方式var audio = $("#audio")[0];audio.pause();audio.play();]]></content>
+      <categories>
+        
+          <category> jquery </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> jquery </tag>
+        
+          <tag> video </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
       <title><![CDATA[Java实现颜色随机]]></title>
       <url>/java/2017/01/20/Java%E5%AE%9E%E7%8E%B0%E9%A2%9C%E8%89%B2%E9%9A%8F%E6%9C%BA/</url>
       <content type="text"><![CDATA[  通过随机拼接rgb编码的方式，获取随机的颜色码实现方式String r, g, b;// 定义随机数	Random random = new Random();	// 获取编码r = Integer.toHexString(random.nextInt(256)).toUpperCase();g = Integer.toHexString(random.nextInt(256)).toUpperCase();b = Integer.toHexString(random.nextInt(256)).toUpperCase();	// 编码有效性控制r = r.length() == 1 ? "0" + r : r;g = g.length() == 1 ? "0" + g : g;b = b.length() == 1 ? "0" + b : b;	// 拼接return r + g + b;]]></content>
@@ -3105,6 +3494,23 @@
           <tag> javascript </tag>
         
           <tag> json </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[Ace 代码编辑器]]></title>
+      <url>/jquery/2017/01/18/Ace-%E4%BB%A3%E7%A0%81%E7%BC%96%E8%BE%91%E5%99%A8/</url>
+      <content type="text"><![CDATA[  代码风格美化编辑器官网Ace - The High Performance Code Editor for the WebAPI  设置主题 editor.setTheme("ace/theme/twilight");  设置程序员语言模式 editor.getSession().setMode("ace/mode/javascript");  设置制表符大小 editor.getSession().setTabSize(4);  设置软标签 editor.getSession().setUseSoftTabs(true);  设置代码自动换行 editor.getSession().setUseWrapMode(true);  设置当前行高亮 editor.setHighlightActiveLine(false);  设置边距线显示 editor.setShowPrintMargin(false);  设置只读 editor.setReadOnly(true);  重新设置编辑器尺寸 editor.resize();方法  赋值 editor.setValue("the new text here");  取值 editor.getValue();  获取选择内容 editor.session.getTextRange(editor.getSelectionRange());  在光标处插入 editor.insert("Something cool");  获取光标所在行或列 editor.selection.getCursor();  跳转到指定行 editor.gotoLine(10);  获取总行数 editor.session.getLength();事件  监听内容改变editor.getSession().on("change", function(e) {});  监听内容选择editor.getSession().selection.on("changeSelection", function(e) {});  监听光标移动editor.getSession().selection.on("changeCursor", function(e) {	});]]></content>
+      <categories>
+        
+          <category> jquery </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> jquery </tag>
         
       </tags>
       <tags></tags>
@@ -3210,6 +3616,165 @@
           <tag> tomcat </tag>
         
           <tag> server </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[jQuery.on()用法]]></title>
+      <url>/jquery/2016/12/29/jQuery.on()%E7%94%A8%E6%B3%95/</url>
+      <content type="text"><![CDATA[  on() 是 jQuery 新的为 DOM 元素绑定事件的方法绑定单事件单元素$messagePanel.find(".message-item").on("click", function () {	console.log("click");});绑定单事件多元素$messagePanel.on("click", ".message-item, .message-comment-item", function () {	console.log("click");});绑定多事件多元素$messagePanel.on({	click: function () {		consloe.log("click");	},	mouseenter: function () {		console.log("mouseenter");	}}, ".message-item, .message-comment-item");]]></content>
+      <categories>
+        
+          <category> jquery </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> jquery </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[jQuery限制元素无法被选中]]></title>
+      <url>/jquery/2016/12/28/jQuery%E9%99%90%E5%88%B6%E5%85%83%E7%B4%A0%E6%97%A0%E6%B3%95%E8%A2%AB%E9%80%89%E4%B8%AD/</url>
+      <content type="text"><![CDATA[  效果为指定内容无法被鼠标选中问题对于网页中的某些元素，不希望其可被选中解决$("#element").attr("unselectable", "on");$("#element").css("user-select", "none");$("#element").on("selectstart", fasle);]]></content>
+      <categories>
+        
+          <category> jquery </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> jquery </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[jQuery通过IP获取地理位置]]></title>
+      <url>/jquery/2016/12/28/jQuery%E9%80%9A%E8%BF%87IP%E8%8E%B7%E5%8F%96%E5%9C%B0%E7%90%86%E4%BD%8D%E7%BD%AE/</url>
+      <content type="text"><![CDATA[  jQuery 可以通过 IP 获取地理位置实现方式var ip = "119.75.218.70";// 地理位置获取apivar api = "http://freegeoip.net/json/" + ip + "?callback=?";$.getJSON(api, function (e) {		console.log("city: " + e.city);		console.log("country: " + e.country_name);});]]></content>
+      <categories>
+        
+          <category> jquery </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> jquery </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[jQuery改变行内样式]]></title>
+      <url>/jquery/2016/12/28/jQuery%E6%94%B9%E5%8F%98%E8%A1%8C%E5%86%85%E6%A0%B7%E5%BC%8F/</url>
+      <content type="text"><![CDATA[  通过 jQuery 修改 DOM 元素行内样式问题  通过 jQuery.css() 方法，触发元素行内样式的更改。  最佳方式不是在样式内容后加 ~!important~方式一// 单个样式$("#element").css("color", "red").attr("contentEditable", true);// 多个样式$("#element").css({	"display": "block",	"color": "red"}).attr("contentEditable", true);方式二$("#element").css("cssText", "background-color: red !important");]]></content>
+      <categories>
+        
+          <category> jquery </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> jquery </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[jQuery在元素创建之前绑定事件]]></title>
+      <url>/jquery/2016/12/28/jQuery%E5%9C%A8%E5%85%83%E7%B4%A0%E5%88%9B%E5%BB%BA%E4%B9%8B%E5%89%8D%E7%BB%91%E5%AE%9A%E4%BA%8B%E4%BB%B6/</url>
+      <content type="text"><![CDATA[  jQuery可以实现在元素创建之前就监听该元素，这对于动态创建元素后绑定事件非常有用问题  对于存在动态添加的元素，则需要动态绑定事件，而为了不导致因为给新元素绑定事件，导致旧元素出现重复绑定的情况。  一般的解决办法是先解绑再绑定function showTip() {	alert(1););// 第一次绑定$("#element").find("li").click(showTip);// 由于新增了相同元素，则需要为旧元素解绑事件$("element").find("li").unbind("click");// 再重新为当前所有元素绑定$("#element").find("li").click(showTip);解决  jQuery 拥有先进的事件处理机制，因为 jQuery.on() 方法可以传递一个元素的子元素选择器作为参数，则可以监听目前还不存在的事件$("#element").on("click", "li", function () {	alert(1);});]]></content>
+      <categories>
+        
+          <category> jquery </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> jquery </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[jQuery使用Ajax提交表单]]></title>
+      <url>/jquery/ajax/2016/12/28/jQuery%E4%BD%BF%E7%94%A8Ajax%E6%8F%90%E4%BA%A4%E8%A1%A8%E5%8D%95/</url>
+      <content type="text"><![CDATA[  一般表单数据需要使用表单提交，但其实也可以通过 ajax 将表单数据提交到后台。解决&lt;form action="#"&gt;	&lt;input type="text" name="name" value="tom"/&gt;	&lt;input type="text" name="gender" value="male"/&gt;&lt;/form&gt;// 将表单数据序列化后将得到name=tom&amp;gender=male格式的数据，可直接用于ajax提交$("form").serialize();]]></content>
+      <categories>
+        
+          <category> jquery </category>
+        
+          <category> ajax </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> jquery </tag>
+        
+          <tag> ajax </tag>
+        
+          <tag> form </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[jQuery为元素添加多个样式]]></title>
+      <url>/jquery/2016/12/28/jQuery%E4%B8%BA%E5%85%83%E7%B4%A0%E6%B7%BB%E5%8A%A0%E5%A4%9A%E4%B8%AA%E6%A0%B7%E5%BC%8F/</url>
+      <content type="text"><![CDATA[  jQuery 可以为一个 DOM 元素同时添加多个样式问题  虽然 jQuery.css() 方法可以更改元素样式，但其实 JS 操作 DOM 非常慢。  所以在为元素添加多个样式时，更好的方法是创建一个 style 元素并添加到 document 中。解决var style = $("&lt;style&gt;");style.text("#element {color: red}");style.appendTo("#element");]]></content>
+      <categories>
+        
+          <category> jquery </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> jquery </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[jQuery exist 自定义方法]]></title>
+      <url>/jquery/2016/12/28/jQuery-exist/</url>
+      <content type="text"><![CDATA[  一般通过 $(“#element”).length === 1 判断元素是否存在，但这样显得过于麻烦解决  可集成 length 方法，扩展成为 exist 方法    jQuery.fn.exists = function() { return this.length &gt; 0;}      ]]></content>
+      <categories>
+        
+          <category> jquery </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> jquery </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[jQuery获取指定子元素]]></title>
+      <url>/jquery/2016/12/24/jQuery%E8%8E%B7%E5%8F%96%E6%8C%87%E5%AE%9A%E5%AD%90%E5%85%83%E7%B4%A0/</url>
+      <content type="text"><![CDATA[  可通过 jQuery 获取 DOM 元素指定子元素问题  需要根据className获取指定索引元素解决currentImgPanel.find(".photo-tagger-tag").eq(0);]]></content>
+      <categories>
+        
+          <category> jquery </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> jquery </tag>
         
       </tags>
       <tags></tags>
