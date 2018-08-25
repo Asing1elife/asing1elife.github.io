@@ -3974,13 +3974,17 @@
     </entry>
   
     <entry>
-      <title><![CDATA[Css文本换行加省略号]]></title>
-      <url>/2016/12/14/CSS%E6%96%87%E6%9C%AC%E6%8D%A2%E8%A1%8C%E5%8A%A0%E7%9C%81%E7%95%A5%E5%8F%B7/</url>
-      <content type="text"><![CDATA[CSS文本换行加省略号  文本换行的后需要对超出的内容加省略号，text-overflow: ellipsis 无法实现此需求解决overflow: hidden;// 只有webkit内核浏览器支持display: -webkit-box;// 需要指定换行数-webkit-line-clamp: 5;-webkit-box-orient: vertical;]]></content>
+      <title><![CDATA[CSS文本换行加省略号]]></title>
+      <url>/css/2016/12/14/CSS%E6%96%87%E6%9C%AC%E6%8D%A2%E8%A1%8C%E5%8A%A0%E7%9C%81%E7%95%A5%E5%8F%B7/</url>
+      <content type="text"><![CDATA[  文本换行的后需要对超出的内容加省略号，text-overflow: ellipsis 无法实现此需求解决overflow: hidden;// 只有webkit内核浏览器支持display: -webkit-box;// 需要指定换行数-webkit-line-clamp: 5;-webkit-box-orient: vertical;]]></content>
       <categories>
+        
+          <category> css </category>
         
       </categories>
       <tags>
+        
+          <tag> css </tag>
         
       </tags>
       <tags></tags>
