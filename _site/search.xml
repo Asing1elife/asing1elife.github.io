@@ -434,6 +434,27 @@
     </entry>
   
     <entry>
+      <title><![CDATA[为 IE 编写兼容性样式]]></title>
+      <url>/css/ie/2018/06/15/%E4%B8%BA-IE-%E7%BC%96%E5%86%99%E5%85%BC%E5%AE%B9%E6%80%A7%E6%A0%B7%E5%BC%8F/</url>
+      <content type="text"><![CDATA[  由于众所周知的原因，尽管 IE 非常傻 x ，但依旧存在很大的市场，所以必须为 IE11 编写一些特殊样式，才能让项目成功运行IE11 专有 hack  在此 @media 中编写的样式，只有在 IE11 才会生效@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {	.slide-right-pop-panel {		top 0	}}IE10 专有 hack  IE7 - IE9 的专有注释在 IE10 不适用，需要使用以下方式读取  @cc_on 为 IE10 脚本的功能检测名&lt;html&gt;&lt;!--[if !IE]&gt;&lt;!--&gt;&lt;script&gt;  if (/*@cc_on!@*/false) {    document.documentElement.className += ' ie10';  }&lt;/script&gt;&lt;!--&lt;![endif]--&gt;&lt;/html&gt;IE7 - IE9 专有 hack  以下编写的是 IE9 样式，其他只需要修改对应数字即可  通过为 &lt;html&gt; 添加对应的属性标签，可以完美区分各种 IE 浏览器样式&lt;!--[if IE 9 ]&gt; &lt;html class="ie9"&gt; &lt;![endif]--&gt;&lt;!--[if (gt IE 9)|!(IE)]&gt;&lt;!--&gt; &lt;html class=""&gt; &lt;!--&lt;![endif]--&gt;...&lt;style&gt;.ie9 #teacherSection {  background-color: rgba(62, 137, 214, 1.000);}.ie9 #studentSection .student-item figure {  display: none;}&lt;/style&gt;&lt;/html&gt;]]></content>
+      <categories>
+        
+          <category> css </category>
+        
+          <category> ie </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> css </tag>
+        
+          <tag> ie </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
       <title><![CDATA[Vue 添加自定义 JS 文件参与 ES6 转义]]></title>
       <url>/vue/javascript/es6/2018/06/14/Vue-%E6%B7%BB%E5%8A%A0%E8%87%AA%E5%AE%9A%E4%B9%89-JS-%E6%96%87%E4%BB%B6%E5%8F%82%E4%B8%8E-ES6-%E8%BD%AC%E4%B9%89/</url>
       <content type="text"><![CDATA[  vue 中可能存在部分 JS 文件使用了 ES6 语法，但默认不会被 babel-loader 扫描到，从而出现编译后的项目 ES6 语法没有被转义报错信息  下列报错信息就是说明在 ::node_modules/quill-image-extend-module/index.js:: 文件中存在 ES6 的语法糖  由于目前大部分浏览器默认不支持 ES6 语法，所以项目编译后如果没有把 ES6 语法转义成 ES5 语法，浏览器则会报错ERROR in static/js/vendor.9447dc694e95071dbce3.js from UglifyJsUnexpected token operator «=», expected punc «,» [./node_modules/quill-image-extend-module/index.js:12,0][static/js/vendor.9447dc694e95071dbce3.js:28927,35]  Build failed with errors.解决方式  在 ::webpack.base.conf.js:: 中添加如下语法{  test: /\.js$/,  loader: 'babel-loader',  include: [    resolve('src'),    resolve('test'),	  // 只有这一行是添加的，由于指定自定义扫描文件    resolve('node_modules/quill-image-extend-module/index.js')  ],},]]></content>
@@ -1555,6 +1576,27 @@
     </entry>
   
     <entry>
+      <title><![CDATA[video标签隐藏下载按钮]]></title>
+      <url>/css/video/2018/03/01/video%E6%A0%87%E7%AD%BE%E9%9A%90%E8%97%8F%E4%B8%8B%E8%BD%BD%E6%8C%89%E9%92%AE/</url>
+      <content type="text"><![CDATA[  通过CSS3的伪类样式强制将video标签的下载按钮隐藏实现方式video::-webkit-media-controls-enclosure {    overflow: hidden;}video::-webkit-media-controls-panel {    width: calc(100% + 30px);}]]></content>
+      <categories>
+        
+          <category> css </category>
+        
+          <category> video </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> css </tag>
+        
+          <tag> video </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
       <title><![CDATA[List抛出ConcurrentModificationException]]></title>
       <url>/java/list/error/2018/03/01/List%E6%8A%9B%E5%87%BAConcurrentModificationException/</url>
       <content type="text"><![CDATA[  在对 List 进行遍历的同时进行 remove 元素操作，可能会抛出 java.util.ConcurrentModificationException 异常错误示范  在遍历 List 时获取元素实际上通过迭代器在进行，迭代器在获取下一个元素时会对 modCount 和 expectedCount 进行匹配  遍历的同时直接对 List 进行 remove 操作，会导致只有 modCount 发生变化，而expectedCount 未发生变化  所以迭代器在获取下一个元素会发现两个值不匹配则抛出 java.util.ConcurrentModificationException 异常for (CourseDTO course : courses) {    for (MemberCourseDTO memberCourse : memberCourses) {        if (course.getId().equals(memberCourse.getCourse().getId())) {            courses.remove(course);        }    }}正确处理  使用迭代器原生的 remove 方法去操作 List 元素即可for (Iterator&lt;CourseDTO&gt; it = courses.iterator(); it.hasNext(); ) {    CourseDTO course = it.next();    for (MemberCourseDTO memberCourse : memberCourses) {        if (course.getId().equals(memberCourse.getCourse().getId())) {            // 移除当前元素            it.remove();        }    }}Java 8 的处理方式question.getOptions().removeIf(option -&gt; option.getContent().trim().equals(""));]]></content>
@@ -1574,6 +1616,23 @@
           <tag> list </tag>
         
           <tag> error </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[CSS图片滤镜灰度]]></title>
+      <url>/css/2018/02/22/CSS%E5%9B%BE%E7%89%87%E6%BB%A4%E9%95%9C%E7%81%B0%E5%BA%A6/</url>
+      <content type="text"><![CDATA[  通过CSS可简单实现将彩色图片变为灰色图片实现方式#targetLanguagePanel .language-item img:hover {	filter: grayscale(100%);}]]></content>
+      <categories>
+        
+          <category> css </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> css </tag>
         
       </tags>
       <tags></tags>
@@ -2112,6 +2171,27 @@
     </entry>
   
     <entry>
+      <title><![CDATA[Stylus CSS预处理框架]]></title>
+      <url>/css/stylus/2017/11/22/Stylus-CSS%E9%A2%84%E5%A4%84%E7%90%86%E6%A1%86%E6%9E%B6/</url>
+      <content type="text"><![CDATA[  Stylus是一个CSS预处理框架，主要用于给Node项目做CSS预处理支持，可创建动态的、富有表现力的CSS，其本质上做的事与SASS/LESS相似官网  Expressive, dynamic, robust CSS — expressive, robust, feature-rich CSS preprocessor  stylus中文文档  stylus入门使用方法 - 埋名 - SegmentFault]]></content>
+      <categories>
+        
+          <category> css </category>
+        
+          <category> stylus </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> css </tag>
+        
+          <tag> stylus </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
       <title><![CDATA[Vue 集成 Animate.css]]></title>
       <url>/vue/2017/11/21/Vue-%E9%9B%86%E6%88%90-Animate.css/</url>
       <content type="text"><![CDATA[  通过CSS实现了很多动画效果，可以直接调用官网Animate.css实现方式  下载 animate.css 文件并在项目的 main.js 中引入import Vue from 'vue'...import 'assets/plugins/animate/animate.css'.../* eslint-disable no-new */new Vue({  el: '#app',  render: h =&gt; h(App),  store,  router})结合 transition 组件一起使用  duration 可控制动画的加载速度&lt;transition leave-active-class="animated fadeOutRight" enter-active-class="animated fadeInRight" :duration="300"&gt;  &lt;mt-field class="search-input" placeholder="请输入搜索内容" v-show="search" v-model="searchContent"&gt;&lt;/mt-field&gt;&lt;/transition&gt;]]></content>
@@ -2345,7 +2425,7 @@
     <entry>
       <title><![CDATA[Flex 布局 - 容器]]></title>
       <url>/css/flex/2017/10/16/Flex-%E5%B8%83%E5%B1%80-%E5%AE%B9%E5%99%A8/</url>
-      <content type="text"><![CDATA[  Flex 是 Flexible Box 的缩写，就是弹性布局，可以为盒子模型提供更大的灵活性任何一个容器都可以指定为 Flex 布局，其将会成为未来布局的首选方案概念  采用 Flex 布局的元素称为 Flex 容器  容器下的所有子元素自动成为容器成员，成为 Flex 项目  将元素的 display: flex 即可指定 Flex 容器  容器默认存在两根轴，水平的主轴和垂直的交叉轴 属性flex-direction 决定主轴的方向，即项目的排列方向  row [default]  主轴在水平方向，起点在左侧  row-reverse 主轴在水平方向，起点在右侧  column 主轴在垂直方向，起点在顶部  column-reverse 主轴在垂直方向，起点在底部  flex-wrap 当一条轴线上无法排列所有子项，规定换行规则  nowrap [default] 不换行  wrap 换行，第一行在上方  wrap-reverse 换行，第一行在下方flex-flow 是 flex-direction 和 flex-wrap 的简写形式  row wrap [default]justify-content 定义项目在容器主轴上的对齐方式  flex-start [default] 左对齐  flex-end 右对齐  center 居中  space-between 两端对齐，每个项目之间的间距相等  space-around 每个项目两侧的间隔相等，即项目之间的间隔比项目与容器边框的间隔大一倍align-items 定义项目在容器交叉轴上的对齐方式  stretch [default] 如何项目未设置高度，则每个项目默认占据整个容器高度  flex-start 顶部  flex-end 底部  center 居中  baseline 项目第一行文字的基线对齐align-content 定义多条轴线的对齐方式，若容器只有一条轴线或容器没有多余空间，则不起作用  stretch [default] 项目占满整个交叉轴  flex-start 与交叉轴的顶部对齐  flex-end 与交叉轴的底部对齐  center 与交叉轴的中部对齐  space-between 与交叉轴的两端对齐，轴线之间的间隔平均分布  space-around 每条轴线两端的间隔相等，即轴线之间的间隔比轴线与边框的间隔要大一倍]]></content>
+      <content type="text"><![CDATA[  Flex 是 Flexible Box 的缩写，就是弹性布局，可以为盒子模型提供更大的灵活性任何一个容器都可以指定为 Flex 布局，其将会成为未来布局的首选方案概念  采用 Flex 布局的元素称为 Flex 容器  容器下的所有子元素自动成为容器成员，成为 Flex 项目  将元素的 display: flex 即可指定 Flex 容器  容器默认存在两根轴，水平的主轴和垂直的交叉轴 属性flex-direction 决定主轴的方向，即项目的排列方向  row [default]  主轴在水平方向，起点在左侧  row-reverse 主轴在水平方向，起点在右侧  column 主轴在垂直方向，起点在顶部  column-reverse 主轴在垂直方向，起点在底部flex-wrap 当一条轴线上无法排列所有子项，规定换行规则  nowrap [default] 不换行  wrap 换行，第一行在上方  wrap-reverse 换行，第一行在下方flex-flow 是 flex-direction 和 flex-wrap 的简写形式  row wrap [default]justify-content 定义项目在容器主轴上的对齐方式  flex-start [default] 左对齐  flex-end 右对齐  center 居中  space-between 两端对齐，每个项目之间的间距相等  space-around 每个项目两侧的间隔相等，即项目之间的间隔比项目与容器边框的间隔大一倍align-items 定义项目在容器交叉轴上的对齐方式  stretch [default] 如何项目未设置高度，则每个项目默认占据整个容器高度  flex-start 顶部  flex-end 底部  center 居中  baseline 项目第一行文字的基线对齐align-content 定义多条轴线的对齐方式，若容器只有一条轴线或容器没有多余空间，则不起作用  stretch [default] 项目占满整个交叉轴  flex-start 与交叉轴的顶部对齐  flex-end 与交叉轴的底部对齐  center 与交叉轴的中部对齐  space-between 与交叉轴的两端对齐，轴线之间的间隔平均分布  space-around 每条轴线两端的间隔相等，即轴线之间的间隔比轴线与边框的间隔要大一倍]]></content>
       <categories>
         
           <category> css </category>
@@ -2358,6 +2438,25 @@
           <tag> css </tag>
         
           <tag> flex </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[font-face 详解]]></title>
+      <url>/css/2017/10/12/font-face-%E8%AF%A6%E8%A7%A3/</url>
+      <content type="text"><![CDATA[  @font-face 是 CSS3 的一个模块，其主要作用是可将自定义字体嵌入到网页中，让网页字体的运用不只是限定在 Web 安全字体中语法  webFontName: 引入的自定义字体名称，将会为指定的元素添加 font-family: webFontName  source: 字体路径  format: 字体格式，用于帮助浏览器识别，truetype opentype truetype-aat embedded-opentype svg …  weight: 字体是否粗体  style: 字体样式@font-face {	font-family: &lt;webFontName&gt;;	src: &lt;source&gt; [&lt;format&gt;][,&lt;source&gt; [&lt;format&gt;]]*;	[font-weight: &lt;weight&gt;];	[font-style: &lt;style&gt;];}格式  truetype - ttf          Windows 和 Mac 最常见字体      RAW 格式，不为任何网站优化      IE9+、Firefox3.5+、Chrome4+、Safari3+、Opera10+、iOS Mobile Safari4.2+        opentype - otf          原始字体格式，内置在 truetype 基础之上      提供更多功能      Firefox3.5+、Chrome4.0+、Safari3.1+、Opera10.0+、iOS Mobile Safari4.2+        web-open-font-format - woff          Web 字体最佳格式      是一个开放的 truetype、opentype 压缩版本      支持元数据包的分离      IE9+、Firefox3.5+、Chrome6+、Safari3.6+、Opera11.1+        embedded-opentype - eot          IE 专用字体      可以从 truetype 创建此格式      IE4+        svg - svg          基于 svg 渲染      Chrome4+、Safari3.1+、Opera10.0+、iOS Mobile Safari3.2+      @font-face {	font-family: 'webFontName';	src: url('webFontName.eot'); /* IE9 Compat Modes */	src: url('webFontName.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */       url('webFontName.woff') format('woff'), /* Modern Browsers */		 url('webFontName.ttf') format('truetype'), /* Safari, Android, iOS */		 url('webFontName.svg#webFontName') format('svg'); /* Legacy iOS */}使用  获取自定义字体的原始文件，可前往 DaFont 下载  在 Font Squirrel 将字体转换为兼容各浏览器的 Web 字体  按上述兼容性语法指定 @font-face 中的字体  在指定元素中调用该自定义字体]]></content>
+      <categories>
+        
+          <category> css </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> css </tag>
+        
+          <tag> font </tag>
         
       </tags>
       <tags></tags>
@@ -2540,6 +2639,23 @@
     </entry>
   
     <entry>
+      <title><![CDATA[CSS 实现图片宽度自适应]]></title>
+      <url>/css/2017/08/19/CSS-%E5%AE%9E%E7%8E%B0%E5%9B%BE%E7%89%87%E5%AE%BD%E5%BA%A6%E8%87%AA%E9%80%82%E5%BA%94/</url>
+      <content type="text"><![CDATA[  由于浏览器的大小可变，导致放置图片的容器也会随之变化，要让图片和容器大小一起变化，则需要实现图片宽度自适应编写 HTML  用父容器包裹图片，当浏览器的大小发生变化时，首先影响到父容器，而不是图片&lt;div class="img-wrap"&gt;    &lt;img src="FullSizeRender 3.jpg"&gt;&lt;/div&gt;&lt;div class="img-wrap"&gt;    &lt;img src="logo-ccnu.png"&gt;&lt;/div&gt;&lt;div class="img-wrap"&gt;    &lt;img src="thumbfma.png"&gt;&lt;/div&gt;编写 CSS 样式  指定父容器的展现方式是 inline-block ，则可以让父容器的宽度随内容变化而变化  指定图片的宽度为 100% ，则可以让图片的宽度随父容器宽度变化而变化，而且图片的宽高比使用不变&lt;style type="text/css"&gt;    .img-wrap {        display: inline-block;    }    .img-wrap img {    	width: 100%;    	vertical-align: middle;    }&lt;/style&gt;]]></content>
+      <categories>
+        
+          <category> css </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> css </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
       <title><![CDATA[HTML5+CSS3 为 input 标签编写验证提示]]></title>
       <url>/css/2017/08/17/HTML5+CSS3-%E4%B8%BA-input-%E6%A0%87%E7%AD%BE%E7%BC%96%E5%86%99%E9%AA%8C%E8%AF%81%E6%8F%90%E7%A4%BA/</url>
       <content type="text"><![CDATA[  通过 HTML5 + CSS3 可以实现 input 中有无内容的友好提示方式定义 input 标签并在后面跟上 span 标签  input 标签中必须指定 required 属性&lt;input type="number" name="age" min="0" required&gt;&lt;span class="inputTip"&gt;&lt;/span&gt;为 input 标签编写动态 css 样式  当 input 中没有内容时其对应的伪类标签为 invalid  当 input 中存在内容时其对应的伪类标签为 valid&lt;style type="text/css"&gt;	input:invalid+span::after {		content: "✖";		padding-left: 10px;	}	input:valid+span::after {		content: "✓";		padding-left: 10px;	}&lt;/style&gt;]]></content>
@@ -2570,6 +2686,25 @@
       <tags>
         
           <tag> jquery </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[CSS box-shadow 详解]]></title>
+      <url>/css/2017/08/04/CSS-box-shadow-%E8%AF%A6%E8%A7%A3/</url>
+      <content type="text"><![CDATA[  box-shadow 是 CSS3 的语法特性，可以实现为元素添加阴影语法/* x轴偏移 y轴偏移 模糊半径 大小 颜色 位置 */box-shadow: offsetX offsetY blur spread color position;解析offsetX : x轴偏移  取正值向右偏移，负值向左偏移  box-shadow: 20px 0 10px 0 lightblue;  box-shadow: -20px 0 10px 0 lightblue;offsetY : y轴偏移  取正值向右偏移，负值向左偏移  box-shadow: 0 20px 10px 0 lightblue;  box-shadow: 0 -20px 10px 0 lightblue;blur : 模糊半径  取正值，值越大，阴影越模糊  取值为 0 则完全不模糊  取负值无效，按 0 处理  模糊的表现形式是向四周扩散，但四个边角最淡，想要模糊效果比较均匀，可将元素设置为圆形spread : 阴影大小  取正值，值越大，阴影越大  取负值，阴影大小的计算方式是元素宽高减去 spread 值，然后 blur 设置的模糊阴影会向内靠拢color : 阴影颜色position : 位置  默认阴影向外延展，取值 inset 会将阴影改为向内延展扩展box-shadow 和 background 一样支持设置多值box-shadow: 0 0px 10px 10px lightblue,			  0 0px 10px 10px lightblue inset;物体倒影&lt;!DOCTYPE html&gt;&lt;html lang="en"&gt;&lt;head&gt;    &lt;meta charset="UTF-8"&gt;    &lt;title&gt;box-shadow&lt;/title&gt;    &lt;style type="text/css"&gt;    #shadowContainer {        width: 200px;        height: 200px;        background-color: red;        margin: 200px auto;        position: relative;        transition: transform 1s;        border-radius: 50%;        animation: circleUp 1s 2s both infinite alternate;    }    #shadowContainer::after {        content: "";        position: absolute;        bottom: -50px;        border-radius: 50%;        width: 100%;        height: 10px;        background-color: rgba(255, 67, 66, 1.000);        transition: transform 1s;        box-shadow: 0 0 20px 1px rgba(255, 67, 66, 0.5);        animation: circleShadowUp 1s 2s both infinite alternate;    }    @keyframes circleUp {    	0% {			transform: translateY(0);    	}    	100% {			transform: translateY(-40px);    	}    }    @keyframes circleShadowUp {    	0% {			transform: translateY(0) scale(1);    	}    	100% {			transform: translateY(40px) scale(0.75);    	}    }    &lt;/style&gt;&lt;/head&gt;&lt;body&gt;    &lt;div id="shadowContainer"&gt;&lt;/div&gt;&lt;/body&gt;&lt;/html&gt;]]></content>
+      <categories>
+        
+          <category> css </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> css </tag>
+        
+          <tag> shadow </tag>
         
       </tags>
       <tags></tags>
@@ -2680,6 +2815,25 @@
       <tags>
         
           <tag> jquery </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[CSS 内嵌阴影]]></title>
+      <url>/css/2017/05/12/CSS-%E5%86%85%E5%B5%8C%E9%98%B4%E5%BD%B1/</url>
+      <content type="text"><![CDATA[  通过给 box-shadow 增加 inset 属性，可以实现内嵌阴影效果效果来源CSS box-shadow 详解语法box-shadow: 0 1px 5px 2px rgba(20%, 20%, 40%, 0.5) inset;解析  水平位移距离，必选  垂直位移距离，必选  模糊强度，不能为负  扩散强度，不能为负  阴影颜色  内阴影]]></content>
+      <categories>
+        
+          <category> css </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> css </tag>
+        
+          <tag> shadow </tag>
         
       </tags>
       <tags></tags>
@@ -3781,6 +3935,23 @@
           <tag> javascript </tag>
         
           <tag> array </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[CSS图片限制宽高]]></title>
+      <url>/css/2017/01/09/CSS%E5%9B%BE%E7%89%87%E9%99%90%E5%88%B6%E5%AE%BD%E9%AB%98/</url>
+      <content type="text"><![CDATA[  用父元素包裹图片，然后限制超出隐藏，可以保证图片不变形并且只看到图片上部分编写 HTML&lt;p class="img-container"&gt;	&lt;img src="#"&gt;&lt;/p&gt;编写 CSSp.img-container {	width: 100%;	height: 0;	padding-bottom: 60%;	overflow: hidden;}p.img-container img {	width: 100%;}]]></content>
+      <categories>
+        
+          <category> css </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> css </tag>
         
       </tags>
       <tags></tags>

@@ -312,7 +312,7 @@
       
       
       <a class="category-list-link" href="/category/#/css">css</a>
-      <span class="category-list-count">16</span>
+      <span class="category-list-count">25</span>
     </i>
     
     <li class="category-list-item">
@@ -559,6 +559,14 @@
       
       
       
+      <a class="category-list-link" href="/category/#/stylus">stylus</a>
+      <span class="category-list-count">1</span>
+    </i>
+    
+    <li class="category-list-item">
+      
+      
+      
       <a class="category-list-link" href="/category/#/intellij">intellij</a>
       <span class="category-list-count">2</span>
     </i>
@@ -616,6 +624,14 @@
       
       
       <a class="category-list-link" href="/category/#/list">list</a>
+      <span class="category-list-count">1</span>
+    </i>
+    
+    <li class="category-list-item">
+      
+      
+      
+      <a class="category-list-link" href="/category/#/video">video</a>
       <span class="category-list-count">1</span>
     </i>
     
@@ -703,6 +719,14 @@
       
       
       
+      <a class="category-list-link" href="/category/#/ie">ie</a>
+      <span class="category-list-count">1</span>
+    </i>
+    
+    <li class="category-list-item">
+      
+      
+      
       <a class="category-list-link" href="/category/#/shiro">shiro</a>
       <span class="category-list-count">2</span>
     </i>
@@ -726,6 +750,1118 @@
 
 
 <section id="posts" class="posts-expand">
+  
+    
+        
+<article class="post post-type- " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://localhost:4000/java/pay/2017/02/14/Java%E6%94%AF%E4%BB%98%E5%AE%9D%E6%89%AB%E7%A0%81%E6%94%AF%E4%BB%98-%E6%97%A7/">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="asing1elife">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/assets/images/avatar.png">
+    </span>
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="asing1elife's blog">
+    </span> 
+    <header class="post-header">
+         
+        <h1 class="post-title" itemprop="name headline">
+               
+            <a class="post-title-link" href="/java/pay/2017/02/14/Java%E6%94%AF%E4%BB%98%E5%AE%9D%E6%89%AB%E7%A0%81%E6%94%AF%E4%BB%98-%E6%97%A7/" itemprop="url">
+                Java支付宝扫码支付[旧]
+              </a>  
+        </h1>
+        
+        <div class="post-meta">
+            <span class="post-author">
+                
+                    <span class="post-meta-item-icon">
+                        <i class="fa fa-user-o"></i>
+                    </span>
+                    <span>asing1elife</span>
+                    <span class="post-meta-divider">|</span>
+                
+            </span>
+            <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span> 
+            <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-02-14T00:00:00+08:00">
+                2017-02-14
+            </time>
+              
+            </span>
+            
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span> 
+            <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>   
+            <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/category/#/java" itemprop="url" rel="index">
+                    <span itemprop="name">java</span>
+            </a>
+            </span>
+              ，    
+            <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/category/#/pay" itemprop="url" rel="index">
+                    <span itemprop="name">pay</span>
+            </a>
+            </span>
+              
+            </span>
+                    
+        </div>
+    </header>
+    
+    <div class="post-body" itemprop="articleBody">
+            
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <blockquote>
+  <p>在实际开发过程中，首先采用当面付模式进行开发，但没有成功，个人认为当面付更适合线下模式<br />
+之后改用即时到账模式才成功接入支付宝扫码支付功能<br />
+以下内容是基于即时到账模式开发<br />
+要使用支付宝即时到账接口，首先需要签约即时到账产品， <a href="https://b.alipay.com/order/productDetail.htm?productId=2015110218012942">申请地址</a><br />
+审核进度通常需要1个工作日，但实际几小时即可<br />
+之后需要获取和设置如下关键信息<br />
+pid:2088621150311111          合作伙伴身份ID<br />
+key:zrqyf6dfli7dvji4mmi4sw1111111111      MD5密钥<br />
+notify_url:http://127.0.0.1:8080/sop/order/notify/ali    异步通知回调地址<br />
+return_url:http://127.0.0.1:8080/sop/order/notify/ali/return  同步通知回调地址</p>
+</blockquote>
+
+
+
+    <!--noindex-->
+    <div class="post-button text-center">
+        <a class="btn" href="/java/pay/2017/02/14/Java%E6%94%AF%E4%BB%98%E5%AE%9D%E6%89%AB%E7%A0%81%E6%94%AF%E4%BB%98-%E6%97%A7/#" rel="contents">
+              阅读全文 &raquo;
+            </a>
+    </div>
+    <!--/noindex-->
+     
+    </div>
+    <div>
+        
+    </div>
+    <div>
+        
+    </div>
+    <div>
+        
+    </div>
+    <footer class="post-footer">
+               
+        <div class="post-eof"></div>
+         
+    </footer>
+    <script src="//cdn.jsdelivr.net/jquery/2.1.3/jquery.min.js"></script>
+    <script>
+    // 彩虹颜色数组
+    var colors = ['#e5e1de', '#72c02c', '#3398dc', '#d6e2ee', '#009', '#4263a3', '#f00', '#e64b3b',
+        '#a10f2b', '#9a69cb', '#6639b6', '#e81c62', '#e57d20', '#fe541e', '#ebc71d', '#29d6e6', '#00bed6', '#18ba9b',
+        '#9c8061', '#585f69'
+    ]
+
+    $(function() {
+        // 为所有标签自动添加由新窗口打开属性
+        $('a[href^="http"]').each(function() {
+            $(this).attr('target', '_blank')
+        })
+
+        // 为所有加粗标签添加颜色
+        $('div.posts-expand strong').each(function() {
+            var $this = $(this)
+
+            $this.css({
+                backgroundColor: colors[getRandom(colors.length)]
+            })
+        })
+    })
+
+    function getRandom(max) {
+        return Math.floor(Math.random() * Math.floor(max))
+    }
+    </script>
+</article>
+  
+    
+        
+<article class="post post-type- " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://localhost:4000/java/pay/2017/02/11/Java%E5%BE%AE%E4%BF%A1%E6%89%AB%E7%A0%81%E6%94%AF%E4%BB%98/">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="asing1elife">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/assets/images/avatar.png">
+    </span>
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="asing1elife's blog">
+    </span> 
+    <header class="post-header">
+         
+        <h1 class="post-title" itemprop="name headline">
+               
+            <a class="post-title-link" href="/java/pay/2017/02/11/Java%E5%BE%AE%E4%BF%A1%E6%89%AB%E7%A0%81%E6%94%AF%E4%BB%98/" itemprop="url">
+                Java微信扫码支付
+              </a>  
+        </h1>
+        
+        <div class="post-meta">
+            <span class="post-author">
+                
+                    <span class="post-meta-item-icon">
+                        <i class="fa fa-user-o"></i>
+                    </span>
+                    <span>asing1elife</span>
+                    <span class="post-meta-divider">|</span>
+                
+            </span>
+            <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span> 
+            <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-02-11T00:00:00+08:00">
+                2017-02-11
+            </time>
+              
+            </span>
+            
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span> 
+            <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>   
+            <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/category/#/java" itemprop="url" rel="index">
+                    <span itemprop="name">java</span>
+            </a>
+            </span>
+              ，    
+            <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/category/#/pay" itemprop="url" rel="index">
+                    <span itemprop="name">pay</span>
+            </a>
+            </span>
+              
+            </span>
+                    
+        </div>
+    </header>
+    
+    <div class="post-body" itemprop="articleBody">
+            
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <blockquote>
+  <p>以下内容是基于模式二开发<br />
+在开发之前需要先到微信支付官网注册账号，并获取到以下信息<br />
+appid:wx1137939101111111公众账号id<br />
+mch_id:1438111111 商户号<br />
+key:4Inn0va1eSxOnl1neqsxwuhan1111111密钥<br />
+send_url:https://api.mch.weixin.qq.com/pay/unifiedorder统一下单API<br />
+notify_url:http://127.0.0.1:8080/sop/order/notify/wechat支付成功回调地址</p>
+</blockquote>
+
+
+
+    <!--noindex-->
+    <div class="post-button text-center">
+        <a class="btn" href="/java/pay/2017/02/11/Java%E5%BE%AE%E4%BF%A1%E6%89%AB%E7%A0%81%E6%94%AF%E4%BB%98/#" rel="contents">
+              阅读全文 &raquo;
+            </a>
+    </div>
+    <!--/noindex-->
+     
+    </div>
+    <div>
+        
+    </div>
+    <div>
+        
+    </div>
+    <div>
+        
+    </div>
+    <footer class="post-footer">
+               
+        <div class="post-eof"></div>
+         
+    </footer>
+    <script src="//cdn.jsdelivr.net/jquery/2.1.3/jquery.min.js"></script>
+    <script>
+    // 彩虹颜色数组
+    var colors = ['#e5e1de', '#72c02c', '#3398dc', '#d6e2ee', '#009', '#4263a3', '#f00', '#e64b3b',
+        '#a10f2b', '#9a69cb', '#6639b6', '#e81c62', '#e57d20', '#fe541e', '#ebc71d', '#29d6e6', '#00bed6', '#18ba9b',
+        '#9c8061', '#585f69'
+    ]
+
+    $(function() {
+        // 为所有标签自动添加由新窗口打开属性
+        $('a[href^="http"]').each(function() {
+            $(this).attr('target', '_blank')
+        })
+
+        // 为所有加粗标签添加颜色
+        $('div.posts-expand strong').each(function() {
+            var $this = $(this)
+
+            $this.css({
+                backgroundColor: colors[getRandom(colors.length)]
+            })
+        })
+    })
+
+    function getRandom(max) {
+        return Math.floor(Math.random() * Math.floor(max))
+    }
+    </script>
+</article>
+  
+    
+        
+<article class="post post-type- " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://localhost:4000/java/2017/02/09/Java-MD5%E5%8A%A0%E5%AF%86/">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="asing1elife">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/assets/images/avatar.png">
+    </span>
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="asing1elife's blog">
+    </span> 
+    <header class="post-header">
+         
+        <h1 class="post-title" itemprop="name headline">
+               
+            <a class="post-title-link" href="/java/2017/02/09/Java-MD5%E5%8A%A0%E5%AF%86/" itemprop="url">
+                Java MD5加密
+              </a>  
+        </h1>
+        
+        <div class="post-meta">
+            <span class="post-author">
+                
+                    <span class="post-meta-item-icon">
+                        <i class="fa fa-user-o"></i>
+                    </span>
+                    <span>asing1elife</span>
+                    <span class="post-meta-divider">|</span>
+                
+            </span>
+            <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span> 
+            <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-02-09T00:00:00+08:00">
+                2017-02-09
+            </time>
+              
+            </span>
+            
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span> 
+            <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>   
+            <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/category/#/java" itemprop="url" rel="index">
+                    <span itemprop="name">java</span>
+            </a>
+            </span>
+              
+            </span>
+                    
+        </div>
+    </header>
+    
+    <div class="post-body" itemprop="articleBody">
+            
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <blockquote>
+  <p>md5加密简要算法</p>
+</blockquote>
+
+
+
+    <!--noindex-->
+    <div class="post-button text-center">
+        <a class="btn" href="/java/2017/02/09/Java-MD5%E5%8A%A0%E5%AF%86/#" rel="contents">
+              阅读全文 &raquo;
+            </a>
+    </div>
+    <!--/noindex-->
+     
+    </div>
+    <div>
+        
+    </div>
+    <div>
+        
+    </div>
+    <div>
+        
+    </div>
+    <footer class="post-footer">
+               
+        <div class="post-eof"></div>
+         
+    </footer>
+    <script src="//cdn.jsdelivr.net/jquery/2.1.3/jquery.min.js"></script>
+    <script>
+    // 彩虹颜色数组
+    var colors = ['#e5e1de', '#72c02c', '#3398dc', '#d6e2ee', '#009', '#4263a3', '#f00', '#e64b3b',
+        '#a10f2b', '#9a69cb', '#6639b6', '#e81c62', '#e57d20', '#fe541e', '#ebc71d', '#29d6e6', '#00bed6', '#18ba9b',
+        '#9c8061', '#585f69'
+    ]
+
+    $(function() {
+        // 为所有标签自动添加由新窗口打开属性
+        $('a[href^="http"]').each(function() {
+            $(this).attr('target', '_blank')
+        })
+
+        // 为所有加粗标签添加颜色
+        $('div.posts-expand strong').each(function() {
+            var $this = $(this)
+
+            $this.css({
+                backgroundColor: colors[getRandom(colors.length)]
+            })
+        })
+    })
+
+    function getRandom(max) {
+        return Math.floor(Math.random() * Math.floor(max))
+    }
+    </script>
+</article>
+  
+    
+        
+<article class="post post-type- " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://localhost:4000/java/mybatis/2017/02/08/MyBatis%E6%96%B0%E5%A2%9E%E8%BF%94%E5%9B%9Eid/">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="asing1elife">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/assets/images/avatar.png">
+    </span>
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="asing1elife's blog">
+    </span> 
+    <header class="post-header">
+         
+        <h1 class="post-title" itemprop="name headline">
+               
+            <a class="post-title-link" href="/java/mybatis/2017/02/08/MyBatis%E6%96%B0%E5%A2%9E%E8%BF%94%E5%9B%9Eid/" itemprop="url">
+                MyBatis新增返回id
+              </a>  
+        </h1>
+        
+        <div class="post-meta">
+            <span class="post-author">
+                
+                    <span class="post-meta-item-icon">
+                        <i class="fa fa-user-o"></i>
+                    </span>
+                    <span>asing1elife</span>
+                    <span class="post-meta-divider">|</span>
+                
+            </span>
+            <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span> 
+            <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-02-08T00:00:00+08:00">
+                2017-02-08
+            </time>
+              
+            </span>
+            
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span> 
+            <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>   
+            <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/category/#/java" itemprop="url" rel="index">
+                    <span itemprop="name">java</span>
+            </a>
+            </span>
+              ，    
+            <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/category/#/mybatis" itemprop="url" rel="index">
+                    <span itemprop="name">mybatis</span>
+            </a>
+            </span>
+              
+            </span>
+                    
+        </div>
+    </header>
+    
+    <div class="post-body" itemprop="articleBody">
+            
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <blockquote>
+  <p>新增一条数据到数据库，并返回该数据的id</p>
+</blockquote>
+
+
+
+    <!--noindex-->
+    <div class="post-button text-center">
+        <a class="btn" href="/java/mybatis/2017/02/08/MyBatis%E6%96%B0%E5%A2%9E%E8%BF%94%E5%9B%9Eid/#" rel="contents">
+              阅读全文 &raquo;
+            </a>
+    </div>
+    <!--/noindex-->
+     
+    </div>
+    <div>
+        
+    </div>
+    <div>
+        
+    </div>
+    <div>
+        
+    </div>
+    <footer class="post-footer">
+               
+        <div class="post-eof"></div>
+         
+    </footer>
+    <script src="//cdn.jsdelivr.net/jquery/2.1.3/jquery.min.js"></script>
+    <script>
+    // 彩虹颜色数组
+    var colors = ['#e5e1de', '#72c02c', '#3398dc', '#d6e2ee', '#009', '#4263a3', '#f00', '#e64b3b',
+        '#a10f2b', '#9a69cb', '#6639b6', '#e81c62', '#e57d20', '#fe541e', '#ebc71d', '#29d6e6', '#00bed6', '#18ba9b',
+        '#9c8061', '#585f69'
+    ]
+
+    $(function() {
+        // 为所有标签自动添加由新窗口打开属性
+        $('a[href^="http"]').each(function() {
+            $(this).attr('target', '_blank')
+        })
+
+        // 为所有加粗标签添加颜色
+        $('div.posts-expand strong').each(function() {
+            var $this = $(this)
+
+            $this.css({
+                backgroundColor: colors[getRandom(colors.length)]
+            })
+        })
+    })
+
+    function getRandom(max) {
+        return Math.floor(Math.random() * Math.floor(max))
+    }
+    </script>
+</article>
+  
+    
+        
+<article class="post post-type- " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://localhost:4000/css/2017/01/26/CSS%E6%96%87%E5%AD%97%E4%B8%8D%E8%83%BD%E8%A2%AB%E9%80%89%E4%B8%AD/">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="asing1elife">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/assets/images/avatar.png">
+    </span>
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="asing1elife's blog">
+    </span> 
+    <header class="post-header">
+         
+        <h1 class="post-title" itemprop="name headline">
+               
+            <a class="post-title-link" href="/css/2017/01/26/CSS%E6%96%87%E5%AD%97%E4%B8%8D%E8%83%BD%E8%A2%AB%E9%80%89%E4%B8%AD/" itemprop="url">
+                CSS文字不能被选中
+              </a>  
+        </h1>
+        
+        <div class="post-meta">
+            <span class="post-author">
+                
+                    <span class="post-meta-item-icon">
+                        <i class="fa fa-user-o"></i>
+                    </span>
+                    <span>asing1elife</span>
+                    <span class="post-meta-divider">|</span>
+                
+            </span>
+            <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span> 
+            <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-01-26T00:00:00+08:00">
+                2017-01-26
+            </time>
+              
+            </span>
+            
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span> 
+            <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>   
+            <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/category/#/css" itemprop="url" rel="index">
+                    <span itemprop="name">css</span>
+            </a>
+            </span>
+              
+            </span>
+                    
+        </div>
+    </header>
+    
+    <div class="post-body" itemprop="articleBody">
+            
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <blockquote>
+  <p>确保文本文字不能被光标选中</p>
+</blockquote>
+
+
+
+    <!--noindex-->
+    <div class="post-button text-center">
+        <a class="btn" href="/css/2017/01/26/CSS%E6%96%87%E5%AD%97%E4%B8%8D%E8%83%BD%E8%A2%AB%E9%80%89%E4%B8%AD/#" rel="contents">
+              阅读全文 &raquo;
+            </a>
+    </div>
+    <!--/noindex-->
+     
+    </div>
+    <div>
+        
+    </div>
+    <div>
+        
+    </div>
+    <div>
+        
+    </div>
+    <footer class="post-footer">
+               
+        <div class="post-eof"></div>
+         
+    </footer>
+    <script src="//cdn.jsdelivr.net/jquery/2.1.3/jquery.min.js"></script>
+    <script>
+    // 彩虹颜色数组
+    var colors = ['#e5e1de', '#72c02c', '#3398dc', '#d6e2ee', '#009', '#4263a3', '#f00', '#e64b3b',
+        '#a10f2b', '#9a69cb', '#6639b6', '#e81c62', '#e57d20', '#fe541e', '#ebc71d', '#29d6e6', '#00bed6', '#18ba9b',
+        '#9c8061', '#585f69'
+    ]
+
+    $(function() {
+        // 为所有标签自动添加由新窗口打开属性
+        $('a[href^="http"]').each(function() {
+            $(this).attr('target', '_blank')
+        })
+
+        // 为所有加粗标签添加颜色
+        $('div.posts-expand strong').each(function() {
+            var $this = $(this)
+
+            $this.css({
+                backgroundColor: colors[getRandom(colors.length)]
+            })
+        })
+    })
+
+    function getRandom(max) {
+        return Math.floor(Math.random() * Math.floor(max))
+    }
+    </script>
+</article>
+  
+    
+        
+<article class="post post-type- " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://localhost:4000/validate/2017/01/20/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="asing1elife">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/assets/images/avatar.png">
+    </span>
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="asing1elife's blog">
+    </span> 
+    <header class="post-header">
+         
+        <h1 class="post-title" itemprop="name headline">
+               
+            <a class="post-title-link" href="/validate/2017/01/20/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" itemprop="url">
+                正则表达式
+              </a>  
+        </h1>
+        
+        <div class="post-meta">
+            <span class="post-author">
+                
+                    <span class="post-meta-item-icon">
+                        <i class="fa fa-user-o"></i>
+                    </span>
+                    <span>asing1elife</span>
+                    <span class="post-meta-divider">|</span>
+                
+            </span>
+            <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span> 
+            <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-01-20T00:00:00+08:00">
+                2017-01-20
+            </time>
+              
+            </span>
+            
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span> 
+            <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>   
+            <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/category/#/validate" itemprop="url" rel="index">
+                    <span itemprop="name">validate</span>
+            </a>
+            </span>
+              
+            </span>
+                    
+        </div>
+    </header>
+    
+    <div class="post-body" itemprop="articleBody">
+            
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <blockquote>
+  <p>正则表达式的一些基础语法</p>
+</blockquote>
+
+
+
+    <!--noindex-->
+    <div class="post-button text-center">
+        <a class="btn" href="/validate/2017/01/20/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/#" rel="contents">
+              阅读全文 &raquo;
+            </a>
+    </div>
+    <!--/noindex-->
+     
+    </div>
+    <div>
+        
+    </div>
+    <div>
+        
+    </div>
+    <div>
+        
+    </div>
+    <footer class="post-footer">
+               
+        <div class="post-eof"></div>
+         
+    </footer>
+    <script src="//cdn.jsdelivr.net/jquery/2.1.3/jquery.min.js"></script>
+    <script>
+    // 彩虹颜色数组
+    var colors = ['#e5e1de', '#72c02c', '#3398dc', '#d6e2ee', '#009', '#4263a3', '#f00', '#e64b3b',
+        '#a10f2b', '#9a69cb', '#6639b6', '#e81c62', '#e57d20', '#fe541e', '#ebc71d', '#29d6e6', '#00bed6', '#18ba9b',
+        '#9c8061', '#585f69'
+    ]
+
+    $(function() {
+        // 为所有标签自动添加由新窗口打开属性
+        $('a[href^="http"]').each(function() {
+            $(this).attr('target', '_blank')
+        })
+
+        // 为所有加粗标签添加颜色
+        $('div.posts-expand strong').each(function() {
+            var $this = $(this)
+
+            $this.css({
+                backgroundColor: colors[getRandom(colors.length)]
+            })
+        })
+    })
+
+    function getRandom(max) {
+        return Math.floor(Math.random() * Math.floor(max))
+    }
+    </script>
+</article>
+  
+    
+        
+<article class="post post-type- " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://localhost:4000/java/relfect/2017/01/20/%E5%AF%B9%E8%B1%A1%E5%8F%8D%E5%B0%84%E8%B5%8B%E5%80%BC/">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="asing1elife">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/assets/images/avatar.png">
+    </span>
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="asing1elife's blog">
+    </span> 
+    <header class="post-header">
+         
+        <h1 class="post-title" itemprop="name headline">
+               
+            <a class="post-title-link" href="/java/relfect/2017/01/20/%E5%AF%B9%E8%B1%A1%E5%8F%8D%E5%B0%84%E8%B5%8B%E5%80%BC/" itemprop="url">
+                对象反射赋值
+              </a>  
+        </h1>
+        
+        <div class="post-meta">
+            <span class="post-author">
+                
+                    <span class="post-meta-item-icon">
+                        <i class="fa fa-user-o"></i>
+                    </span>
+                    <span>asing1elife</span>
+                    <span class="post-meta-divider">|</span>
+                
+            </span>
+            <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span> 
+            <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-01-20T00:00:00+08:00">
+                2017-01-20
+            </time>
+              
+            </span>
+            
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span> 
+            <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>   
+            <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/category/#/java" itemprop="url" rel="index">
+                    <span itemprop="name">java</span>
+            </a>
+            </span>
+              ，    
+            <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/category/#/relfect" itemprop="url" rel="index">
+                    <span itemprop="name">relfect</span>
+            </a>
+            </span>
+              
+            </span>
+                    
+        </div>
+    </header>
+    
+    <div class="post-body" itemprop="articleBody">
+            
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <blockquote>
+  <p>在不确定对象字段及内容的前提下，为对象赋值的解决方案通常是反射赋值</p>
+</blockquote>
+
+
+
+    <!--noindex-->
+    <div class="post-button text-center">
+        <a class="btn" href="/java/relfect/2017/01/20/%E5%AF%B9%E8%B1%A1%E5%8F%8D%E5%B0%84%E8%B5%8B%E5%80%BC/#" rel="contents">
+              阅读全文 &raquo;
+            </a>
+    </div>
+    <!--/noindex-->
+     
+    </div>
+    <div>
+        
+    </div>
+    <div>
+        
+    </div>
+    <div>
+        
+    </div>
+    <footer class="post-footer">
+               
+        <div class="post-eof"></div>
+         
+    </footer>
+    <script src="//cdn.jsdelivr.net/jquery/2.1.3/jquery.min.js"></script>
+    <script>
+    // 彩虹颜色数组
+    var colors = ['#e5e1de', '#72c02c', '#3398dc', '#d6e2ee', '#009', '#4263a3', '#f00', '#e64b3b',
+        '#a10f2b', '#9a69cb', '#6639b6', '#e81c62', '#e57d20', '#fe541e', '#ebc71d', '#29d6e6', '#00bed6', '#18ba9b',
+        '#9c8061', '#585f69'
+    ]
+
+    $(function() {
+        // 为所有标签自动添加由新窗口打开属性
+        $('a[href^="http"]').each(function() {
+            $(this).attr('target', '_blank')
+        })
+
+        // 为所有加粗标签添加颜色
+        $('div.posts-expand strong').each(function() {
+            var $this = $(this)
+
+            $this.css({
+                backgroundColor: colors[getRandom(colors.length)]
+            })
+        })
+    })
+
+    function getRandom(max) {
+        return Math.floor(Math.random() * Math.floor(max))
+    }
+    </script>
+</article>
+  
+    
+        
+<article class="post post-type- " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://localhost:4000/jquery/2017/01/20/jQuery%E6%93%8D%E4%BD%9Caudio%E5%92%8Cvideo/">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="asing1elife">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/assets/images/avatar.png">
+    </span>
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="asing1elife's blog">
+    </span> 
+    <header class="post-header">
+         
+        <h1 class="post-title" itemprop="name headline">
+               
+            <a class="post-title-link" href="/jquery/2017/01/20/jQuery%E6%93%8D%E4%BD%9Caudio%E5%92%8Cvideo/" itemprop="url">
+                jQuery操作audio和video
+              </a>  
+        </h1>
+        
+        <div class="post-meta">
+            <span class="post-author">
+                
+                    <span class="post-meta-item-icon">
+                        <i class="fa fa-user-o"></i>
+                    </span>
+                    <span>asing1elife</span>
+                    <span class="post-meta-divider">|</span>
+                
+            </span>
+            <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span> 
+            <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-01-20T00:00:00+08:00">
+                2017-01-20
+            </time>
+              
+            </span>
+            
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span> 
+            <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>   
+            <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/category/#/jquery" itemprop="url" rel="index">
+                    <span itemprop="name">jquery</span>
+            </a>
+            </span>
+              
+            </span>
+                    
+        </div>
+    </header>
+    
+    <div class="post-body" itemprop="articleBody">
+            
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <blockquote>
+  <p>获取audio需要使用[0]，因为js操作获得的是audio对象，jQuery选择器获得的是jQuery对象，通过[0]取到的才是对应的节点对象<br />
+所以不能直接使用jQuery对象去操作，需要通过[0]转换成js对应的节点对象</p>
+</blockquote>
+
+
+
+    <!--noindex-->
+    <div class="post-button text-center">
+        <a class="btn" href="/jquery/2017/01/20/jQuery%E6%93%8D%E4%BD%9Caudio%E5%92%8Cvideo/#" rel="contents">
+              阅读全文 &raquo;
+            </a>
+    </div>
+    <!--/noindex-->
+     
+    </div>
+    <div>
+        
+    </div>
+    <div>
+        
+    </div>
+    <div>
+        
+    </div>
+    <footer class="post-footer">
+               
+        <div class="post-eof"></div>
+         
+    </footer>
+    <script src="//cdn.jsdelivr.net/jquery/2.1.3/jquery.min.js"></script>
+    <script>
+    // 彩虹颜色数组
+    var colors = ['#e5e1de', '#72c02c', '#3398dc', '#d6e2ee', '#009', '#4263a3', '#f00', '#e64b3b',
+        '#a10f2b', '#9a69cb', '#6639b6', '#e81c62', '#e57d20', '#fe541e', '#ebc71d', '#29d6e6', '#00bed6', '#18ba9b',
+        '#9c8061', '#585f69'
+    ]
+
+    $(function() {
+        // 为所有标签自动添加由新窗口打开属性
+        $('a[href^="http"]').each(function() {
+            $(this).attr('target', '_blank')
+        })
+
+        // 为所有加粗标签添加颜色
+        $('div.posts-expand strong').each(function() {
+            var $this = $(this)
+
+            $this.css({
+                backgroundColor: colors[getRandom(colors.length)]
+            })
+        })
+    })
+
+    function getRandom(max) {
+        return Math.floor(Math.random() * Math.floor(max))
+    }
+    </script>
+</article>
   
     
         
@@ -961,1098 +2097,6 @@
         
     </div>
     <footer class="post-footer">
-               
-        <div class="post-eof"></div>
-         
-    </footer>
-    <script src="//cdn.jsdelivr.net/jquery/2.1.3/jquery.min.js"></script>
-    <script>
-    // 彩虹颜色数组
-    var colors = ['#e5e1de', '#72c02c', '#3398dc', '#d6e2ee', '#009', '#4263a3', '#f00', '#e64b3b',
-        '#a10f2b', '#9a69cb', '#6639b6', '#e81c62', '#e57d20', '#fe541e', '#ebc71d', '#29d6e6', '#00bed6', '#18ba9b',
-        '#9c8061', '#585f69'
-    ]
-
-    $(function() {
-        // 为所有标签自动添加由新窗口打开属性
-        $('a[href^="http"]').each(function() {
-            $(this).attr('target', '_blank')
-        })
-
-        // 为所有加粗标签添加颜色
-        $('div.posts-expand strong').each(function() {
-            var $this = $(this)
-
-            $this.css({
-                backgroundColor: colors[getRandom(colors.length)]
-            })
-        })
-    })
-
-    function getRandom(max) {
-        return Math.floor(Math.random() * Math.floor(max))
-    }
-    </script>
-</article>
-  
-    
-        
-<article class="post post-type- " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://localhost:4000/javascript/2017/01/20/Javascript-%E8%B7%B3%E5%87%BA%E5%BE%AA%E7%8E%AF/">
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="asing1elife">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/assets/images/avatar.png">
-    </span>
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="asing1elife's blog">
-    </span> 
-    <header class="post-header">
-         
-        <h1 class="post-title" itemprop="name headline">
-               
-            <a class="post-title-link" href="/javascript/2017/01/20/Javascript-%E8%B7%B3%E5%87%BA%E5%BE%AA%E7%8E%AF/" itemprop="url">
-                Javascript 跳出循环
-              </a>  
-        </h1>
-        
-        <div class="post-meta">
-            <span class="post-author">
-                
-                    <span class="post-meta-item-icon">
-                        <i class="fa fa-user-o"></i>
-                    </span>
-                    <span>asing1elife</span>
-                    <span class="post-meta-divider">|</span>
-                
-            </span>
-            <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span> 
-            <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-01-20T00:00:00+08:00">
-                2017-01-20
-            </time>
-              
-            </span>
-            
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span> 
-            <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>   
-            <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/category/#/javascript" itemprop="url" rel="index">
-                    <span itemprop="name">javascript</span>
-            </a>
-            </span>
-              
-            </span>
-                    
-        </div>
-    </header>
-    
-    <div class="post-body" itemprop="articleBody">
-            
-  
-  
-
-
-
-
-
-
-
-
-
-
-
-
-  <blockquote>
-  <p>对于不同的循环方式，javascript需要采用不同的方式跳出</p>
-</blockquote>
-
-
-
-    <!--noindex-->
-    <div class="post-button text-center">
-        <a class="btn" href="/javascript/2017/01/20/Javascript-%E8%B7%B3%E5%87%BA%E5%BE%AA%E7%8E%AF/#" rel="contents">
-              阅读全文 &raquo;
-            </a>
-    </div>
-    <!--/noindex-->
-     
-    </div>
-    <div>
-        
-    </div>
-    <div>
-        
-    </div>
-    <div>
-        
-    </div>
-    <footer class="post-footer">
-               
-        <div class="post-eof"></div>
-         
-    </footer>
-    <script src="//cdn.jsdelivr.net/jquery/2.1.3/jquery.min.js"></script>
-    <script>
-    // 彩虹颜色数组
-    var colors = ['#e5e1de', '#72c02c', '#3398dc', '#d6e2ee', '#009', '#4263a3', '#f00', '#e64b3b',
-        '#a10f2b', '#9a69cb', '#6639b6', '#e81c62', '#e57d20', '#fe541e', '#ebc71d', '#29d6e6', '#00bed6', '#18ba9b',
-        '#9c8061', '#585f69'
-    ]
-
-    $(function() {
-        // 为所有标签自动添加由新窗口打开属性
-        $('a[href^="http"]').each(function() {
-            $(this).attr('target', '_blank')
-        })
-
-        // 为所有加粗标签添加颜色
-        $('div.posts-expand strong').each(function() {
-            var $this = $(this)
-
-            $this.css({
-                backgroundColor: colors[getRandom(colors.length)]
-            })
-        })
-    })
-
-    function getRandom(max) {
-        return Math.floor(Math.random() * Math.floor(max))
-    }
-    </script>
-</article>
-  
-    
-        
-<article class="post post-type- " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://localhost:4000/javascript/2017/01/20/Javascript-replace()%E5%AE%9E%E7%8E%B0%E5%85%A8%E5%B1%80%E6%9B%BF%E6%8D%A2/">
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="asing1elife">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/assets/images/avatar.png">
-    </span>
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="asing1elife's blog">
-    </span> 
-    <header class="post-header">
-         
-        <h1 class="post-title" itemprop="name headline">
-               
-            <a class="post-title-link" href="/javascript/2017/01/20/Javascript-replace()%E5%AE%9E%E7%8E%B0%E5%85%A8%E5%B1%80%E6%9B%BF%E6%8D%A2/" itemprop="url">
-                Javascript replace()实现全局替换
-              </a>  
-        </h1>
-        
-        <div class="post-meta">
-            <span class="post-author">
-                
-                    <span class="post-meta-item-icon">
-                        <i class="fa fa-user-o"></i>
-                    </span>
-                    <span>asing1elife</span>
-                    <span class="post-meta-divider">|</span>
-                
-            </span>
-            <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span> 
-            <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-01-20T00:00:00+08:00">
-                2017-01-20
-            </time>
-              
-            </span>
-            
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span> 
-            <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>   
-            <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/category/#/javascript" itemprop="url" rel="index">
-                    <span itemprop="name">javascript</span>
-            </a>
-            </span>
-              
-            </span>
-                    
-        </div>
-    </header>
-    
-    <div class="post-body" itemprop="articleBody">
-            
-  
-  
-
-
-
-
-
-
-
-
-
-
-
-
-  <blockquote>
-  <p>第一个参数需要用到正则表达式，<code class="highlighter-rouge">/g</code> 表示全局替换，否则只能替换第一个匹配项</p>
-</blockquote>
-
-
-
-    <!--noindex-->
-    <div class="post-button text-center">
-        <a class="btn" href="/javascript/2017/01/20/Javascript-replace()%E5%AE%9E%E7%8E%B0%E5%85%A8%E5%B1%80%E6%9B%BF%E6%8D%A2/#" rel="contents">
-              阅读全文 &raquo;
-            </a>
-    </div>
-    <!--/noindex-->
-     
-    </div>
-    <div>
-        
-    </div>
-    <div>
-        
-    </div>
-    <div>
-        
-    </div>
-    <footer class="post-footer">
-               
-        <div class="post-eof"></div>
-         
-    </footer>
-    <script src="//cdn.jsdelivr.net/jquery/2.1.3/jquery.min.js"></script>
-    <script>
-    // 彩虹颜色数组
-    var colors = ['#e5e1de', '#72c02c', '#3398dc', '#d6e2ee', '#009', '#4263a3', '#f00', '#e64b3b',
-        '#a10f2b', '#9a69cb', '#6639b6', '#e81c62', '#e57d20', '#fe541e', '#ebc71d', '#29d6e6', '#00bed6', '#18ba9b',
-        '#9c8061', '#585f69'
-    ]
-
-    $(function() {
-        // 为所有标签自动添加由新窗口打开属性
-        $('a[href^="http"]').each(function() {
-            $(this).attr('target', '_blank')
-        })
-
-        // 为所有加粗标签添加颜色
-        $('div.posts-expand strong').each(function() {
-            var $this = $(this)
-
-            $this.css({
-                backgroundColor: colors[getRandom(colors.length)]
-            })
-        })
-    })
-
-    function getRandom(max) {
-        return Math.floor(Math.random() * Math.floor(max))
-    }
-    </script>
-</article>
-  
-    
-        
-<article class="post post-type- " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://localhost:4000/javascript/json/2017/01/20/Javascript-JSON-%E8%BD%AC%E6%8D%A2/">
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="asing1elife">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/assets/images/avatar.png">
-    </span>
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="asing1elife's blog">
-    </span> 
-    <header class="post-header">
-         
-        <h1 class="post-title" itemprop="name headline">
-               
-            <a class="post-title-link" href="/javascript/json/2017/01/20/Javascript-JSON-%E8%BD%AC%E6%8D%A2/" itemprop="url">
-                Javascript JSON 转换
-              </a>  
-        </h1>
-        
-        <div class="post-meta">
-            <span class="post-author">
-                
-                    <span class="post-meta-item-icon">
-                        <i class="fa fa-user-o"></i>
-                    </span>
-                    <span>asing1elife</span>
-                    <span class="post-meta-divider">|</span>
-                
-            </span>
-            <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span> 
-            <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-01-20T00:00:00+08:00">
-                2017-01-20
-            </time>
-              
-            </span>
-            
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span> 
-            <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>   
-            <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/category/#/javascript" itemprop="url" rel="index">
-                    <span itemprop="name">javascript</span>
-            </a>
-            </span>
-              ，    
-            <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/category/#/json" itemprop="url" rel="index">
-                    <span itemprop="name">json</span>
-            </a>
-            </span>
-              
-            </span>
-                    
-        </div>
-    </header>
-    
-    <div class="post-body" itemprop="articleBody">
-            
-  
-  
-
-
-
-
-
-
-
-
-
-
-
-
-  <blockquote>
-  <p>javascript的JSON格式相互转换</p>
-</blockquote>
-
-
-
-    <!--noindex-->
-    <div class="post-button text-center">
-        <a class="btn" href="/javascript/json/2017/01/20/Javascript-JSON-%E8%BD%AC%E6%8D%A2/#" rel="contents">
-              阅读全文 &raquo;
-            </a>
-    </div>
-    <!--/noindex-->
-     
-    </div>
-    <div>
-        
-    </div>
-    <div>
-        
-    </div>
-    <div>
-        
-    </div>
-    <footer class="post-footer">
-               
-        <div class="post-eof"></div>
-         
-    </footer>
-    <script src="//cdn.jsdelivr.net/jquery/2.1.3/jquery.min.js"></script>
-    <script>
-    // 彩虹颜色数组
-    var colors = ['#e5e1de', '#72c02c', '#3398dc', '#d6e2ee', '#009', '#4263a3', '#f00', '#e64b3b',
-        '#a10f2b', '#9a69cb', '#6639b6', '#e81c62', '#e57d20', '#fe541e', '#ebc71d', '#29d6e6', '#00bed6', '#18ba9b',
-        '#9c8061', '#585f69'
-    ]
-
-    $(function() {
-        // 为所有标签自动添加由新窗口打开属性
-        $('a[href^="http"]').each(function() {
-            $(this).attr('target', '_blank')
-        })
-
-        // 为所有加粗标签添加颜色
-        $('div.posts-expand strong').each(function() {
-            var $this = $(this)
-
-            $this.css({
-                backgroundColor: colors[getRandom(colors.length)]
-            })
-        })
-    })
-
-    function getRandom(max) {
-        return Math.floor(Math.random() * Math.floor(max))
-    }
-    </script>
-</article>
-  
-    
-        
-<article class="post post-type- " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://localhost:4000/jquery/2017/01/18/Ace-%E4%BB%A3%E7%A0%81%E7%BC%96%E8%BE%91%E5%99%A8/">
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="asing1elife">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/assets/images/avatar.png">
-    </span>
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="asing1elife's blog">
-    </span> 
-    <header class="post-header">
-         
-        <h1 class="post-title" itemprop="name headline">
-               
-            <a class="post-title-link" href="/jquery/2017/01/18/Ace-%E4%BB%A3%E7%A0%81%E7%BC%96%E8%BE%91%E5%99%A8/" itemprop="url">
-                Ace 代码编辑器
-              </a>  
-        </h1>
-        
-        <div class="post-meta">
-            <span class="post-author">
-                
-                    <span class="post-meta-item-icon">
-                        <i class="fa fa-user-o"></i>
-                    </span>
-                    <span>asing1elife</span>
-                    <span class="post-meta-divider">|</span>
-                
-            </span>
-            <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span> 
-            <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-01-18T00:00:00+08:00">
-                2017-01-18
-            </time>
-              
-            </span>
-            
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span> 
-            <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>   
-            <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/category/#/jquery" itemprop="url" rel="index">
-                    <span itemprop="name">jquery</span>
-            </a>
-            </span>
-              
-            </span>
-                    
-        </div>
-    </header>
-    
-    <div class="post-body" itemprop="articleBody">
-            
-  
-  
-
-
-
-
-
-
-
-
-
-
-
-
-  <blockquote>
-  <p>代码风格美化编辑器</p>
-</blockquote>
-
-
-
-    <!--noindex-->
-    <div class="post-button text-center">
-        <a class="btn" href="/jquery/2017/01/18/Ace-%E4%BB%A3%E7%A0%81%E7%BC%96%E8%BE%91%E5%99%A8/#" rel="contents">
-              阅读全文 &raquo;
-            </a>
-    </div>
-    <!--/noindex-->
-     
-    </div>
-    <div>
-        
-    </div>
-    <div>
-        
-    </div>
-    <div>
-        
-    </div>
-    <footer class="post-footer">
-               
-        <div class="post-eof"></div>
-         
-    </footer>
-    <script src="//cdn.jsdelivr.net/jquery/2.1.3/jquery.min.js"></script>
-    <script>
-    // 彩虹颜色数组
-    var colors = ['#e5e1de', '#72c02c', '#3398dc', '#d6e2ee', '#009', '#4263a3', '#f00', '#e64b3b',
-        '#a10f2b', '#9a69cb', '#6639b6', '#e81c62', '#e57d20', '#fe541e', '#ebc71d', '#29d6e6', '#00bed6', '#18ba9b',
-        '#9c8061', '#585f69'
-    ]
-
-    $(function() {
-        // 为所有标签自动添加由新窗口打开属性
-        $('a[href^="http"]').each(function() {
-            $(this).attr('target', '_blank')
-        })
-
-        // 为所有加粗标签添加颜色
-        $('div.posts-expand strong').each(function() {
-            var $this = $(this)
-
-            $this.css({
-                backgroundColor: colors[getRandom(colors.length)]
-            })
-        })
-    })
-
-    function getRandom(max) {
-        return Math.floor(Math.random() * Math.floor(max))
-    }
-    </script>
-</article>
-  
-    
-        
-<article class="post post-type- " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://localhost:4000/java/2017/01/17/HashMap%E5%92%8CTreeMap/">
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="asing1elife">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/assets/images/avatar.png">
-    </span>
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="asing1elife's blog">
-    </span> 
-    <header class="post-header">
-         
-        <h1 class="post-title" itemprop="name headline">
-               
-            <a class="post-title-link" href="/java/2017/01/17/HashMap%E5%92%8CTreeMap/" itemprop="url">
-                HashMap和TreeMap
-              </a>  
-        </h1>
-        
-        <div class="post-meta">
-            <span class="post-author">
-                
-                    <span class="post-meta-item-icon">
-                        <i class="fa fa-user-o"></i>
-                    </span>
-                    <span>asing1elife</span>
-                    <span class="post-meta-divider">|</span>
-                
-            </span>
-            <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span> 
-            <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-01-17T00:00:00+08:00">
-                2017-01-17
-            </time>
-              
-            </span>
-            
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span> 
-            <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>   
-            <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/category/#/java" itemprop="url" rel="index">
-                    <span itemprop="name">java</span>
-            </a>
-            </span>
-              
-            </span>
-                    
-        </div>
-    </header>
-    
-    <div class="post-body" itemprop="articleBody">
-            
-  
-  
-
-
-
-
-
-
-
-
-
-
-
-
-  <h2 id="介绍">介绍</h2>
-<ol>
-  <li>Map是key-value的集合接口，其实现类包括：
-    <ol>
-      <li>HashMap - 值没有顺序</li>
-      <li>TreeMap - key值默认升序</li>
-      <li>LinkedHashMap - 值没有顺序</li>
-    </ol>
-  </li>
-</ol>
-
-
-
-    <!--noindex-->
-    <div class="post-button text-center">
-        <a class="btn" href="/java/2017/01/17/HashMap%E5%92%8CTreeMap/#" rel="contents">
-              阅读全文 &raquo;
-            </a>
-    </div>
-    <!--/noindex-->
-     
-    </div>
-    <div>
-        
-    </div>
-    <div>
-        
-    </div>
-    <div>
-        
-    </div>
-    <footer class="post-footer">
-               
-        <div class="post-eof"></div>
-         
-    </footer>
-    <script src="//cdn.jsdelivr.net/jquery/2.1.3/jquery.min.js"></script>
-    <script>
-    // 彩虹颜色数组
-    var colors = ['#e5e1de', '#72c02c', '#3398dc', '#d6e2ee', '#009', '#4263a3', '#f00', '#e64b3b',
-        '#a10f2b', '#9a69cb', '#6639b6', '#e81c62', '#e57d20', '#fe541e', '#ebc71d', '#29d6e6', '#00bed6', '#18ba9b',
-        '#9c8061', '#585f69'
-    ]
-
-    $(function() {
-        // 为所有标签自动添加由新窗口打开属性
-        $('a[href^="http"]').each(function() {
-            $(this).attr('target', '_blank')
-        })
-
-        // 为所有加粗标签添加颜色
-        $('div.posts-expand strong').each(function() {
-            var $this = $(this)
-
-            $this.css({
-                backgroundColor: colors[getRandom(colors.length)]
-            })
-        })
-    })
-
-    function getRandom(max) {
-        return Math.floor(Math.random() * Math.floor(max))
-    }
-    </script>
-</article>
-  
-    
-        
-<article class="post post-type- " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://localhost:4000/java/2017/01/12/%E5%88%A4%E6%96%ADString%E6%98%AF%E5%90%A6%E4%B8%BA%E6%95%B0%E5%AD%97/">
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="asing1elife">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/assets/images/avatar.png">
-    </span>
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="asing1elife's blog">
-    </span> 
-    <header class="post-header">
-         
-        <h1 class="post-title" itemprop="name headline">
-               
-            <a class="post-title-link" href="/java/2017/01/12/%E5%88%A4%E6%96%ADString%E6%98%AF%E5%90%A6%E4%B8%BA%E6%95%B0%E5%AD%97/" itemprop="url">
-                判断String是否为数字
-              </a>  
-        </h1>
-        
-        <div class="post-meta">
-            <span class="post-author">
-                
-                    <span class="post-meta-item-icon">
-                        <i class="fa fa-user-o"></i>
-                    </span>
-                    <span>asing1elife</span>
-                    <span class="post-meta-divider">|</span>
-                
-            </span>
-            <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span> 
-            <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-01-12T00:00:00+08:00">
-                2017-01-12
-            </time>
-              
-            </span>
-            
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span> 
-            <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>   
-            <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/category/#/java" itemprop="url" rel="index">
-                    <span itemprop="name">java</span>
-            </a>
-            </span>
-              
-            </span>
-                    
-        </div>
-    </header>
-    
-    <div class="post-body" itemprop="articleBody">
-            
-  
-  
-
-
-
-
-
-
-
-
-
-
-
-
-  <blockquote>
-  <p>解决思路是通过正则表达式匹配字符串内容是否全部为数字</p>
-</blockquote>
-
-
-
-    <!--noindex-->
-    <div class="post-button text-center">
-        <a class="btn" href="/java/2017/01/12/%E5%88%A4%E6%96%ADString%E6%98%AF%E5%90%A6%E4%B8%BA%E6%95%B0%E5%AD%97/#" rel="contents">
-              阅读全文 &raquo;
-            </a>
-    </div>
-    <!--/noindex-->
-     
-    </div>
-    <div>
-        
-    </div>
-    <div>
-        
-    </div>
-    <div>
-        
-    </div>
-    <footer class="post-footer">
-               
-        <div class="post-eof"></div>
-         
-    </footer>
-    <script src="//cdn.jsdelivr.net/jquery/2.1.3/jquery.min.js"></script>
-    <script>
-    // 彩虹颜色数组
-    var colors = ['#e5e1de', '#72c02c', '#3398dc', '#d6e2ee', '#009', '#4263a3', '#f00', '#e64b3b',
-        '#a10f2b', '#9a69cb', '#6639b6', '#e81c62', '#e57d20', '#fe541e', '#ebc71d', '#29d6e6', '#00bed6', '#18ba9b',
-        '#9c8061', '#585f69'
-    ]
-
-    $(function() {
-        // 为所有标签自动添加由新窗口打开属性
-        $('a[href^="http"]').each(function() {
-            $(this).attr('target', '_blank')
-        })
-
-        // 为所有加粗标签添加颜色
-        $('div.posts-expand strong').each(function() {
-            var $this = $(this)
-
-            $this.css({
-                backgroundColor: colors[getRandom(colors.length)]
-            })
-        })
-    })
-
-    function getRandom(max) {
-        return Math.floor(Math.random() * Math.floor(max))
-    }
-    </script>
-</article>
-  
-    
-        
-<article class="post post-type- " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://localhost:4000/javascript/array/2017/01/09/Javascript%E6%95%B0%E7%BB%84%E5%8E%BB%E9%87%8D/">
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="asing1elife">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/assets/images/avatar.png">
-    </span>
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="asing1elife's blog">
-    </span> 
-    <header class="post-header">
-         
-        <h1 class="post-title" itemprop="name headline">
-               
-            <a class="post-title-link" href="/javascript/array/2017/01/09/Javascript%E6%95%B0%E7%BB%84%E5%8E%BB%E9%87%8D/" itemprop="url">
-                Javascript数组去重
-              </a>  
-        </h1>
-        
-        <div class="post-meta">
-            <span class="post-author">
-                
-                    <span class="post-meta-item-icon">
-                        <i class="fa fa-user-o"></i>
-                    </span>
-                    <span>asing1elife</span>
-                    <span class="post-meta-divider">|</span>
-                
-            </span>
-            <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span> 
-            <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-01-09T00:00:00+08:00">
-                2017-01-09
-            </time>
-              
-            </span>
-            
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span> 
-            <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>   
-            <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/category/#/javascript" itemprop="url" rel="index">
-                    <span itemprop="name">javascript</span>
-            </a>
-            </span>
-              ，    
-            <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/category/#/array" itemprop="url" rel="index">
-                    <span itemprop="name">array</span>
-            </a>
-            </span>
-              
-            </span>
-                    
-        </div>
-    </header>
-    
-    <div class="post-body" itemprop="articleBody">
-            
-  
-  
-
-
-
-
-
-
-
-
-
-
-
-
-  <blockquote>
-  <p>Set是ES2015引入的数据类型，意为集合<br />
-其不允许重复元素出现的特性，对于NaN、undefined、null都适用</p>
-</blockquote>
-
-
-
-    <!--noindex-->
-    <div class="post-button text-center">
-        <a class="btn" href="/javascript/array/2017/01/09/Javascript%E6%95%B0%E7%BB%84%E5%8E%BB%E9%87%8D/#" rel="contents">
-              阅读全文 &raquo;
-            </a>
-    </div>
-    <!--/noindex-->
-     
-    </div>
-    <div>
-        
-    </div>
-    <div>
-        
-    </div>
-    <div>
-        
-    </div>
-    <footer class="post-footer">
-               
-        <div class="post-eof"></div>
-         
-    </footer>
-    <script src="//cdn.jsdelivr.net/jquery/2.1.3/jquery.min.js"></script>
-    <script>
-    // 彩虹颜色数组
-    var colors = ['#e5e1de', '#72c02c', '#3398dc', '#d6e2ee', '#009', '#4263a3', '#f00', '#e64b3b',
-        '#a10f2b', '#9a69cb', '#6639b6', '#e81c62', '#e57d20', '#fe541e', '#ebc71d', '#29d6e6', '#00bed6', '#18ba9b',
-        '#9c8061', '#585f69'
-    ]
-
-    $(function() {
-        // 为所有标签自动添加由新窗口打开属性
-        $('a[href^="http"]').each(function() {
-            $(this).attr('target', '_blank')
-        })
-
-        // 为所有加粗标签添加颜色
-        $('div.posts-expand strong').each(function() {
-            var $this = $(this)
-
-            $this.css({
-                backgroundColor: colors[getRandom(colors.length)]
-            })
-        })
-    })
-
-    function getRandom(max) {
-        return Math.floor(Math.random() * Math.floor(max))
-    }
-    </script>
-</article>
-  
-    
-        
-<article class="post post-type- " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://localhost:4000/java/2017/01/04/Zip4j%E8%A7%A3%E5%8E%8B%E6%96%87%E4%BB%B6/">
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="asing1elife">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/assets/images/avatar.png">
-    </span>
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="asing1elife's blog">
-    </span> 
-    <header class="post-header">
-         
-        <h1 class="post-title" itemprop="name headline">
-               
-            <a class="post-title-link" href="/java/2017/01/04/Zip4j%E8%A7%A3%E5%8E%8B%E6%96%87%E4%BB%B6/" itemprop="url">
-                Zip4j解压文件
-              </a>  
-        </h1>
-        
-        <div class="post-meta">
-            <span class="post-author">
-                
-                    <span class="post-meta-item-icon">
-                        <i class="fa fa-user-o"></i>
-                    </span>
-                    <span>asing1elife</span>
-                    <span class="post-meta-divider">|</span>
-                
-            </span>
-            <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span> 
-            <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-01-04T00:00:00+08:00">
-                2017-01-04
-            </time>
-              
-            </span>
-            
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span> 
-            <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>   
-            <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/category/#/java" itemprop="url" rel="index">
-                    <span itemprop="name">java</span>
-            </a>
-            </span>
-              
-            </span>
-                    
-        </div>
-    </header>
-    
-    <div class="post-body" itemprop="articleBody">
-            
-  
-  
-
-
-
-
-
-
-
-
-
-
-
-
-  <blockquote>
-  <p>使用 zip4j 可以快速对文件进行解压缩处理</p>
-</blockquote>
-
-
-
-    <!--noindex-->
-    <div class="post-button text-center">
-        <a class="btn" href="/java/2017/01/04/Zip4j%E8%A7%A3%E5%8E%8B%E6%96%87%E4%BB%B6/#" rel="contents">
-              阅读全文 &raquo;
-            </a>
-    </div>
-    <!--/noindex-->
-     
-    </div>
-    <div>
-        
-    </div>
-    <div>
-        
-    </div>
-    <div>
-        
-    </div>
-    <footer class="post-footer">
                 
     </footer>
     <script src="//cdn.jsdelivr.net/jquery/2.1.3/jquery.min.js"></script>
@@ -2095,7 +2139,7 @@
 
 
 
-    <a class="extend prev" rel="prev" href="/page17"><i class="fa fa-angle-left"></i></a> <a class="page-number" href="/">1</a> <span class="space">&hellip;</span> <a class="page-number" href="/page17">17</a> <span class="page-number current">18</span> <a class="page-number" href="/page19">19</a> <a class="page-number" href="/page20">20</a> <a class="extend prev" rel="next" href="/page19"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page17"><i class="fa fa-angle-left"></i></a> <a class="page-number" href="/">1</a> <span class="space">&hellip;</span> <a class="page-number" href="/page17">17</a> <span class="page-number current">18</span> <a class="page-number" href="/page19">19</a> <span class="space">&hellip;</span> <a class="page-number" href="/page21">21</a> <a class="extend prev" rel="next" href="/page19"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -2141,7 +2185,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">197</span>
+                <span class="site-state-item-count">206</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -2152,7 +2196,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/">
-                <span class="site-state-item-count">51</span>
+                <span class="site-state-item-count">54</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -2163,7 +2207,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/">
-                <span class="site-state-item-count">96</span>
+                <span class="site-state-item-count">100</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
