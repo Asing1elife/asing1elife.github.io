@@ -2,6 +2,63 @@
 <search>
   
     <entry>
+      <title><![CDATA[jQuery 手动触发按键按下]]></title>
+      <url>/jquery/2018/08/30/jQuery-%E6%89%8B%E5%8A%A8%E8%A7%A6%E5%8F%91%E6%8C%89%E9%94%AE%E6%8C%89%E4%B8%8B/</url>
+      <content type="text"><![CDATA[  通过 jQuery 可以手动触发指定按键被按下的动作实现方式  关于按键的码表可以参考 jQuery 禁用右键菜单、复制功能// 首先获取按键的事件var e = $.Event('keydown')// 然后指定按键的类型e.which = 27// 最后在需要被触发的元素上触发该按键$noviceGuidePanel.trigger(e)]]></content>
+      <categories>
+        
+          <category> jquery </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> jquery </tag>
+        
+          <tag> keycode </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[HTML5+CSS3 为 input 添加一键删除按钮]]></title>
+      <url>/css/2018/08/25/HTML5+CSS3-%E4%B8%BA-input-%E6%B7%BB%E5%8A%A0%E4%B8%80%E9%94%AE%E5%88%A0%E9%99%A4%E6%8C%89%E9%92%AE/</url>
+      <content type="text"><![CDATA[  经常可以看到一些 input 输入框在输入文字后，输入框末尾会出现一键删除的按钮实现方式基础布局  &lt;input/&gt; 末尾必须添加 required 标记，这是 HTML5 的验证标记  准备一个用于显示删除按钮的 DOM 元素，例如以下代码中的 &lt;span/&gt; ，图标自备&lt;div class="invite-code-panel"&gt;  &lt;input type="text" class="invite-code-input" placeholder="请输入实训计划邀请码/助飞码" required&gt;  &lt;span class="editable-clear-x"&gt;&lt;/span&gt;&lt;/div&gt;CSS 控制按钮显示  删除按钮默认隐藏  通过 :valid + 可以控制当 &lt;input/&gt; 输入内容后 &lt;span/&gt; 则显示.invite-code-panel .editable-clear-x {  right: 15px;  display: none;}.invite-code-panel .invite-code-input:valid + .editable-clear-x {  display: inline;}注意点  需要注意的是如果没有为 &lt;input/&gt; 添加 required 标记，:valid + 属性则不会生效  本文只是实现了按钮的自动隐藏/显示，点击按钮后的删除操作需要通过 JS 自行实现]]></content>
+      <categories>
+        
+          <category> css </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> css </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[Buefy 用户界面组件库]]></title>
+      <url>/vue/frame/2018/08/24/Buefy-%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%BB%84%E4%BB%B6%E5%BA%93/</url>
+      <content type="text"><![CDATA[  Buefy 是一款基于 Bumla 的 Vue.js 用户界面组件库官网Buefy]]></content>
+      <categories>
+        
+          <category> vue </category>
+        
+          <category> frame </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> vue </tag>
+        
+          <tag> frame </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
       <title><![CDATA[SpringBoot+MyBatis 框架搭建]]></title>
       <url>/java/springboot/mybatis/2018/08/23/SpringBoot+MyBatis-%E6%A1%86%E6%9E%B6%E6%90%AD%E5%BB%BA/</url>
       <content type="text"><![CDATA[  基础框架使用 SpringBoot持久层使用 MyBatis数据源使用 Druid数据库使用 MySQL创建 Java Web 项目，并配置 POM  该 POM 只包含最基础的配置，没有任何多余 JAR 包&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;project xmlns="http://maven.apache.org/POM/4.0.0"         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"&gt;  &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;  &lt;!-- 项目基础信息 --&gt;  &lt;groupId&gt;com.asing1elife.newso&lt;/groupId&gt;  &lt;artifactId&gt;asl-newso&lt;/artifactId&gt;  &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;  &lt;!-- SpringBoot 基础依赖 --&gt;  &lt;parent&gt;    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;    &lt;artifactId&gt;spring-boot-starter-parent&lt;/artifactId&gt;    &lt;version&gt;2.0.2.RELEASE&lt;/version&gt;  &lt;/parent&gt;  &lt;!-- 指定编码格式和 JDK 版本 --&gt;  &lt;properties&gt;    &lt;project.build.sourceEncoding&gt;UTF-8&lt;/project.build.sourceEncoding&gt;    &lt;project.reporting.outputEncoding&gt;UTF-8&lt;/project.reporting.outputEncoding&gt;    &lt;java.version&gt;1.8&lt;/java.version&gt;  &lt;/properties&gt;  &lt;dependencies&gt;    &lt;!-- SpringBoot 相关依赖 --&gt;    &lt;dependency&gt;      &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;      &lt;artifactId&gt;spring-boot-starter-jdbc&lt;/artifactId&gt;      &lt;version&gt;2.0.2.RELEASE&lt;/version&gt;    &lt;/dependency&gt;    &lt;dependency&gt;      &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;      &lt;artifactId&gt;spring-boot-starter-web&lt;/artifactId&gt;      &lt;version&gt;2.0.2.RELEASE&lt;/version&gt;    &lt;/dependency&gt;    &lt;dependency&gt;      &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;      &lt;artifactId&gt;spring-boot-starter-tomcat&lt;/artifactId&gt;      &lt;version&gt;2.0.2.RELEASE&lt;/version&gt;    &lt;/dependency&gt;    &lt;dependency&gt;      &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;      &lt;artifactId&gt;spring-boot-starter-test&lt;/artifactId&gt;      &lt;version&gt;2.0.2.RELEASE&lt;/version&gt;    &lt;/dependency&gt;    &lt;!-- MyBatis 相关依赖 --&gt;    &lt;dependency&gt;      &lt;groupId&gt;org.mybatis.spring.boot&lt;/groupId&gt;      &lt;artifactId&gt;mybatis-spring-boot-starter&lt;/artifactId&gt;      &lt;version&gt;1.3.2&lt;/version&gt;    &lt;/dependency&gt;    &lt;!-- MySQL 相关依赖 --&gt;    &lt;dependency&gt;      &lt;groupId&gt;mysql&lt;/groupId&gt;      &lt;artifactId&gt;mysql-connector-java&lt;/artifactId&gt;      &lt;version&gt;6.0.6&lt;/version&gt;    &lt;/dependency&gt;    &lt;!-- Druid 相关依赖 --&gt;    &lt;dependency&gt;      &lt;groupId&gt;com.alibaba&lt;/groupId&gt;      &lt;artifactId&gt;druid&lt;/artifactId&gt;      &lt;version&gt;1.1.9&lt;/version&gt;    &lt;/dependency&gt;    &lt;dependency&gt;      &lt;groupId&gt;com.alibaba&lt;/groupId&gt;      &lt;artifactId&gt;druid-spring-boot-starter&lt;/artifactId&gt;      &lt;version&gt;1.1.9&lt;/version&gt;    &lt;/dependency&gt;  &lt;/dependencies&gt;&lt;/project&gt;指定端口号  在 /resources 根目录创建 application.yml 文件并添加如下内容  表示端口号为 8080  以及项目请求根路径为 /newsoserver:  port: 8080  servlet:    context-path: /newso指定数据源  在 application.yml 中添加如下内容为数据源连接信息  数据源使用过的是阿里的 Druidspring:  datasource:    name: newso_dev    url: jdbc:mysql://127.0.0.1:3306/newso_dev?useUnicode=true&amp;characterEncoding=utf-8&amp;useSSL=false    username: root    password: root    type: com.alibaba.druid.pool.DruidDataSource    driver-class-name: com.mysql.cj.jdbc.Driver    druid:      filters: stat      max-active: 20      initial-size: 1      max-wait: 60000      min-idle: 1      time-between-eviction-runs-millis: 60000      min-evictable-idle-time-millis: 300000      validation-query: select 'x'      test-while-idle: true      test-on-borrow: false      test-on-return: false      pool-prepared-statements: true      max-open-prepared-statements: 20指定 MyBatis 配置  同样可在 application.yml 中指定 MyBatis 的配置信息  mapper-locations 是指定 mapper 文件所在位置  type-aliases-package 是指定对应实体类所在位置mybatis:  mapper-locations: classpath:mapper/*.xml  type-aliases-package: com.asing1elife.newso.dto作为前后分离项目必不可少的结果集对象  前后分离项目都是采用前端发起请求，后端返回结果  为了保证后端返回结果的统一性，所以需要如下的结果集对象  只有这样前端在处理后端返回结果时，才能有规范的操作public class ResponseData {    private static final String SUCCESS_CODE = "0";    private static final String ERROR_CODE = "-1";    private String status = SUCCESS_CODE;    private Object data;    ...    public boolean isSuccess() {        return this.status.equalsIgnoreCase(SUCCESS_CODE);    }    public void setError(Object data) {        this.status = ERROR_CODE;        this.data = data;    }}控制层基础控制类  基础控制类的作用在于可以在调用逻辑层代码时有一个统一的预处理操作或者后置操作public class SimpleActionHandler {    private Logger log = LoggerFactory.getLogger(this.getClass());    // 当前请求    private String action;    public SimpleActionHandler(HttpServletRequest request) {        // 记录当前请求        this.action = request.getRequestURI();    }    public void doAction(ResponseData responseData) {        throw new RuntimeException("This method must be overide");    }    public ResponseData handle(HttpServletRequest... requests) {        ResponseData responseData = new ResponseData();        try {            doAction(responseData);        } catch (Exception e) {            log.info(this.action, e);            responseData.setError(e.getMessage());        }        return responseData;    }}创建控制层接收请求信息@RestController@RequestMapping("/api/homes")public class HomeController extends AbstractBaseController {    @GetMapping("")    public ResponseData main() {        return new SimpleActionHandler(request) {            @Override            public void doAction(ResponseData responseData) {                System.out.println("welcome");            }        }.handle();    }}MyBatis 通过自定义接口规范 DAO 层  通过 @Mapper 注解可以确保容器只扫描被注解的 DAO    @Retention(RetentionPolicy.RUNTIME)@Target(ElementType.TYPE)@Documented@Component@Mapperpublic @interface MyBatisRepository {}      创建 DAO 接口  在 DAO 接口使用自定义的注解即可保证该接口被容器扫描到@MyBatisRepositorypublic interface NewsDaoMyBatis {    List&lt;NewsDTO&gt; getNewss();}创建 Mapper 文件  Mapper 文件的 DTD 都是统一格式的，按照如下规范即可&lt;?xml version="1.0" encoding="UTF-8" ?&gt;&lt;!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"&gt;&lt;mapper namespace="com.asing1elife.newso.module.news.dao.NewsDaoMyBatis"&gt;  &lt;select id="getNewss" resultType="NewsDTO"&gt;    SELECT      ne.id,      ne.title,      ne.brief,      ne.author_id AS 'author.id',      ne.createTime    FROM      ns_news ne  &lt;/select&gt;&lt;/mapper&gt;]]></content>
@@ -2244,6 +2301,69 @@
     </entry>
   
     <entry>
+      <title><![CDATA[Flex 布局实现子项的完全居中]]></title>
+      <url>/css/flex/2017/10/16/Flex-%E5%B8%83%E5%B1%80%E5%AE%9E%E7%8E%B0%E5%AD%90%E9%A1%B9%E7%9A%84%E5%AE%8C%E5%85%A8%E5%B1%85%E4%B8%AD/</url>
+      <content type="text"><![CDATA[  利用 Flex 布局的灵活性可以非常简洁的实现子元素相对于父元素的完全居中父容器指定宽高，并指定为 Flex 布局  为父容器添加 justify-content: center; 表示子元素位于主轴水平居中  为父容器添加 align-items: center; 表示子元素位于交叉轴垂直居中#container {    width: 500px;    height: 700px;    display: flex;    margin: 0 auto;    justify-content: center;    align-items: center;    background-color: red;}子元素指定宽高即可#container .top-content {    width: 200px;    height: 200px;    background-color: green;}]]></content>
+      <categories>
+        
+          <category> css </category>
+        
+          <category> flex </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> css </tag>
+        
+          <tag> flex </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[Flex 布局 - 项目]]></title>
+      <url>/css/flex/2017/10/16/Flex-%E5%B8%83%E5%B1%80-%E9%A1%B9%E7%9B%AE/</url>
+      <content type="text"><![CDATA[  Flex 布局中用于控制子元素的一些属性容器部分  前续关于 Flex 容器的详解参见 Flex 布局 - 容器属性order 定义项目的排列顺序  默认为 0  数值越小，排列越靠前flex-grow 定义项目的放大比例  默认为 0 ，如果存在剩余空间，也不会放大  数值越大，放大的优先级越高  如果所有的项目都是 flex-grow: 1 ，则等分剩余空间  如果一个项目是 flex-grow: 4 ，其他项目是 flex-grow: 1 ，则前者分配到的剩余空间比其他项多四倍flex-shrink 定义项目的缩小比例  默认为 1 ，如果空间不足，则项目缩小  如果所有项目都是 flex-shrink: 1 ，当空间不足时，所有项目等比例缩小  如果一个项目是 flex-shrink: 0 ，其他项目是 flex-shrink: 1 ，当空间不足时，前者也不会缩小flex-basis 定义在分配多余空间之前，项目占据的主轴大小  默认值为 auto ，即项目本来大小  可根据主轴方向设置为与 width 或 height 相同大小，项目则会占据固定空间flex 是 flex-grow 和 flex-shrink 以及 flex-basis 的简写  默认值是 0 1 auto  flex: auto 表示 1 1 auto  flex: none 表示 0 0 autoalign-self 允许单个项目与其他项目使用不一样的对齐方式  默认值是 auto ，表示继承父容器的 align-items 属性值  可覆盖定义在父容器中的 align-items]]></content>
+      <categories>
+        
+          <category> css </category>
+        
+          <category> flex </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> css </tag>
+        
+          <tag> flex </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[Flex 布局 - 容器]]></title>
+      <url>/css/flex/2017/10/16/Flex-%E5%B8%83%E5%B1%80-%E5%AE%B9%E5%99%A8/</url>
+      <content type="text"><![CDATA[  Flex 是 Flexible Box 的缩写，就是弹性布局，可以为盒子模型提供更大的灵活性任何一个容器都可以指定为 Flex 布局，其将会成为未来布局的首选方案概念  采用 Flex 布局的元素称为 Flex 容器  容器下的所有子元素自动成为容器成员，成为 Flex 项目  将元素的 display: flex 即可指定 Flex 容器  容器默认存在两根轴，水平的主轴和垂直的交叉轴 属性flex-direction 决定主轴的方向，即项目的排列方向  row [default]  主轴在水平方向，起点在左侧  row-reverse 主轴在水平方向，起点在右侧  column 主轴在垂直方向，起点在顶部  column-reverse 主轴在垂直方向，起点在底部  flex-wrap 当一条轴线上无法排列所有子项，规定换行规则  nowrap [default] 不换行  wrap 换行，第一行在上方  wrap-reverse 换行，第一行在下方flex-flow 是 flex-direction 和 flex-wrap 的简写形式  row wrap [default]justify-content 定义项目在容器主轴上的对齐方式  flex-start [default] 左对齐  flex-end 右对齐  center 居中  space-between 两端对齐，每个项目之间的间距相等  space-around 每个项目两侧的间隔相等，即项目之间的间隔比项目与容器边框的间隔大一倍align-items 定义项目在容器交叉轴上的对齐方式  stretch [default] 如何项目未设置高度，则每个项目默认占据整个容器高度  flex-start 顶部  flex-end 底部  center 居中  baseline 项目第一行文字的基线对齐align-content 定义多条轴线的对齐方式，若容器只有一条轴线或容器没有多余空间，则不起作用  stretch [default] 项目占满整个交叉轴  flex-start 与交叉轴的顶部对齐  flex-end 与交叉轴的底部对齐  center 与交叉轴的中部对齐  space-between 与交叉轴的两端对齐，轴线之间的间隔平均分布  space-around 每条轴线两端的间隔相等，即轴线之间的间隔比轴线与边框的间隔要大一倍]]></content>
+      <categories>
+        
+          <category> css </category>
+        
+          <category> flex </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> css </tag>
+        
+          <tag> flex </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
       <title><![CDATA[Struts2 项目搭建]]></title>
       <url>/java/struts/2017/09/21/Struts2-%E9%A1%B9%E7%9B%AE%E6%90%AD%E5%BB%BA/</url>
       <content type="text"><![CDATA[  Struts2 作为一个应用开发框架，在项目中引入需要如下步骤创建一个 Web Project 并添加默认的 web.xml 文件  这个好像没啥好说的引入以下 jar 包到 lib 目录中  commons-fileupload-1.3.3.jar  commons-lang3-3.6.jar  freemarker-2.3.23.jar  javassist-3.20.0-GA.jar  log4j-api-2.8.2.jar  ognl-3.1.12.jar  struts2-core-2.5.12.jar在 web.xml 中添加 filter 配置&lt;filter&gt;	&lt;filter-name&gt;struts2&lt;/filter-name&gt;	&lt;filter-class&gt;org.apache.struts2.dispatcher.filter.StrutsPrepareAndExecuteFilter&lt;/filter-class&gt;&lt;/filter&gt;&lt;filter-mapping&gt;	&lt;filter-name&gt;struts2&lt;/filter-name&gt;	&lt;url-pattern&gt;/*&lt;/url-pattern&gt;&lt;/filter-mapping&gt;在 src 目录下添加 struts.xml 文件  要让 Struts2 支持异步的 json 数据访问在 &lt;package&gt; 的 extend 属性中添加 json-default  添加 struts2-json-plugin-2.5.12.jar 包  在对应的 &lt;action&gt;  请求的 &lt;result&gt; 中添加 type="json" 属性，并删除页面内容&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;!DOCTYPE struts PUBLIC        "-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"        "http://struts.apache.org/dtds/struts-2.5.dtd"&gt;&lt;struts&gt;	&lt;package name="default-package" extends="struts-default, json-default"&gt;		&lt;!-- name 表示请求路径 --&gt;		&lt;!-- class 表示请求路径对应的处理类 --&gt;		&lt;!-- method 表示处理类中对应的方法 --&gt;		&lt;action name="category" class="online.shixun.hpeu.action.GoodsCategoryAction" method="list"&gt;			&lt;result name="success"&gt;/WEB-INF/views/category.jsp&lt;/result&gt;		&lt;/action&gt;				&lt;!-- 异步获取商品描述 --&gt;		&lt;action name="description" class="online.shixun.hpeu.action.GoodsAction" method="description"&gt;			&lt;result name="success" type="json"&gt;&lt;/result&gt;		&lt;/action&gt;	&lt;/package&gt;&lt;/struts&gt;接收/显示数据  Struts2 的特点在于对数据的接收/显示进行封装  要获取页面传递到 action 的参数，只需要在 action 中定义对应名称的私有属性，并提供 setter 方法即可  要将数据显示到页面中，只需要在 action 中定义对应名称的私有属性，并提供 getter 方法即可public class GoodsAction {		private GoodsServiceImpl goodsService = new GoodsServiceImpl();		// 从页面接收商品类别id	private Long categoryId;		// 从页面接收商品id	private Long goodsId;		// 从DB获取商品列表，用于展示到页面上	private List&lt;GoodsModel&gt; goods;		// 从DB获取商品描述信息，用于展示到页面上	private String description;		/**	 * 加载商品列表页	 * @return	 */	public String list() {		goods = goodsService.getGoodsByCategoryId(categoryId);				return "success";	}		/**	 * 获取商品描述信息	 * @return	 */	public String description() {		// 通过商品id获取商品描述信息		description = goodsService.getGoodsById(goodsId).getDescription();				return "success";	}	public void setCategoryId(Long categoryId) {		this.categoryId = categoryId;	}	public void setGoodsId(Long goodsId) {		this.goodsId = goodsId;	}	public String getDescription() {		return description;	}	public List&lt;GoodsModel&gt; getGoods() {		return goods;	}}]]></content>
@@ -2422,7 +2542,7 @@
     <entry>
       <title><![CDATA[HTML5+CSS3 为 input 标签编写验证提示]]></title>
       <url>/css/2017/08/17/HTML5+CSS3-%E4%B8%BA-input-%E6%A0%87%E7%AD%BE%E7%BC%96%E5%86%99%E9%AA%8C%E8%AF%81%E6%8F%90%E7%A4%BA/</url>
-      <content type="text"><![CDATA[  通过 HTML5 + CSS3 可以实现 input 中有无内容的友好提示方式定义 input 标签并在后面跟上 span 标签  input 标签中必须指定 required 属性    &lt;input type="number" name="age" min="0" required&gt;&lt;span class="inputTip"&gt;&lt;/span&gt;      为 input 标签编写动态 css 样式  当 input 中没有内容时其对应的伪类标签为 invalid  当 input 中存在内容时其对应的伪类标签为 valid```html```]]></content>
+      <content type="text"><![CDATA[  通过 HTML5 + CSS3 可以实现 input 中有无内容的友好提示方式定义 input 标签并在后面跟上 span 标签  input 标签中必须指定 required 属性&lt;input type="number" name="age" min="0" required&gt;&lt;span class="inputTip"&gt;&lt;/span&gt;为 input 标签编写动态 css 样式  当 input 中没有内容时其对应的伪类标签为 invalid  当 input 中存在内容时其对应的伪类标签为 valid&lt;style type="text/css"&gt;	input:invalid+span::after {		content: "✖";		padding-left: 10px;	}	input:valid+span::after {		content: "✓";		padding-left: 10px;	}&lt;/style&gt;]]></content>
       <categories>
         
           <category> css </category>

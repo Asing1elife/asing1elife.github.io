@@ -312,7 +312,7 @@
       
       
       <a class="category-list-link" href="/category/#/css">css</a>
-      <span class="category-list-count">12</span>
+      <span class="category-list-count">16</span>
     </i>
     
     <li class="category-list-item">
@@ -320,7 +320,7 @@
       
       
       <a class="category-list-link" href="/category/#/jquery">jquery</a>
-      <span class="category-list-count">31</span>
+      <span class="category-list-count">32</span>
     </i>
     
     <li class="category-list-item">
@@ -519,6 +519,14 @@
       
       
       
+      <a class="category-list-link" href="/category/#/flex">flex</a>
+      <span class="category-list-count">3</span>
+    </i>
+    
+    <li class="category-list-item">
+      
+      
+      
       <a class="category-list-link" href="/category/#/i18n">i18n</a>
       <span class="category-list-count">1</span>
     </i>
@@ -544,7 +552,7 @@
       
       
       <a class="category-list-link" href="/category/#/vue">vue</a>
-      <span class="category-list-count">48</span>
+      <span class="category-list-count">49</span>
     </i>
     
     <li class="category-list-item">
@@ -632,7 +640,7 @@
       
       
       <a class="category-list-link" href="/category/#/frame">frame</a>
-      <span class="category-list-count">5</span>
+      <span class="category-list-count">6</span>
     </i>
     
     <li class="category-list-item">
@@ -718,6 +726,402 @@
 
 
 <section id="posts" class="posts-expand">
+  
+    
+        
+<article class="post post-type- " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://localhost:4000/javascript/animate/2017/11/21/Tween.js-%E5%8A%A8%E7%94%BB%E5%BA%93/">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="asing1elife">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/assets/images/avatar.png">
+    </span>
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="asing1elife's blog">
+    </span> 
+    <header class="post-header">
+         
+        <h1 class="post-title" itemprop="name headline">
+               
+            <a class="post-title-link" href="/javascript/animate/2017/11/21/Tween.js-%E5%8A%A8%E7%94%BB%E5%BA%93/" itemprop="url">
+                Tween.js 动画库
+              </a>  
+        </h1>
+        
+        <div class="post-meta">
+            <span class="post-author">
+                
+                    <span class="post-meta-item-icon">
+                        <i class="fa fa-user-o"></i>
+                    </span>
+                    <span>asing1elife</span>
+                    <span class="post-meta-divider">|</span>
+                
+            </span>
+            <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span> 
+            <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-21T00:00:00+08:00">
+                2017-11-21
+            </time>
+              
+            </span>
+            
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span> 
+            <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>   
+            <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/category/#/javascript" itemprop="url" rel="index">
+                    <span itemprop="name">javascript</span>
+            </a>
+            </span>
+              ，    
+            <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/category/#/animate" itemprop="url" rel="index">
+                    <span itemprop="name">animate</span>
+            </a>
+            </span>
+              
+            </span>
+                    
+        </div>
+    </header>
+    
+    <div class="post-body" itemprop="articleBody">
+            
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <blockquote>
+  <p>TweenJS是一个简单的JS动画库</p>
+</blockquote>
+
+
+
+    <!--noindex-->
+    <div class="post-button text-center">
+        <a class="btn" href="/javascript/animate/2017/11/21/Tween.js-%E5%8A%A8%E7%94%BB%E5%BA%93/#" rel="contents">
+              阅读全文 &raquo;
+            </a>
+    </div>
+    <!--/noindex-->
+     
+    </div>
+    <div>
+        
+    </div>
+    <div>
+        
+    </div>
+    <div>
+        
+    </div>
+    <footer class="post-footer">
+               
+        <div class="post-eof"></div>
+         
+    </footer>
+    <script src="//cdn.jsdelivr.net/jquery/2.1.3/jquery.min.js"></script>
+    <script>
+    // 彩虹颜色数组
+    var colors = ['#e5e1de', '#72c02c', '#3398dc', '#d6e2ee', '#009', '#4263a3', '#f00', '#e64b3b',
+        '#a10f2b', '#9a69cb', '#6639b6', '#e81c62', '#e57d20', '#fe541e', '#ebc71d', '#29d6e6', '#00bed6', '#18ba9b',
+        '#9c8061', '#585f69'
+    ]
+
+    $(function() {
+        // 为所有标签自动添加由新窗口打开属性
+        $('a[href^="http"]').each(function() {
+            $(this).attr('target', '_blank')
+        })
+
+        // 为所有加粗标签添加颜色
+        $('div.posts-expand strong').each(function() {
+            var $this = $(this)
+
+            $this.css({
+                backgroundColor: colors[getRandom(colors.length)]
+            })
+        })
+    })
+
+    function getRandom(max) {
+        return Math.floor(Math.random() * Math.floor(max))
+    }
+    </script>
+</article>
+  
+    
+        
+<article class="post post-type- " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://localhost:4000/javascript/charts/2017/11/19/Circles-%E5%9C%86%E5%BD%A2%E8%BF%9B%E5%BA%A6%E6%9D%A1/">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="asing1elife">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/assets/images/avatar.png">
+    </span>
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="asing1elife's blog">
+    </span> 
+    <header class="post-header">
+         
+        <h1 class="post-title" itemprop="name headline">
+               
+            <a class="post-title-link" href="/javascript/charts/2017/11/19/Circles-%E5%9C%86%E5%BD%A2%E8%BF%9B%E5%BA%A6%E6%9D%A1/" itemprop="url">
+                Circles 圆形进度条
+              </a>  
+        </h1>
+        
+        <div class="post-meta">
+            <span class="post-author">
+                
+                    <span class="post-meta-item-icon">
+                        <i class="fa fa-user-o"></i>
+                    </span>
+                    <span>asing1elife</span>
+                    <span class="post-meta-divider">|</span>
+                
+            </span>
+            <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span> 
+            <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-19T00:00:00+08:00">
+                2017-11-19
+            </time>
+              
+            </span>
+            
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span> 
+            <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>   
+            <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/category/#/javascript" itemprop="url" rel="index">
+                    <span itemprop="name">javascript</span>
+            </a>
+            </span>
+              ，    
+            <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/category/#/charts" itemprop="url" rel="index">
+                    <span itemprop="name">charts</span>
+            </a>
+            </span>
+              
+            </span>
+                    
+        </div>
+    </header>
+    
+    <div class="post-body" itemprop="articleBody">
+            
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <blockquote>
+  <p>生成一个圆形的进度条</p>
+</blockquote>
+
+
+
+    <!--noindex-->
+    <div class="post-button text-center">
+        <a class="btn" href="/javascript/charts/2017/11/19/Circles-%E5%9C%86%E5%BD%A2%E8%BF%9B%E5%BA%A6%E6%9D%A1/#" rel="contents">
+              阅读全文 &raquo;
+            </a>
+    </div>
+    <!--/noindex-->
+     
+    </div>
+    <div>
+        
+    </div>
+    <div>
+        
+    </div>
+    <div>
+        
+    </div>
+    <footer class="post-footer">
+               
+        <div class="post-eof"></div>
+         
+    </footer>
+    <script src="//cdn.jsdelivr.net/jquery/2.1.3/jquery.min.js"></script>
+    <script>
+    // 彩虹颜色数组
+    var colors = ['#e5e1de', '#72c02c', '#3398dc', '#d6e2ee', '#009', '#4263a3', '#f00', '#e64b3b',
+        '#a10f2b', '#9a69cb', '#6639b6', '#e81c62', '#e57d20', '#fe541e', '#ebc71d', '#29d6e6', '#00bed6', '#18ba9b',
+        '#9c8061', '#585f69'
+    ]
+
+    $(function() {
+        // 为所有标签自动添加由新窗口打开属性
+        $('a[href^="http"]').each(function() {
+            $(this).attr('target', '_blank')
+        })
+
+        // 为所有加粗标签添加颜色
+        $('div.posts-expand strong').each(function() {
+            var $this = $(this)
+
+            $this.css({
+                backgroundColor: colors[getRandom(colors.length)]
+            })
+        })
+    })
+
+    function getRandom(max) {
+        return Math.floor(Math.random() * Math.floor(max))
+    }
+    </script>
+</article>
+  
+    
+        
+<article class="post post-type- " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://localhost:4000/2017/11/18/Lodash-%E6%89%A9%E5%B1%95JS%E9%80%9A%E7%94%A8%E6%96%B9%E6%B3%95/">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="asing1elife">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/assets/images/avatar.png">
+    </span>
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="asing1elife's blog">
+    </span> 
+    <header class="post-header">
+         
+        <h1 class="post-title" itemprop="name headline">
+               
+            <a class="post-title-link" href="/2017/11/18/Lodash-%E6%89%A9%E5%B1%95JS%E9%80%9A%E7%94%A8%E6%96%B9%E6%B3%95/" itemprop="url">
+                Lodash 扩展js通用方法
+              </a>  
+        </h1>
+        
+        <div class="post-meta">
+            <span class="post-author">
+                
+            </span>
+            <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span> 
+            <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-18T00:00:00+08:00">
+                2017-11-18
+            </time>
+              
+            </span>
+                    
+        </div>
+    </header>
+    
+    <div class="post-body" itemprop="articleBody">
+            
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <h1 id="lodash-扩展js通用方法">Lodash 扩展JS通用方法</h1>
+<p>#javascript/plugin</p>
+<blockquote>
+  <p>Lodash是一个著名的javascript原生库，不需要引入其他第三方依赖。是一个意在提高开发者效率,提高JS原生方法性能的JS库</p>
+</blockquote>
+
+
+
+    <!--noindex-->
+    <div class="post-button text-center">
+        <a class="btn" href="/2017/11/18/Lodash-%E6%89%A9%E5%B1%95JS%E9%80%9A%E7%94%A8%E6%96%B9%E6%B3%95/#" rel="contents">
+              阅读全文 &raquo;
+            </a>
+    </div>
+    <!--/noindex-->
+     
+    </div>
+    <div>
+        
+    </div>
+    <div>
+        
+    </div>
+    <div>
+        
+    </div>
+    <footer class="post-footer">
+               
+        <div class="post-eof"></div>
+         
+    </footer>
+    <script src="//cdn.jsdelivr.net/jquery/2.1.3/jquery.min.js"></script>
+    <script>
+    // 彩虹颜色数组
+    var colors = ['#e5e1de', '#72c02c', '#3398dc', '#d6e2ee', '#009', '#4263a3', '#f00', '#e64b3b',
+        '#a10f2b', '#9a69cb', '#6639b6', '#e81c62', '#e57d20', '#fe541e', '#ebc71d', '#29d6e6', '#00bed6', '#18ba9b',
+        '#9c8061', '#585f69'
+    ]
+
+    $(function() {
+        // 为所有标签自动添加由新窗口打开属性
+        $('a[href^="http"]').each(function() {
+            $(this).attr('target', '_blank')
+        })
+
+        // 为所有加粗标签添加颜色
+        $('div.posts-expand strong').each(function() {
+            var $this = $(this)
+
+            $this.css({
+                backgroundColor: colors[getRandom(colors.length)]
+            })
+        })
+    })
+
+    function getRandom(max) {
+        return Math.floor(Math.random() * Math.floor(max))
+    }
+    </script>
+</article>
   
     
         
@@ -1288,7 +1692,7 @@
     
         
 <article class="post post-type- " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://localhost:4000/java/struts/2017/09/21/Struts2-%E9%A1%B9%E7%9B%AE%E6%90%AD%E5%BB%BA/">
+    <link itemprop="mainEntityOfPage" href="http://localhost:4000/css/flex/2017/10/16/Flex-%E5%B8%83%E5%B1%80%E5%AE%9E%E7%8E%B0%E5%AD%90%E9%A1%B9%E7%9A%84%E5%AE%8C%E5%85%A8%E5%B1%85%E4%B8%AD/">
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="asing1elife">
       <meta itemprop="description" content="">
@@ -1301,8 +1705,8 @@
          
         <h1 class="post-title" itemprop="name headline">
                
-            <a class="post-title-link" href="/java/struts/2017/09/21/Struts2-%E9%A1%B9%E7%9B%AE%E6%90%AD%E5%BB%BA/" itemprop="url">
-                Struts2 项目搭建
+            <a class="post-title-link" href="/css/flex/2017/10/16/Flex-%E5%B8%83%E5%B1%80%E5%AE%9E%E7%8E%B0%E5%AD%90%E9%A1%B9%E7%9A%84%E5%AE%8C%E5%85%A8%E5%B1%85%E4%B8%AD/" itemprop="url">
+                Flex 布局实现子项的完全居中
               </a>  
         </h1>
         
@@ -1321,8 +1725,8 @@
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
               </span> 
-            <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-21T00:00:00+08:00">
-                2017-09-21
+            <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-16T00:00:00+08:00">
+                2017-10-16
             </time>
               
             </span>
@@ -1334,14 +1738,14 @@
                 <i class="fa fa-folder-o"></i>
               </span>   
             <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/category/#/java" itemprop="url" rel="index">
-                    <span itemprop="name">java</span>
+                  <a href="/category/#/css" itemprop="url" rel="index">
+                    <span itemprop="name">css</span>
             </a>
             </span>
               ，    
             <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/category/#/struts" itemprop="url" rel="index">
-                    <span itemprop="name">struts</span>
+                  <a href="/category/#/flex" itemprop="url" rel="index">
+                    <span itemprop="name">flex</span>
             </a>
             </span>
               
@@ -1367,14 +1771,14 @@
 
 
   <blockquote>
-  <p>Struts2 作为一个应用开发框架，在项目中引入需要如下步骤</p>
+  <p>利用 Flex 布局的灵活性可以非常简洁的实现子元素相对于父元素的完全居中</p>
 </blockquote>
 
 
 
     <!--noindex-->
     <div class="post-button text-center">
-        <a class="btn" href="/java/struts/2017/09/21/Struts2-%E9%A1%B9%E7%9B%AE%E6%90%AD%E5%BB%BA/#" rel="contents">
+        <a class="btn" href="/css/flex/2017/10/16/Flex-%E5%B8%83%E5%B1%80%E5%AE%9E%E7%8E%B0%E5%AD%90%E9%A1%B9%E7%9A%84%E5%AE%8C%E5%85%A8%E5%B1%85%E4%B8%AD/#" rel="contents">
               阅读全文 &raquo;
             </a>
     </div>
@@ -1428,7 +1832,7 @@
     
         
 <article class="post post-type- " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://localhost:4000/java/hibernate/2017/09/21/Hibernate%E9%A1%B9%E7%9B%AE%E6%90%AD%E5%BB%BA/">
+    <link itemprop="mainEntityOfPage" href="http://localhost:4000/css/flex/2017/10/16/Flex-%E5%B8%83%E5%B1%80-%E9%A1%B9%E7%9B%AE/">
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="asing1elife">
       <meta itemprop="description" content="">
@@ -1441,8 +1845,8 @@
          
         <h1 class="post-title" itemprop="name headline">
                
-            <a class="post-title-link" href="/java/hibernate/2017/09/21/Hibernate%E9%A1%B9%E7%9B%AE%E6%90%AD%E5%BB%BA/" itemprop="url">
-                Hibernate项目搭建
+            <a class="post-title-link" href="/css/flex/2017/10/16/Flex-%E5%B8%83%E5%B1%80-%E9%A1%B9%E7%9B%AE/" itemprop="url">
+                Flex 布局 - 项目
               </a>  
         </h1>
         
@@ -1461,8 +1865,8 @@
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
               </span> 
-            <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-21T00:00:00+08:00">
-                2017-09-21
+            <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-16T00:00:00+08:00">
+                2017-10-16
             </time>
               
             </span>
@@ -1474,14 +1878,14 @@
                 <i class="fa fa-folder-o"></i>
               </span>   
             <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/category/#/java" itemprop="url" rel="index">
-                    <span itemprop="name">java</span>
+                  <a href="/category/#/css" itemprop="url" rel="index">
+                    <span itemprop="name">css</span>
             </a>
             </span>
               ，    
             <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/category/#/hibernate" itemprop="url" rel="index">
-                    <span itemprop="name">hibernate</span>
+                  <a href="/category/#/flex" itemprop="url" rel="index">
+                    <span itemprop="name">flex</span>
             </a>
             </span>
               
@@ -1507,14 +1911,14 @@
 
 
   <blockquote>
-  <p>Hibernate 作为一个全自动的持久层[ORM]框架，在项目中引入需要以下步骤</p>
+  <p>Flex 布局中用于控制子元素的一些属性</p>
 </blockquote>
 
 
 
     <!--noindex-->
     <div class="post-button text-center">
-        <a class="btn" href="/java/hibernate/2017/09/21/Hibernate%E9%A1%B9%E7%9B%AE%E6%90%AD%E5%BB%BA/#" rel="contents">
+        <a class="btn" href="/css/flex/2017/10/16/Flex-%E5%B8%83%E5%B1%80-%E9%A1%B9%E7%9B%AE/#" rel="contents">
               阅读全文 &raquo;
             </a>
     </div>
@@ -1568,7 +1972,7 @@
     
         
 <article class="post post-type- " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://localhost:4000/java/springmvc/springboot/2017/09/14/Spring%E4%BA%8B%E5%8A%A1%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB/">
+    <link itemprop="mainEntityOfPage" href="http://localhost:4000/css/flex/2017/10/16/Flex-%E5%B8%83%E5%B1%80-%E5%AE%B9%E5%99%A8/">
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="asing1elife">
       <meta itemprop="description" content="">
@@ -1581,8 +1985,8 @@
          
         <h1 class="post-title" itemprop="name headline">
                
-            <a class="post-title-link" href="/java/springmvc/springboot/2017/09/14/Spring%E4%BA%8B%E5%8A%A1%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB/" itemprop="url">
-                Spring事务隔离级别
+            <a class="post-title-link" href="/css/flex/2017/10/16/Flex-%E5%B8%83%E5%B1%80-%E5%AE%B9%E5%99%A8/" itemprop="url">
+                Flex 布局 - 容器
               </a>  
         </h1>
         
@@ -1601,8 +2005,8 @@
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
               </span> 
-            <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-14T00:00:00+08:00">
-                2017-09-14
+            <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-16T00:00:00+08:00">
+                2017-10-16
             </time>
               
             </span>
@@ -1614,20 +2018,14 @@
                 <i class="fa fa-folder-o"></i>
               </span>   
             <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/category/#/java" itemprop="url" rel="index">
-                    <span itemprop="name">java</span>
+                  <a href="/category/#/css" itemprop="url" rel="index">
+                    <span itemprop="name">css</span>
             </a>
             </span>
               ，    
             <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/category/#/springmvc" itemprop="url" rel="index">
-                    <span itemprop="name">springmvc</span>
-            </a>
-            </span>
-              ，    
-            <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/category/#/springboot" itemprop="url" rel="index">
-                    <span itemprop="name">springboot</span>
+                  <a href="/category/#/flex" itemprop="url" rel="index">
+                    <span itemprop="name">flex</span>
             </a>
             </span>
               
@@ -1653,434 +2051,15 @@
 
 
   <blockquote>
-  <p>Spring 事务隔离级别是指 Spring 如何去处理每个事务之间的关联，可用于防止一些数据错误</p>
+  <p>Flex 是 Flexible Box 的缩写，就是弹性布局，可以为盒子模型提供更大的灵活性<br />
+任何一个容器都可以指定为 Flex 布局，其将会成为未来布局的首选方案</p>
 </blockquote>
 
 
 
     <!--noindex-->
     <div class="post-button text-center">
-        <a class="btn" href="/java/springmvc/springboot/2017/09/14/Spring%E4%BA%8B%E5%8A%A1%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB/#" rel="contents">
-              阅读全文 &raquo;
-            </a>
-    </div>
-    <!--/noindex-->
-     
-    </div>
-    <div>
-        
-    </div>
-    <div>
-        
-    </div>
-    <div>
-        
-    </div>
-    <footer class="post-footer">
-               
-        <div class="post-eof"></div>
-         
-    </footer>
-    <script src="//cdn.jsdelivr.net/jquery/2.1.3/jquery.min.js"></script>
-    <script>
-    // 彩虹颜色数组
-    var colors = ['#e5e1de', '#72c02c', '#3398dc', '#d6e2ee', '#009', '#4263a3', '#f00', '#e64b3b',
-        '#a10f2b', '#9a69cb', '#6639b6', '#e81c62', '#e57d20', '#fe541e', '#ebc71d', '#29d6e6', '#00bed6', '#18ba9b',
-        '#9c8061', '#585f69'
-    ]
-
-    $(function() {
-        // 为所有标签自动添加由新窗口打开属性
-        $('a[href^="http"]').each(function() {
-            $(this).attr('target', '_blank')
-        })
-
-        // 为所有加粗标签添加颜色
-        $('div.posts-expand strong').each(function() {
-            var $this = $(this)
-
-            $this.css({
-                backgroundColor: colors[getRandom(colors.length)]
-            })
-        })
-    })
-
-    function getRandom(max) {
-        return Math.floor(Math.random() * Math.floor(max))
-    }
-    </script>
-</article>
-  
-    
-        
-<article class="post post-type- " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://localhost:4000/java/springmvc/springboot/2017/09/14/Spring%E4%BA%8B%E5%8A%A1%E4%BC%A0%E6%92%AD%E8%A1%8C%E4%B8%BA/">
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="asing1elife">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/assets/images/avatar.png">
-    </span>
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="asing1elife's blog">
-    </span> 
-    <header class="post-header">
-         
-        <h1 class="post-title" itemprop="name headline">
-               
-            <a class="post-title-link" href="/java/springmvc/springboot/2017/09/14/Spring%E4%BA%8B%E5%8A%A1%E4%BC%A0%E6%92%AD%E8%A1%8C%E4%B8%BA/" itemprop="url">
-                Spring事务传播行为
-              </a>  
-        </h1>
-        
-        <div class="post-meta">
-            <span class="post-author">
-                
-                    <span class="post-meta-item-icon">
-                        <i class="fa fa-user-o"></i>
-                    </span>
-                    <span>asing1elife</span>
-                    <span class="post-meta-divider">|</span>
-                
-            </span>
-            <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span> 
-            <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-14T00:00:00+08:00">
-                2017-09-14
-            </time>
-              
-            </span>
-            
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span> 
-            <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>   
-            <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/category/#/java" itemprop="url" rel="index">
-                    <span itemprop="name">java</span>
-            </a>
-            </span>
-              ，    
-            <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/category/#/springmvc" itemprop="url" rel="index">
-                    <span itemprop="name">springmvc</span>
-            </a>
-            </span>
-              ，    
-            <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/category/#/springboot" itemprop="url" rel="index">
-                    <span itemprop="name">springboot</span>
-            </a>
-            </span>
-              
-            </span>
-                    
-        </div>
-    </header>
-    
-    <div class="post-body" itemprop="articleBody">
-            
-  
-  
-
-
-
-
-
-
-
-
-
-
-
-
-  <blockquote>
-  <p>Spring 事务的传播行为是指当存在多个事务同时存在的时候，Spring 应该如何处理这些这些事务</p>
-</blockquote>
-
-
-
-    <!--noindex-->
-    <div class="post-button text-center">
-        <a class="btn" href="/java/springmvc/springboot/2017/09/14/Spring%E4%BA%8B%E5%8A%A1%E4%BC%A0%E6%92%AD%E8%A1%8C%E4%B8%BA/#" rel="contents">
-              阅读全文 &raquo;
-            </a>
-    </div>
-    <!--/noindex-->
-     
-    </div>
-    <div>
-        
-    </div>
-    <div>
-        
-    </div>
-    <div>
-        
-    </div>
-    <footer class="post-footer">
-               
-        <div class="post-eof"></div>
-         
-    </footer>
-    <script src="//cdn.jsdelivr.net/jquery/2.1.3/jquery.min.js"></script>
-    <script>
-    // 彩虹颜色数组
-    var colors = ['#e5e1de', '#72c02c', '#3398dc', '#d6e2ee', '#009', '#4263a3', '#f00', '#e64b3b',
-        '#a10f2b', '#9a69cb', '#6639b6', '#e81c62', '#e57d20', '#fe541e', '#ebc71d', '#29d6e6', '#00bed6', '#18ba9b',
-        '#9c8061', '#585f69'
-    ]
-
-    $(function() {
-        // 为所有标签自动添加由新窗口打开属性
-        $('a[href^="http"]').each(function() {
-            $(this).attr('target', '_blank')
-        })
-
-        // 为所有加粗标签添加颜色
-        $('div.posts-expand strong').each(function() {
-            var $this = $(this)
-
-            $this.css({
-                backgroundColor: colors[getRandom(colors.length)]
-            })
-        })
-    })
-
-    function getRandom(max) {
-        return Math.floor(Math.random() * Math.floor(max))
-    }
-    </script>
-</article>
-  
-    
-        
-<article class="post post-type- " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://localhost:4000/database/mysql/2017/09/14/MySQL%E6%95%B0%E6%8D%AE%E5%BA%93%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB/">
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="asing1elife">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/assets/images/avatar.png">
-    </span>
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="asing1elife's blog">
-    </span> 
-    <header class="post-header">
-         
-        <h1 class="post-title" itemprop="name headline">
-               
-            <a class="post-title-link" href="/database/mysql/2017/09/14/MySQL%E6%95%B0%E6%8D%AE%E5%BA%93%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB/" itemprop="url">
-                MySQL数据库隔离级别
-              </a>  
-        </h1>
-        
-        <div class="post-meta">
-            <span class="post-author">
-                
-                    <span class="post-meta-item-icon">
-                        <i class="fa fa-user-o"></i>
-                    </span>
-                    <span>asing1elife</span>
-                    <span class="post-meta-divider">|</span>
-                
-            </span>
-            <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span> 
-            <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-14T00:00:00+08:00">
-                2017-09-14
-            </time>
-              
-            </span>
-            
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span> 
-            <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>   
-            <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/category/#/database" itemprop="url" rel="index">
-                    <span itemprop="name">database</span>
-            </a>
-            </span>
-              ，    
-            <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/category/#/mysql" itemprop="url" rel="index">
-                    <span itemprop="name">mysql</span>
-            </a>
-            </span>
-              
-            </span>
-                    
-        </div>
-    </header>
-    
-    <div class="post-body" itemprop="articleBody">
-            
-  
-  
-
-
-
-
-
-
-
-
-
-
-
-
-  <blockquote>
-  <p>数据库隔离级别用于处理数据库中的数据读写规则</p>
-</blockquote>
-
-
-
-    <!--noindex-->
-    <div class="post-button text-center">
-        <a class="btn" href="/database/mysql/2017/09/14/MySQL%E6%95%B0%E6%8D%AE%E5%BA%93%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB/#" rel="contents">
-              阅读全文 &raquo;
-            </a>
-    </div>
-    <!--/noindex-->
-     
-    </div>
-    <div>
-        
-    </div>
-    <div>
-        
-    </div>
-    <div>
-        
-    </div>
-    <footer class="post-footer">
-               
-        <div class="post-eof"></div>
-         
-    </footer>
-    <script src="//cdn.jsdelivr.net/jquery/2.1.3/jquery.min.js"></script>
-    <script>
-    // 彩虹颜色数组
-    var colors = ['#e5e1de', '#72c02c', '#3398dc', '#d6e2ee', '#009', '#4263a3', '#f00', '#e64b3b',
-        '#a10f2b', '#9a69cb', '#6639b6', '#e81c62', '#e57d20', '#fe541e', '#ebc71d', '#29d6e6', '#00bed6', '#18ba9b',
-        '#9c8061', '#585f69'
-    ]
-
-    $(function() {
-        // 为所有标签自动添加由新窗口打开属性
-        $('a[href^="http"]').each(function() {
-            $(this).attr('target', '_blank')
-        })
-
-        // 为所有加粗标签添加颜色
-        $('div.posts-expand strong').each(function() {
-            var $this = $(this)
-
-            $this.css({
-                backgroundColor: colors[getRandom(colors.length)]
-            })
-        })
-    })
-
-    function getRandom(max) {
-        return Math.floor(Math.random() * Math.floor(max))
-    }
-    </script>
-</article>
-  
-    
-        
-<article class="post post-type- " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://localhost:4000/javascript/2017/08/21/Javascript-%E4%BF%AE%E6%94%B9-input-%E9%AA%8C%E8%AF%81%E6%8F%90%E7%A4%BA/">
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="asing1elife">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/assets/images/avatar.png">
-    </span>
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="asing1elife's blog">
-    </span> 
-    <header class="post-header">
-         
-        <h1 class="post-title" itemprop="name headline">
-               
-            <a class="post-title-link" href="/javascript/2017/08/21/Javascript-%E4%BF%AE%E6%94%B9-input-%E9%AA%8C%E8%AF%81%E6%8F%90%E7%A4%BA/" itemprop="url">
-                Javascript 修改 input 验证提示
-              </a>  
-        </h1>
-        
-        <div class="post-meta">
-            <span class="post-author">
-                
-                    <span class="post-meta-item-icon">
-                        <i class="fa fa-user-o"></i>
-                    </span>
-                    <span>asing1elife</span>
-                    <span class="post-meta-divider">|</span>
-                
-            </span>
-            <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span> 
-            <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-21T00:00:00+08:00">
-                2017-08-21
-            </time>
-              
-            </span>
-            
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span> 
-            <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>   
-            <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/category/#/javascript" itemprop="url" rel="index">
-                    <span itemprop="name">javascript</span>
-            </a>
-            </span>
-              
-            </span>
-                    
-        </div>
-    </header>
-    
-    <div class="post-body" itemprop="articleBody">
-            
-  
-  
-
-
-
-
-
-
-
-
-
-
-
-
-  <blockquote>
-  <p>HTML5 为 form 中的 input 提供了一系列的验证提示，通过 Javascript 可以对验证提示的内容进行自定义</p>
-</blockquote>
-
-
-
-    <!--noindex-->
-    <div class="post-button text-center">
-        <a class="btn" href="/javascript/2017/08/21/Javascript-%E4%BF%AE%E6%94%B9-input-%E9%AA%8C%E8%AF%81%E6%8F%90%E7%A4%BA/#" rel="contents">
+        <a class="btn" href="/css/flex/2017/10/16/Flex-%E5%B8%83%E5%B1%80-%E5%AE%B9%E5%99%A8/#" rel="contents">
               阅读全文 &raquo;
             </a>
     </div>
@@ -2185,7 +2164,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">191</span>
+                <span class="site-state-item-count">197</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -2196,7 +2175,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/">
-                <span class="site-state-item-count">50</span>
+                <span class="site-state-item-count">51</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -2207,7 +2186,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/">
-                <span class="site-state-item-count">95</span>
+                <span class="site-state-item-count">96</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
