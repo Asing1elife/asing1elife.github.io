@@ -23,7 +23,7 @@ tags:
 	
 ## Jrebel 实现本地激活
 ### 下载激活文件
-	1. 前往 [Jrebel License Server](https://github.com/ilanyu/ReverseProxy/releases/tag/v1.4) 下载 ReverseProxy_darwin_amd64 该文件是 mac 可使用的
+1. 前往 [Jrebel License Server](https://github.com/ilanyu/ReverseProxy/releases/tag/v1.4) 下载 ReverseProxy_darwin_amd64 该文件是 mac 可使用的
 
 ### 为文件添加权限并运行
 ```shell
