@@ -279,6 +279,23 @@
     </entry>
   
     <entry>
+      <title><![CDATA[Linux ssh]]></title>
+      <url>/linux/2018/07/29/Linux-ssh/</url>
+      <content type="text"><![CDATA[  ssh 可用于远程登录指定服务器基本语法  输入以下语法后，如果存在密码则需要交互式的输入密码ssh 10.24.232.71绕过交互式密码输入安装 sshpass 插件yum install -y sshpass在 ssh 语句之前使用 sshpass 指定密码sshpass -p '1nn0va1e-qsx' ssh 10.47.120.134绕过 RSA key 验证  对于部分没有安装 RSA key 的服务器，在登录时会需要确认 RSA 信息  通过在 ssh 语句后添加 -o "StrictHostKeyChecking no" 即可绕过ssh -o "StrictHostKeyChecking no" 10.47.120.134防止远程启动 nohup &amp; 无法跳出进程  在执行基础脚本后加上 &gt;/dev/null 2&gt;&amp;1 &amp; 可以将由远程输出到本地的无用信息导向一个空的目录并且后台运行ssh web1 "/opt/mop-server/run.sh &gt;/dev/null 2&gt;&amp;1 &amp;"]]></content>
+      <categories>
+        
+          <category> linux </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> linux </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
       <title><![CDATA[IDEA 安装 Jrebel]]></title>
       <url>/software/idea/2018/07/24/IDEA-%E5%AE%89%E8%A3%85-Jrebel/</url>
       <content type="text"><![CDATA[  虽然 IDEA 本身支持热部署，但功能较弱，只支持方法内部代码更新，如果新增方法则需要重启项目，使用 Jrebel 可以实现完全的项目热部署Jrebel 安装  Jrebel 提供了 IDEA 的插件支持，进入插件列表搜索下载即可  但 Jrebel 不是免费的，需要激活为什么要激活 Jrebel  之前的 Jrebel 有个人版，支持 Facebook 账号的免费激活使用，但目前 Jrebel 更新到 2018.1.4 版本后已经下线了个人版，只提供企业版  企业版 Jrebel 的价格实在有点贵，而且也是按年付费Jrebel 实现本地激活下载激活文件  前往 Jrebel License Server 下载 ReverseProxy_darwin_amd64 该文件是 mac 可使用的为文件添加权限并运行chmod 777 ./ReverseProxy_darwin_amd64$bash ./ReverseProxy_darwin_amd64运行成功后显示如下内容前往 Jrebel 配置界面按如下输入  地址后面需要跟一串 GUID 验证  邮箱可随意输入输入成功显示激活后要立即将 Jrebel 设置为离线模式，可确保 180 有效性  180 天后重复上述操作即可  如果不设置为离线模式，终端运行的程序就不能退出，一旦退出激活就会失效 ]]></content>
@@ -3194,6 +3211,159 @@
     </entry>
   
     <entry>
+      <title><![CDATA[Linux stat]]></title>
+      <url>/linux/2017/06/15/Linux-stat/</url>
+      <content type="text"><![CDATA[  stat-查看文件/目录信息查看文件/目录完整信息state ./course]]></content>
+      <categories>
+        
+          <category> linux </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> linux </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[Linux rmdir]]></title>
+      <url>/linux/2017/06/15/Linux-rmdir/</url>
+      <content type="text"><![CDATA[  rmdir-删除目录 只能删除非空目录删除目录rmdir test递归删除目录  若子目录删除后导致父目录为空，则会一并删除父目录rmdir -p test/test1]]></content>
+      <categories>
+        
+          <category> linux </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> linux </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[Linux rm]]></title>
+      <url>/linux/2017/06/15/Linux-rm/</url>
+      <content type="text"><![CDATA[  rm-删除文件或目录删除文件rm test.log强制删除文件，不会提示是否删除rm -f test.log逐个删除文件，并提示是否删除rm -i *.log删除目录rm -r test强制删除目录，不会提示是否删除rm -rf test]]></content>
+      <categories>
+        
+          <category> linux </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> linux </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[Linux pwd]]></title>
+      <url>/linux/2017/06/15/Linux-pwd/</url>
+      <content type="text"><![CDATA[  pwd-显示当前完整目录显示当前目录pwd]]></content>
+      <categories>
+        
+          <category> linux </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> linux </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[Linux mv]]></title>
+      <url>/linux/2017/06/15/Linux-mv/</url>
+      <content type="text"><![CDATA[  mv-移动文件\目录或更改文件\目录名称移动文件并更改文件名称mv test.log ./test1/test1.log移动多个文件mv a.log b.log ./test1/更改文件名称  若存在同名文件，则询问是否覆盖mv -i a.log b.log强制更改文件名称  若存在同名文件，直接覆盖mv -f a.log b.log移动文件夹  若test3不存在，则将test2名称改为test3，否则将test2移动到test3中mv test2 test3移动当前目录下所有文件到上级目录mv * ../]]></content>
+      <categories>
+        
+          <category> linux </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> linux </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[Linux mkdir]]></title>
+      <url>/linux/2017/06/15/Linux-mkdir/</url>
+      <content type="text"><![CDATA[  mkdir-创建目录创建目录mkdir test同时创建多个目录mkdir -p test/test1创建指定权限的目录mkdir -m 777 test创建目录并显示创建信息mkdir -v test]]></content>
+      <categories>
+        
+          <category> linux </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> linux </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[Linux ls]]></title>
+      <url>/linux/2017/06/15/Linux-ls/</url>
+      <content type="text"><![CDATA[  ls-查看目录详细信息列表ls -l包括隐藏文件ls -a包括所有子目录ls -r每行只列出一个文件，相当于竖向排列ls -1]]></content>
+      <categories>
+        
+          <category> linux </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> linux </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[Linux cd]]></title>
+      <url>/linux/2017/06/15/Linux-cd/</url>
+      <content type="text"><![CDATA[  cd-目录跳转系统根目录cd /返回上级目录cd ..当前用户主目录cd  或  cd ~跳转指定目录cd ~/Document/innovaee/project返回进入此目录之前所在的目录cd -用上一个命令作为参数使用cd !$]]></content>
+      <categories>
+        
+          <category> linux </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> linux </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[Linux alias]]></title>
+      <url>/linux/2017/06/15/Linux-alias/</url>
+      <content type="text"><![CDATA[  alias用于给命令添加一个简洁的别名添加永久性别名  输入 vi ~/.bashrc  在文件中添加需要的命令别名，例如 alias ll='ls -l' 并保存  输入 source ~/.bashrc 执行文件  将 source ~/.bashrc 写入 vi ~/.bash_profile 文件中并保存，可确保重启后命令依旧生效]]></content>
+      <categories>
+        
+          <category> linux </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> linux </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
       <title><![CDATA[Javascript数组排序]]></title>
       <url>/javascript/array/2017/06/08/Javascript%E6%95%B0%E7%BB%84%E6%8E%92%E5%BA%8F/</url>
       <content type="text"><![CDATA[  Javascript 提供 sort() 函数用于排序但默认情况是使用字符串 Unicode 码点排序问题// 得到的结果是 [1, 10, 2, 5][1, 5, 2, 10].sort();解决[1, 5, 2, 10].sort((a, b) =&gt; a - b);]]></content>
@@ -3670,6 +3840,23 @@
           <tag> java </tag>
         
           <tag> validate </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[Linux 杀死多个进程]]></title>
+      <url>/linux/2017/04/13/Linux-%E6%9D%80%E6%AD%BB%E5%A4%9A%E4%B8%AA%E8%BF%9B%E7%A8%8B/</url>
+      <content type="text"><![CDATA[  对于拥有共同关键字的进程，可以通过一条命令批量 kill语法ps aux | grep "common" | cut –c 9-15 | xargs kill –9解析  ps aux 查看所有进程的命令  grep "common" 在前序命令查找到的进程中过滤出存在关键字 common 的进程  cut -c 9-15 在前序命令过滤出的进程中截取输出行的第 9 到 15 个字符，正好是进程 PID  xargs 将前序命令得到的结果作为 kill -9 的参数]]></content>
+      <categories>
+        
+          <category> linux </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> linux </tag>
         
       </tags>
       <tags></tags>
