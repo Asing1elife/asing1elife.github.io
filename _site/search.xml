@@ -2,6 +2,27 @@
 <search>
   
     <entry>
+      <title><![CDATA[IDEA 隐藏四周的工具按钮栏]]></title>
+      <url>/software/idea/2018/08/31/IDEA-%E9%9A%90%E8%97%8F%E5%9B%9B%E5%91%A8%E7%9A%84%E5%B7%A5%E5%85%B7%E6%8C%89%E9%92%AE%E6%A0%8F/</url>
+      <content type="text"><![CDATA[  IDEA 默认会在界面四周显示各种工具的按钮，没什么卵用，通过以下方式可以隐藏隐藏方式  如图所示取消 Tool Buttons 的勾选即可]]></content>
+      <categories>
+        
+          <category> software </category>
+        
+          <category> idea </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> software </tag>
+        
+          <tag> idea </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
       <title><![CDATA[jQuery 手动触发按键按下]]></title>
       <url>/jquery/2018/08/30/jQuery-%E6%89%8B%E5%8A%A8%E8%A7%A6%E5%8F%91%E6%8C%89%E9%94%AE%E6%8C%89%E4%B8%8B/</url>
       <content type="text"><![CDATA[  通过 jQuery 可以手动触发指定按键被按下的动作实现方式  关于按键的码表可以参考 jQuery 禁用右键菜单、复制功能// 首先获取按键的事件var e = $.Event('keydown')// 然后指定按键的类型e.which = 27// 最后在需要被触发的元素上触发该按键$noviceGuidePanel.trigger(e)]]></content>
@@ -237,6 +258,50 @@
     </entry>
   
     <entry>
+      <title><![CDATA[Slack设置VPN代理]]></title>
+      <url>/software/slack/2018/08/01/Slack%E8%AE%BE%E7%BD%AEVPN%E4%BB%A3%E7%90%86/</url>
+      <content type="text"><![CDATA[  Slack 目前看来应该是被墙了，但 Slack 本身不支持配置代理，所以可以使用 mac 本身的自动配置代理方式进行代理该方法理论上适配其他需要被代理的请求链接官网slack-proxy下载 pac 文件  在 slack-proxy-github 下载 slack-proxy.pac 文件获取本地代理地址  由于我使用的是 lantern ，所以在 lantern 的配置项中可以找到其对应的代理地址  其他软件可自行 Google 如何获取代理地址修改 pac 文件中的本地代理地址  使用编辑器打开 slack-proxy.pac ，内容如下  将 SOCKS 后面的地址改为自己本地有效的代理地址function FindProxyForURL(url, host) {    if (shExpMatch(host, "*.slack-msgs.com")) {                // Use SOCK proxy, or fall back to a DIRECT traffic.        // ssh -D 8000 [user]@[server]        return "SOCKS 127.0.0.1:51218; DIRECT";    }    return "DIRECT";}在 mac 的系统配置中指定代理文件  一开始已经说过 Slack 本身不支持配置代理，所以需要使用系统本身的特性进行代理配置  依次打开 系统偏好配置 &gt; 网络 &gt; 选择WIFI &gt; 右下角高级 &gt; 代理  勾选 自动代理配置 ，并在右侧输入框中输入上述修好的 slack-proxy.pac 文件  保存即可]]></content>
+      <categories>
+        
+          <category> software </category>
+        
+          <category> slack </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> software </tag>
+        
+          <tag> slack </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[IDEA 安装 Jrebel]]></title>
+      <url>/software/idea/2018/07/24/IDEA-%E5%AE%89%E8%A3%85-Jrebel/</url>
+      <content type="text"><![CDATA[  虽然 IDEA 本身支持热部署，但功能较弱，只支持方法内部代码更新，如果新增方法则需要重启项目，使用 Jrebel 可以实现完全的项目热部署Jrebel 安装  Jrebel 提供了 IDEA 的插件支持，进入插件列表搜索下载即可  但 Jrebel 不是免费的，需要激活为什么要激活 Jrebel  之前的 Jrebel 有个人版，支持 Facebook 账号的免费激活使用，但目前 Jrebel 更新到 2018.1.4 版本后已经下线了个人版，只提供企业版  企业版 Jrebel 的价格实在有点贵，而且也是按年付费Jrebel 实现本地激活下载激活文件  前往 Jrebel License Server 下载 ReverseProxy_darwin_amd64 该文件是 mac 可使用的为文件添加权限并运行chmod 777 ./ReverseProxy_darwin_amd64$bash ./ReverseProxy_darwin_amd64运行成功后显示如下内容前往 Jrebel 配置界面按如下输入  地址后面需要跟一串 GUID 验证  邮箱可随意输入输入成功显示激活后要立即将 Jrebel 设置为离线模式，可确保 180 有效性  180 天后重复上述操作即可  如果不设置为离线模式，终端运行的程序就不能退出，一旦退出激活就会失效 ]]></content>
+      <categories>
+        
+          <category> software </category>
+        
+          <category> idea </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> software </tag>
+        
+          <tag> idea </tag>
+        
+          <tag> jrebel </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
       <title><![CDATA[SpringMVC多环境配置]]></title>
       <url>/java/springmvc/2018/07/23/SpringMVC%E5%A4%9A%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/</url>
       <content type="text"><![CDATA[  SpringMVC 可以使用 Spring 本身提供的 profile 特性对多环境配置文件进行统一集成，自动切换存在的必要  日常开发中，一般都存在多个环境，开发、测试、生产  上述环境对应的数据库及配置文件都会存在不同，所以为项目集成多环境配置很有必要实现方式  集成方式有多种，网上介绍的大多是使用 &lt;beans profile="dev"&gt; 去区分不同的 *.properties 文件  还可以使用 @Profile 进行不同环境代码加载  本文介绍的是使用 &lt;beans profile="dev"&gt; 直接在同一个 xml 文件中区分不同环境需要的不同配置项XML配置  注意如果使用了多环境的配置的 xml 文件中存在其他公有属性，这些属性需要放在最前面，否则会报错&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"       xmlns:p="http://www.springframework.org/schema/p"       xsi:schemaLocation="http://www.springframework.org/schema/beans            http://www.springframework.org/schema/beans/spring-beans-4.0.xsd"&gt;  &lt;description&gt;spring-data-redis-cluster&lt;/description&gt;  &lt;bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig"&gt;    &lt;property name="maxIdle" value="${redis.pool.maxIdle}"/&gt;    &lt;property name="maxTotal" value="${redis.pool.maxActive}"/&gt;    &lt;property name="maxWaitMillis" value="${redis.pool.maxWait}"/&gt;    &lt;property name="testOnBorrow" value="${redis.pool.testOnBorrow}"/&gt;  &lt;/bean&gt;  ...  &lt;beans profile="dev"&gt;    &lt;bean id="jedisPool" class="redis.clients.jedis.JedisPool"&gt;      &lt;constructor-arg index="0" ref="jedisPoolConfig"/&gt;      &lt;constructor-arg index="1" value="${redis.server.url}"/&gt;      &lt;constructor-arg index="2" value="${redis.server.port}" type="int"/&gt;      &lt;constructor-arg index="3" value="${redis.server.timeout}" type="int"/&gt;      &lt;constructor-arg index="4" value="${redis.server.password}"/&gt;    &lt;/bean&gt;    &lt;bean id="jedisConnectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory"&gt;      &lt;property name="hostName" value="${redis.server.url}"/&gt;      &lt;property name="port" value="${redis.server.port}"/&gt;      &lt;property name="password" value="${redis.server.password}"/&gt;      &lt;property name="poolConfig" ref="jedisPoolConfig"/&gt;    &lt;/bean&gt;  &lt;/beans&gt;  &lt;beans profile="prod"&gt;    &lt;bean id="redisClusterConfiguration" class="org.springframework.data.redis.connection.RedisClusterConfiguration"&gt;      ...    &lt;/bean&gt;    &lt;bean id="jedisConnectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory"&gt;      &lt;constructor-arg ref="redisClusterConfiguration"/&gt;      &lt;constructor-arg ref="jedisPoolConfig"/&gt;    &lt;/bean&gt;  &lt;/beans&gt;&lt;/beans&gt;开发环境启动方式  IDEA 需要在启动时添加脚本 -Dspring.profiles.active="dev" 以确保使用开发环境启动生产环境启动方式  Linux 环境需要前往 Tomcat 的 /bin 目录下，需要 ./catalina.sh 中的 JAVA_OPTS 内容如下  JAVA_OPTS="$JAVA_OPTS -Dspring.profiles.active=prod"]]></content>
@@ -256,6 +321,48 @@
           <tag> profile </tag>
         
           <tag> spring </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[IDEA 自动导入包]]></title>
+      <url>/software/idea/2018/07/23/IDEA-%E8%87%AA%E5%8A%A8%E5%AF%BC%E5%85%A5%E5%8C%85/</url>
+      <content type="text"><![CDATA[  IDEA 默认只会提示需要导入包，但不会自动导入解决方法  可以起到自动导入包，以及自动移除无用包的作用]]></content>
+      <categories>
+        
+          <category> software </category>
+        
+          <category> idea </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> software </tag>
+        
+          <tag> idea </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[IDEA 智能提示不区分大小写]]></title>
+      <url>/software/idea/2018/07/23/IDEA-%E6%99%BA%E8%83%BD%E6%8F%90%E7%A4%BA%E4%B8%8D%E5%8C%BA%E5%88%86%E5%A4%A7%E5%B0%8F%E5%86%99/</url>
+      <content type="text"><![CDATA[  IDEA 默认的智能提示会区分大小写，通过以下方式可解决解决方法]]></content>
+      <categories>
+        
+          <category> software </category>
+        
+          <category> idea </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> software </tag>
+        
+          <tag> idea </tag>
         
       </tags>
       <tags></tags>
@@ -589,6 +696,69 @@
     </entry>
   
     <entry>
+      <title><![CDATA[IDEA Java 注释格式优化]]></title>
+      <url>/software/idea/2018/06/04/IDEA-Java-%E6%B3%A8%E9%87%8A%E6%A0%BC%E5%BC%8F%E4%BC%98%E5%8C%96/</url>
+      <content type="text"><![CDATA[  IDEA 中关于 Java 通过快捷键添加的注释风格非常奇怪，可以通过以下方式进行优化取消注释默认靠左为注释自动添加空格]]></content>
+      <categories>
+        
+          <category> software </category>
+        
+          <category> idea </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> software </tag>
+        
+          <tag> idea </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[IDEA 隐藏编辑器顶部 Tab 栏]]></title>
+      <url>/software/idea/2018/06/03/IDEA-%E9%9A%90%E8%97%8F%E7%BC%96%E8%BE%91%E5%99%A8%E9%A1%B6%E9%83%A8-Tab-%E6%A0%8F/</url>
+      <content type="text"><![CDATA[  为了纯粹的编程提现，顶部的 Tab 栏必须隐藏实现方式]]></content>
+      <categories>
+        
+          <category> software </category>
+        
+          <category> idea </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> software </tag>
+        
+          <tag> idea </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[IDEA Tomcat 防止内存溢出]]></title>
+      <url>/software/idea/2018/06/03/IDEA-Tomcat-%E9%98%B2%E6%AD%A2%E5%86%85%E5%AD%98%E6%BA%A2%E5%87%BA/</url>
+      <content type="text"><![CDATA[  IDEA 中运行运行默认配置的 Tomcat 经常会抛出 OutOfMemoryError： PermGen space 的错误错误原因  出现上述错误的原因是因为 Tomcat 默认配置的内存空间非常小  所以在运行较大项目时就会出现内存溢出的错误解决方法  在 VM options 中按需增加 -server -XX:PermSize=256M -XX:MaxPermSize=512m 的参数即可]]></content>
+      <categories>
+        
+          <category> software </category>
+        
+          <category> idea </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> software </tag>
+        
+          <tag> idea </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
       <title><![CDATA[使用节流函数防止请求重复发送]]></title>
       <url>/vue/javascript/2018/05/28/%E4%BD%BF%E7%94%A8%E8%8A%82%E6%B5%81%E5%87%BD%E6%95%B0%E9%98%B2%E6%AD%A2%E8%AF%B7%E6%B1%82%E9%87%8D%E5%A4%8D%E5%8F%91%E9%80%81/</url>
       <content type="text"><![CDATA[  在注入输入框监听的事件中，快速的输入可能会导致请求频繁发送构造节流函数  节流函数接收两个参数，一个是待执行方法体，一个是延迟时间export function debounce(func, delay) {	// 定义一个timer用于控制延迟	let timer	return function (...args) {		// 定时器存在则清空		if (timer) {			clearTimeout(timer)		}		// 初始化定时器		timer = setTimeout(() =&gt; {			// 在延迟达到或调用原有时间			func.apply(this, args)		}, delay)	}}运用节流函数  在 Vue 的监听中可以使用节流函数来派发监听方法  表示才 200 毫秒内重复触发该方法，不会重复派发this.$watch('query', debounce((newQuery) =&gt; {	this.$emit(query, newQuery)}, 200))]]></content>
@@ -772,6 +942,27 @@
       <tags>
         
           <tag> vue </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[MySQL 在指定位置新增字段]]></title>
+      <url>/database/mysql/2018/05/11/MySQL-%E5%9C%A8%E6%8C%87%E5%AE%9A%E4%BD%8D%E7%BD%AE%E6%96%B0%E5%A2%9E%E5%AD%97%E6%AE%B5/</url>
+      <content type="text"><![CDATA[  MySQL 使用语法新增表字段在指定位置添加字段  要在某个字段字段之后添加字段使用 AFTER columnName 即可ADD COLUMN `id` BIGINT(20) NOT NULL AUTO_INCREMENT COMMENT 'id' AFTER `name`在第一位添加字段  虽然有 AFTER 语法，但其实没有 BEFORE 语法  要在第一位添加字段，只需要使用 FIRST 即可ADD COLUMN `id` BIGINT(20) NOT NULL AUTO_INCREMENT COMMENT 'id' FIRST]]></content>
+      <categories>
+        
+          <category> database </category>
+        
+          <category> mysql </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> database </tag>
+        
+          <tag> mysql </tag>
         
       </tags>
       <tags></tags>
@@ -1137,6 +1328,27 @@
     </entry>
   
     <entry>
+      <title><![CDATA[MySQL 循环插入数据]]></title>
+      <url>/database/mysql/2018/04/19/MySQL-%E5%BE%AA%E7%8E%AF%E6%8F%92%E5%85%A5%E6%95%B0%E6%8D%AE/</url>
+      <content type="text"><![CDATA[  有时为了做数据，逐行插入效率过低，可使用以下循环的方式对数据进行插入语法  DELIMITER  用于修改 MySQL 默认的结束符          由于 MySQL 默认的结束符是 ; ，在事务执行中则会出现问题，所以需要修改        MySQL 不支持匿名方法，所以需要创建一个 PROCEDURE  来执行  创建事务后不会直接执行，需要手动执行，即输入 CALL repeatCourse();DELIMITER //CREATE PROCEDURE repeatCourse()BEGINDECLARE num INT;SET num = 1;WHILE num &lt; 30 DO	INSERT INTO `pt_course` (`name`, `code`)	SELECT CONCAT('看个视频就能学会啊', num), CONCAT('COU-201705-0005', num)	FROM pt_course	WHERE id = 548;SET num = num + 1;END WHILE;END //CALL repeatCourse();]]></content>
+      <categories>
+        
+          <category> database </category>
+        
+          <category> mysql </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> database </tag>
+        
+          <tag> mysql </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
       <title><![CDATA[SpringBoot+IDEA热部署]]></title>
       <url>/java/springboot/software/2018/04/18/SpringBoot+IDEA%E7%83%AD%E9%83%A8%E7%BD%B2/</url>
       <content type="text"><![CDATA[  SpringBoot 自身有提供插件可实现代码热部署IDEA 相关配置  开启项目自动构建代码相关配置  pom 中加入以下依赖&lt;dependency&gt;    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;    &lt;artifactId&gt;spring-boot-devtools&lt;/artifactId&gt;    &lt;optional&gt;true&lt;/optional&gt;&lt;/dependency&gt;  扩展 spring-boot-maven-plugin 的插件配置项&lt;build&gt;    &lt;finalName&gt;mop&lt;/finalName&gt;    &lt;plugins&gt;        &lt;plugin&gt;            &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;            &lt;artifactId&gt;spring-boot-maven-plugin&lt;/artifactId&gt;            &lt;configuration&gt;                &lt;!-- 如果没有该项配置devtools不会起作用，即应用不会restart --&gt;                &lt;fork&gt;true&lt;/fork&gt;                &lt;!-- 支持静态文件热部署 --&gt;                &lt;addResources&gt;true&lt;/addResources&gt;            &lt;/configuration&gt;        &lt;/plugin&gt;    &lt;/plugins&gt;&lt;/build&gt;]]></content>
@@ -1411,6 +1623,27 @@
           <tag> map </tag>
         
           <tag> spring </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[MySQL DATE_ADD() 方法]]></title>
+      <url>/database/mysql/2018/03/22/MySQL-DATE_ADD()-%E6%96%B9%E6%B3%95/</url>
+      <content type="text"><![CDATA[  用于向日期添加指定的时间间隔语法DATE_ADD(date, INTERVAL num TYPE)示例DATE_ADD('2018-03-22 10:23:00', INTERVAL 30 MINUTE)解析  date 只要是合法的日期表达式即可  num 是希望添加的时间间隔值  TYPE 是时间间隔的单位          MICROSECOND      SECOND      MINUTE      HOUR      DAY      WEEK      MONTH      QUARTER      YEAR      SECOND_MICROSECOND      MINUTE_MICROSECOND      MINUTE_SECOND      HOUR_MICROSECOND      HOUR_SECOND      HOUR_MINUTE      DAY_MICROSECOND      DAY_SECOND      DAY_MINUTE      DAY_HOUR      YEAR_MONTH      ]]></content>
+      <categories>
+        
+          <category> database </category>
+        
+          <category> mysql </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> database </tag>
+        
+          <tag> mysql </tag>
         
       </tags>
       <tags></tags>
@@ -1761,6 +1994,48 @@
     </entry>
   
     <entry>
+      <title><![CDATA[IntelliJ IDEA隐藏文件或文件夹]]></title>
+      <url>/software/idea/2018/01/14/IntelliJ-IDEA%E9%9A%90%E8%97%8F%E6%96%87%E4%BB%B6%E6%88%96%E6%96%87%E4%BB%B6%E5%A4%B9/</url>
+      <content type="text"><![CDATA[  IDEA可以通过以下设置隐藏目录中不想看到的文件夹操作步骤  按Command+,打开Preferences窗口  在Editor &gt; File Types窗口的最下端找到lgnore files and folesrs  按照输入规则输入需要隐藏的文件夹即可]]></content>
+      <categories>
+        
+          <category> software </category>
+        
+          <category> idea </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> software </tag>
+        
+          <tag> idea </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[IntelliJ IDEA解决Tomcat部署项目NoClassDefFoundError报错]]></title>
+      <url>/software/idea/2018/01/14/IntelliJ-IDEA%E8%A7%A3%E5%86%B3Tomcat%E9%83%A8%E7%BD%B2%E9%A1%B9%E7%9B%AENoClassDefFoundError%E6%8A%A5%E9%94%99/</url>
+      <content type="text"><![CDATA[  使用Tomcat部署Web项目时，项目所需要的jar包都会被复制到对应的lib目录下，但有时会出现jar包复制不完全的情况，则会出现java.lang.NoClassDefFoundError的报错将未添加到lib目录下的jar包进去添加  按Command+;打开Project Structure窗口  找到对应的项目后在Output Layout窗口中查看Available Elements  打开对应项目，如果存在一些jar包列表则说明这些jar包没有被添加到lib目录下  选中需要的jar包点击右键并put into _WEB-INF_lib即可]]></content>
+      <categories>
+        
+          <category> software </category>
+        
+          <category> idea </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> software </tag>
+        
+          <tag> idea </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
       <title><![CDATA[Hibernate @OneToOne 自动新增和删除]]></title>
       <url>/java/hibernate/2018/01/12/Hibernate-@OneToOne-%E8%87%AA%E5%8A%A8%E6%96%B0%E5%A2%9E%E5%92%8C%E5%88%A0%E9%99%A4/</url>
       <content type="text"><![CDATA[  Hibernate创建一对一关系时两张表主表保持一致则可以实现自动新增和删除主表配置  主表对应类中需要通过@OneToOne来表示其与从表的关系@Entity@Table(name = "sys_user")public class User {    @Id    @GeneratedValue(strategy = IDENTITY)    private Long id = new Long(0);    @OneToOne(cascade = {CascadeType.ALL}, mappedBy = "user", fetch = FetchType.LAZY)    @JsonIgnore    private UserAccount userAccount;    public UserAccount getUserAccount() {        return userAccount;    }    public void setUserAccount(UserAccount userAccount) {        this.userAccount = userAccount;    }}从表配置  从表中的id需要通过@GeneratedValue和@GenericGenerator来指明该值从主表中获取  从表中同时需要通过@OneToOne来表示其与主表的关系          在维护与主表关系中需要通过@PrimaryKeyJoinColumn来表示两个表是主键关联，不存在多余外键      @Entity@Table(name = "sys_user_account")public class UserAccount {    @Id    @GeneratedValue(generator = "generator")    @GenericGenerator(name = "generator", strategy = "foreign", parameters = @Parameter(name = "property", value = "user"))    private Long id = 0L;    @OneToOne(fetch = FetchType.LAZY)    @PrimaryKeyJoinColumn    private User user;    public UserAccount() {    }    public UserAccount(User user) {        this.user = user;    }    public Long getId() {        return id;    }    public void setId(Long id) {        this.id = id;    }    public User getUser() {        return user;    }    public void setUser(User user) {        this.user = user;    }}保存操作  主表在执行保存操作时，需要将从表注入其中，同时将主表的引入也注入到从表，才能实现两个对象的双向关联  当主表的id自增成功时，由于从表保有对主表的引用，所以也可以得到主表的idpublic void save(User user) {    if (user.isNew()) {        user.setUserAccount(new UserAccount(user));        super.save(user);    } else {        super.save(userModel);    }}]]></content>
@@ -2051,6 +2326,48 @@
     </entry>
   
     <entry>
+      <title><![CDATA[WebStorm空文件夹消失]]></title>
+      <url>/software/webstorm/2017/11/23/WebStorm%E7%A9%BA%E6%96%87%E4%BB%B6%E5%A4%B9%E6%B6%88%E5%A4%B1/</url>
+      <content type="text"><![CDATA[  WebStorm中的项目文件夹内所有文件都删除后，该文件夹就无法显示，是因为项目根目录存在.idea文件夹，删除即可步骤  完全退出WebStorm  终端输入 ls -al  找到.idea文件夹，输入 rm -r .idea  启动WebStorm即可]]></content>
+      <categories>
+        
+          <category> software </category>
+        
+          <category> webstorm </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> software </tag>
+        
+          <tag> webstorm </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[WebStorm添加新建文件类型]]></title>
+      <url>/software/webstorm/2017/11/23/WebStorm%E6%B7%BB%E5%8A%A0%E6%96%B0%E5%BB%BA%E6%96%87%E4%BB%B6%E7%B1%BB%E5%9E%8B/</url>
+      <content type="text"><![CDATA[  WebStorm默认的New..新建文件可能不能满足自定义需求，所以需要手动添加某些文件类型步骤  输入 Command+, 进入Preferences界面，并找到Editor-File and Code Template分支  点击添加，依次输入Name和Extension保存即可]]></content>
+      <categories>
+        
+          <category> software </category>
+        
+          <category> webstorm </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> software </tag>
+        
+          <tag> webstorm </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
       <title><![CDATA[Vue编写代理请求的方法改进]]></title>
       <url>/vue/webpack/2017/11/23/Vue%E7%BC%96%E5%86%99%E4%BB%A3%E7%90%86%E8%AF%B7%E6%B1%82%E7%9A%84%E6%96%B9%E6%B3%95%E6%94%B9%E8%BF%9B/</url>
       <content type="text"><![CDATA[  vue升级到2.9.1后，通过其vue-cli构建的webpack项目目录结构发生以下变化发生的变化1. 在2.9.1之前，通过vue-cli构建的项目build目录如下，如左图2. 在2.9.1之后，通过vue-cli构建的项目build目录如下，如右图 ![](http://asing1elife.com/sources/images/FD738C66-A0DB-4492-959D-EB22CC7F23C4.png)  ![](http://asing1elife.com/sources/images/AD33A96F-6270-409A-94BB-C83EE75FE58D.png)3. 通过以上两张图可以明确看出新版本构建出的项目缺少了**dev-client.js**和**dev-server.js**文件造成的问题  缺少dev-server.js文件之后，所带来的问题是之前我们在需要编写代理请求时会在该文件中自定义如下路由信息，而现在应该将这些路由信息存放在哪var apiRoutes = express.Router()apiRoutes.get('/getDiscList', function (req, res) {  var url = 'https://c.y.qq.com/splcloud/fcgi-bin/fcg_get_diss_by_tag.fcg'  axios.get(url, {    headers: {      referer: 'https://c.y.qq.com/',      host: 'c.y.qq.com'    },    params: req.query  }).then((response) =&gt; {    res.json(response.data)  }).catch((e) =&gt; {    console.log(e)  })})app.use('/api', apiRoutes)解决的方式  其实在新版本中关于服务器的配置信息都被存放在webpack.dev.conf.js文件中，所以对于用来发送代理请求的自定义路由信息自然也应该存放到该文件中  只是存放的方式稍有变化，在新版本中服务器通过webpack-dev-server进行管理，所以需要在该server启动之前将代理请求接口映射完毕  webpack3内置了express() ，以下代码中的app就是express返回的对象devServer: {  ...  // 在服务器开启之前，将需要被代理的请求与本地接口进行一一对应  before (app) {    // 由于QQ音乐获取歌单列表的接口做了header信息的验证，所以需要通过代理的方式去模拟其规则范围的header，使用其允许的header发起请求    app.get('/api/getDiscList', function (req, res) {      // 真实的QQ音乐获取歌单列表的请求      const url = 'https://c.y.qq.com/splcloud/fcgi-bin/fcg_get_diss_by_tag.fcg'      // 通过axios发送异步请求      axios.get(url, {        // 在发送请求时修改头文件，模拟合法的头文件，去欺骗服务器获取请求数据        headers: {          referer: 'https://c.y.qq.com/',          host: 'c.y.qq.com'        },        // 获取参数列表        // 由于浏览器请求参数是穿透传播的，所以当前端请求getDiscList时，传递的参数在次数可以直接获取到        params: req.query      }).then((response) =&gt; {        // res是本地方法接收本地请求的返回值        // response是访问服务器接口的返回值        // 此处只需要将从服务器获取的返回值通过json的方式传递给本地请求的返回值，即实现了一次代理转发        res.json(response.data)      }).catch((e) =&gt; {        // 捕获错误信息并输出        console.error(e)      })    })  }}]]></content>
@@ -2270,6 +2587,27 @@
           <tag> javascript </tag>
         
           <tag> charts </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[Sublime插件推荐]]></title>
+      <url>/software/sublime/2017/11/18/Sublime%E6%8F%92%E4%BB%B6%E6%8E%A8%E8%8D%90/</url>
+      <content type="text"><![CDATA[  列举一些比较好用的Sublime插件插件介绍  BracketHighlighter          成对的标签或符号给予高亮显示        Emmet          HTML/CSS语法提示        SideBarEnhancements          侧边栏右键增强        Sass          支持Sass        Less          支持Less        SublimeCodeIntel          代码自动补全        All Autocomplete          自动扫描项目全部文件，用于提高自动补全范围        jQuery          支持jQuery        DocBlockr          使用Enter或Tab进行快速注释        AutoFileName          自动提示文件路径        Vue Syntax Highlight          Vue语法高亮      ]]></content>
+      <categories>
+        
+          <category> software </category>
+        
+          <category> sublime </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> software </tag>
+        
+          <tag> sublime </tag>
         
       </tags>
       <tags></tags>
@@ -2584,6 +2922,27 @@
     </entry>
   
     <entry>
+      <title><![CDATA[MySQL 插入查询数据]]></title>
+      <url>/database/mysql/2017/09/14/MySQL-%E6%8F%92%E5%85%A5%E6%9F%A5%E8%AF%A2%E6%95%B0%E6%8D%AE/</url>
+      <content type="text"><![CDATA[  以下语法可将查询结果直接插入指定表语法INSERT INTO pt_project (	name,	teachingDate,	teachingNo,	description)SELECT	pr.name,	pr.teachingDate,	pr.teachingNo,	pr.descriptionFROM	pt_project prWHERE	pr.course_id = '8';]]></content>
+      <categories>
+        
+          <category> database </category>
+        
+          <category> mysql </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> database </tag>
+        
+          <tag> mysql </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
       <title><![CDATA[Javascript 修改 input 验证提示]]></title>
       <url>/javascript/2017/08/21/Javascript-%E4%BF%AE%E6%94%B9-input-%E9%AA%8C%E8%AF%81%E6%8F%90%E7%A4%BA/</url>
       <content type="text"><![CDATA[  HTML5 为 form 中的 input 提供了一系列的验证提示，通过 Javascript 可以对验证提示的内容进行自定义定义一个 input 标签，并添加 required 属性&lt;input type="text" name="username" required&gt;定义一个方法，使用 setCustomValidity() 方法添加自定义的验证提示内容&lt;script type="text/javascript"&gt;function checkInput(input) {    if (input.value.length &lt; 20) {        input.setCustomValidity("输入内容不得少于20个字符");    } else {        input.setCustomValidity("");    }}&lt;/script&gt;在 input 标签中添加 invalid 属性，指定调用前续方法，并传入当前输入框&lt;input type="text" name="username" oninvalid="checkInput(this)" required&gt;]]></content>
@@ -2711,6 +3070,48 @@
     </entry>
   
     <entry>
+      <title><![CDATA[MySQL 查询重复记录]]></title>
+      <url>/database/mysql/2017/06/19/MySQL-%E6%9F%A5%E8%AF%A2%E9%87%8D%E5%A4%8D%E8%AE%B0%E5%BD%95/</url>
+      <content type="text"><![CDATA[  数据库中如果插入重复记录，需要有效排查出重复结果方法SELECT 	* FROM 	pt_university_institute_staffWHERE 	staffId IN (		SELECT 			co.staffId 		FROM (			SELECT 				staffId, count(*) AS count 			FROM 				pt_university_institute_staff 			GROUP BY 				staffId 			HAVING 				count &gt; 1		) co	);]]></content>
+      <categories>
+        
+          <category> database </category>
+        
+          <category> mysql </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> database </tag>
+        
+          <tag> mysql </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[MySQL 命令大全]]></title>
+      <url>/database/mysql/2017/06/19/MySQL-%E5%91%BD%E4%BB%A4%E5%A4%A7%E5%85%A8/</url>
+      <content type="text"><![CDATA[  MySQL 一些常见命令查看版本号mysql -V重启/启动/停止mysql.server restart/start/stopbrew services restart/start/stop mysql连接远程数据库mysql -h 192.168.7.11 -u root -p [databaseName]连接本机数据库mysql -u root -p [databaseName]查看数据库列表show databases;创建数据库create database [databaseName];删除数据库drop database [databaseName];选择数据库use [databaseName];查看数据库表列表show tables;查看表结构describe [tableName];]]></content>
+      <categories>
+        
+          <category> database </category>
+        
+          <category> mysql </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> database </tag>
+        
+          <tag> mysql </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
       <title><![CDATA[jQuery 禁用右键菜单、复制功能]]></title>
       <url>/jquery/2017/06/18/jQuery-%E7%A6%81%E7%94%A8%E5%8F%B3%E9%94%AE%E8%8F%9C%E5%8D%95-%E5%A4%8D%E5%88%B6%E5%8A%9F%E8%83%BD/</url>
       <content type="text"><![CDATA[  通过jquery禁止浏览器右键功能菜单实现$(window).on({    // 禁用右键菜单    "contextmenu": function () {        return false;    },    // 禁用复制    "keydown": function (e) {        // win : ctrl+c        // mac : cmd+c        if ((e.ctrlKey || e.metaKey) &amp;&amp; e.keyCode === 67) {            return false;        }    }});码表  字母          A - 65      B - 66      C - 67      D - 68      E - 69      F - 70      G - 71      H - 72      I - 73      J - 74      K - 75      L - 76      M - 77      N - 78      O - 79      P - 80      Q - 81      R - 82      S - 83      T - 84      U - 85      V - 86      W - 87      X - 88      Y - 89      Z - 90        数字          0 - 48      1 - 49      2 - 50      3 - 51      4 - 52      5 - 53      6 - 54      7 - 55      8 - 56      9 - 57        小键盘          0 - 96      1 - 97      2 - 98      3 - 99      4 - 100      5 - 101      6 - 102      7 - 103      8 - 104      9 - 105      * - 106      + - 107      回 - 108      - - 109      . - 110      / - 111        功能键          F1 - 112      F2 - 113      F3 - 114      F4 - 115      F5 - 116      F6 - 117      F7 - 118      F8 - 119      F9 - 120      F10 - 121      F11	- 122      F12 - 123        扩展建          BackSpace - 8      Tab - 9      Enter - 13      Shift - 16      Ctrl - 17      Alt - 18      Caps Lock - 20      Esc - 27      ]]></content>
@@ -2785,6 +3186,69 @@
     </entry>
   
     <entry>
+      <title><![CDATA[MySQL GROUP BY 报错]]></title>
+      <url>/database/mysql/2017/05/22/MySQL-GROUP-BY-%E6%8A%A5%E9%94%99/</url>
+      <content type="text"><![CDATA[  使用 GROUP BY 时抛出 only_full_group_by 异常问题  通过 GROUP BY 查询时抛出下列异常Expression #2 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'xxx' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by解决  设置全局 sql_modeSET GLOBAL sql_mode ='STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION';  查询设置结果 SELECT @@GLOBAL.sql_mode;  在可视化工具中通过 SET GLOBAL sql_mode 设置的结果只在会话中生效，数据库重启后则失效  想要设置 sql_mode 全局生效则需要在 mysql 的 my.cnf 文件中填写 sql_mode  通过 homebrew 安装 mysql 后，在 /etc 目录下默认没有创建 my.cnf 文件，需要自行创建 cp /usr/local/opt/mysql/support-files/my-default.cnf /etc/my.cnf  进入到 _etc_my.cnf 文件中，在最后输入 sql_mode  重启 mysql]]></content>
+      <categories>
+        
+          <category> database </category>
+        
+          <category> mysql </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> database </tag>
+        
+          <tag> mysql </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[MySQL 随机获取数据]]></title>
+      <url>/database/mysql/2017/05/20/MySQL-%E9%9A%8F%E6%9C%BA%E8%8E%B7%E5%8F%96%E6%95%B0%E6%8D%AE/</url>
+      <content type="text"><![CDATA[  想要将数据库中取出的数据随机排序，需要用到 MySQL 的 RAND() 函数RAND() 函数会在 0-1 之间随机生成一个数字在多条数据中随机获取一条SELECT 	*FROM	pt_skill_test_itemORDER BY RAND()LIMIT 1;随机获取多条数据SELECT 	*FROM	pt_skill_test_itemORDER BY RAND();]]></content>
+      <categories>
+        
+          <category> database </category>
+        
+          <category> mysql </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> database </tag>
+        
+          <tag> mysql </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[MySQL 分页优化]]></title>
+      <url>/database/mysql/2017/05/15/MySQL-%E5%88%86%E9%A1%B5%E4%BC%98%E5%8C%96/</url>
+      <content type="text"><![CDATA[  MySQL 可以通过以下方式优化分页效率问题  MySQL 分页查询多行会导致查询出很多无用数据后再进行筛选，效率低下  例如 limit 1000, 10 会排序出前 1010 行数据，然后取最后 10 行解决  子查询先利用覆盖索引查询到满足条件的主键数据，再利用主键回表查找对应记录SELECT	co.name,	co.pointFROM	pt_course coINNER JOIN (	SELECT		id	FROM		pt_course 	LIMIT 1000, 10) cooON co.id = coo.id;]]></content>
+      <categories>
+        
+          <category> database </category>
+        
+          <category> mysql </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> database </tag>
+        
+          <tag> mysql </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
       <title><![CDATA[DateTimePicker 日期时间选择器]]></title>
       <url>/jquery/2017/05/15/DateTimePicker-%E6%97%A5%E6%9C%9F%E6%97%B6%E9%97%B4%E9%80%89%E6%8B%A9%E5%99%A8/</url>
       <content type="text"><![CDATA[  Bootstrap 官网的有 DatePicker 和 TimePicker ，但不支持共用所以有网友结合二者开发出 DateTimePicker 插件，可以一直从年份选择到具体时间官网DateTimePicker该插件依赖于 Bootstrap 的样式，所以需要先引入其 css 文件&lt;link href="${ctx }/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"&gt;再引入插件自身 css/js 文件&lt;link href="${ctx }/assets/plugins/bootstrap-datetimepicker/css/bootstrap-datetimepicker.css" rel="stylesheet" type="text/css"/&gt;&lt;script src="${ctx }/assets/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js" type="text/javascript"&gt;&lt;/script&gt;如果需要用到国际化，则需要引入对应语言包&lt;script src="${ctx }/assets/plugins/bootstrap-datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js" type="text/javascript"&gt;&lt;/script&gt;定义一个 input 用于展现内容&lt;input type="text" class="form-control date-time-picker" name="beginTime" readonly&gt;调用插件初始化方法$(".date-time-picker").datetimepicker({    format: "yyyy-mm-dd hh:ii",    language: "zh-CN",    weekStart: 1,    autoclose: true,    todayBtn: true,    todayHighlight: true});API  format : mm_dd_yyyy          日期时间显示的格式      关于分钟的格式符为 ii ，而不是 mm ，错写成 mm 将导致无法选择到正确的分钟数        weekStart : 0          每周的开始时间      规则是 0-6 对应周日到周六        autoclose : false          日期选择关闭后自动关闭选择面板        startView : 2 / month          默认显示的视图      支持写入数字或对应字符串      0 - hour / 1 - day / 2 - month / 3 - year / 4 - decade        minView : 0 / hour          能提供的最精确时间      规则与 startView 相同        maxView : 4 / decade          能提供的最大时间      规则与 startView 相同        todayBtn : false          显示“今天”按钮在面板最下方      为 true 则只是将日期跳转到当前日期      为 linked 则会直接选中当前日期        todayHighlight : false          高亮当前日期        keyboardNavigation : true          支持方向键改变日期        language : en          国际化支持      更改属性后还需要在插件的 locales 目录下引入对应国际化 js 文件      ]]></content>
@@ -2798,6 +3262,27 @@
           <tag> jquery </tag>
         
           <tag> datepicker </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[MySQL 表引擎的区别和选择]]></title>
+      <url>/database/mysql/2017/05/13/MySQL-%E8%A1%A8%E5%BC%95%E6%93%8E%E7%9A%84%E5%8C%BA%E5%88%AB%E5%92%8C%E9%80%89%E6%8B%A9/</url>
+      <content type="text"><![CDATA[  MySQL 的表引擎分为InnoDB和MyIsamInnoDB  支持事务和外键  采用聚簇索引  数据读取时采用行级锁，粒度更小，并发更强  读写之间可并发操作，读取时不需要加锁，根据隔离级别的不同，读取时遇到锁会读取快照  运行时会为数据建立哈希索引，但只存在于内存中，停库则丢失，重启后需要重新建立  行级锁定 [row-level]MyIsam  对数据和索引进行分开存储  索引缓存在内存中，存储的是数据的磁盘地址  数据读取时采用表级锁，无法实现读写并发，只支持读读并发  数据写入优先级高于读取优先级，因此大量的写入操作会导致表的死锁  支持 B-Tree 、R-Tree 、Full-text 索引  表级锁定 [table-level]总结  通常情况下使用InnoDB做为表引擎，因为其支持事务和外键，以及读写并发  对于读取量很大，基本没有写入操作的表，使用MyIsam做为表引擎，可加快表的读取速度]]></content>
+      <categories>
+        
+          <category> database </category>
+        
+          <category> mysql </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> database </tag>
+        
+          <tag> mysql </tag>
         
       </tags>
       <tags></tags>
@@ -2889,6 +3374,27 @@
       <tags>
         
           <tag> jquery </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[Atom 快捷键]]></title>
+      <url>/software/atom/2017/05/02/Atom-%E5%BF%AB%E6%8D%B7%E9%94%AE/</url>
+      <content type="text"><![CDATA[  Atom 一些常用的快捷键软件功能  Command+Shift+P          命令面板        Command+,          设置窗口        Command+T/P          搜索目录中的文件        Command+B          列出并搜索当前打开的所有文件        Ctrl+Shift+S          查看所有代码片段      内容编辑  Ctrl+G          跳转到文件指定行数        Command+R          跳转到指定符号[函数名、变量名 …]        Command+F2          在当前行创建/取消书签        Ctrl+F2          列出所有书签        F2          跳转到下一个标签        Shift+F2          跳转到上一个标签        Ctrl+Shift+W          选中光标所在单词        Ctrl+T          相互调换光标前后字符        Command+J          将下一行内容拼接到当前行尾        Ctrl+Command+Up          将当前行向上移动一行        Ctrl+Command+Down          将当前行向下移动一行        Command+Shift+D          复制当前行        Command+K+U          将光标所在单词转换为大写        Command+K+L          将光标所在单词转化为小写        Command+Alt+Q          取消当前段落格式化        Ctrl+Shift+K          删除当前行        Command+Backspace          从当前光标删除至行头        Command+Delete          从当前光标删除至行尾        Alt+Backspace          从当前光标删除至单词头        Alt+Delete          从当前光标删除至单词尾        Ctrl+Command+G          选中所有与光标所在单词相同的单词，并激活多光标模式        Command+D          选中下一个与光标所在单词相同的单词，并激活多光标模式        Ctrl+M          跳转到临近括号处        Ctrl+Command+M          选中当前括号中所有内容        Alt+Command+.          标签自动补全        Ctrl+Shift+U          设置当前文件编码格式        Ctrl+Space          查看代码提示        Alt+Command+[          折叠代码        Alt+Command+]          展开代码        Alt+Command+Shift+[          折叠所有代码        Alt+Command+Shift+]          展开所有代码        Ctrl+Shift+L          设置当前文件的代码格式      ]]></content>
+      <categories>
+        
+          <category> software </category>
+        
+          <category> atom </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> software </tag>
+        
+          <tag> atom </tag>
         
       </tags>
       <tags></tags>
@@ -3486,6 +3992,27 @@
     </entry>
   
     <entry>
+      <title><![CDATA[MySQL 新增时忽略重复主键]]></title>
+      <url>/database/mysql/2017/03/22/MySQL-%E6%96%B0%E5%A2%9E%E6%97%B6%E5%BF%BD%E7%95%A5%E9%87%8D%E5%A4%8D%E4%B8%BB%E9%94%AE/</url>
+      <content type="text"><![CDATA[  在新增数据时，如果主键重复会报错解决  在 INSERT INTO 之间加入 IGNORE 关键字，可以防止报错，数据虽然不会插入成功，但会返回 0INSERT IGNORE INTO (	id,	name)VALUES (	1,	'Tom')]]></content>
+      <categories>
+        
+          <category> database </category>
+        
+          <category> mysql </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> database </tag>
+        
+          <tag> mysql </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
       <title><![CDATA[MyBatis的settings配置表]]></title>
       <url>/java/mybatis/2017/03/22/MyBatis%E7%9A%84settings%E9%85%8D%E7%BD%AE%E8%A1%A8/</url>
       <content type="text"><![CDATA[  &lt;settings/&gt; 标签是 MyBatis 中的属性配置项，可以改变 MyBatis 的运行时行为规则  标签中的 value 为该设置的默认值  缓存全局开关          &lt;setting name="cacheEnabled" value="true" /&gt;        延迟加载全局开关          值为 true 时所有对象延迟加载      可通过在具体的查询中设置 fetchType 来覆盖该设置      &lt;setting name="lazyLoadingEnabled" value="false" /&gt;        所有对象直接加载          &lt;setting name="aggressiveLazyLoading" value="true" /&gt;        允许单一语句返回多个结果集，需要兼容驱动          &lt;setting name="multipleResultSetsEnabled" value="true" /&gt;        使用列标签代替类名          &lt;setting name="useColumnLabel" value="true" /&gt;        允许 JDBC 使用数据库自增主键          &lt;setting name="useGeneratedKeys" value="true" /&gt;        指定自动映射到字段的规则          NONE 取消自动映射      PARTIAL 只映射没有定义嵌套结果集映射的结果集      FULL 自动映射任何结果集      &lt;setting name="autoMappingBehavior" value="PARTIAL" /&gt;        指定当自动映射碰到未知列的处理规则          NONE 不做任何处理      WARNING 输入警告日志      FAILING 抛出 SqlSessionException 异常      &lt;setting name="autoMappingUnknownColumnBehavior" value="NONE" /&gt;        配置默认执行器          SIMPLE 普通执行器      REUSE 重用预处理语句      BATCH 重用语句并执行批量更新      &lt;setting name="defaultExecutorType" value="SIMPLE" /&gt;        设置驱动等待数据库响应的超时时间          该设置项默认没有值      值的范围是任意正整数      值的单位是秒      &lt;setting name="defaultStatementTimeout" value="" /&gt;        为驱动的结果集数量设置提示值          该设置项默认没有值      值的范围是任意正整数      可在具体查询中通过 fetchSize 覆盖该设置项      &lt;setting name="defaultFetchSize" value="" /&gt;        允许在嵌套语句中使用分页 RowBounds          &lt;setting name="safeRowBoundsEnabled" value="false" /&gt;        允许在嵌套语句中使用分页 RowHandler          &lt;setting name="safeRowHandlerEnabled" value="true" /&gt;        开启驼峰命令规则自动转换功能          例如：create_time &gt; createTime      &lt;setting name="mapUnderscoreToCameCase" value="false" /&gt;        利用本地缓存机制防止循环引用和加速重复嵌套查询          SESSION 缓存一个会话中执行的所有查询      STATEMENT 本地会员只用在语句执行中，对相同 SqlSession 的不同调用不会共享数据      &lt;setting name="localCacheScope" value="SESSION" /&gt;        当没有为参数提供特定的 JDBC 类型时，为空值指定 JDBC 类型          OTHER 一般类型      NULL 空值      VARCHAR 字符串      &lt;setting name="jdbcTypeForNull" value="OTHER" /&gt;        指定某个对象的方法触发一次延迟加载          多个方法名称通过逗号划分      &lt;setting name="lazyLoadTriggerMethods" value="equals,clone,hashCode,toString /&gt;"        指定动态 SQL 生成的默认语言          &lt;setting name="defaultScriptingLanguage" value="org.apache.ibatis.scripting.xmltags.XMLLanguageDriver" /&gt;        当结果集为 NULL 时，调用映射对象的 setter 方法为结果赋值          结果集类型是 List 时，调用 setter 方法      结果集类型是 Map 时，调用 put 方法      该属性对于基本类型无效      &lt;setting name="callSetterOnNulls" value="false" /&gt;        当对象所有列都返回 NULL 时，将整个对象设置为 NULL          &lt;setting name="returnInstanceForEmptyRow" value="false" /&gt;        指定日志名称的前缀          该设置项没有默认值      值可以是任何字符串      &lt;setting name="logPrefix" value="" /&gt;        指定日志的具体实现方式          该设置项没有默认值      值可以是 slf4j / log4j / log4j2 / jdk_logging / commons_logging / stdout_logging / no_loggging      未指定值的时候会在上述支持列表中自动查找      &lt;setting name="logImpl" value="" /&gt;        指定创建具有延迟加载能力的对象所用到的代理工具          值可以是 CGLIB / JAVASSIST      &lt;setting name="proxyFactory" value="JAVASSIST" /&gt;        指定 VFS 的实现          该设置项没有默认值      值可以是自定义 VFS 的实现类全名      多个 VFS 可以通过逗号划分      &lt;setting name="vfsImpl" value="" /&gt;        允许使用方法签名中的名称作为语句参数名称          仅在 Java 8 环境中生效，并且需要在环境变量中加上 -parameters      &lt;setting name="useActualParamName" value="true" /&gt;      完整配置示例&lt;settings&gt;  &lt;setting name="cacheEnabled" value="true"/&gt;  &lt;setting name="lazyLoadingEnabled" value="true"/&gt;  &lt;setting name="multipleResultSetsEnabled" value="true"/&gt;  &lt;setting name="useColumnLabel" value="true"/&gt;  &lt;setting name="useGeneratedKeys" value="false"/&gt;  &lt;setting name="autoMappingBehavior" value="PARTIAL"/&gt;  &lt;setting name="autoMappingUnknownColumnBehavior" value="WARNING"/&gt;  &lt;setting name="defaultExecutorType" value="SIMPLE"/&gt;  &lt;setting name="defaultStatementTimeout" value="25"/&gt;  &lt;setting name="defaultFetchSize" value="100"/&gt;  &lt;setting name="safeRowBoundsEnabled" value="false"/&gt;  &lt;setting name="mapUnderscoreToCamelCase" value="false"/&gt;  &lt;setting name="localCacheScope" value="SESSION"/&gt;  &lt;setting name="jdbcTypeForNull" value="OTHER"/&gt;  &lt;setting name="lazyLoadTriggerMethods" value="equals,clone,hashCode,toString"/&gt;&lt;/settings&gt;]]></content>
@@ -3501,6 +4028,48 @@
           <tag> java </tag>
         
           <tag> mybatis </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[MySQL 新增或更新]]></title>
+      <url>/database/mysql/2017/03/19/MySQL-%E6%96%B0%E5%A2%9E%E6%88%96%E6%9B%B4%E6%96%B0/</url>
+      <content type="text"><![CDATA[  根据 id 决定是执行新增操作还是更新操作实现方式INSERT INTO pt_member_course (	id,	learnDuration)VALUES (	#{id},	#{learnDuration})ON DUPLICATE KEY UPDATE	learnDuration = #{learnDuration}]]></content>
+      <categories>
+        
+          <category> database </category>
+        
+          <category> mysql </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> database </tag>
+        
+          <tag> mysql </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[IntelliJ IDEA 修改类注释模版]]></title>
+      <url>/software/idea/2017/03/19/IntelliJ-IDEA-%E4%BF%AE%E6%94%B9%E7%B1%BB%E6%B3%A8%E9%87%8A%E6%A8%A1%E7%89%88/</url>
+      <content type="text"><![CDATA[  创建 Java 类时在文件顶栏自动生成的注释内容实现方式]]></content>
+      <categories>
+        
+          <category> software </category>
+        
+          <category> idea </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> software </tag>
+        
+          <tag> idea </tag>
         
       </tags>
       <tags></tags>
@@ -3625,6 +4194,27 @@
           <tag> java </tag>
         
           <tag> alipay </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[SecureCRT中文乱码]]></title>
+      <url>/software/secure/2017/02/11/SecureCRT%E4%B8%AD%E6%96%87%E4%B9%B1%E7%A0%81/</url>
+      <content type="text"><![CDATA[  解决SecureCRT显示内容出现中文乱码的问题解决方式  进入 Global Options 界面  点击 Edit Default Setting ，进入 Session Options - Default 界面  选择 Appearance 菜单，将 Character encoding 设置为 UTF-8  点击 OK ，并全局应用]]></content>
+      <categories>
+        
+          <category> software </category>
+        
+          <category> secure </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> software </tag>
+        
+          <tag> secure </tag>
         
       </tags>
       <tags></tags>
@@ -4174,6 +4764,27 @@
       <tags>
         
           <tag> css </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[Sublime 快捷键]]></title>
+      <url>/software/sublime/2016/12/26/Sublime-%E5%BF%AB%E6%8D%B7%E9%94%AE/</url>
+      <content type="text"><![CDATA[  Sublime一些常用的快捷键介绍软件功能  Ctrl+G          打开行号输入框，可快速跳转指定行        Command+T          打开输入框，可输入文件路径、名称并前往        Command+[1,2,3,4…]          选择对应索引的Tab页面        Command+K+B          打开/关闭侧边栏        Command+Shift+P          打开命令提示框，可快捷输入页面语法类型并更改        Command+Option+[1,2,3,4]          将窗口分为1，2，3，4列        Command+Option+5          将窗口分为4个网格      内容编辑  Ctrl+D          选中光标所在标签中所有内容        Ctrl+Space          打开输入提示        Ctrl+Shift+K          删除光标所在行        Command+D          选中光标所在单词，并高亮当前页中所有相同单词，~可重复按下选中这些相同单词并编辑~        Command+J          合并多个选中行为一行        Command+L          选中光标所在行        Command+Enter          在光标所在行的下一行插入新的一行        Command+K+U          光标所在单词全部大写        Command+K+L          光标所在单词全部小写        Command+Shift+D          复制光标所在行        Command+Shift+Enter          在光标所在行的上一行插入新的一行        Option+Shift+F          格式化代码      ]]></content>
+      <categories>
+        
+          <category> software </category>
+        
+          <category> sublime </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> software </tag>
+        
+          <tag> sublime </tag>
         
       </tags>
       <tags></tags>
