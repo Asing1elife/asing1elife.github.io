@@ -2998,6 +2998,48 @@
     </entry>
   
     <entry>
+      <title><![CDATA[Redis 持久化机制]]></title>
+      <url>/database/redis/2017/08/19/Redis-%E6%8C%81%E4%B9%85%E5%8C%96%E6%9C%BA%E5%88%B6/</url>
+      <content type="text"><![CDATA[  对于如何将数据类型持久化存储，Redis 提供一下 4 种方式定时快照 snapshot实现  在 Redis 内存的一个定时器事件，每隔一段时间就检查数据是否符合定时快照触发的条件  若触发则创建一个子进程，默认与父进程共享地址空间，再通过子进程遍历整个内存进行存储操作缺陷  只能存储一段时间内的内存信息，若系统重启则会丢失上次快照与重启间的数据基于语句的追加文件 aof实现  每条使 Redis 内存数据发生改变的的命令都会被存储到一个 log 文件中  最终该 log 文件中存放的就是 Redis 的持久化数据缺陷  过多的 log 文件导致数据体积过大，当系统重启后再次加载数据时会比较慢          数据加载慢并不是因为读取速度慢，而是因为 log 中的每条命令都会需要在 Redis 中再次执行        由于每条命令都要写入 log ，所以会导致 Redis 的性能下降虚拟内存 vm - 已弃用实现  用户空间数据换入换出缺陷  代码复杂  重启慢Diskstore实现  弃用虚拟内存后采用的新方式，实际上是使用传统的 B-tree 格式存储数据总结  采用合适的数据类型存储数据，并尽可能使用紧凑存储参数  当业务场景无需持久化时，关闭所有的持久化机制可获得更好的性能及最大的内存使用量  不要让 Redis 使用的物理内存超过服务器的 3/5]]></content>
+      <categories>
+        
+          <category> database </category>
+        
+          <category> redis </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> database </tag>
+        
+          <tag> redis </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[Redis 内存优化方式]]></title>
+      <url>/database/redis/2017/08/19/Redis-%E5%86%85%E5%AD%98%E4%BC%98%E5%8C%96%E6%96%B9%E5%BC%8F/</url>
+      <content type="text"><![CDATA[  Redis 内存优化是对数据类型做一些参数上的优化内存优化方式与参数  关闭 Redis 的虚拟内存[VM]功能，即 redis.conf 中 vm-enabled = no  设置 redis.conf 中 maxmemory ，用于告知 Redis 当使用了多少物理内存后拒绝继续写入的请求，可防止 Redis 性能降低甚至崩溃  可为指定的数据类型设置内存使用规则，从而提高对应数据类型的内存使用效率          Hash 在 redis.conf 中有以下两个属性，任意一个超出设定值，则会使用 HashMap 存值                  hash-max-zipmap-entires 64 表示当 value 中的 map 数量在 64 个以下时，实际使用 zipmap 存储值          hash-max-zipmap-value 512 表示当 value 中的 map 每个成员值长度小于 512 字节时，实际使用 zipmap 存储值                    List 在 redis.conf 中也有以下两个属性                  list-max-ziplist-entires 64          list-max-ziplist-value 512                      在 Redis 的源代码中有一行宏定义 REDIS-SHARED-INTEGERS = 10000 ，修改该值可以改变 Redis 存储数值类型的内存开销]]></content>
+      <categories>
+        
+          <category> database </category>
+        
+          <category> redis </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> database </tag>
+        
+          <tag> redis </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
       <title><![CDATA[CSS 实现图片宽度自适应]]></title>
       <url>/css/2017/08/19/CSS-%E5%AE%9E%E7%8E%B0%E5%9B%BE%E7%89%87%E5%AE%BD%E5%BA%A6%E8%87%AA%E9%80%82%E5%BA%94/</url>
       <content type="text"><![CDATA[  由于浏览器的大小可变，导致放置图片的容器也会随之变化，要让图片和容器大小一起变化，则需要实现图片宽度自适应编写 HTML  用父容器包裹图片，当浏览器的大小发生变化时，首先影响到父容器，而不是图片&lt;div class="img-wrap"&gt;    &lt;img src="FullSizeRender 3.jpg"&gt;&lt;/div&gt;&lt;div class="img-wrap"&gt;    &lt;img src="logo-ccnu.png"&gt;&lt;/div&gt;&lt;div class="img-wrap"&gt;    &lt;img src="thumbfma.png"&gt;&lt;/div&gt;编写 CSS 样式  指定父容器的展现方式是 inline-block ，则可以让父容器的宽度随内容变化而变化  指定图片的宽度为 100% ，则可以让图片的宽度随父容器宽度变化而变化，而且图片的宽高比使用不变&lt;style type="text/css"&gt;    .img-wrap {        display: inline-block;    }    .img-wrap img {    	width: 100%;    	vertical-align: middle;    }&lt;/style&gt;]]></content>
@@ -3045,6 +3087,27 @@
       <tags>
         
           <tag> jquery </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[Redis 数据类型]]></title>
+      <url>/database/redis/2017/08/11/Redis-%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/</url>
+      <content type="text"><![CDATA[  Redis 核心对象是 RedisObject ，下图简单概括了 RedisObject 中的组成部分数据模型图数据类型String  常用命令为 set / get / decr / incr / mget  最常用的数据类型，普通的 key-value 存储都会被归为此类  在 Redis 内存存储默认是一个字符串，被 redisObject 引用  当遇到 decr / incr 操作时会转成数值型进行计算（前提是可以计算），此时 redisObject 中的 encoding 为 intHash  常用命令为 hget / hset / hgetall  用于存储复杂的对象数据，实现方式为 key-hash[field-value] ，其对应的 value 实际上是一个 HashMap  当数据较少时，Redis 并不会采用真正意义上的 HashMap 存储 value ，其在 redisObject 中对应的 encoding 实际上是 zipmap ，类似一维数组  当数据较多时，才会使用 HashMap ，其在 redisObject 中对应的 encoding 是 htList  常用命令为 lpush / rpush / lpop / rpop / lrange  最重要的数据类型之一，用于存放列表数据  与 Hash 类似，当数据较少时使用 ziplist 存值，反之则使用 List  Redis 中的 List 是一个双向链表，可支持反响查找和遍历  Redis 内部很多实现，例如发送缓冲队列用的就是该数据结构Set  常用命令为 sadd / spop / smembers / sunion  与 List 类似同样用于存放列表数据，但其优势在于快速去重  可判断某个对象是否存在与 Set 中  实际上是一个 value 用于为 null 的 HashMap ，通过计算 hash 来实现快速去重，以及判断对象是否存在也是依赖于此Sorted Set  常用命令为 zadd / zrange / zrem / zcard  相较于 Set ，Sorted Set 的优势在于自动排序，可实现一个有序且不重复的列表  其可以额外的优先级[Score]参数为成员排序  内部使用 HashMap 和 SkipList（跳跃表）来保证数据的存储去重和有序  HashMap 中存放成员到 score 的映射，SkipList 中存放所有成员，排序依据是 HashMap 中存放的 score]]></content>
+      <categories>
+        
+          <category> database </category>
+        
+          <category> redis </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> database </tag>
+        
+          <tag> redis </tag>
         
       </tags>
       <tags></tags>
@@ -3163,6 +3226,48 @@
       <tags>
         
           <tag> jquery </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[Redis 安装与配置]]></title>
+      <url>/database/redis/2017/05/31/Redis-%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/</url>
+      <content type="text"><![CDATA[  Redis 是一种 NoSQL 数据库安装  通过 Homebrew套件管理器 可以快速安装 Redisbrew install redis配置  Redis 的配置文件路径是 /usr/local/etc/redis.conf  在该配置文件中找到 requirepass 后删除前面的注释，并修改密码即可为 Redis 设置密码，需要重启  可以通过 Homebrew  插件自启动 设置 Redis 的开机自启动注意  在 Redis 终端通过 set requirepass xxx 可以快速设置密码，不需要重启  但如果配置文件 redis.conf 中没有该属性的话，客户端像服务端发送 AUTH 请求会被拒绝  并返回 ERR Client sent AUTH, but no password is set  解决该问题需要在配置文件中设置密码命令  redis-cli -h 10.24.234.0 -p 6379 -a i_redis          连接远程服务器      -h 服务器 IP 地址      -p 端口号      -a 密码      ]]></content>
+      <categories>
+        
+          <category> database </category>
+        
+          <category> redis </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> database </tag>
+        
+          <tag> redis </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[Homebrew  插件自启动]]></title>
+      <url>/software/homebrew/2017/05/31/Homebrew-%E6%8F%92%E4%BB%B6%E8%87%AA%E5%90%AF%E5%8A%A8/</url>
+      <content type="text"><![CDATA[  通过 brew install xxx 安装的插件可以通过以下方式设置自启动安装插件brew install redis将插件的自启动脚本通过软链接的方式映射到系统的自启动目录下sudo ln -f /usr/local/Cellar/redis/3.2.9/homebrew.mxcl.redis.plist /Library/LaunchAgents/加载启动脚本launchctl load /Library/LaunchAgents/homebrew.mxcl.redis.plist停止启动脚本launchctl unload /Library/LaunchAgents/homebrew.mxcl.redis.plist]]></content>
+      <categories>
+        
+          <category> software </category>
+        
+          <category> homebrew </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> software </tag>
+        
+          <tag> homebrew </tag>
         
       </tags>
       <tags></tags>
@@ -4156,6 +4261,27 @@
     </entry>
   
     <entry>
+      <title><![CDATA[Homebrew套件管理器]]></title>
+      <url>/software/homebrew/2017/02/17/Homebrew%E5%A5%97%E4%BB%B6%E7%AE%A1%E7%90%86%E5%99%A8/</url>
+      <content type="text"><![CDATA[  Mac 上快速安装软件的脚本工具官网Homebrew — macOS 不可或缺的套件管理器安装  在终端中输入如下脚本`/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"`插件  安装 brew install git  安装路径默认为 _usr_local/Cellar  更新 brew upgrade git  卸载 brew uninstall git  搜索 brew search /git/  显示已安装列表brew list  更新所有 brew update  查看是否存在更新 brew outdated应用  安装 brew cask install java  其他操作与安装插件无异，只是中间多了一个cask参数]]></content>
+      <categories>
+        
+          <category> software </category>
+        
+          <category> homebrew </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> software </tag>
+        
+          <tag> homebrew </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
       <title><![CDATA[Hibernate枚举映射策略]]></title>
       <url>/java/hibernate/2017/02/15/Hibernate%E6%9E%9A%E4%B8%BE%E6%98%A0%E5%B0%84%E7%AD%96%E7%95%A5/</url>
       <content type="text"><![CDATA[  稍微解释一下Hibernate枚举策略枚举类型映射到数据库的方式  int，即获取枚举的索引值存入数据库，从0开始  String，即获取枚举的name属性存入数据库Hibernate默认把枚举类型的字段当做基本类型(int)的字段来映射  可以通过注解的方式进行控制          @Enumerated(EnumType.ORDINAL)  默认方式，int型      @Enumerated(EnumType.STRING)  String型，会获取枚举的name属性      ]]></content>
@@ -4485,6 +4611,27 @@
           <tag> java </tag>
         
           <tag> map </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[Mongoose.js + MongoDB]]></title>
+      <url>/database/mongodb/2017/01/16/Mongoose.js+MongoDB/</url>
+      <content type="text"><![CDATA[  MongoDB是一个跨平台的、面向文档的NoSql (非关系型)类型数据库官网MongoDB Download Center | MongoDB安装  下载名为mongodb-osx-ssl-x86_64-3.4.1.tgz的文件  解压文件到指定目录  在根目录创建目录，用于放置数据库数据 ~需要给予用户权限~sudo mkdir -p /data/dbsudo chown -R ThkcDo /data  启动数据库cd /[customPath]/mongodb/bin./mongod操作  在数据库服务开启的前提下，输入 ./mongo 可进入数据库操作界面]]></content>
+      <categories>
+        
+          <category> database </category>
+        
+          <category> mongodb </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> database </tag>
+        
+          <tag> mongodb </tag>
         
       </tags>
       <tags></tags>
