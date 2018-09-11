@@ -28,7 +28,6 @@ tags:
 
 ```java
 public class Excel {
-
     // 表头
     private List<String> headers = Lists.newArrayList();
 
@@ -177,7 +176,7 @@ private static HSSFCellStyle initCellStyle(HSSFWorkbook workbook) {
 }
 ```
 
-## formatLongValue 格式化超长内容
+### formatLongValue 格式化超长内容
 1. 需要单元格启用 `setWrapText = true` 才会生效
 
 ```java
