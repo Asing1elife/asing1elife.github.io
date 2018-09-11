@@ -1,4 +1,13 @@
-# vue-aliplayer 阿里云播放器适配 vue
+---
+title: vue-aliplayer 阿里云播放器适配 vue
+date: 2018-05-02
+author: asing1elife
+categories:
+ - vue
+tags:
+ - vue
+ - aliplay
+---
 #vue/plugin
 > 阿里云播放器本身没对 vue 进行专门优化，以下借助 github 上一个库进行优化  
 
