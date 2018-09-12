@@ -2,6 +2,88 @@
 <search>
   
     <entry>
+      <title><![CDATA[jQuery 解决 click 和 dblclick 冲突]]></title>
+      <url>/jquery/javascript/2018/09/11/jQuery-%E8%A7%A3%E5%86%B3-click-%E5%92%8C-dblclick-%E5%86%B2%E7%AA%81/</url>
+      <content type="text"><![CDATA[  click 是单击事件， dblclick 是双击事件如果给一个 DOM 元素同时绑定两个事件，则会导致响应 dblclick 时会同时响应 click制定延迟策略  set() 用于为待执行方案设置一个延迟  clear() 用于清空设置的延迟var clickTimeout = {  _timeout: null,  set: function (fn) {    var that = this    that.clear()    that._timeout = setTimeout(fn, 300)  },  clear: function () {    var that = this    if (that._timeout) {      clearTimeout(that._timeout)    }  }}为单击事件添加延迟操作  由于单击事件默认优先响应，所以需要为单击事件设置延迟策略，从而给双击事件足够的响应时间$('#btn').on('click', function () {	clickTimeout.set(function () {		console.log('this is click')	})})在响应双击事件时清空延迟  双击事件响应完毕后，清空延迟策略$('#btn').on('dblclick', function() {	clickTimeout.clear()	conosle.log('this is dblckick')})]]></content>
+      <categories>
+        
+          <category> jquery </category>
+        
+          <category> javascript </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> jquery </tag>
+        
+          <tag> javascript </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[Lambda forEach 关于 return 的使用]]></title>
+      <url>/java/lambda/2018/09/11/Lambda-forEach-%E5%85%B3%E4%BA%8E-return-%E7%9A%84%E4%BD%BF%E7%94%A8/</url>
+      <content type="text"><![CDATA[  JDK8 中新增的 Lambda 表达式对于 for 循环的操作变得非常简洁但其中的 forEach 和 for 之间存在一定差异比如 forEach 无法使用 break 和 continueforEach 实现和 contiune 一样的效果  参见以下代码可知，在 forEach 中 return 可实现和 contiune 一样的效果int[] arrs = new int[]{1, 3, 9, 2};arrs.forEach(arr -&gt; {	if (arr &gt; 4) {		return;	}	// 输出 1 3 2	System.out.println(arr);})forEach 实现和 break 一样的效果  对不起，臣妾做不到]]></content>
+      <categories>
+        
+          <category> java </category>
+        
+          <category> lambda </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> java </tag>
+        
+          <tag> lambda </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[Java Apache POI 操作 Excel 导出]]></title>
+      <url>/java/poi/2018/09/11/Java-Apache-POI-%E6%93%8D%E4%BD%9C-Excel-%E5%AF%BC%E5%87%BA/</url>
+      <content type="text"><![CDATA[  Java 可以通过 Apache POI 操作 Excel 的导入导出Apache POI 是一套操作 Microsoft Office 套件的开源 Java APIJAR 包依赖及介绍  请参见 Java Apache POI 操作 Excel 导入实现步骤创建 Excel 实体类，用于同一接收导出数据  headers 用于存储导出数据时规定的表格头部内容  cells 是一个在 List 中嵌套 List 的结构          外层的 List 表示行数据      内层的 List 表示列数据      结合起来也就是有多少行多少列的数据        如果导出的内容存在多个 sheet ，只需要使用一个 Map ，通过 key-value 的形式包装 Excel 实体类即可          例如 Map&lt;String, Excel&gt; excels ，Map 中的 key 就是 sheet 的名称      public class Excel {    // 表头    private List&lt;String&gt; headers = Lists.newArrayList();    // 内容    private List&lt;List&lt;String&gt;&gt; cells = Lists.newArrayList();    // 省略 Getter/Setter 方法}举一个上述实体类使用的例子  传入的数据本身就很复杂，需要导出的数据也存在多个 sheetprivate Map&lt;String, Excel&gt; wrapFeedbackQuestions(Map&lt;String, ArrayList&lt;FeedbackQuestion&gt;&gt; feedbackQuestionMap) {    Map&lt;String, Excel&gt; excels = Maps.newHashMap();    if (feedbackQuestionMap.isEmpty()) {        throw new TSharkException("统计数据转换异常，请咨询管理员");    }    List&lt;String&gt; divide = Lists.newArrayList();    feedbackQuestionMap.forEach((k, v) -&gt; {        Excel excel = new Excel();        excel.addHeader("题目");        excel.addHeader("小计");        v.forEach(feedbackQuestion -&gt; {            // 按照约定格式每行添加数据            List&lt;String&gt; row = Lists.newArrayList();            row.add(feedbackQuestion.getContent());            row.add(feedbackQuestion.getCount().toString());            excel.addCell(row);        });        excels.put(k, excel);    });    return excels;}构建 ExcelExportUtil 工具类  Map&lt;String, Excel&gt; excel 是通过上述操作构建好的数据结构  String filePath 是生成 Excel 后，存放文件的地址  initHeaderStyle() 和 initCellStyle() 是对表格样式的初始化，在后续步骤中提供  formatLongValue() 是为了防止单元格内容过长，而设置的超过一定量长度添加换行符public static String export(Map&lt;String, Excel&gt; excel, String filePath) {    HSSFWorkbook workbook = new HSSFWorkbook();    // 表头样式    HSSFCellStyle headerStyle = initHeaderStyle(workbook);    // 单元格样式    HSSFCellStyle cellStyle = initCellStyle(workbook);    excel.forEach((key, value) -&gt; {        HSSFSheet sheet = workbook.createSheet(key);        List&lt;String&gt; headers = value.getHeaders();        List&lt;List&lt;String&gt;&gt; cells = value.getCells();        // 表头包装        HSSFRow headerRow = sheet.createRow(0);        for (int i = 0; i &lt; headers.size(); i++) {            HSSFCell cell = headerRow.createCell(i);            cell.setCellValue(headers.get(i));            cell.setCellStyle(headerStyle);        }        // 内容包装        for (int j = 0; j &lt; cells.size(); j++) {            HSSFRow row = sheet.createRow(j + 1);            List&lt;String&gt; child = cells.get(j);            for (int k = 0; k &lt; child.size(); k++) {                HSSFCell cell = row.createCell(k);                cell.setCellValue(formatLongValue(child.get(k)));                cell.setCellStyle(cellStyle);            }        }        // 自动撑开列宽        sheet.autoSizeColumn((short) 0);        sheet.autoSizeColumn((short) 1);    });    // 保存文件并返回名称    String fileName = FileUtil.getRandomFileNameByDate();    try {        String fullFileName = filePath + fileName + FILE_SUFFIX;        FileOutputStream stream = new FileOutputStream(fullFileName);        workbook.write(stream);        stream.flush();    } catch (Exception e) {        logger.error("Excel导出失败，", e);    }    return fileName;}initHeaderStyle() 初始化表头样式  对表头单元格的字体、颜色、背景做一些自定义操作private static HSSFCellStyle initHeaderStyle(HSSFWorkbook workbook) {    // 表头字体    HSSFFont font = workbook.createFont();    font.setFontHeightInPoints((short) 15);    font.setColor(HSSFColor.WHITE.index);    // 表头样式    HSSFCellStyle headerStyle = workbook.createCellStyle();    headerStyle.setFont(font);    headerStyle.setWrapText(true);    headerStyle.setFillBackgroundColor(HSSFColor.GREEN.index);    headerStyle.setFillForegroundColor(HSSFColor.GREEN.index);    // 需要设置此项，单元格背景色才会生效    headerStyle.setFillPattern(CellStyle.SOLID_FOREGROUND);    return headerStyle;}initCellStyle 初始化单元格样式private static HSSFCellStyle initCellStyle(HSSFWorkbook workbook) {    // 单元格字体    HSSFFont font = workbook.createFont();    font.setFontHeightInPoints((short) 15);    // 单元格样式    HSSFCellStyle cellStyle = workbook.createCellStyle();    cellStyle.setFont(font);    cellStyle.setWrapText(true);    return cellStyle;}formatLongValue 格式化超长内容  需要单元格启用 setWrapText = true 才会生效private static String formatLongValue(String value) {    // 长度限制    int limit = 50;    // 没有达到限制直接返回    if (value.length() &lt; 50) {        return value;    }    StringBuilder stringBuilder = new StringBuilder();    // 设置长度限制的正则匹配    Pattern p = Pattern.compile("(.{" + limit + "}|.*)");    Matcher m = p.matcher(value);    while (m.find()) {        String group = m.group();        // 字符不存在则跳过        if (group == null || group.trim().equals("")) {            continue;        }        // 超过限制添加换行符        stringBuilder.append(group);        stringBuilder.append("\n");    }    return stringBuilder.toString();}]]></content>
+      <categories>
+        
+          <category> java </category>
+        
+          <category> poi </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> java </tag>
+        
+          <tag> poi </tag>
+        
+          <tag> excel </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[preventDefault 和 stopPropagation 的区别]]></title>
+      <url>/javascript/2018/09/04/preventDefault-%E5%92%8C-stopPropagation-%E7%9A%84%E5%8C%BA%E5%88%AB/</url>
+      <content type="text"><![CDATA[  在使用 JS 阻止默认动作时，通常会使用 preventDefault 或 stopPropagation ，但两者存在一定区别preventDefault  如下方法中，.training-name-input 存在与一个表单中，该元素监听了键盘的回车事件  如果不使用 e.preventDefault() 则会在触发该监听的同时，触发表单中 type="submit" 按钮的提交事件  所以 preventDefault 的关键作用在于通知浏览器不执行与事件关联的默认动作$diplomaContentPanel.find('.training-name-input').on('keydown', function (e) {  e.preventDefault()  if (e.keyCode === 13) {		// 只响应回车事件  }})stopPropagation  如下方法中，carousel-indicators li 是一个插件的节点，本身就被插件赋予了点击事件  但是使用时希望屏蔽该插件赋予的点击事件，这个时候就需要使用 e.stopPropagation()  作用在于，阻止 DOM 元素继续向下冒泡，在执行了该点击方法后，就停止了，不再响应被赋予的其他点击事件$noviceGuidePanel.find('.carousel-indicators li').on('click', function (e) {	e.stopPropagation()})]]></content>
+      <categories>
+        
+          <category> javascript </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> javascript </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
       <title><![CDATA[IDEA 隐藏四周的工具按钮栏]]></title>
       <url>/software/idea/2018/08/31/IDEA-%E9%9A%90%E8%97%8F%E5%9B%9B%E5%91%A8%E7%9A%84%E5%B7%A5%E5%85%B7%E6%8C%89%E9%92%AE%E6%A0%8F/</url>
       <content type="text"><![CDATA[  IDEA 默认会在界面四周显示各种工具的按钮，没什么卵用，通过以下方式可以隐藏隐藏方式  如图所示取消 Tool Buttons 的勾选即可]]></content>
@@ -191,7 +273,7 @@
     <entry>
       <title><![CDATA[v-for 遍历 Map]]></title>
       <url>/vue/2018/08/11/v-for-%E9%81%8D%E5%8E%86-Map/</url>
-      <content type="text"><![CDATA[  通常情况下都是使用 v-for 遍历 List 或 Array ，但 v-for 对于 Map 遍历也是支持的遍历方式  下列代码展现的是一种比较复杂的情况，在 Map 的 value 中存放的是一个 List```javascript					```]]></content>
+      <content type="text"><![CDATA[  通常情况下都是使用 v-for 遍历 List 或 Array ，但 v-for 对于 Map 遍历也是支持的遍历方式  下列代码展现的是一种比较复杂的情况，在 Map 的 value 中存放的是一个 List&lt;ul v-for="(value, key) in questions" :key="key"&gt;	&lt;li&gt;&lt;/li&gt;	&lt;ul v-for="val in value" :key="val.hexId"&gt;		&lt;li&gt;&lt;/li&gt;	&lt;/ul&gt;&lt;/ul&gt;]]></content>
       <categories>
         
           <category> vue </category>
@@ -617,6 +699,25 @@
           <tag> javascript </tag>
         
           <tag> dom </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[Wechat for mac 助手]]></title>
+      <url>/mac/2018/06/12/Wechat-for-mac-%E5%8A%A9%E6%89%8B/</url>
+      <content type="text"><![CDATA[  通过助手可实现注入消息防撤回等操作官网  TK-Wechat下载  终端运行如下操作，并按操作继续执行curl -o- -L https://raw.githubusercontent.com/lmk123/oh-my-wechat/master/install.sh | bash -s]]></content>
+      <categories>
+        
+          <category> mac </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> mac </tag>
+        
+          <tag> wechat </tag>
         
       </tags>
       <tags></tags>
@@ -1157,13 +1258,19 @@
     </entry>
   
     <entry>
-      <title><![CDATA[Vue Aliplayer 阿里云播放器适配 vue]]></title>
-      <url>/2018/05/02/vue-aliplayer-%E9%98%BF%E9%87%8C%E4%BA%91%E6%92%AD%E6%94%BE%E5%99%A8%E9%80%82%E9%85%8D-vue/</url>
-      <content type="text"><![CDATA[vue-aliplayer 阿里云播放器适配 vue#vue/plugin  阿里云播放器本身没对 vue 进行专门优化，以下借助 github 上一个库进行优化官网vue-aliplayer插件源码&lt;template&gt;  &lt;div class='prism-player' :id='playerId' :style='playStyle'&gt;&lt;/div&gt;&lt;/template&gt;&lt;script&gt;  export default {    name: 'Aliplayer',    props: {      playStyle: {        type: String,        default: ''      },      aliplayerSdkPath: {        // Aliplayer 代码的路径        type: String,        default: '//g.alicdn.com/de/prismplayer/2.6.0/aliplayer-min.js'      },      autoplay: {        type: Boolean,        default: false      },      isLive: {        type: Boolean,        default: false      },      playsinline: {        type: Boolean,        default: false      },      width: {        type: String,        default: '100%'      },      height: {        type: String,        default: '320px'      },      controlBarVisibility: {        type: String,        default: 'always'      },      useH5Prism: {        type: Boolean,        default: false      },      useFlashPrism: {        type: Boolean,        default: false      },      vid: {        type: String,        default: ''      },      playauth: {        type: String,        default: ''      },      source: {        type: String,        default: ''      },      cover: {        type: String,        default: ''      },      format: {        type: String,        default: 'm3u8'      },      x5_video_position: {        type: String,        default: 'top'      },      x5_type: {        type: String,        default: 'h5'      },      x5_fullscreen: {        type: Boolean,        default: false      },      x5_orientation: {        type: Number,        default: 2      },      autoPlayDelay: {        type: Number,        default: 0      },      autoPlayDelayDisplayText: {        type: String      }    },    data () {      return {        playerId: 'aliplayer_' + Math.random() * 100000000000000000,        scriptTagStatus: 0,        instance: null      }    },    created () {      if (window.Aliplayer !== undefined) {        // 如果全局对象存在，说明编辑器代码已经初始化完成，直接加载编辑器        this.scriptTagStatus = 2        this.initAliplayer()      } else {        // 如果全局对象不存在，说明编辑器代码还没有加载完成，需要加载编辑器代码        this.insertScriptTag()      }    },    mounted () {      if (window.Aliplayer !== undefined) {        // 如果全局对象存在，说明编辑器代码已经初始化完成，直接加载编辑器        this.scriptTagStatus = 2        this.initAliplayer()      } else {        // 如果全局对象不存在，说明编辑器代码还没有加载完成，需要加载编辑器代码        this.insertScriptTag()      }    },    methods: {      insertScriptTag () {        const _this = this        let playerScriptTag = document.getElementById('playerScriptTag')        // 如果这个tag不存在，则生成相关代码tag以加载代码        if (playerScriptTag === null) {          playerScriptTag = document.createElement('script')          playerScriptTag.type = 'text/javascript'          playerScriptTag.src = this.aliplayerSdkPath          playerScriptTag.id = 'playerScriptTag'          let s = document.getElementsByTagName('head')[0]          s.appendChild(playerScriptTag)        }        if (playerScriptTag.loaded) {          _this.scriptTagStatus++        } else {          playerScriptTag.addEventListener('load', () =&gt; {            _this.scriptTagStatus++            playerScriptTag.loaded = true            _this.initAliplayer()          })        }        _this.initAliplayer()      },      initAliplayer () {        const _this = this        // scriptTagStatus 为 2 的时候，说明两个必需引入的 js 文件都已经被引入，且加载完成        if (_this.scriptTagStatus === 2 &amp;&amp; _this.instance === null) {          // Vue 异步执行 DOM 更新，这样一来代码执行到这里的时候可能 template 里面的 script 标签还没真正创建          // 所以，我们只能在 nextTick 里面初始化 Aliplayer          _this.$nextTick(() =&gt; {            _this.instance = window.Aliplayer({              id: _this.playerId,              autoplay: _this.autoplay,              isLive: _this.isLive,              playsinline: _this.playsinline,              format: _this.format,              width: _this.width,              height: _this.height,              controlBarVisibility: _this.controlBarVisibility,              useH5Prism: _this.useH5Prism,              useFlashPrism: _this.useFlashPrism,              vid: _this.vid,              playauth: _this.playauth,              source: _this.source,              cover: _this.cover,              x5_video_position: _this.x5_video_position,              x5_type: _this.x5_type,              x5_fullscreen: _this.x5_fullscreen,              x5_orientation: _this.x5_orientation,              autoPlayDelay: _this.autoPlayDelay,              autoPlayDelayDisplayText: _this.autoPlayDelayDisplayText            })            // 绑定事件，当 AliPlayer 初始化完成后，将编辑器实例通过自定义的 ready 事件交出去            _this.instance.on('ready', () =&gt; {              this.$emit('ready', _this.instance)            })            _this.instance.on('play', () =&gt; {              this.$emit('play', _this.instance)            })            _this.instance.on('pause', () =&gt; {              this.$emit('pause', _this.instance)            })            _this.instance.on('ended', () =&gt; {              this.$emit('ended', _this.instance)            })            _this.instance.on('liveStreamStop', () =&gt; {              this.$emit('liveStreamStop', _this.instance)            })            _this.instance.on('m3u8Retry', () =&gt; {              this.$emit('m3u8Retry', _this.instance)            })            _this.instance.on('hideBar', () =&gt; {              this.$emit('hideBar', _this.instance)            })            _this.instance.on('waiting', () =&gt; {              this.$emit('waiting', _this.instance)            })            _this.instance.on('snapshoted', () =&gt; {              this.$emit('snapshoted', _this.instance)            })          })        }      },      /**       * 播放视频       */      play: function () {        this.instance.play()      },      /**       * 暂停视频       */      pause: function () {        this.instance.pause()      },      /**       * 重播视频       */      replay: function () {        this.instance.replay()      },      /**       * 跳转到某个时刻进行播放       * @argument time 的单位为秒       */      seek: function (time) {        this.instance.seek(time)      },      /**       * 获取当前时间 单位秒       */      getCurrentTime: function () {        return this.instance.getCurrentTime()      },      /**       *获取视频总时长，返回的单位为秒       * @returns 返回的单位为秒       */      getDuration: function () {        return this.instance.getDuration()      },      /**       获取当前的音量，返回值为0-1的实数ios和部分android会失效       */      getVolume: function () {        return this.instance.getVolume()      },      /**       设置音量，vol为0-1的实数，ios和部分android会失效       */      setVolume: function (vol) {        this.instance.setVolume(vol)      },      /**       *直接播放视频url，time为可选值（单位秒）目前只支持同种格式（mp4/flv/m3u8）之间切换暂不支持直播rtmp流切换       *@argument url 视频地址       *@argument time 跳转到多少秒       */      loadByUrl: function (url, time) {        this.instance.loadByUrl(url, time)      },      /**       * 设置播放速度       *@argument speed 速度       */      setSpeed: function (speed) {        this.instance.setSpeed(speed)      },      /**       * 设置播放器大小w,h可分别为400px像素或60%百分比chrome浏览器下flash播放器分别不能小于397x297       *@argument w 播放器宽度       *@argument h 播放器高度       */      setPlayerSize: function (w, h) {        this.instance.setPlayerSize(w, h)      },      /**       * 目前只支持HTML5界面上的重载功能,暂不支持直播rtmp流切换m3u8）之间切换,暂不支持直播rtmp流切换       *@argument vid 视频id       *@argument playauth 播放凭证       */      reloaduserPlayInfoAndVidRequestMts: function (vid, playauth) {        this.instance.reloaduserPlayInfoAndVidRequestMts(vid, playauth)      }    }  }&lt;/script&gt;&lt;style&gt;  @import url(//g.alicdn.com/de/prismplayer/2.6.0/skins/default/aliplayer-min.css);&lt;/style&gt;组件封装  插件本身属性过多，正常开发中不一定用得到，因此对插件进行再一次封装为组件，方便程序调用及适当扩展  该组件主要实现了一下功能          播放器高度自适应      自动获取视频播放地址，播放地址的实现参见 Java + jQuery 实现阿里云点播      &lt;template&gt;  &lt;ali-player v-if="playAuth" :vid="vid" :playauth="playAuth" :height="height"&gt;&lt;/ali-player&gt;&lt;/template&gt;&lt;script type="text/ecmascript-6"&gt;  import aliPlayer from './ali-player/ali-player'  export default {    name: 'in-video',    props: {      vid: {        type: String,        default: '0'      }    },    data () {      return {        playAuth: ''      }    },    watch: {      'vid' (val) {        this._getPlayAuth(val)      }    },    computed: {      // 高度自适应      height () {        let width = document.documentElement.clientWidth        return `${width / 1.7777778}px`      }    },    methods: {      // 获取视频鉴权地址      _getPlayAuth (val) {        this.$fetch.video.auth({          videoId: val        }).then((res) =&gt; {          this.playAuth = res.data        })      }    },    components: {      aliPlayer    }  }&lt;/script&gt;&lt;style lang="stylus" rel="stylesheet/stylus"&gt;&lt;/style&gt;]]></content>
+      <title><![CDATA[vue-aliplayer 阿里云播放器适配 vue]]></title>
+      <url>/vue/2018/05/02/vue-aliplayer-%E9%98%BF%E9%87%8C%E4%BA%91%E6%92%AD%E6%94%BE%E5%99%A8%E9%80%82%E9%85%8D-vue/</url>
+      <content type="text"><![CDATA[#vue/plugin  阿里云播放器本身没对 vue 进行专门优化，以下借助 github 上一个库进行优化官网vue-aliplayer插件源码&lt;template&gt;  &lt;div class='prism-player' :id='playerId' :style='playStyle'&gt;&lt;/div&gt;&lt;/template&gt;&lt;script&gt;  export default {    name: 'Aliplayer',    props: {      playStyle: {        type: String,        default: ''      },      aliplayerSdkPath: {        // Aliplayer 代码的路径        type: String,        default: '//g.alicdn.com/de/prismplayer/2.6.0/aliplayer-min.js'      },      autoplay: {        type: Boolean,        default: false      },      isLive: {        type: Boolean,        default: false      },      playsinline: {        type: Boolean,        default: false      },      width: {        type: String,        default: '100%'      },      height: {        type: String,        default: '320px'      },      controlBarVisibility: {        type: String,        default: 'always'      },      useH5Prism: {        type: Boolean,        default: false      },      useFlashPrism: {        type: Boolean,        default: false      },      vid: {        type: String,        default: ''      },      playauth: {        type: String,        default: ''      },      source: {        type: String,        default: ''      },      cover: {        type: String,        default: ''      },      format: {        type: String,        default: 'm3u8'      },      x5_video_position: {        type: String,        default: 'top'      },      x5_type: {        type: String,        default: 'h5'      },      x5_fullscreen: {        type: Boolean,        default: false      },      x5_orientation: {        type: Number,        default: 2      },      autoPlayDelay: {        type: Number,        default: 0      },      autoPlayDelayDisplayText: {        type: String      }    },    data () {      return {        playerId: 'aliplayer_' + Math.random() * 100000000000000000,        scriptTagStatus: 0,        instance: null      }    },    created () {      if (window.Aliplayer !== undefined) {        // 如果全局对象存在，说明编辑器代码已经初始化完成，直接加载编辑器        this.scriptTagStatus = 2        this.initAliplayer()      } else {        // 如果全局对象不存在，说明编辑器代码还没有加载完成，需要加载编辑器代码        this.insertScriptTag()      }    },    mounted () {      if (window.Aliplayer !== undefined) {        // 如果全局对象存在，说明编辑器代码已经初始化完成，直接加载编辑器        this.scriptTagStatus = 2        this.initAliplayer()      } else {        // 如果全局对象不存在，说明编辑器代码还没有加载完成，需要加载编辑器代码        this.insertScriptTag()      }    },    methods: {      insertScriptTag () {        const _this = this        let playerScriptTag = document.getElementById('playerScriptTag')        // 如果这个tag不存在，则生成相关代码tag以加载代码        if (playerScriptTag === null) {          playerScriptTag = document.createElement('script')          playerScriptTag.type = 'text/javascript'          playerScriptTag.src = this.aliplayerSdkPath          playerScriptTag.id = 'playerScriptTag'          let s = document.getElementsByTagName('head')[0]          s.appendChild(playerScriptTag)        }        if (playerScriptTag.loaded) {          _this.scriptTagStatus++        } else {          playerScriptTag.addEventListener('load', () =&gt; {            _this.scriptTagStatus++            playerScriptTag.loaded = true            _this.initAliplayer()          })        }        _this.initAliplayer()      },      initAliplayer () {        const _this = this        // scriptTagStatus 为 2 的时候，说明两个必需引入的 js 文件都已经被引入，且加载完成        if (_this.scriptTagStatus === 2 &amp;&amp; _this.instance === null) {          // Vue 异步执行 DOM 更新，这样一来代码执行到这里的时候可能 template 里面的 script 标签还没真正创建          // 所以，我们只能在 nextTick 里面初始化 Aliplayer          _this.$nextTick(() =&gt; {            _this.instance = window.Aliplayer({              id: _this.playerId,              autoplay: _this.autoplay,              isLive: _this.isLive,              playsinline: _this.playsinline,              format: _this.format,              width: _this.width,              height: _this.height,              controlBarVisibility: _this.controlBarVisibility,              useH5Prism: _this.useH5Prism,              useFlashPrism: _this.useFlashPrism,              vid: _this.vid,              playauth: _this.playauth,              source: _this.source,              cover: _this.cover,              x5_video_position: _this.x5_video_position,              x5_type: _this.x5_type,              x5_fullscreen: _this.x5_fullscreen,              x5_orientation: _this.x5_orientation,              autoPlayDelay: _this.autoPlayDelay,              autoPlayDelayDisplayText: _this.autoPlayDelayDisplayText            })            // 绑定事件，当 AliPlayer 初始化完成后，将编辑器实例通过自定义的 ready 事件交出去            _this.instance.on('ready', () =&gt; {              this.$emit('ready', _this.instance)            })            _this.instance.on('play', () =&gt; {              this.$emit('play', _this.instance)            })            _this.instance.on('pause', () =&gt; {              this.$emit('pause', _this.instance)            })            _this.instance.on('ended', () =&gt; {              this.$emit('ended', _this.instance)            })            _this.instance.on('liveStreamStop', () =&gt; {              this.$emit('liveStreamStop', _this.instance)            })            _this.instance.on('m3u8Retry', () =&gt; {              this.$emit('m3u8Retry', _this.instance)            })            _this.instance.on('hideBar', () =&gt; {              this.$emit('hideBar', _this.instance)            })            _this.instance.on('waiting', () =&gt; {              this.$emit('waiting', _this.instance)            })            _this.instance.on('snapshoted', () =&gt; {              this.$emit('snapshoted', _this.instance)            })          })        }      },      /**       * 播放视频       */      play: function () {        this.instance.play()      },      /**       * 暂停视频       */      pause: function () {        this.instance.pause()      },      /**       * 重播视频       */      replay: function () {        this.instance.replay()      },      /**       * 跳转到某个时刻进行播放       * @argument time 的单位为秒       */      seek: function (time) {        this.instance.seek(time)      },      /**       * 获取当前时间 单位秒       */      getCurrentTime: function () {        return this.instance.getCurrentTime()      },      /**       *获取视频总时长，返回的单位为秒       * @returns 返回的单位为秒       */      getDuration: function () {        return this.instance.getDuration()      },      /**       获取当前的音量，返回值为0-1的实数ios和部分android会失效       */      getVolume: function () {        return this.instance.getVolume()      },      /**       设置音量，vol为0-1的实数，ios和部分android会失效       */      setVolume: function (vol) {        this.instance.setVolume(vol)      },      /**       *直接播放视频url，time为可选值（单位秒）目前只支持同种格式（mp4/flv/m3u8）之间切换暂不支持直播rtmp流切换       *@argument url 视频地址       *@argument time 跳转到多少秒       */      loadByUrl: function (url, time) {        this.instance.loadByUrl(url, time)      },      /**       * 设置播放速度       *@argument speed 速度       */      setSpeed: function (speed) {        this.instance.setSpeed(speed)      },      /**       * 设置播放器大小w,h可分别为400px像素或60%百分比chrome浏览器下flash播放器分别不能小于397x297       *@argument w 播放器宽度       *@argument h 播放器高度       */      setPlayerSize: function (w, h) {        this.instance.setPlayerSize(w, h)      },      /**       * 目前只支持HTML5界面上的重载功能,暂不支持直播rtmp流切换m3u8）之间切换,暂不支持直播rtmp流切换       *@argument vid 视频id       *@argument playauth 播放凭证       */      reloaduserPlayInfoAndVidRequestMts: function (vid, playauth) {        this.instance.reloaduserPlayInfoAndVidRequestMts(vid, playauth)      }    }  }&lt;/script&gt;&lt;style&gt;  @import url(//g.alicdn.com/de/prismplayer/2.6.0/skins/default/aliplayer-min.css);&lt;/style&gt;组件封装  插件本身属性过多，正常开发中不一定用得到，因此对插件进行再一次封装为组件，方便程序调用及适当扩展  该组件主要实现了一下功能          播放器高度自适应      自动获取视频播放地址，播放地址的实现参见 Java + jQuery 实现阿里云点播      &lt;template&gt;  &lt;ali-player v-if="playAuth" :vid="vid" :playauth="playAuth" :height="height"&gt;&lt;/ali-player&gt;&lt;/template&gt;&lt;script type="text/ecmascript-6"&gt;  import aliPlayer from './ali-player/ali-player'  export default {    name: 'in-video',    props: {      vid: {        type: String,        default: '0'      }    },    data () {      return {        playAuth: ''      }    },    watch: {      'vid' (val) {        this._getPlayAuth(val)      }    },    computed: {      // 高度自适应      height () {        let width = document.documentElement.clientWidth        return `${width / 1.7777778}px`      }    },    methods: {      // 获取视频鉴权地址      _getPlayAuth (val) {        this.$fetch.video.auth({          videoId: val        }).then((res) =&gt; {          this.playAuth = res.data        })      }    },    components: {      aliPlayer    }  }&lt;/script&gt;&lt;style lang="stylus" rel="stylesheet/stylus"&gt;&lt;/style&gt;]]></content>
       <categories>
+        
+          <category> vue </category>
         
       </categories>
       <tags>
+        
+          <tag> vue </tag>
+        
+          <tag> aliplay </tag>
         
       </tags>
       <tags></tags>
@@ -1560,6 +1667,27 @@
     </entry>
   
     <entry>
+      <title><![CDATA[父级操作子级 iframe]]></title>
+      <url>/html/iframe/2018/04/01/%E7%88%B6%E7%BA%A7%E6%93%8D%E4%BD%9C%E5%AD%90%E7%BA%A7-iframe/</url>
+      <content type="text"><![CDATA[  父级元素想要操作子级 iframe 的内部元素可以通过以下方式实现方式  aliPayFrame  可以是 iframe 标签的 id 或者 name$(window.frames["aliPayFrame"].document).find("html").html(response.data);注意点  window.frames["aliPayFrame"] 在 chrome 下无效  document.getElementById("trainingIntroduce").contentWindow 在 chrome 下有效]]></content>
+      <categories>
+        
+          <category> html </category>
+        
+          <category> iframe </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> html </tag>
+        
+          <tag> iframe </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
       <title><![CDATA[Java支付宝订单查询]]></title>
       <url>/java/pay/2018/04/01/Java-%E6%94%AF%E4%BB%98%E5%AE%9D%E8%AE%A2%E5%8D%95%E6%9F%A5%E8%AF%A2/</url>
       <content type="text"><![CDATA[  电脑网站支付成功后可通过支付宝接口主动查询订单结果前置条件  该方法基于 Java 支付宝扫码支付 (新) 实现调用查询接口进行订单查询public class AliQueryServiceImpl extends AliCoreServiceImpl {    public Boolean getPayResult(Long orderId) {        AlipayTradeQueryRequest queryRequest = new AlipayTradeQueryRequest();        queryRequest.setBizModel(generateOrderInfo(orderId));        AlipayTradeQueryResponse response = null;        try {            response = alipayClient.execute(queryRequest);        } catch (AlipayApiException e) {            logger.error("支付宝查询订单" + orderId + "失败！", e);        }        if (response == null) {            logger.error("支付宝未获取订单" + orderId + "详情！");            return false;        }        if (response.isSuccess()) {            if (response.getTradeStatus().equals(TRADE_STATUS_SUCCESS) || response.getTradeStatus().equals(TRADE_STATUS_FINISHED)) {                // 更新订单状态                updateOrderInfo(response.getOutTradeNo(), OrderPay.aliPay.getCode());                return true;            }            logger.error("支付宝订单" + orderId + "交易失败，交易状态：" + response.getTradeStatus());            return false;        } else {            logger.error("支付宝订单" + orderId + "查询失败！");            return false;        }    }    private AlipayTradeQueryModel generateOrderInfo(Long orderId) {        OrderDTO order = orderManageService.getOrder(orderId);        AlipayTradeQueryModel model = new AlipayTradeQueryModel();        model.setOutTradeNo(order.getCode());        return model;    }}]]></content>
@@ -1931,6 +2059,48 @@
     </entry>
   
     <entry>
+      <title><![CDATA[Nginx实现Tomcat隐藏端口号]]></title>
+      <url>/nginx/tomcat/2018/02/05/Nginx%E5%AE%9E%E7%8E%B0Tomcat%E9%9A%90%E8%97%8F%E7%AB%AF%E5%8F%A3%E5%8F%B7/</url>
+      <content type="text"><![CDATA[  Tomcat默认可以使用80端口实现隐藏端口号，但80端口权限过高，通常会被防火墙禁用无法直接访问但是可以通过Nginx反向代理实现监听80端口转发到对应的Tomcat服务器实现方式  在Nginx的配置文件 nginx.conf 中添加如下配置          该文件的在 /usr/local/etc/nginx/ 下      server {	listen       80;	server_name  127.0.0.1;	server_name_in_redirect off;	proxy_set_header Host $host:$server_port;	proxy_set_header X-Real-IP $remote_addr;	proxy_set_header REMOTE-HOST $remote_addr;	proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;	location / {		proxy_pass http://127.0.0.1:8090/;	}}  分别启动Tomcat和Nginx即可实现隐藏端口号直接访问的效果]]></content>
+      <categories>
+        
+          <category> nginx </category>
+        
+          <category> tomcat </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> nginx </tag>
+        
+          <tag> tomcat </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[Nginx安装与配置]]></title>
+      <url>/nginx/homebrew/2018/02/05/Nginx%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/</url>
+      <content type="text"><![CDATA[  通过 homebrew 快捷安装 Nginx安装brew install nginx启动服务通过brew启动brew services start nginx直接启动sudo nginx停止服务通过brew停止brew services stop nginx直接停止sudo nginx -s stop]]></content>
+      <categories>
+        
+          <category> nginx </category>
+        
+          <category> homebrew </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> nginx </tag>
+        
+          <tag> homebrew </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
       <title><![CDATA[Hibernate防止setter()方法更新数据库]]></title>
       <url>/java/hibernate/2018/02/05/Hibernate%E9%98%B2%E6%AD%A2setter()%E6%96%B9%E6%B3%95%E6%9B%B4%E6%96%B0%E6%95%B0%E6%8D%AE%E5%BA%93/</url>
       <content type="text"><![CDATA[  Hibernate从数据库获取到对象后直接调用其setter()方法对内部数据做更改，可能会导致直接将数据更新至数据库产生问题的原因  Hibernate分为三种基本状态：游离态，自由态，持久态  从数据库中获取到对象属于持久态，直接进行操作会导致处于Session中的数据发生改变，从而触发数据库更新解决办法  获取到当前的Session对象，将该对象从Session中清除super.getEntityDao().getSession().evict(userWork);]]></content>
@@ -2005,6 +2175,23 @@
           <tag> for </tag>
         
           <tag> map </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[Git命令大全]]></title>
+      <url>/git/2018/01/17/Git%E5%91%BD%E4%BB%A4%E5%A4%A7%E5%85%A8/</url>
+      <content type="text"><![CDATA[  列举一些git常用命令代码库相关常用 Git 命令清单 - 阮一峰的网络日志常规提交  添加被修改的文件到暂存区 git add .  提交暂存区文件 git commit -m xxxx  推送至服务器 git push]]></content>
+      <categories>
+        
+          <category> git </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> git </tag>
         
       </tags>
       <tags></tags>
@@ -2303,6 +2490,23 @@
     </entry>
   
     <entry>
+      <title><![CDATA[应用程序自定义快捷键]]></title>
+      <url>/mac/2017/11/23/%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E8%87%AA%E5%AE%9A%E4%B9%89%E5%BF%AB%E6%8D%B7%E9%94%AE/</url>
+      <content type="text"><![CDATA[  对于mac中的各种程序，都支持以下方式添加自定义快捷键进入系统偏好设置 -&gt; 键盘  在Tab列表中选择 快捷键  在功能列表中选择 应用快捷键点击底部的 + 号，按照要求为指定应用程序添加快捷键  需要注意的是 菜单标题 必须和应用程序中对应菜单标题保持一致]]></content>
+      <categories>
+        
+          <category> mac </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> mac </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
       <title><![CDATA[var let const 的区别]]></title>
       <url>/javascript/es6/2017/11/23/var-let-const-%E7%9A%84%E5%8C%BA%E5%88%AB/</url>
       <content type="text"><![CDATA[  var是ES6之前JavaScript用于定义变量的语法，而let const是ES6之后JavaScript用于定义变量的语法var存在的两个bug  JS没有块级作用域          通过var声明的变量，其作用域是函数的全部        循环内变量会过度共享          意思就是说在循环内部定义的变量，在循环外部依旧可以访问      let存在的意义  let声明的变量拥有块级作用域          let声明的变量其作用域只是外层快，而不是外层函数        let声明的全局变量不是全局对象的属性          通过let声明的全局变量无法通过window.变量名进行访问，其只存在于一个不存的作用域中        行如 for(let x in data) 的循环在每次迭代时都会为 x 创建新的绑定  let声明的变量无法重新被定义const的作用  const就是用于定义常量的]]></content>
@@ -2526,6 +2730,27 @@
     </entry>
   
     <entry>
+      <title><![CDATA[NPM相关操作]]></title>
+      <url>/nodejs/npm/2017/11/22/NPM%E7%9B%B8%E5%85%B3%E6%93%8D%E4%BD%9C/</url>
+      <content type="text"><![CDATA[  NPM是Node.js的包管理模块操作安装sudo npm install -g n安装最新稳定版sudo n stable更新sudo npm install npm@latest -g清除缓存npm cache verify]]></content>
+      <categories>
+        
+          <category> nodejs </category>
+        
+          <category> npm </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> nodejs </tag>
+        
+          <tag> npm </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
       <title><![CDATA[Vue 集成 Animate.css]]></title>
       <url>/vue/2017/11/21/Vue-%E9%9B%86%E6%88%90-Animate.css/</url>
       <content type="text"><![CDATA[  通过CSS实现了很多动画效果，可以直接调用官网Animate.css实现方式  下载 animate.css 文件并在项目的 main.js 中引入import Vue from 'vue'...import 'assets/plugins/animate/animate.css'.../* eslint-disable no-new */new Vue({  el: '#app',  render: h =&gt; h(App),  store,  router})结合 transition 组件一起使用  duration 可控制动画的加载速度&lt;transition leave-active-class="animated fadeOutRight" enter-active-class="animated fadeInRight" :duration="300"&gt;  &lt;mt-field class="search-input" placeholder="请输入搜索内容" v-show="search" v-model="searchContent"&gt;&lt;/mt-field&gt;&lt;/transition&gt;]]></content>
@@ -2638,6 +2863,27 @@
         
       </categories>
       <tags>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[NPM修改镜像地址]]></title>
+      <url>/nodejs/npm/2017/11/17/NPM%E4%BF%AE%E6%94%B9%E9%95%9C%E5%83%8F%E5%9C%B0%E5%9D%80/</url>
+      <content type="text"><![CDATA[  由于NPM的镜像地址默认在境外，在国内使用会出现下载速度较慢的问题，所以需要修改镜像地址为国内的服务器镜像地址  官方          registry https://registry.npmjs.org/        淘宝          搜索 http://npm.taobao.org/      registry http://registry.npm.taobao.org/        NPMJS          搜索 http://cnpmjs.org/      registry http://r.cnpmjs.org/      步骤npm config set registry https://registry.npm.taobao.org// 配置后可通过下面方式来验证是否成功npm config get registry// 或npm info expressCNPMnpm install cnpm -g --registry=https://registry.npm.taobao.org]]></content>
+      <categories>
+        
+          <category> nodejs </category>
+        
+          <category> npm </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> nodejs </tag>
+        
+          <tag> npm </tag>
         
       </tags>
       <tags></tags>
@@ -2860,6 +3106,23 @@
     </entry>
   
     <entry>
+      <title><![CDATA[Shell 字符串]]></title>
+      <url>/shell/2017/09/16/Shell-%E5%AD%97%E7%AC%A6%E4%B8%B2/</url>
+      <content type="text"><![CDATA[  列举一些 Shell 脚本常用的字符串操作语法拼接  在双引号中通过 $ 可直接引入一个变量  如果引入变量之后紧接着存在内容，可以将引入变量放在双引号之外，与其他语言不同，不需要加号拼接  第三种语义最清晰，通过一组 {} 将引入变量与其他内容分隔开name=TomnewName="newName is $name"newNmae="newName is"$name"!"newName="newName is ${name}!"长度  引入变量时，在变量名前加一个 # 号可实现变量内容长度的输出name=Tomecho ${#Tom}截取  ${string:position}  表示从字符串指定索引开始截取  ${string:position:length} 表示从字符串指定索引开始截取指定长度的内容name="Hello World"echo ${name:2}echo ${name:2:5}]]></content>
+      <categories>
+        
+          <category> shell </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> shell </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
       <title><![CDATA[Spring事务隔离级别]]></title>
       <url>/java/springmvc/springboot/2017/09/14/Spring%E4%BA%8B%E5%8A%A1%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB/</url>
       <content type="text"><![CDATA[  Spring 事务隔离级别是指 Spring 如何去处理每个事务之间的关联，可用于防止一些数据错误隔离级别  TransactionDefinition.ISOLATION_DEFAULT [默认值]          表示使用底层数据库的默认隔离级别，通常为 TransactionDefinition.ISOLATION_READ_COMMITTED      数据库的隔离级别参见 MySQL 数据库隔离级别        TransactionDefinition.ISOLATION_READ_UNCOMMITTED          表示一个事务可以读取到另一个事务修改但还未提交的数据      无法防止脏读、不可重复读、幻读      不推荐使用        TransactionDefinition.ISOLATION_READ_COMMITTED          表示一个事务只能读取到另一个事务已经提交的数据      可防止脏读      推荐使用        TransactionDefinition.ISOLATION_REPEATABLE_READ          表示一个事务在整个过程中可以多次重复执行某个查询，并且每次返回的记录都相同      可防止脏读、不可重复读        TransactionDefinition.ISOLATION_SERIALIZABLE          表示所有事务一次逐个执行，事务之间完全不可能产生干扰      可防止脏读、不可重复读、幻读      过于严密的隔离级别会严重影响系统性能      不推荐使用      ]]></content>
@@ -2912,6 +3175,40 @@
           <tag> spring </tag>
         
           <tag> transaction </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[Shell 脚本入门]]></title>
+      <url>/shell/2017/09/14/Shell-%E8%84%9A%E6%9C%AC%E5%85%A5%E9%97%A8/</url>
+      <content type="text"><![CDATA[  Shell 是一种编程语言，与其他语言一样，其也有很多语言结构区别  Shell 作为一种编程语言，有很多具体类别，例如：sh / bash / csh / zsh  日常所说的 Shell 更像是一种应用程序， 用于解释执行编写出来的 Shell 脚本入门  #! 是 Shell 脚本的约定标记，用于指明该脚本应该被什么解释器执行  echo 命令用于在屏幕上输出一句话#! /bin/shecho "hello shell !"运行直接调用解释器，将脚本作为参数参数  图示中是直接使用 bash 解释器来执行 hello.sh 脚本使用 source 或 . 执行脚本  使用该方法执行脚本时，不会创建子进程，而是直接在父进程中执行]]></content>
+      <categories>
+        
+          <category> shell </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> shell </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[Shell 变量]]></title>
+      <url>/shell/2017/09/14/Shell-%E5%8F%98%E9%87%8F/</url>
+      <content type="text"><![CDATA[  和所有编程语言一样，Shell 中也有变量的概念特点  只有字符串这一种类型  变量名和变量值 ~没有长度限制~  只要变量的内容为数字，则允许比较和整数[加减乘除]操作定义  = 号两侧不能有空格，否则视为语法错误variableName=value  当 value 中存在空格时，需要使用双引号将内容包裹住variableName="value have space"类型  局部变量          变量名之前加 local 修饰符      代码块或函数范围内可见        全局变量          变量名之前不加任何修饰符      在全局范围内可见      使用  要使用定义好的变量，只需要在变量名前加一个 $ 符号  变量名两侧增加 {} 只是为了识别变量边界，非必选  # 号用于表示单行注释，Shell 脚本中不存在多行注释name=Tomecho $nameecho ${name} #变量名可以被一对大括号包裹  被双引号包裹的变量名可以被识别，被单引号包裹的变量无法被识别]]></content>
+      <categories>
+        
+          <category> shell </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> shell </tag>
         
       </tags>
       <tags></tags>
@@ -3144,6 +3441,23 @@
           <tag> css </tag>
         
           <tag> shadow </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[Mac 快捷键]]></title>
+      <url>/mac/2017/07/10/Mac-%E5%BF%AB%E6%8D%B7%E9%94%AE/</url>
+      <content type="text"><![CDATA[  mac 的一些快捷键罗列，持续更新截图  3 种截图方式中加入 Control 可以让截图直接存入剪贴板          Command + Shift + 3 截取整个屏幕      Command + Shift + 4 截取选择区域      Command + Shift + 4 + BackSpace 截取指定窗口      浏览器  Command + L 跳转到地址栏  Control + Tab 标签页切换功能键  Control + Command + Space 呼出 emoji 窗口  Command + Alt + . 显示隐藏文件]]></content>
+      <categories>
+        
+          <category> mac </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> mac </tag>
         
       </tags>
       <tags></tags>
@@ -3693,6 +4007,23 @@
           <tag> springmvc </tag>
         
           <tag> fileupload </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[Mac 10.12 允许任何来源]]></title>
+      <url>/mac/2017/04/22/Mac-10.12-%E5%85%81%E8%AE%B8%E4%BB%BB%E4%BD%95%E6%9D%A5%E6%BA%90/</url>
+      <content type="text"><![CDATA[  macos 10.12 之后在安全与隐私中不支持选择任何来源解决  打开终端输入 sudo spctl --master-disable结果]]></content>
+      <categories>
+        
+          <category> mac </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> mac </tag>
         
       </tags>
       <tags></tags>
@@ -4389,6 +4720,27 @@
     </entry>
   
     <entry>
+      <title><![CDATA[iframe沙箱模式]]></title>
+      <url>/html/iframe/2017/03/07/iframe%E6%B2%99%E7%AE%B1%E6%A8%A1%E5%BC%8F/</url>
+      <content type="text"><![CDATA[  iframe中存在一个sandbox属性可以实现沙箱模式，通过给这个属性设值，可以限制iframe中能进行的操作，从而不影响父窗口的运行属性  allow-same-orign 允许将内容作为普通来源对待，否则会被设为来自一个独立的源  allow-top-navigation 允许包含文档导航内容  allow-forms 允许表单提交  allow-scripts 允许脚本执行  allow-modals 允许模态窗口  allow-orientation-lock 允许锁定父窗口屏幕方向  allow-pointer-lock 允许使用指针锁API  allow-popups 允许弹出窗口  allow-popups-to-escape-sandbox 允许弹出沙箱窗口  allow-presentation 允许控制session  ”“ 允许上述所有规则，默认语法&lt;iframe sandbox="allow-scripts allow-same-origin allow-popups"&gt;&lt;/iframe&gt;]]></content>
+      <categories>
+        
+          <category> html </category>
+        
+          <category> iframe </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> html </tag>
+        
+          <tag> iframe </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
       <title><![CDATA[jQuery.wrap()动态添加父元素]]></title>
       <url>/jquery/2017/02/28/jQuery.wrap()%E5%8A%A8%E6%80%81%E6%B7%BB%E5%8A%A0%E7%88%B6%E5%85%83%E7%B4%A0/</url>
       <content type="text"><![CDATA[  通过 wrap() 实现动态添加父元素直接添加父元素$(".inner").wrap("&lt;div class='new'&gt;&lt;/div&gt;");添加父元素的同时执行一个方法$(".inner").wrap(function () {    return "&lt;a class='fancybox' rel='group' href='" + $(this).attr("src") + "'&gt;&lt;/a&gt;"});]]></content>
@@ -4423,6 +4775,23 @@
     </entry>
   
     <entry>
+      <title><![CDATA[Tomcat连接池配置]]></title>
+      <url>/tomcat/2017/02/18/Tomcat%E8%BF%9E%E6%8E%A5%E6%B1%A0%E9%85%8D%E7%BD%AE/</url>
+      <content type="text"><![CDATA[  Tomcat 连接池配置方式在tomcat的 /conf/server.xml 中配置连接池信息&lt;Resource      name="jdbc/htsDB"      auth="Container"     factory="org.apache.naming.factory.BeanFactory"      type="com.mchange.v2.c3p0.ComboPooledDataSource"     driverClass="com.mysql.jdbc.Driver"     idleConnectionTestPeriod="60"     maxPoolSize="50"     minPoolSize="2"     maxStatements="0"     acquireIncrement="2"      user="root"     password="qazpl,"     jdbcUrl="jdbc:mysql://192.168.7.11:3306/hts_dev?useUnicode=true&amp;amp;characterEncoding=utf-8"/&gt;在tomcat的 /conf/context.xml 中指定连接池别名&lt;ResourceLink global="jdbc/htsDB" name="jdbc/htsDB" type="javax.sql.DataSource"/&gt;  在项目的数据库配置文件中指定连接池&lt;bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean"&gt;    &lt;property name="jndiName"&gt;        &lt;value&gt;java:comp/env/jdbc/htsDB&lt;/value&gt;    &lt;/property&gt;&lt;/bean&gt;]]></content>
+      <categories>
+        
+          <category> tomcat </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> tomcat </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
       <title><![CDATA[MyBatis防止死循环]]></title>
       <url>/java/mybatis/error/2017/02/18/MyBatis%E9%98%B2%E6%AD%A2%E6%AD%BB%E5%BE%AA%E7%8E%AF/</url>
       <content type="text"><![CDATA[  mybatis的mapper文件中如果存在错误，会导致项目启动时加载mapper进入死循环，却不输出错误重新buildSqlSessionFactory()  重写org.mybatis.spring.SqlSessionFactoryBean的buildSqlSessionFactory()方法public class FixedSqlSessionFactory extends SqlSessionFactoryBean {    @Override    protected SqlSessionFactory buildSqlSessionFactory() throws IOException {        try {            return super.buildSqlSessionFactory();        }catch (Exception e){            e.printStackTrace();        }finally {            ErrorContext.instance().reset();        }        return null;    }}修改配置文件中的引用为上述包装类&lt;bean id="sqlSessionFactory" class="com.innovaee.hts.sop.web.FixedSqlSessionFactory"&gt;    &lt;property name="dataSource" ref="dataSource"/&gt;    ...&lt;/bean&gt;启动项目，则会在控制台输出具体错误信息]]></content>
@@ -4442,6 +4811,42 @@
           <tag> mybatis </tag>
         
           <tag> error </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[Tomcat防止内存溢出]]></title>
+      <url>/tomcat/2017/02/17/Tomcat%E9%98%B2%E6%AD%A2%E5%86%85%E5%AD%98%E6%BA%A2%E5%87%BA/</url>
+      <content type="text"><![CDATA[  JDK8 版本之前在 IDE 中使用 Tomcat ，如果项目占用内存过大， 可能会导致内存溢出，从而 Tomcat 崩溃解决方式-server -Xms512m -Xmx512m -XX:PermSize=64M -XX:MaxPermSize=128m]]></content>
+      <categories>
+        
+          <category> tomcat </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> tomcat </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[Jenv管理多个Java版本]]></title>
+      <url>/homebrew/2017/02/17/Jenv%E7%AE%A1%E7%90%86%E5%A4%9A%E4%B8%AAJava%E7%89%88%E6%9C%AC/</url>
+      <content type="text"><![CDATA[  通过 homebrew 安装 jenv ，jenv是多版本 JDK 管理工具官网  jEnv - Manage your Java environment前提  安装 Homebrew套件管理器在终端中输入brew install jenv配置环境变量echo 'export PATH="$HOME/.jenv/bin:$PATH"' &gt;&gt; ~/.bash_profileecho 'eval "$(jenv init -)"' &gt;&gt; ~/.bash_profile添加JDKjenv add /System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Home oracle64-1.6.0.39 added查看JDK版本列表jenv versions更改全局版本jenv global oracle64-1.6.0.39]]></content>
+      <categories>
+        
+          <category> homebrew </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> homebrew </tag>
+        
+          <tag> jenv </tag>
         
       </tags>
       <tags></tags>
@@ -4507,6 +4912,27 @@
           <tag> java </tag>
         
           <tag> alipay </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[Form表单提交时打开新窗口]]></title>
+      <url>/html/iframe/2017/02/13/Form%E8%A1%A8%E5%8D%95%E6%8F%90%E4%BA%A4%E6%97%B6%E6%89%93%E5%BC%80%E6%96%B0%E7%AA%97%E5%8F%A3/</url>
+      <content type="text"><![CDATA[  关键在于添加target=“_blank”属性，会使得表单提交时在新窗口打开页面实现方式&lt;form target="_blank" method="get" action="#"&gt;&lt;/form&gt;]]></content>
+      <categories>
+        
+          <category> html </category>
+        
+          <category> iframe </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> html </tag>
+        
+          <tag> iframe </tag>
         
       </tags>
       <tags></tags>
@@ -4665,6 +5091,29 @@
           <tag> jquery </tag>
         
           <tag> video </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[iframe设置session-timeout]]></title>
+      <url>/html/iframe/2017/01/20/iframe%E8%AE%BE%E7%BD%AEsession-timeout/</url>
+      <content type="text"><![CDATA[  在 iframe 中继承父容器的 session 信息在iframe需要加载的页面中加入&lt;%	response.setHeader("P3P", "CP=CAO PSA OUR");%&gt;在需要加载的首页加入if (top != self) {	if (top.location != self.location) {		top.location = self.location;	}}]]></content>
+      <categories>
+        
+          <category> html </category>
+        
+          <category> iframe </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> html </tag>
+        
+          <tag> iframe </tag>
+        
+          <tag> session </tag>
         
       </tags>
       <tags></tags>
@@ -5176,6 +5625,23 @@
     </entry>
   
     <entry>
+      <title><![CDATA[Mac系统技巧]]></title>
+      <url>/mac/2016/12/14/Mac%E7%B3%BB%E7%BB%9F%E6%8A%80%E5%B7%A7/</url>
+      <content type="text"><![CDATA[  罗列一些系统技巧，持续更新配置NFS目录sudo mount -t nfs -o resvport,nolock 192.168.7.11:/var/www/html /Users/ThkcDo/Documents/innovaee/projects/nfs制作文件夹软链接  tomcat配置文件需要加上 allowLinking=”true” 用于允许软链接ln -s sourceDir targetDir显示隐藏文件defaults write com.apple.finder AppleShowAllFiles -bool truekillall Finder查看CPU信息sysctl machdep.cpu.brand_string查看当前WIFI密码security find-generic-password -ga "innovaee-11-HUAWEI_5G" | grep "password:"]]></content>
+      <categories>
+        
+          <category> mac </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> mac </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
       <title><![CDATA[CSS获取每行最后一个元素]]></title>
       <url>/css/2016/12/14/CSS%E8%8E%B7%E5%8F%96%E6%AF%8F%E8%A1%8C%E6%9C%80%E5%90%8E%E4%B8%80%E4%B8%AA%E5%85%83%E7%B4%A0/</url>
       <content type="text"><![CDATA[  div中每一行的最后一个元素需要指定单独样式显示效果解决// :not表示排除指定元素// :nth-child表示指定第几个元素// 3n表示每行第三个元素.resource-list-item:not(:nth-child(3n)) {	margin-right: 15px;}]]></content>
@@ -5221,6 +5687,27 @@
       <tags>
         
           <tag> css </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[iframe高度控制]]></title>
+      <url>/html/iframe/2016/12/13/iframe%E9%AB%98%E5%BA%A6%E6%8E%A7%E5%88%B6/</url>
+      <content type="text"><![CDATA[  iframe在ios的safari中无法通过height:100%控制高度在iframe中加上scrolling=”no”强制没有滚动条&lt;iframe id="courseContentFrame" name="courseContentFrame" src="JavaScript:;" scrolling="no"&gt;&lt;/iframe&gt;在iframe动态加载内容后，通过js强制指定高度var height = $courseLearningPanel.find(".course-content-panel").height();$courseContentFrame.attr("height", height);$courseContentFrame.css("min-height", height + "px !important");$courseContentFrame.css("max-height", height + "611px !important");]]></content>
+      <categories>
+        
+          <category> html </category>
+        
+          <category> iframe </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> html </tag>
+        
+          <tag> iframe </tag>
         
       </tags>
       <tags></tags>
