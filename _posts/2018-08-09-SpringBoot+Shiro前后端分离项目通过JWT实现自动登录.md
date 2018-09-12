@@ -1,5 +1,5 @@
 ---
-title: SpringBoot+Shiro前后端分离项目通过JWT实现自动登录
+title: SpringBoot+Shiro+Vue前后端分离项目通过JWT实现自动登录
 date: 2018-08-09
 author: asing1elife
 categories:
