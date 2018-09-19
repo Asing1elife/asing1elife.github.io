@@ -1,4 +1,120 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.5.2">Jekyll</generator><link href="http://localhost:4000/atom.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2018-09-12T09:51:23+08:00</updated><id>http://localhost:4000/</id><title type="html">asing1elife’s blog</title><subtitle>- 说好为我泡花茶</subtitle><author><name>asing1elife</name></author><entry><title type="html">jQuery 解决 click 和 dblclick 冲突</title><link href="http://localhost:4000/jquery/javascript/2018/09/11/jQuery-%E8%A7%A3%E5%86%B3-click-%E5%92%8C-dblclick-%E5%86%B2%E7%AA%81/" rel="alternate" type="text/html" title="jQuery 解决 click 和 dblclick 冲突" /><published>2018-09-11T00:00:00+08:00</published><updated>2018-09-11T00:00:00+08:00</updated><id>http://localhost:4000/jquery/javascript/2018/09/11/jQuery%20%E8%A7%A3%E5%86%B3%20click%20%E5%92%8C%20dblclick%20%E5%86%B2%E7%AA%81</id><content type="html" xml:base="http://localhost:4000/jquery/javascript/2018/09/11/jQuery-%E8%A7%A3%E5%86%B3-click-%E5%92%8C-dblclick-%E5%86%B2%E7%AA%81/">&lt;blockquote&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.5.2">Jekyll</generator><link href="http://localhost:4000/atom.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2018-09-15T19:17:06+08:00</updated><id>http://localhost:4000/</id><title type="html">asing1elife’s blog</title><subtitle>- 说好为我泡花茶</subtitle><author><name>asing1elife</name></author><entry><title type="html">html2canvas+jQuery+SpringMVC 实现网页转图片并保存到服务器</title><link href="http://localhost:4000/java/jquery/springmvc/2018/09/14/html2canvas+jQuery+SpringMVC-%E5%AE%9E%E7%8E%B0%E7%BD%91%E9%A1%B5%E8%BD%AC%E5%9B%BE%E7%89%87%E5%B9%B6%E4%BF%9D%E5%AD%98%E5%88%B0%E6%9C%8D%E5%8A%A1%E5%99%A8/" rel="alternate" type="text/html" title="html2canvas+jQuery+SpringMVC 实现网页转图片并保存到服务器" /><published>2018-09-14T00:00:00+08:00</published><updated>2018-09-14T00:00:00+08:00</updated><id>http://localhost:4000/java/jquery/springmvc/2018/09/14/html2canvas+jQuery+SpringMVC%20%E5%AE%9E%E7%8E%B0%E7%BD%91%E9%A1%B5%E8%BD%AC%E5%9B%BE%E7%89%87%E5%B9%B6%E4%BF%9D%E5%AD%98%E5%88%B0%E6%9C%8D%E5%8A%A1%E5%99%A8</id><content type="html" xml:base="http://localhost:4000/java/jquery/springmvc/2018/09/14/html2canvas+jQuery+SpringMVC-%E5%AE%9E%E7%8E%B0%E7%BD%91%E9%A1%B5%E8%BD%AC%E5%9B%BE%E7%89%87%E5%B9%B6%E4%BF%9D%E5%AD%98%E5%88%B0%E6%9C%8D%E5%8A%A1%E5%99%A8/">&lt;blockquote&gt;
+  &lt;p&gt;前端使用的是 RequireJS + jQuery &lt;br /&gt;
+后端使用的是 SpringMVC + MyBatis&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;涉及资料&quot;&gt;涉及资料&lt;/h2&gt;
+&lt;ol&gt;
+  &lt;li&gt;&lt;a href=&quot;http://html2canvas.hertzen.com&quot;&gt;html2canvas 官网&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://blog.csdn.net/qq_16504067/article/details/77650313&quot;&gt;将转换后的图片存储服务器的参考&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;将网页转换为图片&quot;&gt;将网页转换为图片&lt;/h2&gt;
+&lt;h3 id=&quot;下载插件包&quot;&gt;下载插件包&lt;/h3&gt;
+&lt;ol&gt;
+  &lt;li&gt;html2canvas 目前最新版是 &lt;strong&gt;v-1.0.0-aplha.12&lt;/strong&gt; ，该版本使用的是 ES6 语法&lt;/li&gt;
+  &lt;li&gt;但本项目使用的是 jQuery ，并且基于 ES5 的语法，所以引入最新版插件时会一直报错 &lt;code class=&quot;highlighter-rouge&quot;&gt;Uncaught (in promise)&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;对于没有使用的 ES6 语法的项目，建议下载 &lt;a href=&quot;https://github.com/niklasvh/html2canvas/releases?after=v1.0.0-alpha.3&quot;&gt;2017 年的版本&lt;/a&gt;，本文使用的是 &lt;a href=&quot;https://github.com/niklasvh/html2canvas/releases/download/v0.5.0-beta4/html2canvas.min.js&quot;&gt;v-0.5.0-beta4&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&quot;调用插件进行转换&quot;&gt;调用插件进行转换&lt;/h3&gt;
+&lt;ol&gt;
+  &lt;li&gt;最新版及官网介绍的方法是基于 ES6 的语法结构，对于使用 ES5 语法的项目，需要使用如下方法&lt;/li&gt;
+  &lt;li&gt;方法第一个参数是传入 DOM 元素，而通过 jQuery 获取的 DOM 元素实际上是一个集合，所以需要通过下标指定具体元素后插件才能正常获取&lt;/li&gt;
+  &lt;li&gt;方法第二个参数是传入 options 配置，对于 ES5 语法需要使用 &lt;code class=&quot;highlighter-rouge&quot;&gt;onrendered: function(canvas) {...}&lt;/code&gt; 来执行回调&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nx&quot;&gt;html2canvas&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;$diplomaInfoPanel&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;useCORS&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;onrendered&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;canvas&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;// 执行回调&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;在转换时需要解决图片跨域问题&quot;&gt;在转换时需要解决图片跨域问题&lt;/h3&gt;
+&lt;ol&gt;
+  &lt;li&gt;众所周知 canvas 无法处理跨域图片，那么基于 canvas 实现的 html2canvas 自然也无法处理跨域图片&lt;/li&gt;
+  &lt;li&gt;如果在插件待转换的 DOM 结构中存在跨域图片，则会转换失败并报错&lt;/li&gt;
+  &lt;li&gt;虽然插件本身提供了一些处理跨域的方式，但本文是通过 &lt;strong&gt;后端代理转发图片&lt;/strong&gt; 的操作来规避跨域问题的，如下&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;div class=&quot;language-html highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;// 在图片地址直接发起图片请求
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;img&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;src=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;${ctx}/api/diploma/info/${memberDiploma.diploma.hexId}/thumbnail&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;alt=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// 控制层接收请求&lt;/span&gt;
+&lt;span class=&quot;nd&quot;&gt;@RequestMapping&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;/{diplomaId}/thumbnail&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;thumbnail&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;HttpServletResponse&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;response&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nd&quot;&gt;@PathVariable&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;diplomaId&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;diplomaInfoService&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getThumbnail&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;response&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;diplomaId&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// 逻辑层获取到真实图片后通过流的形式反馈到前端&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;getThumbnail&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;HttpServletResponse&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;response&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;diplomaId&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;try&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+		  &lt;span class=&quot;c1&quot;&gt;// 提供图片完整地址并转换&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;BufferedImage&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;read&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ImageIO&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;read&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;URL&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;CommonHelper&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;buildDiplomaThumbnail&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;diplomaId&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)));&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;OutputStream&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;outputStream&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;response&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getOutputStream&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+
+        &lt;span class=&quot;n&quot;&gt;ImageIO&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;write&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;read&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;png&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;outputStream&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+
+        &lt;span class=&quot;n&quot;&gt;read&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;flush&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;outputStream&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;flush&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;outputStream&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;close&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;catch&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;IOException&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;logger&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;error&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;证书图片代理获取失败&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;将图片保存至服务器&quot;&gt;将图片保存至服务器&lt;/h2&gt;
+&lt;h3 id=&quot;前端将图片转换为-base64-格式供服务器接收&quot;&gt;前端将图片转换为 BASE64 格式供服务器接收&lt;/h3&gt;
+&lt;ol&gt;
+  &lt;li&gt;想要将图片传至后端，需要使用 canvas 的 &lt;code class=&quot;highlighter-rouge&quot;&gt;canvas.toDataURL('image/jpeg')&lt;/code&gt; 将画布转换为 BASE64 格式的图片&lt;/li&gt;
+  &lt;li&gt;BASE64 格式的图片链接对于后端来说就是一个字符串，所以可以直接接收&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nx&quot;&gt;onrendered&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;canvas&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;// 画布转图片链接&lt;/span&gt;
+  &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;image&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;canvas&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;toDataURL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'image/jpeg'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+  &lt;span class=&quot;c1&quot;&gt;// 自行封装的 ajax 方法&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;ts&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;doAction&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'/api/diploma/info/save'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;memberDiplomaId&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;currentMemberDiplomaId&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;image&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;image&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+	  &lt;span class=&quot;c1&quot;&gt;// 异步回调&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;''&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;''&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;''&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;接收-base64-并重新转换为图片格式&quot;&gt;接收 BASE64 并重新转换为图片格式&lt;/h3&gt;
+&lt;ol&gt;
+  &lt;li&gt;接收前端传入的 BASE64 字符串后，需要通过 &lt;code class=&quot;highlighter-rouge&quot;&gt;org.apache.commons.codec.binary.Base64&lt;/code&gt; 将其转换为 &lt;code class=&quot;highlighter-rouge&quot;&gt;byte[]&lt;/code&gt; 格式
+    &lt;ul&gt;
+      &lt;li&gt;需要注意的是字符串中 &lt;code class=&quot;highlighter-rouge&quot;&gt;data:image/jpeg;base64,&lt;/code&gt; 之后的内容才是有效内容，所以需要在转换时先截取掉这一部分&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;转换后直接使用 &lt;code class=&quot;highlighter-rouge&quot;&gt;org.apache.commons.io.FileUtils&lt;/code&gt; 保存图片到指定路径即可&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;BASE64_PREFIX&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;data:image/jpeg;base64,&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;saveMemberDiplomaImage&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;memberDiplomaId&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;image&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;Base64&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;base64&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Base64&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;byte&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;bytes&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;base64&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;decode&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;image&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;substring&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;BASE64_PREFIX&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;length&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()));&lt;/span&gt;
+
+    &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;filePath&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;SOPConstants&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;UPLOAD_FILE_ROOT_PATH&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Constants&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;DIPLOMA_MEMBER_FILE_PATH&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;super&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getMember&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getHexId&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;/&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;fileName&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Constants&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;THUMB_FILE_PREFIX&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;memberDiplomaId&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Constants&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;THUMB_FILE_EXTENSION&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+
+    &lt;span class=&quot;n&quot;&gt;FileUtils&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;writeByteArrayToFile&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;File&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;filePath&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;fileName&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;bytes&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;</content><author><name>asing1elife</name></author><category term="java" /><category term="jquery" /><category term="springmvc" /><category term="html2canvas" /><summary type="html">前端使用的是 RequireJS + jQuery 后端使用的是 SpringMVC + MyBatis</summary></entry><entry><title type="html">jQuery 解决 click 和 dblclick 冲突</title><link href="http://localhost:4000/jquery/javascript/2018/09/11/jQuery-%E8%A7%A3%E5%86%B3-click-%E5%92%8C-dblclick-%E5%86%B2%E7%AA%81/" rel="alternate" type="text/html" title="jQuery 解决 click 和 dblclick 冲突" /><published>2018-09-11T00:00:00+08:00</published><updated>2018-09-11T00:00:00+08:00</updated><id>http://localhost:4000/jquery/javascript/2018/09/11/jQuery%20%E8%A7%A3%E5%86%B3%20click%20%E5%92%8C%20dblclick%20%E5%86%B2%E7%AA%81</id><content type="html" xml:base="http://localhost:4000/jquery/javascript/2018/09/11/jQuery-%E8%A7%A3%E5%86%B3-click-%E5%92%8C-dblclick-%E5%86%B2%E7%AA%81/">&lt;blockquote&gt;
   &lt;p&gt;click 是单击事件， dblclick 是双击事件&lt;br /&gt;
 如果给一个 DOM 元素同时绑定两个事件，则会导致响应 dblclick 时会同时响应 click&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -686,23 +802,4 @@ Apache POI 是一套操作 Microsoft Office 套件的开源 Java API&lt;/p&gt;
 
 &lt;span class=&quot;nt&quot;&gt;&amp;lt;/mapper&amp;gt;&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;</content><author><name>asing1elife</name></author><category term="java" /><category term="springboot" /><category term="mybatis" /><summary type="html">基础框架使用 SpringBoot 持久层使用 MyBatis 数据源使用 Druid 数据库使用 MySQL</summary></entry><entry><title type="html">Vue 组件中监听路由变化</title><link href="http://localhost:4000/vue/2018/08/21/Vue-%E7%BB%84%E4%BB%B6%E4%B8%AD%E7%9B%91%E5%90%AC%E8%B7%AF%E7%94%B1%E5%8F%98%E5%8C%96/" rel="alternate" type="text/html" title="Vue 组件中监听路由变化" /><published>2018-08-21T00:00:00+08:00</published><updated>2018-08-21T00:00:00+08:00</updated><id>http://localhost:4000/vue/2018/08/21/Vue%20%E7%BB%84%E4%BB%B6%E4%B8%AD%E7%9B%91%E5%90%AC%E8%B7%AF%E7%94%B1%E5%8F%98%E5%8C%96</id><content type="html" xml:base="http://localhost:4000/vue/2018/08/21/Vue-%E7%BB%84%E4%BB%B6%E4%B8%AD%E7%9B%91%E5%90%AC%E8%B7%AF%E7%94%B1%E5%8F%98%E5%8C%96/">&lt;blockquote&gt;
-  &lt;p&gt;在 Vue 的组件中可以通过 watch 监听到当前路由的变化&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h2 id=&quot;实现方式&quot;&gt;实现方式&lt;/h2&gt;
-&lt;ol&gt;
-  &lt;li&gt;在 &lt;code class=&quot;highlighter-rouge&quot;&gt;watch&lt;/code&gt; 按照如下规则书写即可&lt;/li&gt;
-  &lt;li&gt;该监听会在路由发生变化时触发&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nx&quot;&gt;watch&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-	&lt;span class=&quot;s1&quot;&gt;'$route'&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;val&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;old&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-		&lt;span class=&quot;c1&quot;&gt;// 当前路由&lt;/span&gt;
-		&lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;val&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-		&lt;span class=&quot;c1&quot;&gt;// 上一个路由&lt;/span&gt;
-		&lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;old&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-	&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;</content><author><name>asing1elife</name></author><category term="vue" /><category term="watch" /><category term="router" /><summary type="html">在 Vue 的组件中可以通过 watch 监听到当前路由的变化</summary></entry></feed>
+&lt;/div&gt;</content><author><name>asing1elife</name></author><category term="java" /><category term="springboot" /><category term="mybatis" /><summary type="html">基础框架使用 SpringBoot 持久层使用 MyBatis 数据源使用 Druid 数据库使用 MySQL</summary></entry></feed>

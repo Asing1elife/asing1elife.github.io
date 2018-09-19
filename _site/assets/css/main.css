@@ -558,7 +558,7 @@ pre .k, pre .kd, pre .kn, pre .kp, pre .kr, pre .kt, pre .javascript .function {
 .links-of-author { margin-top: 20px; }
 
 .links-of-author a { display: inline-block; vertical-align: middle; margin-right: 10px; margin-bottom: 10px; border-bottom-color: #555; font-size: 13px; }
-.links-of-author a:before { display: inline-block; vertical-align: middle; margin-right: 3px; content: " "; width: 4px; height: 4px; border-radius: 50%; background: magenta; }
+.links-of-author a:before { display: inline-block; vertical-align: middle; margin-right: 3px; content: " "; width: 4px; height: 4px; border-radius: 50%; background: #ffffab; }
 
 .links-of-blogroll { font-size: 13px; }
 
@@ -880,7 +880,7 @@ article .gutter { background-color: #292929; }
 article .code { background-color: #000000; }
 
 .mist .main .main-inner, .muse .main .main-inner { position: relative; }
-.mist .main .main-category, .muse .main .main-category { position: fixed; top: 200px; transform: translateX(0); transition: all .5s; display: none; }
+.mist .main .main-category, .muse .main .main-category { height: calc(100% - 200px); overflow: auto; position: fixed; top: 200px; transform: translateX(0); transition: all .5s; display: none; }
 .mist .main .main-category .category-list, .muse .main .main-category .category-list { list-style: none; }
 .mist .main .main-category .category-list .category-list-item, .muse .main .main-category .category-list .category-list-item { margin: 5px 10px; }
 .mist .main .main-category .category-list .category-list-count, .muse .main .main-category .category-list .category-list-count { color: #bbbbbb; }
@@ -889,8 +889,8 @@ article .code { background-color: #000000; }
 @media (min-width: 992px) { .mist .main .main-inner .main-category, .muse .main .main-inner .main-category { display: block; }
   .mist .main .main-inner .content-wrap, .muse .main .main-inner .content-wrap { padding-left: 300px; } }
 
-.mist .header .site-meta { margin-left: 0; }
+.mist .header .site-meta { margin-left: 0; display: flex; align-items: center; }
 .mist .header .site-meta .custom-logo-site-title { display: inline-block; }
-.mist .header .site-meta .site-subtitle { display: inline-block; margin: 0; margin-left: 10px; bottom: 30px; top: auto !important; position: absolute; }
+.mist .header .site-meta .site-subtitle { display: inline-block; margin: 0; margin-left: 10px; position: relative; }
 @media (max-width: 767px) { .mist .header .site-meta .site-subtitle { bottom: 20px; } }
 .mist .main .main-category .category-list { padding-left: 0; }

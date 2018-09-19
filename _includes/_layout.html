@@ -32,6 +32,7 @@
 
     <main id="main" class="main">
       <div class="main-inner">
+        <!-- 自定义添加的分类列表 -->
         {% if page.type != 'categories' %}
           <div class="main-category">
             {% include _helper/list_categories.html %}
@@ -90,15 +91,24 @@
   {% include _third-party/exturl.html %}
   <script type="text/javascript">
     $(function () {
+      // Chrome检测
+      var isChrome = /chrome/.test(navigator.userAgent.toLowerCase())
+
+      // 展开右边栏时触发左侧分类列表动画
       $('.sidebar-toggle').on('click', function () {
         var $sidebar = $('#sidebar')
         var $mainCategory = $('.main .main-category')
+
+        // Chrome可以自行保持一致，只有Safari需要JS控制
+        if (isChrome) {
+          return false
+        }
 
         if ($sidebar.width() === 320) {
           $mainCategory.css('transform', 'translateX(0)')
         } else {
           $mainCategory.css('transform', 'translateX(-160px)')
-        }
+        } 
       })
     })
   </script>

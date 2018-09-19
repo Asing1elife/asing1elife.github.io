@@ -8,7 +8,6 @@ tags:
  - vue
  - aliplay
 ---
-#vue/plugin
 > 阿里云播放器本身没对 vue 进行专门优化，以下借助 github 上一个库进行优化  
 
 ## 官网

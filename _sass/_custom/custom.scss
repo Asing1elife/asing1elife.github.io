@@ -32,6 +32,8 @@ article .code {
   }
 
   .main .main-category {
+    height: calc(100% - 200px);
+    overflow: auto;
     position: fixed;
     top: 200px;
     transform: translateX(0);
@@ -65,12 +67,7 @@ article .code {
     // 首页导航栏
     .main .main-inner .main-category {
       display: block;
-    } 
-    // 首页顶栏
-    // .header .header-inner {
-    //   padding-left: 300px;
-    // } 
-    // 首页内容区
+    } // 首页内容区
     .main .main-inner .content-wrap {
       padding-left: 300px;
     }
@@ -79,33 +76,34 @@ article .code {
 
 // mist 模式下也显示副标题
 .mist {
-	.header  {
-		.site-meta {
-			margin-left: 0;
-			.custom-logo-site-title {
-				display: inline-block;
-			}
+  .header {
+    .site-meta {
+      margin-left: 0;
+      display: flex;
+      align-items: center;
 
-			.site-subtitle {
-				display: inline-block;
-				margin: 0;
-				margin-left: 10px;
-				bottom: 30px;
-				top: auto !important;
-				position: absolute;
-			}
+      .custom-logo-site-title {
+        display: inline-block;
+      }
 
-			@include mobile() {
-				.site-subtitle {
-					bottom: 20px;
-				}
-			}	
-		} 
-	}
+      .site-subtitle {
+        display: inline-block;
+        margin: 0;
+        margin-left: 10px;
+        position: relative;
+      }
 
-	.main {
-		.main-category .category-list {
-			padding-left: 0;
-		}
-	}
+      @include mobile() {
+        .site-subtitle {
+          bottom: 20px;
+        }
+      }
+    }
+  }
+
+  .main {
+    .main-category .category-list {
+      padding-left: 0;
+    }
+  }
 }
