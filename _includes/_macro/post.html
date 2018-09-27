@@ -227,7 +227,7 @@
     </div>
     <footer class="post-footer">
         {% if post.tags and post.tags.size != 0 and is_index == nil or is_index == false %}
-        <div class="copyright-marking">版权申明：本文首发 http://asing1elife.com ，转发请注明出处，讲文明懂礼貌！</div>
+        <div class="copyright-marking">版权声明：本文首发 http://asing1elife.com ，转发请注明出处，讲文明懂礼貌！</div>
         <div class="post-tags">
             {% for tag in post.tags %} {% assign tag_url_encode = tag | url_encode | replace: '+', '%20' %}
             <a href="{{ '/tag/#/' | relative_url | append: tag_url_encode }}" rel="tag"># {{ tag }}</a> {% endfor %}
