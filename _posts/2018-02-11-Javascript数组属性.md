@@ -63,3 +63,26 @@ array[5] = 'Lily'
 
 console.log(array.length) => 5
 ```
+
+## 删除数组元素
+1. 删除数组元素的方法不是 `remove()` ，而应该使用 `splice()`
+2. `splice(index, number, item...)`  提供三个属性
+	* **index** 表示待删除元素的索引
+	* **number** 表示从开始删除元素的索引开始要删除几个元素，1 表示只删除该元素，0 表示不删除
+	* **item…** 可选，可传入多个新元素，将从被删除元素的索引位置插入
+3. `splice()` 的特点在于会直接作用原数组，返回值中返回的是被删除元素
+
+```js
+var arr = ['java', 'html', 'css', 'js', 'vue']
+
+// java,html,css,js,vue
+console.log(arr)
+
+// 删除索引1的元素
+var result = arr.splice(1, 1)
+
+// java,css,js,vue
+console.log(arr)
+// html
+console.log(result)
+```

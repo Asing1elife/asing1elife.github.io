@@ -8,6 +8,8 @@ tags:
  - java
  - map
 ---
+> 简单描述一下HashMap和TreeMap的区别
+
 ## 介绍
 1. Map是key-value的集合接口，其实现类包括：
 	1. HashMap - 值没有顺序

@@ -9,7 +9,6 @@ tags:
  - javascript
  - array
 ---
-
 > Set是ES2015引入的数据类型，意为集合  
 > 其不允许重复元素出现的特性，对于NaN、undefined、null都适用  
 
