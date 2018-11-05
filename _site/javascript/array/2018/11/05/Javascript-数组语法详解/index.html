@@ -1,0 +1,2131 @@
+
+<!doctype html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/assets/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/assets/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/assets/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="javascript,array," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/assets/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="JavaScript 中的数组相当于 Java 中的 Map ，数组本身是一个对象，属于引用数据类型">
+<meta name="keywords" content="javascript, array">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Javascript 数组语法详解">
+<meta property="og:url" content="http://localhost:4000/javascript/array/2018/11/05/Javascript-%E6%95%B0%E7%BB%84%E8%AF%AD%E6%B3%95%E8%AF%A6%E8%A7%A3/">
+<meta property="og:site_name" content="asing1elife's blog">
+<meta property="og:description" content="JavaScript 中的数组相当于 Java 中的 Map ，数组本身是一个对象，属于引用数据类型">
+<meta property="og:locale" content="zh-Hans">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Javascript 数组语法详解">
+<meta name="twitter:description" content="JavaScript 中的数组相当于 Java 中的 Map ，数组本身是一个对象，属于引用数据类型">
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://localhost:4000/"/>
+
+
+
+
+
+  <title>Javascript 数组语法详解 | asing1elife's blog</title>
+  
+
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?0023f540f6c22accebb8249a2bc19b6a";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> <div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">asing1elife's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">x1anx1an is my wife</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+            首页
+          </a>
+        </li>
+      
+        
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+            归档
+          </a>
+        </li>
+      
+        
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <!-- 自定义添加的分类列表 -->
+        
+          <div class="main-category">
+            
+
+
+            
+  <ul class="category-list">
+    
+      
+      
+      <li class="category-list-item">
+        
+        <a class="category-list-link" href="/category/#/html">html</a>
+        <span class="category-list-count">5</span>
+      </li>
+    
+      
+      
+      <li class="category-list-item">
+        
+        <a class="category-list-link" href="/category/#/iframe">iframe</a>
+        <span class="category-list-count">5</span>
+      </li>
+    
+      
+      
+      <li class="category-list-item">
+        
+        <a class="category-list-link" href="/category/#/css">css</a>
+        <span class="category-list-count">25</span>
+      </li>
+    
+      
+      
+      <li class="category-list-item">
+        
+        <a class="category-list-link" href="/category/#/mac">mac</a>
+        <span class="category-list-count">5</span>
+      </li>
+    
+      
+      
+      <li class="category-list-item">
+        
+        <a class="category-list-link" href="/category/#/jquery">jquery</a>
+        <span class="category-list-count">34</span>
+      </li>
+    
+      
+      
+      <li class="category-list-item">
+        
+        <a class="category-list-link" href="/category/#/software">software</a>
+        <span class="category-list-count">21</span>
+      </li>
+    
+      
+      
+      <li class="category-list-item">
+        
+        <a class="category-list-link" href="/category/#/sublime">sublime</a>
+        <span class="category-list-count">2</span>
+      </li>
+    
+      
+      
+      <li class="category-list-item">
+        
+        <a class="category-list-link" href="/category/#/ajax">ajax</a>
+        <span class="category-list-count">3</span>
+      </li>
+    
+      
+      
+      <li class="category-list-item">
+        
+        <a class="category-list-link" href="/category/#/java">java</a>
+        <span class="category-list-count">82</span>
+      </li>
+    
+      
+      
+      <li class="category-list-item">
+        
+        <a class="category-list-link" href="/category/#/springmvc">springmvc</a>
+        <span class="category-list-count">14</span>
+      </li>
+    
+      
+      
+      <li class="category-list-item">
+        
+        <a class="category-list-link" href="/category/#/tomcat">tomcat</a>
+        <span class="category-list-count">4</span>
+      </li>
+    
+      
+      
+      <li class="category-list-item">
+        
+        <a class="category-list-link" href="/category/#/javascript">javascript</a>
+        <span class="category-list-count">42</span>
+      </li>
+    
+      
+      
+      <li class="category-list-item">
+        
+        <a class="category-list-link" href="/category/#/array">array</a>
+        <span class="category-list-count">5</span>
+      </li>
+    
+      
+      
+      <li class="category-list-item">
+        
+        <a class="category-list-link" href="/category/#/database">database</a>
+        <span class="category-list-count">19</span>
+      </li>
+    
+      
+      
+      <li class="category-list-item">
+        
+        <a class="category-list-link" href="/category/#/mongodb">mongodb</a>
+        <span class="category-list-count">1</span>
+      </li>
+    
+      
+      
+      <li class="category-list-item">
+        
+        <a class="category-list-link" href="/category/#/json">json</a>
+        <span class="category-list-count">1</span>
+      </li>
+    
+      
+      
+      <li class="category-list-item">
+        
+        <a class="category-list-link" href="/category/#/relfect">relfect</a>
+        <span class="category-list-count">1</span>
+      </li>
+    
+      
+      
+      <li class="category-list-item">
+        
+        <a class="category-list-link" href="/category/#/validate">validate</a>
+        <span class="category-list-count">3</span>
+      </li>
+    
+      
+      
+      <li class="category-list-item">
+        
+        <a class="category-list-link" href="/category/#/mybatis">mybatis</a>
+        <span class="category-list-count">11</span>
+      </li>
+    
+      
+      
+      <li class="category-list-item">
+        
+        <a class="category-list-link" href="/category/#/pay">pay</a>
+        <span class="category-list-count">5</span>
+      </li>
+    
+      
+      
+      <li class="category-list-item">
+        
+        <a class="category-list-link" href="/category/#/secure">secure</a>
+        <span class="category-list-count">1</span>
+      </li>
+    
+      
+      
+      <li class="category-list-item">
+        
+        <a class="category-list-link" href="/category/#/hibernate">hibernate</a>
+        <span class="category-list-count">8</span>
+      </li>
+    
+      
+      
+      <li class="category-list-item">
+        
+        <a class="category-list-link" href="/category/#/homebrew">homebrew</a>
+        <span class="category-list-count">4</span>
+      </li>
+    
+      
+      
+      <li class="category-list-item">
+        
+        <a class="category-list-link" href="/category/#/error">error</a>
+        <span class="category-list-count">8</span>
+      </li>
+    
+      
+      
+      <li class="category-list-item">
+        
+        <a class="category-list-link" href="/category/#/idea">idea</a>
+        <span class="category-list-count">12</span>
+      </li>
+    
+      
+      
+      <li class="category-list-item">
+        
+        <a class="category-list-link" href="/category/#/mysql">mysql</a>
+        <span class="category-list-count">14</span>
+      </li>
+    
+      
+      
+      <li class="category-list-item">
+        
+        <a class="category-list-link" href="/category/#/maven">maven</a>
+        <span class="category-list-count">5</span>
+      </li>
+    
+      
+      
+      <li class="category-list-item">
+        
+        <a class="category-list-link" href="/category/#/poi">poi</a>
+        <span class="category-list-count">2</span>
+      </li>
+    
+      
+      
+      <li class="category-list-item">
+        
+        <a class="category-list-link" href="/category/#/springboot">springboot</a>
+        <span class="category-list-count">17</span>
+      </li>
+    
+      
+      
+      <li class="category-list-item">
+        
+        <a class="category-list-link" href="/category/#/openoffice">openoffice</a>
+        <span class="category-list-count">2</span>
+      </li>
+    
+      
+      
+      <li class="category-list-item">
+        
+        <a class="category-list-link" href="/category/#/linux">linux</a>
+        <span class="category-list-count">12</span>
+      </li>
+    
+      
+      
+      <li class="category-list-item">
+        
+        <a class="category-list-link" href="/category/#/crossdomain">crossdomain</a>
+        <span class="category-list-count">2</span>
+      </li>
+    
+      
+      
+      <li class="category-list-item">
+        
+        <a class="category-list-link" href="/category/#/proxy">proxy</a>
+        <span class="category-list-count">2</span>
+      </li>
+    
+      
+      
+      <li class="category-list-item">
+        
+        <a class="category-list-link" href="/category/#/multithreading">multithreading</a>
+        <span class="category-list-count">7</span>
+      </li>
+    
+      
+      
+      <li class="category-list-item">
+        
+        <a class="category-list-link" href="/category/#/atom">atom</a>
+        <span class="category-list-count">1</span>
+      </li>
+    
+      
+      
+      <li class="category-list-item">
+        
+        <a class="category-list-link" href="/category/#/redis">redis</a>
+        <span class="category-list-count">4</span>
+      </li>
+    
+      
+      
+      <li class="category-list-item">
+        
+        <a class="category-list-link" href="/category/#/shell">shell</a>
+        <span class="category-list-count">3</span>
+      </li>
+    
+      
+      
+      <li class="category-list-item">
+        
+        <a class="category-list-link" href="/category/#/struts">struts</a>
+        <span class="category-list-count">1</span>
+      </li>
+    
+      
+      
+      <li class="category-list-item">
+        
+        <a class="category-list-link" href="/category/#/flex">flex</a>
+        <span class="category-list-count">3</span>
+      </li>
+    
+      
+      
+      <li class="category-list-item">
+        
+        <a class="category-list-link" href="/category/#/i18n">i18n</a>
+        <span class="category-list-count">1</span>
+      </li>
+    
+      
+      
+      <li class="category-list-item">
+        
+        <a class="category-list-link" href="/category/#/nodejs">nodejs</a>
+        <span class="category-list-count">2</span>
+      </li>
+    
+      
+      
+      <li class="category-list-item">
+        
+        <a class="category-list-link" href="/category/#/npm">npm</a>
+        <span class="category-list-count">2</span>
+      </li>
+    
+      
+      
+      <li class="category-list-item">
+        
+        <a class="category-list-link" href="/category/#/charts">charts</a>
+        <span class="category-list-count">1</span>
+      </li>
+    
+      
+      
+      <li class="category-list-item">
+        
+        <a class="category-list-link" href="/category/#/animate">animate</a>
+        <span class="category-list-count">2</span>
+      </li>
+    
+      
+      
+      <li class="category-list-item">
+        
+        <a class="category-list-link" href="/category/#/vue">vue</a>
+        <span class="category-list-count">53</span>
+      </li>
+    
+      
+      
+      <li class="category-list-item">
+        
+        <a class="category-list-link" href="/category/#/stylus">stylus</a>
+        <span class="category-list-count">1</span>
+      </li>
+    
+      
+      
+      <li class="category-list-item">
+        
+        <a class="category-list-link" href="/category/#/intellij">intellij</a>
+        <span class="category-list-count">2</span>
+      </li>
+    
+      
+      
+      <li class="category-list-item">
+        
+        <a class="category-list-link" href="/category/#/webstorm">webstorm</a>
+        <span class="category-list-count">3</span>
+      </li>
+    
+      
+      
+      <li class="category-list-item">
+        
+        <a class="category-list-link" href="/category/#/jsonp">jsonp</a>
+        <span class="category-list-count">1</span>
+      </li>
+    
+      
+      
+      <li class="category-list-item">
+        
+        <a class="category-list-link" href="/category/#/webpack">webpack</a>
+        <span class="category-list-count">1</span>
+      </li>
+    
+      
+      
+      <li class="category-list-item">
+        
+        <a class="category-list-link" href="/category/#/es6">es6</a>
+        <span class="category-list-count">6</span>
+      </li>
+    
+      
+      
+      <li class="category-list-item">
+        
+        <a class="category-list-link" href="/category/#/git">git</a>
+        <span class="category-list-count">1</span>
+      </li>
+    
+      
+      
+      <li class="category-list-item">
+        
+        <a class="category-list-link" href="/category/#/jdk8">jdk8</a>
+        <span class="category-list-count">1</span>
+      </li>
+    
+      
+      
+      <li class="category-list-item">
+        
+        <a class="category-list-link" href="/category/#/nginx">nginx</a>
+        <span class="category-list-count">2</span>
+      </li>
+    
+      
+      
+      <li class="category-list-item">
+        
+        <a class="category-list-link" href="/category/#/components">components</a>
+        <span class="category-list-count">1</span>
+      </li>
+    
+      
+      
+      <li class="category-list-item">
+        
+        <a class="category-list-link" href="/category/#/list">list</a>
+        <span class="category-list-count">1</span>
+      </li>
+    
+      
+      
+      <li class="category-list-item">
+        
+        <a class="category-list-link" href="/category/#/video">video</a>
+        <span class="category-list-count">1</span>
+      </li>
+    
+      
+      
+      <li class="category-list-item">
+        
+        <a class="category-list-link" href="/category/#/aliyun">aliyun</a>
+        <span class="category-list-count">4</span>
+      </li>
+    
+      
+      
+      <li class="category-list-item">
+        
+        <a class="category-list-link" href="/category/#/map">map</a>
+        <span class="category-list-count">1</span>
+      </li>
+    
+      
+      
+      <li class="category-list-item">
+        
+        <a class="category-list-link" href="/category/#/frame">frame</a>
+        <span class="category-list-count">6</span>
+      </li>
+    
+      
+      
+      <li class="category-list-item">
+        
+        <a class="category-list-link" href="/category/#/mintui">mintui</a>
+        <span class="category-list-count">3</span>
+      </li>
+    
+      
+      
+      <li class="category-list-item">
+        
+        <a class="category-list-link" href="/category/#/swagger">swagger</a>
+        <span class="category-list-count">1</span>
+      </li>
+    
+      
+      
+      <li class="category-list-item">
+        
+        <a class="category-list-link" href="/category/#/eslint">eslint</a>
+        <span class="category-list-count">3</span>
+      </li>
+    
+      
+      
+      <li class="category-list-item">
+        
+        <a class="category-list-link" href="/category/#/vuex">vuex</a>
+        <span class="category-list-count">3</span>
+      </li>
+    
+      
+      
+      <li class="category-list-item">
+        
+        <a class="category-list-link" href="/category/#/elementui">elementui</a>
+        <span class="category-list-count">2</span>
+      </li>
+    
+      
+      
+      <li class="category-list-item">
+        
+        <a class="category-list-link" href="/category/#/ie">ie</a>
+        <span class="category-list-count">1</span>
+      </li>
+    
+      
+      
+      <li class="category-list-item">
+        
+        <a class="category-list-link" href="/category/#/shiro">shiro</a>
+        <span class="category-list-count">2</span>
+      </li>
+    
+      
+      
+      <li class="category-list-item">
+        
+        <a class="category-list-link" href="/category/#/amap">amap</a>
+        <span class="category-list-count">1</span>
+      </li>
+    
+      
+      
+      <li class="category-list-item">
+        
+        <a class="category-list-link" href="/category/#/slack">slack</a>
+        <span class="category-list-count">1</span>
+      </li>
+    
+      
+      
+      <li class="category-list-item">
+        
+        <a class="category-list-link" href="/category/#/lambda">lambda</a>
+        <span class="category-list-count">1</span>
+      </li>
+    
+      
+      
+      <li class="category-list-item">
+        
+        <a class="category-list-link" href="/category/#/chartjs">chartjs</a>
+        <span class="category-list-count">1</span>
+      </li>
+    
+      
+      
+      <li class="category-list-item">
+        
+        <a class="category-list-link" href="/category/#/function">function</a>
+        <span class="category-list-count">6</span>
+      </li>
+    
+  </ul>
+
+          </div>
+        
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+<div id="posts" class="posts-expand">
+  
+      
+<article class="post post-type- " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://localhost:4000/javascript/array/2018/11/05/Javascript-%E6%95%B0%E7%BB%84%E8%AF%AD%E6%B3%95%E8%AF%A6%E8%A7%A3/">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="asing1elife">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/assets/images/avatar.png">
+    </span>
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="asing1elife's blog">
+    </span> 
+    <header class="post-header">
+         
+        <h1 class="post-title" itemprop="name headline">
+              Javascript 数组语法详解 
+        </h1>
+        
+        <div class="post-meta">
+            <span class="post-author">
+                
+                    <span class="post-meta-item-icon">
+                        <i class="fa fa-user-o"></i>
+                    </span>
+                    <span>asing1elife</span>
+                    <span class="post-meta-divider">|</span>
+                
+            </span>
+            <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span> 
+            <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-05T00:00:00+08:00">
+                2018-11-05
+            </time>
+              
+            </span>
+            
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span> 
+            <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>   
+            <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/category/#/javascript" itemprop="url" rel="index">
+                    <span itemprop="name">javascript</span>
+            </a>
+            </span>
+              ，    
+            <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/category/#/array" itemprop="url" rel="index">
+                    <span itemprop="name">array</span>
+            </a>
+            </span>
+              
+            </span>
+                     
+            <div class="post-description">
+                
+            </div>
+            <div class="copyright-marking">版权声明：本文首发 http://asing1elife.com ，转发请注明出处，讲文明懂礼貌！</div>
+             
+        </div>
+    </header>
+    
+    <div class="post-body" itemprop="articleBody">
+           
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <blockquote>
+  <p>JavaScript 中的数组相当于 Java 中的 Map ，数组本身是一个对象，属于引用数据类型</p>
+</blockquote>
+
+<h2 id="定义">定义</h2>
+<ol>
+  <li>既然数组是一个对象，当进行 alert(arr) 时</li>
+  <li>应该输出 [object object] ，可是却输出的是数组中具体的值</li>
+  <li>因为 alert() 会对将要输出的值进行隐式的 toString() 转换</li>
+  <li>通过转换，数组 arr 便直接输出其内部值</li>
+</ol>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5</pre></td><td class="code"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">arr</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Array</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span>		<span class="c1">// 甚至不用预先声明，不用 new</span>
+<span class="kd">var</span> <span class="nx">arr</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="s1">'aa'</span><span class="p">,</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">(),</span> <span class="kc">true</span><span class="p">]</span>		<span class="c1">// 元素类型可任意选择</span>
+<span class="nx">alert</span><span class="p">(</span><span class="nx">arr</span><span class="p">)</span>		<span class="c1">// 显示 1,2,3,4,aa,true</span>
+<span class="nx">arr</span><span class="p">.</span><span class="nx">length</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="nx">alert</span><span class="p">(</span><span class="nx">arr</span><span class="p">)</span>		<span class="c1">// 显示 1,2,3,4,aa ，由于数组长度的改变，大于 5 的部分被自动舍弃，长度可以随意改变</span>
+</code></pre></td></tr></tbody></table></div>
+</div>
+
+<h2 id="push">push</h2>
+<ol>
+  <li>往指定数组尾部推送值，并返回值</li>
+</ol>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6</pre></td><td class="code"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">arr</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="nx">arr</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>		
+<span class="nx">arr</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>	<span class="c1">// 可以是单个值，也可以是多个值</span>
+<span class="kd">var</span> <span class="nx">result</span> <span class="o">=</span> <span class="nx">arr</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>		
+<span class="nx">alert</span><span class="p">(</span><span class="nx">arr</span><span class="p">)</span>		<span class="c1">// 显示 1,2,3,4,5 表示通过 push() 推送到数组中的值不会被覆盖</span>
+<span class="nx">alert</span><span class="p">(</span><span class="nx">result</span><span class="p">)</span>		<span class="c1">// 显示 5 ，push() 在推送值的同时，可以返回数组的当前长度</span>
+</code></pre></td></tr></tbody></table></div>
+</div>
+
+<h2 id="pop">pop</h2>
+<ol>
+  <li>从指定数组尾部移除一个元素，并返回值</li>
+</ol>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4</pre></td><td class="code"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">arr</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="s1">'aa'</span><span class="p">]</span>
+<span class="kd">var</span> <span class="nx">result</span> <span class="o">=</span> <span class="nx">arr</span><span class="p">.</span><span class="nx">pop</span><span class="p">()</span>		
+<span class="nx">alert</span><span class="p">(</span><span class="nx">arr</span><span class="p">)</span>		<span class="c1">// 显示 1,2,3,4</span>
+<span class="nx">alert</span><span class="p">(</span><span class="nx">result</span><span class="p">)</span>		<span class="c1">// 显示 aa ，pop() 在移除元素的同时会将被移除的值作为返回值 </span>
+</code></pre></td></tr></tbody></table></div>
+</div>
+
+<h2 id="shift">shift</h2>
+<ol>
+  <li>从指定数组头部移除一个元素，并返回值</li>
+</ol>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4</pre></td><td class="code"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">arr</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'aa'</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span>
+<span class="kd">var</span> <span class="nx">result</span> <span class="o">=</span> <span class="nx">arr</span><span class="p">.</span><span class="nx">shift</span><span class="p">()</span>
+<span class="nx">alert</span><span class="p">(</span><span class="nx">arr</span><span class="p">)</span>		<span class="c1">// 显示 1,2,3,4</span>
+<span class="nx">alert</span><span class="p">(</span><span class="nx">result</span><span class="p">)</span>		<span class="c1">// 显示 aa ，shift() 在移除元素的同时会将移除的值作为返回值</span>
+</code></pre></td></tr></tbody></table></div>
+</div>
+
+<h2 id="unshift">unshift</h2>
+<ol>
+  <li>往指定数组头部推送值，并返回值</li>
+</ol>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4</pre></td><td class="code"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">arr</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span>
+<span class="kd">var</span> <span class="nx">result</span> <span class="o">=</span> <span class="nx">arr</span><span class="p">.</span><span class="nx">unshift</span><span class="p">(</span><span class="s1">'aa'</span><span class="p">,</span> <span class="s1">'bb'</span><span class="p">)</span>
+<span class="nx">alert</span><span class="p">(</span><span class="nx">arr</span><span class="p">)</span>		<span class="c1">// 显示 aa,bb,1,2,3,4</span>
+<span class="nx">alert</span><span class="p">(</span><span class="nx">result</span><span class="p">)</span>		<span class="c1">// 显示 6 ，unshift() 在推送值的同时，可以返回数组的当前长度</span>
+</code></pre></td></tr></tbody></table></div>
+</div>
+
+<h2 id="splicestartindex-splicelength-var1-var2--varn">splice(startIndex, spliceLength, var1, var2, … varN)</h2>
+<ol>
+  <li>截取字符串的同时，拼接新字符串到指定位置</li>
+  <li>startIndex 截取的起始位置</li>
+  <li>spliceLength 截取的长度</li>
+  <li>var1, var2, … varN 待拼接的新字符串</li>
+</ol>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6<br/>7<br/>8<br/>9<br/>10<br/>11</pre></td><td class="code"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">arr</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
+<span class="nx">arr</span><span class="p">.</span><span class="nx">splice</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+<span class="nx">alert</span><span class="p">(</span><span class="nx">arr</span><span class="p">)</span>		<span class="c1">// 显示 1,3,4,5,4,5 从数组 arr 的索引 1 开始，截取长度为 2 ，将 [2, 3] 替换为 [3, 4, 5]</span>
+	
+<span class="kd">var</span> <span class="nx">arr1</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
+<span class="nx">arr1</span><span class="p">.</span><span class="nx">splice</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="nx">alert</span><span class="p">(</span><span class="nx">arr1</span><span class="p">)</span>		<span class="c1">// 显示 1,4,5 从数组 arr1 的索引 1 开始，截取长度为 2 ，且无带拼接字符串</span>
+
+<span class="kd">var</span> <span class="nx">arr2</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
+<span class="nx">arr2</span><span class="p">.</span><span class="nx">splice</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="nx">alert</span><span class="p">(</span><span class="nx">arr2</span><span class="p">)</span>		<span class="c1">// 显示 1 ，从数组 arr2 的所以 1 开始，在未指定长度的情况下，后续字符串全部截断</span>
+</code></pre></td></tr></tbody></table></div>
+</div>
+
+<h2 id="slice">slice</h2>
+<ol>
+  <li>截取字符串</li>
+  <li>不操作数组本身，而是返回被截取的内容</li>
+</ol>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3</pre></td><td class="code"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">arr</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
+<span class="kd">var</span> <span class="nx">result</span> <span class="o">=</span> <span class="nx">arr</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>		<span class="c1">// 采用左闭右开区间 [2, 4) 也就是索引从第 2 位开始，到第 4 位结束，且不包括第 4 位</span>
+<span class="nx">alert</span><span class="p">(</span><span class="nx">result</span><span class="p">)</span>		<span class="c1">// 显示 3,4</span>
+</code></pre></td></tr></tbody></table></div>
+</div>
+
+<h2 id="concat">concat</h2>
+<ol>
+  <li>在指定数组后连接新的数组或值</li>
+  <li>不操作数组本身，而是返回连接后的结果</li>
+</ol>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6</pre></td><td class="code"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">arr1</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+<span class="kd">var</span> <span class="nx">arr2</span> <span class="o">=</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
+<span class="kd">var</span> <span class="nx">result</span> <span class="o">=</span> <span class="nx">arr1</span><span class="p">.</span><span class="nx">concat</span><span class="p">(</span><span class="nx">arr2</span><span class="p">)</span>		<span class="c1">// 将 arr1 和 arr2 进行连接，并返回结果</span>
+<span class="nx">alert</span><span class="p">(</span><span class="nx">result</span><span class="p">)</span>		<span class="c1">// 显示 1,2,3,4,5</span>
+<span class="kd">var</span> <span class="nx">result2</span> <span class="o">=</span> <span class="nx">arr1</span><span class="p">.</span><span class="nx">concat</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>		<span class="c1">// 讲 4 连接到 arr1 之后，并返回结果</span>
+<span class="nx">alert</span><span class="p">(</span><span class="nx">result2</span><span class="p">)</span>		<span class="c1">// 显示 1,2,3,4</span>
+</code></pre></td></tr></tbody></table></div>
+</div>
+
+<h2 id="join">join</h2>
+<ol>
+  <li>在指定数组的每个元素之间插入值</li>
+  <li>不操作数组本身，而是返回连接后的结果</li>
+</ol>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3</pre></td><td class="code"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">arr</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+<span class="kd">var</span> <span class="nx">result</span> <span class="o">=</span> <span class="nx">arr</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="s1">'-'</span><span class="p">)</span>		<span class="c1">// 在 arr 的每个元素之间添加 - 字符</span>
+<span class="nx">alert</span><span class="p">(</span><span class="nx">result</span><span class="p">)</span>		<span class="c1">// 显示 1-2-3</span>
+</code></pre></td></tr></tbody></table></div>
+</div>
+
+<h2 id="sort">sort</h2>
+<ol>
+  <li>方法本身存在缺陷，无法直接对数组进行正序或倒序的排序，需要自行传入方法进行辅助操作</li>
+  <li>优化方式见 <a href="http://asing1elife.com/javascript/array/2017/06/08/Javascript数组排序/">Javascript 数组排序</a></li>
+</ol>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6<br/>7<br/>8<br/>9<br/>10<br/>11<br/>12<br/>13<br/>14<br/>15<br/>16<br/>17<br/>18<br/>19<br/>20<br/>21<br/>22</pre></td><td class="code"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">arr</span> <span class="o">=</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">7</span><span class="p">]</span>
+<span class="nx">arr</span><span class="p">.</span><span class="nx">sort</span><span class="p">()</span>		<span class="c1">// 并非对 arr 进行正序排序，而是讲数组中的每个元素视为字符串，讲其中的各位进行分别比较</span>
+ 					<span class="c1">// 例如将 10 分为 1 和 0 ，然后先将 1 和 2 4 7 比较，则认为 10 比 2 4 7 小</span>
+ 					<span class="c1">// 再将 1 和 1 比较，在相等的情况下则发现 10 比 1 还多一个 0 ，所以将 10 排在 1 之后</span>
+<span class="nx">alert</span><span class="p">(</span><span class="nx">arr</span><span class="p">)</span>		<span class="c1">// 显示 1,10,2,4,7</span>
+	 
+<span class="c1">// 用于辅助 sort() 进行排序的方法</span>
+<span class="c1">// 若需要正序排序，则在 value1 &lt; value2 的情况下返回 -1 ，在 value1 &gt; value2 的情况下返回 1</span>
+<span class="c1">// 若需要倒序排序，则在 value1 &lt; value2 的情况下返回 1 ，在 value1 &gt; value2 的情况下返回 -1</span>
+<span class="kd">function</span> <span class="nx">compare</span><span class="p">(</span><span class="nx">value1</span><span class="p">,</span> <span class="nx">value2</span><span class="p">)</span> <span class="p">{</span>
+	<span class="k">if</span> <span class="p">(</span><span class="nx">value1</span> <span class="o">&lt;</span> <span class="nx">value2</span><span class="p">)</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="o">-</span><span class="mi">1</span>
+	<span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">value1</span> <span class="o">&gt;</span> <span class="nx">value2</span><span class="p">)</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="mi">1</span>
+	<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="mi">0</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+	 
+<span class="kd">var</span> <span class="nx">arr</span> <span class="o">=</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">7</span><span class="p">]</span>
+<span class="nx">arr</span><span class="p">.</span><span class="nx">sort</span><span class="p">(</span><span class="nx">compare</span><span class="p">)</span>		<span class="c1">// 将写好的 compare 方法传入 sort() 中，则进行正序或倒序排序，具体情况根据 compare 中返回值决定</span>
+<span class="nx">alert</span><span class="p">(</span><span class="nx">arr</span><span class="p">)</span>		<span class="c1">// 显示 1,2,4,7,10</span>
+</code></pre></td></tr></tbody></table></div>
+</div>
+
+<h2 id="reverse">reverse</h2>
+<ol>
+  <li>对数组中的内容进行反向输出</li>
+</ol>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3</pre></td><td class="code"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">arr</span> <span class="o">=</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">7</span><span class="p">]</span>
+<span class="nx">arr</span><span class="p">.</span><span class="nx">reverse</span><span class="p">()</span>		<span class="c1">// 直接将数组中的内容反向输出，而不是倒序</span>
+<span class="nx">alert</span><span class="p">(</span><span class="nx">arr</span><span class="p">)</span>		<span class="c1">// 显示 7,1,4,2,10</span>
+</code></pre></td></tr></tbody></table></div>
+</div>
+
+<h2 id="indexofvalue">indexOf(value)</h2>
+<ol>
+  <li>在指定数组中从第一个元素开始查询传入值的索引位置</li>
+  <li>返回值为 -1 表示未找到对应值的索引</li>
+</ol>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3</pre></td><td class="code"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">arr</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="kd">var</span> <span class="nx">index</span> <span class="o">=</span> <span class="nx">arr</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>		<span class="c1">// 在数组 arr 中查询数值 4 的索引位置，从第一个元素（索引为 0）开始计算，并返回索引值</span>
+<span class="nx">alert</span><span class="p">(</span><span class="nx">index</span><span class="p">)</span>		<span class="c1">// 显示 3</span>
+</code></pre></td></tr></tbody></table></div>
+</div>
+
+<h2 id="indexofstartindex-value">indexOf(startIndex, value)</h2>
+<ol>
+  <li>从指定的索引开始，在指定数值中查找传入值的索引位置</li>
+  <li>startIndex 开始查询的索引</li>
+  <li>value 传入值</li>
+</ol>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3</pre></td><td class="code"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">arr</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="kd">var</span> <span class="nx">index</span> <span class="o">=</span> <span class="nx">arr</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>		<span class="c1">// 在数组 arr 中，从第 4 个索引开始，查询数值 4 的索引位置，并返回索引值</span>
+<span class="nx">alert</span><span class="p">(</span><span class="nx">index</span><span class="p">)</span>		<span class="c1">// 显示 5</span>
+</code></pre></td></tr></tbody></table></div>
+</div>
+
+<h2 id="lastindexofvalue">lastIndexOf(value)</h2>
+<ol>
+  <li>在指定数组中从最后一个元素开始查询传入值得索引位置</li>
+</ol>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3</pre></td><td class="code"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">arr</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="kd">var</span> <span class="nx">index</span> <span class="o">=</span> <span class="nx">arr</span><span class="p">.</span><span class="nx">lastIndexOf</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>		<span class="c1">// 在数组 arr 中从最后一个元素开始查询数值 2 的索引位置，并返回索引值</span>
+<span class="nx">alert</span><span class="p">(</span><span class="nx">index</span><span class="p">)</span>		<span class="c1">// 显示 7</span>
+</code></pre></td></tr></tbody></table></div>
+</div>
+
+<h2 id="lastindexofstartindex-value">lastIndexOf(startIndex, value)</h2>
+<ol>
+  <li>从指定的索引开始，在指定数组中从最后一个元素开始查询传入值的索引位置</li>
+  <li>startIndex 开始查询的索引</li>
+  <li>value 传入值</li>
+</ol>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3</pre></td><td class="code"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">arr</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="kd">var</span> <span class="nx">index</span> <span class="o">=</span> <span class="nx">arr</span><span class="p">.</span><span class="nx">lastIndexOf</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>		<span class="c1">// 在数组 arr 中从倒数第 2 个索引开始，查询数值 2 的索引位置，并返回索引值</span>
+<span class="nx">alert</span><span class="p">(</span><span class="nx">index</span><span class="p">)</span>		<span class="c1">// 显示 1</span>
+</code></pre></td></tr></tbody></table></div>
+</div>
+
+<h2 id="everyfunctionitem-index-array---">every(function(item, index, array) { … })</h2>
+<ol>
+  <li>对数组中的每个元素进行函数运算，并将总结果返回</li>
+  <li>如果每个值得运算结果都返回 true ，则整体返回 true</li>
+  <li>如果存在一个值运算结果返回 false ，则整体返回 false</li>
+</ol>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6<br/>7<br/>8<br/>9<br/>10</pre></td><td class="code"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">arr</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="c1">// 方法体内存在一个回调函数</span>
+<span class="c1">// item 为数值中当期元素</span>
+<span class="c1">// index 为当前索引值</span>
+<span class="c1">// array 为指定数组</span>
+<span class="kd">var</span> <span class="nx">result</span> <span class="o">=</span> <span class="nx">arr</span><span class="p">.</span><span class="nx">every</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">item</span><span class="p">,</span> <span class="nx">index</span><span class="p">,</span> <span class="nx">array</span><span class="p">)</span> <span class="p">{</span>
+	<span class="c1">// 判断数组中的当前元素是否大于 2 ，结果返回 true 或 false</span>
+	<span class="k">return</span> <span class="nx">item</span> <span class="o">&gt;</span> <span class="mi">2</span>
+<span class="p">})</span>
+<span class="nx">alert</span><span class="p">(</span><span class="nx">result</span><span class="p">)</span>		<span class="c1">// 显示 false</span>
+</code></pre></td></tr></tbody></table></div>
+</div>
+
+<h2 id="filterfunctionitem-index-array---">filter(function(item, index, array) { … })</h2>
+<ol>
+  <li>对数组中的每个元素进行函数运算，并将过滤后的结果返回</li>
+</ol>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6</pre></td><td class="code"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">arr</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="kd">var</span> <span class="nx">result</span> <span class="o">=</span> <span class="nx">arr</span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">item</span><span class="p">,</span> <span class="nx">index</span><span class="p">,</span> <span class="nx">array</span><span class="p">)</span> <span class="p">{</span>
+	<span class="c1">// 判断数组中的当前元素是否大于 2 ，不满足条件则过滤掉</span>
+	<span class="k">return</span> <span class="nx">item</span> <span class="o">&gt;</span> <span class="mi">2</span>	
+<span class="p">})</span>
+<span class="nx">alert</span><span class="p">(</span><span class="nx">result</span><span class="p">)</span>		<span class="c1">// 显示 3,4,5,4,3</span>
+</code></pre></td></tr></tbody></table></div>
+</div>
+
+<h2 id="foreachfunctionitem-index-array---">forEach(function(item, index, array) { … })</h2>
+<ol>
+  <li>对数组中的每个元素进行遍历，并可在其中执行一个方法</li>
+</ol>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5</pre></td><td class="code"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">arr</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="c1">// for 循环的升级版</span>
+<span class="nx">arr</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">item</span><span class="p">,</span> <span class="nx">index</span><span class="p">,</span> <span class="nx">array</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">alert</span><span class="p">(</span><span class="nx">item</span><span class="p">)</span>		<span class="c1">// 循环显示 1 2 3 4 5 4 3 2 1	</span>
+<span class="p">})</span>
+</code></pre></td></tr></tbody></table></div>
+</div>
+
+<h2 id="mapfunctionitem-index-array---">map(function(item, index, array) { … })</h2>
+<ol>
+  <li>对数组中的每个元素进行函数运算，并返回新的数组</li>
+</ol>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6</pre></td><td class="code"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">arr</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="kd">var</span> <span class="nx">result</span> <span class="o">=</span> <span class="nx">arr</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">item</span><span class="p">,</span> <span class="nx">index</span><span class="p">,</span> <span class="nx">array</span><span class="p">)</span> <span class="p">{</span>
+	<span class="c1">// 将数组中每个元素都乘以 2</span>
+	<span class="k">return</span> <span class="nx">item</span> <span class="o">*</span> <span class="mi">2</span>
+<span class="p">})</span>
+<span class="nx">alert</span><span class="p">(</span><span class="nx">result</span><span class="p">)</span>		<span class="c1">// 显示 2,4,6,8,10,8,6,4,2</span>
+</code></pre></td></tr></tbody></table></div>
+</div>
+
+<h2 id="somefunctionitem-index-array---">some(function(item, index, array) { … })</h2>
+<ol>
+  <li>对数组中的每个元素进行函数运算，并将总结果返回</li>
+  <li>如果存在一个得运算结果都返回 true ，则整体返回 true</li>
+  <li>如果所有值运算结果返回 false ，则整体返回 false</li>
+  <li>与 every() 逻辑正好相反</li>
+</ol>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6</pre></td><td class="code"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">arr</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="kd">var</span> <span class="nx">result</span> <span class="o">=</span> <span class="nx">arr</span><span class="p">.</span><span class="nx">some</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">item</span><span class="p">,</span> <span class="nx">index</span><span class="p">,</span> <span class="nx">array</span><span class="p">)</span> <span class="p">{</span>
+	<span class="c1">// 判断数组当前元素是否大于等于 5 ，返回 true 或 false</span>
+	<span class="k">return</span> <span class="nx">item</span> <span class="o">&gt;=</span> <span class="mi">5</span>
+<span class="p">})</span>
+<span class="nx">alert</span><span class="p">(</span><span class="nx">result</span><span class="p">)</span>		<span class="c1">// 显示 true</span>
+</code></pre></td></tr></tbody></table></div>
+</div>
+
+<h2 id="reducefunctionprev-cur-index-array---">reduce(function(prev, cur, index, array) { … })</h2>
+<ol>
+  <li>从左遍历数组的每个元素进行函数运算，并将总结果返回</li>
+  <li>prev 当前值的前一个值</li>
+  <li>cur 当前值</li>
+  <li>index 当前值的索引值</li>
+  <li>array 当前数组</li>
+</ol>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6<br/>7</pre></td><td class="code"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">arr</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="kd">var</span> <span class="nx">result</span> <span class="o">=</span> <span class="nx">arr</span><span class="p">.</span><span class="nx">reduce</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">prev</span><span class="p">,</span> <span class="nx">cur</span><span class="p">,</span> <span class="nx">index</span><span class="p">,</span> <span class="nx">array</span><span class="p">)</span> <span class="p">{</span>
+	<span class="c1">// 当前值的前一个值 + 当前值 ，全部遍历结束后，再返回总和</span>
+	<span class="c1">// 0 + 1 + 2 + 3 + 4 + 5 + 4 + 3 + 2 + 1</span>
+	<span class="k">return</span> <span class="nx">prev</span> <span class="o">+</span> <span class="nx">cur</span>	
+<span class="p">})</span>
+<span class="nx">alert</span><span class="p">(</span><span class="nx">result</span><span class="p">)</span>		<span class="c1">// 显示 25</span>
+</code></pre></td></tr></tbody></table></div>
+</div>
+
+<h2 id="reducerightfunctionprev-cur-index-array---">reduceRight(function(prev, cur, index, array) { … })</h2>
+<ol>
+  <li>从右遍历数组的每个元素进行函数运算，并将总结果返回</li>
+  <li>prev 当前值的前一个值</li>
+  <li>cur 当前值</li>
+  <li>index 当前值的索引值</li>
+  <li>array 当前数组</li>
+</ol>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6<br/>7</pre></td><td class="code"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">arr</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="kd">var</span> <span class="nx">result</span> <span class="o">=</span> <span class="nx">arr</span><span class="p">.</span><span class="nx">reduceRight</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">prev</span><span class="p">,</span> <span class="nx">cur</span><span class="p">,</span> <span class="nx">index</span><span class="p">,</span> <span class="nx">array</span><span class="p">)</span> <span class="p">{</span>
+	<span class="c1">// 当前值的前一个值 + 当前值 ，全部遍历结束后，再返回总和</span>
+	<span class="c1">// 0 + 1 + 2 + 3 + 4 + 5 + 4 + 3 + 2 + 1</span>
+	<span class="k">return</span> <span class="nx">prev</span> <span class="o">+</span> <span class="nx">cur</span>	
+<span class="p">})</span>
+<span class="nx">alert</span><span class="p">(</span><span class="nx">result</span><span class="p">)</span>		<span class="c1">// 显示 25</span>
+</code></pre></td></tr></tbody></table></div>
+</div>
+
+ 
+    </div>
+    <div>
+         
+ 
+    </div>
+    <div>
+         
+ 
+    </div>
+    <div>
+         
+ 
+    </div>
+    <footer class="post-footer">
+        
+        <div class="copyright-marking">版权声明：本文首发 http://asing1elife.com ，转发请注明出处，讲文明懂礼貌！</div>
+        <div class="post-tags">
+             
+            <a href="/tag/#/javascript" rel="tag"># javascript</a>  
+            <a href="/tag/#/array" rel="tag"># array</a> 
+        </div>
+               
+        <div class="post-nav" id="post-nav-id">
+            <div class="post-nav-next post-nav-item">
+                
+                <a href="/javascript/2018/11/05/%E5%8D%95%E4%BD%93%E5%AF%B9%E8%B1%A1-Singleton-Object-%E6%8F%90%E4%BE%9B%E7%9A%84%E9%A1%B6%E5%B1%82%E6%96%B9%E6%B3%95/" rel="next" title="单体对象 Singleton Object 提供的顶层方法">
+                <i class="fa fa-chevron-left"></i> 单体对象 Singleton Object 提供的顶层方法
+              </a> 
+            </div>
+            <span class="post-nav-divider"></span>
+            <div class="post-nav-prev post-nav-item">
+                
+                <a href="/javascript/2018/11/05/Javascript-Object/" rel="prev" title="Javascript Object">
+                Javascript Object <i class="fa fa-chevron-right"></i>
+              </a> 
+            </div>
+        </div>
+          
+    </footer>
+    <script src="//cdn.jsdelivr.net/jquery/2.1.3/jquery.min.js"></script>
+    <script>
+    // 彩虹颜色数组
+    var colors = ['#e5e1de', '#72c02c', '#3398dc', '#d6e2ee', '#009', '#4263a3', '#f00', '#e64b3b',
+        '#a10f2b', '#9a69cb', '#6639b6', '#e81c62', '#e57d20', '#fe541e', '#ebc71d', '#29d6e6', '#00bed6', '#18ba9b',
+        '#9c8061', '#585f69'
+    ]
+
+    $(function() {
+        // 为所有标签自动添加由新窗口打开属性
+        $('a[href^="http"]').each(function() {
+            $(this).attr('target', '_blank')
+        })
+
+        // 为所有加粗标签添加颜色
+        $('div.posts-expand strong').each(function() {
+            var $this = $(this)
+
+            $this.css({
+                backgroundColor: colors[getRandom(colors.length)]
+            })
+        })
+    })
+
+    function getRandom(max) {
+        return Math.floor(Math.random() * Math.floor(max))
+    }
+    </script>
+</article>
+  <div class="post-spread">
+    
+  </div>
+</div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="gitalk-container"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+        
+        
+        
+
+
+
+
+
+
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/assets/images/avatar.png"
+               alt="asing1elife" />
+          <p class="site-author-name" itemprop="name">asing1elife</p>
+           
+              <p class="site-description motion-element" itemprop="description">- 说好为我泡花茶</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">295</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/">
+                <span class="site-state-item-count">72</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/">
+                <span class="site-state-item-count">125</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              
+              
+              <span class="links-of-author-item">
+                <a href="https://github.com/asing1elife" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              
+              
+              <span class="links-of-author-item">
+                <a href="https://weibo.com/201277592" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+
+
+
+
+
+
+
+            
+              <div class="post-toc-content">
+    <ol class=nav>
+      <li class="nav-item nav-level-2"> <a class="nav-link" href="#定义"> <span class="nav-number">1</span> <span class="nav-text">定义</span> </a> </li> <li class="nav-item nav-level-2"> <a class="nav-link" href="#push"> <span class="nav-number">2</span> <span class="nav-text">push</span> </a> </li> <li class="nav-item nav-level-2"> <a class="nav-link" href="#pop"> <span class="nav-number">3</span> <span class="nav-text">pop</span> </a> </li> <li class="nav-item nav-level-2"> <a class="nav-link" href="#shift"> <span class="nav-number">4</span> <span class="nav-text">shift</span> </a> </li> <li class="nav-item nav-level-2"> <a class="nav-link" href="#unshift"> <span class="nav-number">5</span> <span class="nav-text">unshift</span> </a> </li> <li class="nav-item nav-level-2"> <a class="nav-link" href="#splicestartindex-splicelength-var1-var2--varn"> <span class="nav-number">6</span> <span class="nav-text">splice(startIndex, spliceLength, var1, var2, … varN)</span> </a> </li> <li class="nav-item nav-level-2"> <a class="nav-link" href="#slice"> <span class="nav-number">7</span> <span class="nav-text">slice</span> </a> </li> <li class="nav-item nav-level-2"> <a class="nav-link" href="#concat"> <span class="nav-number">8</span> <span class="nav-text">concat</span> </a> </li> <li class="nav-item nav-level-2"> <a class="nav-link" href="#join"> <span class="nav-number">9</span> <span class="nav-text">join</span> </a> </li> <li class="nav-item nav-level-2"> <a class="nav-link" href="#sort"> <span class="nav-number">10</span> <span class="nav-text">sort</span> </a> </li> <li class="nav-item nav-level-2"> <a class="nav-link" href="#reverse"> <span class="nav-number">11</span> <span class="nav-text">reverse</span> </a> </li> <li class="nav-item nav-level-2"> <a class="nav-link" href="#indexofvalue"> <span class="nav-number">12</span> <span class="nav-text">indexOf(value)</span> </a> </li> <li class="nav-item nav-level-2"> <a class="nav-link" href="#indexofstartindex-value"> <span class="nav-number">13</span> <span class="nav-text">indexOf(startIndex, value)</span> </a> </li> <li class="nav-item nav-level-2"> <a class="nav-link" href="#lastindexofvalue"> <span class="nav-number">14</span> <span class="nav-text">lastIndexOf(value)</span> </a> </li> <li class="nav-item nav-level-2"> <a class="nav-link" href="#lastindexofstartindex-value"> <span class="nav-number">15</span> <span class="nav-text">lastIndexOf(startIndex, value)</span> </a> </li> <li class="nav-item nav-level-2"> <a class="nav-link" href="#everyfunctionitem-index-array---"> <span class="nav-number">16</span> <span class="nav-text">every(function(item, index, array) { … })</span> </a> </li> <li class="nav-item nav-level-2"> <a class="nav-link" href="#filterfunctionitem-index-array---"> <span class="nav-number">17</span> <span class="nav-text">filter(function(item, index, array) { … })</span> </a> </li> <li class="nav-item nav-level-2"> <a class="nav-link" href="#foreachfunctionitem-index-array---"> <span class="nav-number">18</span> <span class="nav-text">forEach(function(item, index, array) { … })</span> </a> </li> <li class="nav-item nav-level-2"> <a class="nav-link" href="#mapfunctionitem-index-array---"> <span class="nav-number">19</span> <span class="nav-text">map(function(item, index, array) { … })</span> </a> </li> <li class="nav-item nav-level-2"> <a class="nav-link" href="#somefunctionitem-index-array---"> <span class="nav-number">20</span> <span class="nav-text">some(function(item, index, array) { … })</span> </a> </li> <li class="nav-item nav-level-2"> <a class="nav-link" href="#reducefunctionprev-cur-index-array---"> <span class="nav-number">21</span> <span class="nav-text">reduce(function(prev, cur, index, array) { … })</span> </a> </li> <li class="nav-item nav-level-2"> <a class="nav-link" href="#reducerightfunctionprev-cur-index-array---"> <span class="nav-number">22</span> <span class="nav-text">reduceRight(function(prev, cur, index, array) { … })</span> </a> </li>
+    </ol>
+  </div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">asing1elife</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://jekyllrb.com">Jekyll</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/simpleyyt/jekyll-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+   
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/assets/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/assets/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  <script type="text/javascript" src="/assets/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/assets/js/src/post-details.js?v=5.1.1"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/assets/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+<script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.js"></script>
+<script type="text/javascript">
+      var gitalk = new Gitalk({
+        clientID: 'ef9f962e9ae383f53506',
+        clientSecret: '1b2ceaa93a86016c9efa2457abd876206c87d15c',
+        repo: 'asing1elife.github.io',
+        owner: 'asing1elife',
+        admin: ['asing1elife'],
+        id: md5('/javascript/array/2018/11/05/Javascript-%E6%95%B0%E7%BB%84%E8%AF%AD%E6%B3%95%E8%AF%A6%E8%A7%A3/'),
+        labels: ['gitalk'],
+        perPage: 50,
+        distractionFreeMode: true
+      });
+      gitalk.render('gitalk-container');
+</script>
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+    
+
+  
+
+
+
+
+
+  
+
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'manual') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+  
+
+
+  
+
+  
+
+  
+
+  <script type="text/javascript">
+    $(function () {
+      // Chrome检测
+      var isChrome = /chrome/.test(navigator.userAgent.toLowerCase())
+
+      // 展开右边栏时触发左侧分类列表动画
+      $('.sidebar-toggle').on('click', function () {
+        var $sidebar = $('#sidebar')
+        var $mainCategory = $('.main .main-category')
+
+        // Chrome可以自行保持一致，只有Safari需要JS控制
+        if (isChrome) {
+          return false
+        }
+
+        if ($sidebar.width() === 320) {
+          $mainCategory.css('transform', 'translateX(0)')
+        } else {
+          $mainCategory.css('transform', 'translateX(-160px)')
+        } 
+      })
+    })
+  </script>
+</body>
+</html>
+

@@ -2,6 +2,286 @@
 <search>
   
     <entry>
+      <title><![CDATA[单体对象 Singleton Object 提供的顶层方法]]></title>
+      <url>/javascript/2018/11/05/%E5%8D%95%E4%BD%93%E5%AF%B9%E8%B1%A1-Singleton-Object-%E6%8F%90%E4%BE%9B%E7%9A%84%E9%A1%B6%E5%B1%82%E6%96%B9%E6%B3%95/</url>
+      <content type="text"><![CDATA[  单体对象也属于引用类型解释  Global 表示全局的对象，因为无法实例化，所以实际上是不存在的对象encodeURI  对传入值进行编码，会将一些不应存在于 URI 中的字符进行重新编码var uri = 'http://www.baidu.com cn'var result = encodeURI(uri)alert(result)		// 显示 http://www.baidu.com%20cn 表示空格被识别为 %20encodeURIComponent  对传入值进行编码，会将一切对于浏览器而言不标准的字符进行重新编码var uri = 'http://www.baidu.com'var result = encodeURIComponent(uri)alert(result)		// 显示 http%3A%2F%2Fwww.baidu.com 表示 : 被识别为 %3A ，/ 被识别为 %2FdecodeURI  对传入值进行解码，与 encodeURI 规则相同var uri = 'http://www.baidu.com%20cn'var result = decodeURI(uri)alert(result)		// 显示 http://www.baidu.com cn 表示将 %20 解码为空格decodeURIComponent  对传入值进行解码，与 encodeURIComponent 规则相同var uri = 'http%3A%2F%2Fwww.baidu.com'var result = decodeURIComponent(uri)alert(result)		// 显示 http://www.baidu.com 表示 %3A 被解码为 : ，%2F 被解码为 /eval  无形的 JavaScript 解码器，可将普通字符串转换为 JS 代码var str = "var name = 'Jone'"eval(str)		// 将 str 中的内容转换为 JS 代码alert(str)		// 显示 Jone ，表示 name 变量已被声明eval(‘(‘ + strObj + ‘)’)  将对象字符串转换为对象，需要在传值的两侧加入一对括号，表示为一个单独方法域var strObj = "{name:'Jone', age:20}"var obj = eval('(' + strObj + ')')alert(obj.name + ', ' + obj.age)		// 显示 Jone, 20parseInt  将字符串转换为 int 类型var num = parseInt('20')		// 将字符串 20 转换为 int 类型alert(typeof(num) + ' : ' + num)		// 显示 number : 20parseFloat  将字符串转换为 float 类型var num = parseFloat('20.5')		// 将字符串 20.5 转换为 float 类型alert(typeof(num) + ' : ' + num)		// 显示 number : 20.5escape  对传入的中文字符串进行转码var str = '王萌'var result = escape(str)		// 对 王萌 进行转码，转成 Unicode 编码alert(result)		// 显示 %u738B%u840c ，王 转换为 %u738B ，萌 转换为 %u840cunescape  对传入的 Unicode 编码进行解码var str = '%u738B%u840c'var result = unescape(str)		// 对字符串进行解码，转成中文alert(result)		// 显示 王萌isNaN  判断传入值是否为 number 类型，是 number 类型则返回 false ，不是 number 类型则返回 truevar num1 = '10'var num2 = 'abcd10e'var num3 = '10abcde'var result1 = isNaN(num1)		var result2 = isNaN(num2)var result3 = isNaN(num3)alert(result1)		// 显示 false ，表明是 number 类型，而且 isNaN 还会对字符串进行自动转换alert(result2)		// 显示 true ，表明不是 number 类型alert(result3)		// 显示 true ，表明不是 number 类型，说明 isNaN 的自动转换机制并没有 parseInt 强大]]></content>
+      <categories>
+        
+          <category> javascript </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> javascript </tag>
+        
+          <tag> object </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[Javascript 数组语法详解]]></title>
+      <url>/javascript/array/2018/11/05/Javascript-%E6%95%B0%E7%BB%84%E8%AF%AD%E6%B3%95%E8%AF%A6%E8%A7%A3/</url>
+      <content type="text"><![CDATA[  JavaScript 中的数组相当于 Java 中的 Map ，数组本身是一个对象，属于引用数据类型定义  既然数组是一个对象，当进行 alert(arr) 时  应该输出 [object object] ，可是却输出的是数组中具体的值  因为 alert() 会对将要输出的值进行隐式的 toString() 转换  通过转换，数组 arr 便直接输出其内部值var arr = new Array(6)		// 甚至不用预先声明，不用 newvar arr = [1, 2, 3, 'aa', new Date(), true]		// 元素类型可任意选择alert(arr)		// 显示 1,2,3,4,aa,truearr.length = 5alert(arr)		// 显示 1,2,3,4,aa ，由于数组长度的改变，大于 5 的部分被自动舍弃，长度可以随意改变push  往指定数组尾部推送值，并返回值var arr = []arr.push(1)		arr.push(2, 3)	// 可以是单个值，也可以是多个值var result = arr.push(4, 5)		alert(arr)		// 显示 1,2,3,4,5 表示通过 push() 推送到数组中的值不会被覆盖alert(result)		// 显示 5 ，push() 在推送值的同时，可以返回数组的当前长度pop  从指定数组尾部移除一个元素，并返回值var arr = [1, 2, 3, 4, 'aa']var result = arr.pop()		alert(arr)		// 显示 1,2,3,4alert(result)		// 显示 aa ，pop() 在移除元素的同时会将被移除的值作为返回值 shift  从指定数组头部移除一个元素，并返回值var arr = ['aa', 1, 2, 3, 4]var result = arr.shift()alert(arr)		// 显示 1,2,3,4alert(result)		// 显示 aa ，shift() 在移除元素的同时会将移除的值作为返回值unshift  往指定数组头部推送值，并返回值var arr = [1, 2, 3, 4]var result = arr.unshift('aa', 'bb')alert(arr)		// 显示 aa,bb,1,2,3,4alert(result)		// 显示 6 ，unshift() 在推送值的同时，可以返回数组的当前长度splice(startIndex, spliceLength, var1, var2, … varN)  截取字符串的同时，拼接新字符串到指定位置  startIndex 截取的起始位置  spliceLength 截取的长度  var1, var2, … varN 待拼接的新字符串var arr = [1, 2, 3, 4, 5]arr.splice(1, 2, 3, 4, 5)alert(arr)		// 显示 1,3,4,5,4,5 从数组 arr 的索引 1 开始，截取长度为 2 ，将 [2, 3] 替换为 [3, 4, 5]	var arr1 = [1, 2, 3, 4, 5]arr1.splice(1, 2)alert(arr1)		// 显示 1,4,5 从数组 arr1 的索引 1 开始，截取长度为 2 ，且无带拼接字符串var arr2 = [1, 2, 3, 4, 5]arr2.splice(1)alert(arr2)		// 显示 1 ，从数组 arr2 的所以 1 开始，在未指定长度的情况下，后续字符串全部截断slice  截取字符串  不操作数组本身，而是返回被截取的内容var arr = [1, 2, 3, 4, 5]var result = arr.slice(2, 4)		// 采用左闭右开区间 [2, 4) 也就是索引从第 2 位开始，到第 4 位结束，且不包括第 4 位alert(result)		// 显示 3,4concat  在指定数组后连接新的数组或值  不操作数组本身，而是返回连接后的结果var arr1 = [1, 2, 3]var arr2 = [4, 5]var result = arr1.concat(arr2)		// 将 arr1 和 arr2 进行连接，并返回结果alert(result)		// 显示 1,2,3,4,5var result2 = arr1.concat(4)		// 讲 4 连接到 arr1 之后，并返回结果alert(result2)		// 显示 1,2,3,4join  在指定数组的每个元素之间插入值  不操作数组本身，而是返回连接后的结果var arr = [1, 2, 3]var result = arr.join('-')		// 在 arr 的每个元素之间添加 - 字符alert(result)		// 显示 1-2-3sort  方法本身存在缺陷，无法直接对数组进行正序或倒序的排序，需要自行传入方法进行辅助操作  优化方式见 Javascript 数组排序var arr = [10, 2, 4, 1, 7]arr.sort()		// 并非对 arr 进行正序排序，而是讲数组中的每个元素视为字符串，讲其中的各位进行分别比较 					// 例如将 10 分为 1 和 0 ，然后先将 1 和 2 4 7 比较，则认为 10 比 2 4 7 小 					// 再将 1 和 1 比较，在相等的情况下则发现 10 比 1 还多一个 0 ，所以将 10 排在 1 之后alert(arr)		// 显示 1,10,2,4,7	 // 用于辅助 sort() 进行排序的方法// 若需要正序排序，则在 value1 &lt; value2 的情况下返回 -1 ，在 value1 &gt; value2 的情况下返回 1// 若需要倒序排序，则在 value1 &lt; value2 的情况下返回 1 ，在 value1 &gt; value2 的情况下返回 -1function compare(value1, value2) {	if (value1 &lt; value2) {		return -1	} else if (value1 &gt; value2) {		return 1	} else {		return 0	}}	 var arr = [10, 2, 4, 1, 7]arr.sort(compare)		// 将写好的 compare 方法传入 sort() 中，则进行正序或倒序排序，具体情况根据 compare 中返回值决定alert(arr)		// 显示 1,2,4,7,10reverse  对数组中的内容进行反向输出var arr = [10, 2, 4, 1, 7]arr.reverse()		// 直接将数组中的内容反向输出，而不是倒序alert(arr)		// 显示 7,1,4,2,10indexOf(value)  在指定数组中从第一个元素开始查询传入值的索引位置  返回值为 -1 表示未找到对应值的索引var arr = [1, 2, 3, 4, 5, 4, 3, 2, 1]var index = arr.indexOf(4)		// 在数组 arr 中查询数值 4 的索引位置，从第一个元素（索引为 0）开始计算，并返回索引值alert(index)		// 显示 3indexOf(startIndex, value)  从指定的索引开始，在指定数值中查找传入值的索引位置  startIndex 开始查询的索引  value 传入值var arr = [1, 2, 3, 4, 5, 4, 3, 2, 1]var index = arr.indexOf(4, 4)		// 在数组 arr 中，从第 4 个索引开始，查询数值 4 的索引位置，并返回索引值alert(index)		// 显示 5lastIndexOf(value)  在指定数组中从最后一个元素开始查询传入值得索引位置var arr = [1, 2, 3, 4, 5, 4, 3, 2, 1]var index = arr.lastIndexOf(2)		// 在数组 arr 中从最后一个元素开始查询数值 2 的索引位置，并返回索引值alert(index)		// 显示 7lastIndexOf(startIndex, value)  从指定的索引开始，在指定数组中从最后一个元素开始查询传入值的索引位置  startIndex 开始查询的索引  value 传入值var arr = [1, 2, 3, 4, 5, 4, 3, 2, 1]var index = arr.lastIndexOf(2, 2)		// 在数组 arr 中从倒数第 2 个索引开始，查询数值 2 的索引位置，并返回索引值alert(index)		// 显示 1every(function(item, index, array) { … })  对数组中的每个元素进行函数运算，并将总结果返回  如果每个值得运算结果都返回 true ，则整体返回 true  如果存在一个值运算结果返回 false ，则整体返回 falsevar arr = [1, 2, 3, 4, 5, 4, 3, 2, 1]// 方法体内存在一个回调函数// item 为数值中当期元素// index 为当前索引值// array 为指定数组var result = arr.every(function(item, index, array) {	// 判断数组中的当前元素是否大于 2 ，结果返回 true 或 false	return item &gt; 2})alert(result)		// 显示 falsefilter(function(item, index, array) { … })  对数组中的每个元素进行函数运算，并将过滤后的结果返回var arr = [1, 2, 3, 4, 5, 4, 3, 2, 1]var result = arr.filter(function(item, index, array) {	// 判断数组中的当前元素是否大于 2 ，不满足条件则过滤掉	return item &gt; 2	})alert(result)		// 显示 3,4,5,4,3forEach(function(item, index, array) { … })  对数组中的每个元素进行遍历，并可在其中执行一个方法var arr = [1, 2, 3, 4, 5, 4, 3, 2, 1]// for 循环的升级版arr.forEach(function(item, index, array) {	alert(item)		// 循环显示 1 2 3 4 5 4 3 2 1	})map(function(item, index, array) { … })  对数组中的每个元素进行函数运算，并返回新的数组var arr = [1, 2, 3, 4, 5, 4, 3, 2, 1]var result = arr.map(function(item, index, array) {	// 将数组中每个元素都乘以 2	return item * 2})alert(result)		// 显示 2,4,6,8,10,8,6,4,2some(function(item, index, array) { … })  对数组中的每个元素进行函数运算，并将总结果返回  如果存在一个得运算结果都返回 true ，则整体返回 true  如果所有值运算结果返回 false ，则整体返回 false  与 every() 逻辑正好相反var arr = [1, 2, 3, 4, 5, 4, 3, 2, 1]var result = arr.some(function(item, index, array) {	// 判断数组当前元素是否大于等于 5 ，返回 true 或 false	return item &gt;= 5})alert(result)		// 显示 truereduce(function(prev, cur, index, array) { … })  从左遍历数组的每个元素进行函数运算，并将总结果返回  prev 当前值的前一个值  cur 当前值  index 当前值的索引值  array 当前数组var arr = [1, 2, 3, 4, 5, 4, 3, 2, 1]var result = arr.reduce(function(prev, cur, index, array) {	// 当前值的前一个值 + 当前值 ，全部遍历结束后，再返回总和	// 0 + 1 + 2 + 3 + 4 + 5 + 4 + 3 + 2 + 1	return prev + cur	})alert(result)		// 显示 25reduceRight(function(prev, cur, index, array) { … })  从右遍历数组的每个元素进行函数运算，并将总结果返回  prev 当前值的前一个值  cur 当前值  index 当前值的索引值  array 当前数组var arr = [1, 2, 3, 4, 5, 4, 3, 2, 1]var result = arr.reduceRight(function(prev, cur, index, array) {	// 当前值的前一个值 + 当前值 ，全部遍历结束后，再返回总和	// 0 + 1 + 2 + 3 + 4 + 5 + 4 + 3 + 2 + 1	return prev + cur	})alert(result)		// 显示 25]]></content>
+      <categories>
+        
+          <category> javascript </category>
+        
+          <category> array </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> javascript </tag>
+        
+          <tag> array </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[Javascript Object]]></title>
+      <url>/javascript/2018/11/05/Javascript-Object/</url>
+      <content type="text"><![CDATA[  所有类的基础类语法var obj = new Object();		// 创建一个空的 Object 对象var obj = {};		// 实例化的简便写法给对象设置属性，不需要提前声明obj.name = 'Jone';obj.age = 20;obj['sex'] = 'Male';	给对象设置方法，方法名可以随意指定obj.say = function() {	alert('Hello World !!');}	访问对象的属性和方法alert(obj.name);		// 显示 Joneobj.say();		// 显示 Hello World !! 方法名后需要跟一对小括号	删除对象的属性和方法delete obj.name;		// 删除属性delete obj.say;		// 删除方法，不能带小括号，否则会被视为调用此方法alert(obj.name);		// 显示 undefinedobj.say();		// Console 提示方法未定义for (var attr in object) { … }  遍历对象的属性和方法的名称  attr 当前属性和方法的名称  object 指定对象for (var attribute in obj) {	// 遍历对象的所有属性和方法的名称并显示	alert(attribute);	// 遍历对象的所有属性和方法的内容	alert(obj[attribute]);}constructor  保存对象的创建函数alert(obj.constructor);		// 显示 obj 的创建函数 function Object() { [native code] }hasOwnProperty(propertyName)  检测传入的参数名称是否存在于指定对象中var result = obj.hasOwnProperty('name');		// 检测 name 属性是否存在于 obj 对象中，返回 true 或 falsealert(result);		// 返回 true ，说明 obj 中存在 name 属性propertyIsEnumerable(propertyName)  检测传入的参数是否可以被 for-in 枚举循环遍历var result = obj.propertyIsEnumerable('name');		// 检测 name 属性是否可以被 for-in 遍历，返回 true 或 falsealert(result);		// 返回 true ，说明 name 属性可以被 for-in 遍历toLocaleString()  返回指定对象的字符串表示，该字符串与执行环境相对应var result = obj.toLocaleString();alert(result);		// 显示 [object Object]toString()  返回指定对象的字符串表示var result = obj.toString();alert(result);		// 显示 [object Object]valueOf()  返回对象的字符串、数值或布尔值表示，并无强制类型var result = obj.valueOf();alert(result);		// 显示 [object Object]]]></content>
+      <categories>
+        
+          <category> javascript </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> javascript </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[Javascript Function 执行环境]]></title>
+      <url>/javascript/function/2018/11/05/Javascript-Function-%E6%89%A7%E8%A1%8C%E7%8E%AF%E5%A2%83/</url>
+      <content type="text"><![CDATA[  讲解函数的执行环境执行环境（execution context）  定义了变量或函数有权访问的其他数据，决定了各自的行为  每一个执行环境都有一个与之关联的变量对象，环境中定义的所有变量和函数都保存在这个对象中  全局执行环境是最外围的一个执行环境  根据 JS 所在的宿主环境（window 对象为最上层的执行环境）不同，表示执行环境的对象也不一样  执行环境是抽象存在的，代码无法访问var a = 10var b = 20function cc() {	// do something	}var Obj()		// 执行环境的含义相当于上述变量 a b 以及函数 cc 都保存在 Obj 对象中作用域链（scope chain）  保证对执行环境有权访问的所有变量和函数的有序访问  执行环境的特点是层层追溯，并形成一个作用域链var color1 = 'red'		// 存在于一级作用域中function showColor() {	var color2 = 'blue'		// 存在于二级作用域中		function swapColor() {		var color3 = color2		// 存在于三级作用域中		color2 = color1		color1 = color3		}	// 只能访问到 color1 color2 	swapColor()	}// 只能访问到 color1showColor()]]></content>
+      <categories>
+        
+          <category> javascript </category>
+        
+          <category> function </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> javascript </tag>
+        
+          <tag> function </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[Javascript Function 性质]]></title>
+      <url>/javascript/function/2018/11/05/Javascript-Function-%E6%80%A7%E8%B4%A8/</url>
+      <content type="text"><![CDATA[  讲解函数的性质以及 arguments 使用参数性质  上述实例说明在 JS 中，形参个数并不需要和实参个数相对应function test(a, b, c, d) {	return a + b	}alert(test(10, 20))		// 显示 30arguments 使用  arguments 是函数内部用于接收实际参数的数组  该数组只能在函数内部被访问function test(a, b, c, d) {	var formal = test.length		// 获取函数的形参个数	alert(formal)		// 显示 4		var actual = arguments.length		// 获取函数的实参个数		alert(actual)		// 显示 2		var parameter = arguments[0]		// 获取数组中的第一个实参值	alert(parameter)		// 显示 10		// 判断 test 中形参和实参的个数是否相同	if (test.length == arguments.length) {		return a + b	} else {		return '参数个数不符'	}}alert(test(10, 20))		// 显示 参数个数不符arguments 扩展  arguments.callee 表示对所属函数自身的调用，多用于递归function fact(num) {	if (num &lt;= 1) {		return 1	} else {		return num * arguments.callee(num - 1)		}}alert(fact(5))		// 显示 120 ，该运算规则为 5 的阶乘，相当于 5 * 4 * 3 * 2 * 1]]></content>
+      <categories>
+        
+          <category> javascript </category>
+        
+          <category> function </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> javascript </tag>
+        
+          <tag> function </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[Javascript Function 定义]]></title>
+      <url>/javascript/function/2018/11/05/Javascript-Function-%E5%AE%9A%E4%B9%89/</url>
+      <content type="text"><![CDATA[  讲解函数基础语法和定义语法  proName1 … proNameN 即参数列表，直接写形参名称即可，不用加 var ，参数列表并不是必须的  参数列表相当于函数的入口，return 语句相当于函数的出口function [funcName]（proName1, proName2, ... , proNameN） {	// 执行部分	var result = proName1 + proName2 + ... + proNameN	return result		// 函数不需要指定返回值类型，但可以有返回值}函数也是一种数据类型，其类型为 functionfunction test() {	console.log('test')}alert(typeof test)		// 显示 function 函数可以被当做一种数据类型进行传递function test1(example) {	example()	}	function test2() {	alert('执行方法')}	// 将 test2 方法作为参数传递到 test1 中test1(test2)		// 显示 执行方法函数名称并不是必须的，不带函数名称的函数称为匿名函数alert(function() { alert('INTO METHOD') })		// 显示 INTO METHOD函数可以进行嵌套，但内部函数的作用域只在其外部函数之内才有效  此方法不推荐使用，不具备实际意义function test3() {	// 定义方法	function test4() {		alert('INTO METHOD test4')		}		test4()		// 执行方法}	// 调用 test3 方法test3()		// 显示 INTO METHOD test4]]></content>
+      <categories>
+        
+          <category> javascript </category>
+        
+          <category> function </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> javascript </tag>
+        
+          <tag> function </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[Javascript Function 声明]]></title>
+      <url>/javascript/function/2018/11/05/Javascript-Function-%E5%A3%B0%E6%98%8E/</url>
+      <content type="text"><![CDATA[  讲解函数的三种声明方式三种定义函数的方式语句形式function test1() {	alert('INTO METHOD test1')	}test1()		// 显示 INTO METHOD test1直接量形式// 将一个匿名函数指定个一个变量var test2 = function() {	alert('INTO METHOD test2')}test2()		// 显示 INTO METHOD test2构造函数形式 - 顶级作用域// 将一个匿名函数的构造函数指定给一个变量// 在匿名函数的参数列表中规定了参数以及返回值规则 var test3 = new Function('a', 'b', 'return a + b')alert(test3(10, 20))		// 显示 30语句形式和构造函数形式的效率比较  上述两个实例的比较说 语句形式 效率要比 构造函数 形式高很多  因为 语句形式 在被解析器解析后便存放于内存中，不会再次被创建，是一种静态创建方法的形式  而 构造函数 形式则会在每次访问时被解析器创建，是一种动态创建方法的形式  从而表现出来的差异在于，语句形式 虽然占用内存，但效率更高var date1 = new Date()var time1 = date1.getTime()for (i = 0 i &lt; 100000 i++) {	function test() {}		// 创建一个 function 语句形式的空函数}var date2 = new Date()var time2 = date2.getTime()alert(time2 - time1)		// 显示 1-3 之间，说明执行 100000 次 test 函数所花费的时间在 1-3 毫秒之间	var date1 = new Date()var time1 = date1.getTime()for (i = 0 i &lt; 100000 i++) {	var test = new Function()		// 创建一个 function 构造函数形式的空函数}var date2 = new Date()var time2 = date2.getTime()alert(time2 - time1)		// 显示 250-270 之间，说明执行 100000 次 test 函数所花费的时间在 250 - 270 毫秒之间语句形式和直接量形式的解析顺序比较  上述两个实例的比较说明 语句形式 相对于 直接量形式 用着更加优先解析顺序  对于 语句形式 ，JS 解析器会优先解析，当确定页面中没有 function 语句形式的代码后，才会按顺序执行其他代码  对于 直接量形式 ，JS 解析器虽然会优先解析其直接量，但是该方法的实例化则需要等到代码顺序执行到该行test1()		// 显示 INTO MEHOTD test1 ，说明在 test1 方法被调用之前，已经被解析器创建function test1() {	alert('INTO METHOD test1')}test2()		// Console 报错：test2 is not a function ，说明低于解析器来说，test2 这个方法还没被创建var test2 = function() {	alert('INTO METHOD test2')	}三种形式综合比较function f() { return 1 }alert(f())		// 显示 4 ，说明 JS 解析器优先创建了 f 的语句形式，最终 f1 被 f4 覆盖var f = new Function('return 2')alert(f())		// 显示 2 ，说明 f4 被 f2 覆盖var f = function() { return 3 }alert(f())		// 显示 3 ，说明 f2 被 f3 覆盖function f() { return 4 }alert(f())		// 显示 3 ，说明 f4 在被 JS 解析器优先创建后，就不再创建，所以 f3 依旧有效 var f = new Function('return 5')alert(f())		// 显示 5 ，说明 f3 被 f5 覆盖var f = function() { return 6 }alert(f())		// 显示 6 ，说明 f5 被 f6 覆盖三种形式作用域比较  上述实例说明，function 构造函数形式拥有独特的顶级作用域  而 function 的语句形式同 function 直接量形式只有函数作用域var k = 1		// 全局function test1() {	var k = 2		// 局部	function test() { return k }		// function 语句形式	test()}test1()		// 显示 2 ，说明 function 语句形式是函数作用域，只能访问到其上层方法以内的局部变量 k	var k = 1		function test1() {	var k = 2			var test = function() { return k }		// function 直接量形式		test()}test1()		// 显示 2 ，说明 function 的直接量形式作用域同 function 语句形式相同var k = 1function test1() {	var k = 2	var test = new Function('return k')	test()	}test1()		// 显示 1 ，说明 function 构造函数虽然在 test1 中被创建，但实际上其拥有顶级作用域，相当于是在 test1 之外被创建]]></content>
+      <categories>
+        
+          <category> javascript </category>
+        
+          <category> function </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> javascript </tag>
+        
+          <tag> function </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[Javascript Function this]]></title>
+      <url>/javascript/function/2018/11/05/Javascript-Function-this/</url>
+      <content type="text"><![CDATA[  讲解函数中 this 的使用定义  this 对象在运行时基于函数的执行环境绑定  通俗的将就是说 this 对象总是指调用者  this 说“谁调用了我，我就只想谁”  在全局环境中，this 等于 window  在对象方法调用中，this 等于该对象var k = 10function test() {	this.k = 20	}test()		// 规范写法 window.test()alert(test.k)		// 显示 undefined/** * alert() 调用 test() 中的 k ，但其实 test() 中并不存在一个局部变量 k ，所以显示 undefined * 当在 test() 中通过 this 为变量 k 赋值时，实际上是为在 window 中的变量 k 赋值 * 因为 this 指向的是调用者，test() 方法的调用者是 window ，所以 this 指向的调用者也是 window */ alert(window.k) or alert(k)		// 显示 20]]></content>
+      <categories>
+        
+          <category> javascript </category>
+        
+          <category> function </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> javascript </tag>
+        
+          <tag> function </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[Javascript Function call]]></title>
+      <url>/javascript/function/2018/11/05/Javascript-Function-call/</url>
+      <content type="text"><![CDATA[  讲解函数中 call() 的使用call &amp; apply  每一个函数都包含上述两个非继承而来的方法  用法：绑定一些参数，用于传递参数及调用function sum(x, y) {	return x + y}function callSum(num1, num2) {	// 将 num1 num2 作为参数绑定到以 sum 为当前作用域的函数中	return sum.call(this, num1, num2)}function applySum(num1, num2) {	// 将 num1 num2 作为数组元素绑定到以 sum 为当前作用域的函数中	return sum.apply(this, [num1, num2])	}/** * 其实直接调用 sum 并传递值即可 * 因此上述两种普通用法并不实用 */function normalSum(num1, num2) {			return sum(num1, num2)	}alert(callSum(10, 20))		// 显示 30alert(applySum(20, 30))		// 显示 50alert(normalSum(30, 40))		// 显示 70扩充函数赖以运行的作用域window.color = 'red'var obj = {color : 'blue'}function showColor() {	alert(this.color)	}/** * 根据 call(value) 中 value 传递的作用域不同 * showColor() 方法中的 this.color 访问的参数也不同  * * 关键作用：利用此方法可以让函数获得最大限度的重用性 * 让同一个函数可以再不同的作用域下实现不同的效果 * * 优势：被调用函数所使用的对象不需要和当前函数存在任何耦合关系 * 最大限度的增加了灵活性 */showColor.call(window)		// 显示 redshowColor.call(this)		// 显示 redshowColor.call(obj)		// 显示 bluecall 方法的简单模拟function test(num1, num2) {	return num1 + num2}// 在 JS 中，当函数名大写，则被认定为是 自定义对象function Obj(x, y) {	this.x = x	this.y = y}var o = new Obj(10, 20)		// 新建一个 Obj 对象，并传入两个参数// 通过调用 call() 方法，将函数 test 的作用域扩展到对象 Obj 中// 相当于让对象 Obj 临时拥有 test 函数alert(test.call(o, o.x, o.y))		// 显示 30// 上述 call() 方法的调用实际上是通过以下三步实现o.method = test		// 先将 test 函数临时指定给对象 oalert(o.method(o.x, o.y))		// 再通过 o.method 传递参数到方法内部，并显示delete o.method		// 最后删掉该临时方法]]></content>
+      <categories>
+        
+          <category> javascript </category>
+        
+          <category> function </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> javascript </tag>
+        
+          <tag> function </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[MySQL 连表删除]]></title>
+      <url>/mysql/2018/10/22/MySQL-%E8%BF%9E%E8%A1%A8%E5%88%A0%E9%99%A4/</url>
+      <content type="text"><![CDATA[  如果需要通过父级表的条件确定本表被删除的数据内容，则需要用到如下连表删除语法实现方式DELETE 	sqoFROM	pt_survey_question_option sqo,	pt_survey_question sqWHERE	sqo.question_id = sq.id AND	sq.survey_id = 4]]></content>
+      <categories>
+        
+          <category> mysql </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> mysql </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[Vue 为图片赋值动态地址]]></title>
+      <url>/vue/2018/10/18/Vue-%E4%B8%BA%E5%9B%BE%E7%89%87%E8%B5%8B%E5%80%BC%E5%8A%A8%E6%80%81%E5%9C%B0%E5%9D%80/</url>
+      <content type="text"><![CDATA[  Vue 图片的 src 属性在赋值时，如果是静态内容可以直接指定，但动态内容则不行静态指定的方式  一般静态指定时，会将图片放在相同路径下，然后通过绝对路径进行指定&lt;mt-header fixed&gt;  &lt;img class="logo" src="./images/logo.png" alt="logo" slot="left"&gt;&lt;/mt-header&gt;静态方式碰到动态地址存在的问题  根据 Vue 动态赋值的原则，如果要动态指定地址，则需要通过以下方式&lt;mt-header fixed&gt;  &lt;img class="logo" :src="`./images/logo-${type}.png`" alt="logo" slot="left"&gt;&lt;/mt-header&gt;  但实际上通过上述方式无法加载到对应图片，因为在 webpack 中静态图片会被当做模块来加载，如果改为动态加载，url-loader 则无法解析图片地址  也就是说如果动态去加载静态图片，会导致程序在启动前无法获取到完整的图片路径，从而无法加载到对应的静态资源动态指定的方式  有些情况下，需要被加载的图片资源是固定的，但图片的名称却需要动态匹配  对于这些静态资源，如果放置到图片服务器感觉有点大材小用，所以其实可以放置在项目的 /static 目录下  对于在该目录下的图片资源，项目启动时会预加载，所以就算动态指定具体名称，也可以获取到对应图片  之后在指定时只需要通过绝对路径写明图片地址即可&lt;div class="employment-item"&gt;  &lt;img :src="`/mop/static/character/consultant-${active(2) ? 'white' : 'blue'}.png`"&gt;&lt;/div&gt;动态指定需要注意的点  一般生产环境中对于项目静态资源都会指定一个根路径  具体指定方式在 config/index.js 文件中的 build 节点，存在如下代码  assetsPublicPath 就是为静态资源指定的根路径  为了和生产环境保持一致，开发环境也需要在 config/index.js 中的 dev 节点指定]]></content>
+      <categories>
+        
+          <category> vue </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> vue </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[Mint-UI Swipe 组件]]></title>
+      <url>/vue/mintui/2018/10/16/Mint-UI-Swipe-%E7%BB%84%E4%BB%B6/</url>
+      <content type="text"><![CDATA[  Mint-UI 提供一个 Swipe 组件用于实现轮播，但官方文档实在过于简陋，此处通过翻阅源码查找到以下实用方法官方文档  Swipe 文档  Swipe 源码禁止自动滚动  控制自动滚动的参数是 auto ，默认值 3000 毫秒  在 API 文档中没有说明如何禁止自动滚动，但是在示例代码中有说明将 :auto="0" 即可禁止自动滚动&lt;mt-swipe :auto="0"&gt;  &lt;mt-swipe-item&gt;...&lt;/mt-swipe-item&gt;&lt;/mt-swipe&gt;手动切换上 / 下一个  API 文档中没有任何关于操作组件的方法，但在源码中可以翻阅到如下代码next() {	this.doAnimate('next')},prev() {	this.doAnimate('prev')},  所以可以通过为组件添加 ref ，并调用以上方法来实现上下子项的切换&lt;mt-swipe ref="testSwipe"&gt;&lt;/mt-swipe&gt;// 手动切换到下一个this.$refs.testSwipe.next()// 手动切换到上一个this.$refs.testSwipe.prev()]]></content>
+      <categories>
+        
+          <category> vue </category>
+        
+          <category> mintui </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> vue </tag>
+        
+          <tag> mintui </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[vue-chartjs 图表库]]></title>
+      <url>/vue/chartjs/2018/10/08/vue-chartjs-%E5%9B%BE%E8%A1%A8%E5%BA%93/</url>
+      <content type="text"><![CDATA[  vue-chartjs 是基于 Chart.js 实现的 vue 版本官网  vue-chartjs  vue-chartjs-docs需要写在前面的注意点不同图表该使用什么名称进行引用  个人认为不论是安装方式，还是使用方式，chartjs 的文档都写的比较清晰  但唯独不同图表类型的引用名称，真的很难以找到  于是翻阅源码查找到如下对应名称Radar 雷达图的使用目录结构  使用如下目录结构是因为图表存在多种类型，每种都需要单独引用，所以应该单独创建一个初始化组件组件内容  根据官方文档中的实现方式，在引用组件时，需要先将组件进行一次实现，之后再到具体的 DOM 结构中引用这个实现&lt;script&gt;  import { Radar, mixins } from 'vue-chartjs'  const {reactiveProp} = mixins  export default {    name: 'inRadar',    extends: Radar,    mixins: [reactiveProp],    props: ['options'],    mounted() {      this.renderChart(this.chartData, this.options)    }  }&lt;/script&gt;组件引用  按照如下引用方式，一开始很容易会认为在初始化数据中除了 datasets[0].data 是动态数据，其他都是静态数据，可以放置到一开始的变量声明中指定  但其实不行，整个图表的初始化 都需要在 DOM 元素加载之后才能进行，所以必须将所有指定的规则一起初始化  对于图表大小的控制，最简单的方式还是将图表通过父容器包裹，然后控制父容器的大小&lt;div class="chart-item"&gt;  &lt;in-radar :chart-data="radarData1"&gt;&lt;/in-radar&gt;&lt;/div&gt;&lt;script&gt;	import inRadar from 'components/in-chart/in-radar'		export default {		data() {			return {				radarData1: {}			}		},		mounted() {			this._initChar()		},		methods: {			_initChar() {				this.radarData1 = {  				labels: ['抗压力', '精力', '适应力', '表达力', '逻辑力'],  				datasets: [{    					label: '',    					borderColor: 'rgba(72,207,173,0.9)',    					backgroundColor: 'rgba(72,207,173,0.5)',    					data: currentFeature.radarData.one  				}]				}			}		},		components: { 			inRadar		}	}&lt;/script&gt;]]></content>
+      <categories>
+        
+          <category> vue </category>
+        
+          <category> chartjs </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> vue </tag>
+        
+          <tag> chartjs </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[Java 正则表达式验证]]></title>
+      <url>/java/validate/2018/09/30/Java-%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E9%AA%8C%E8%AF%81/</url>
+      <content type="text"><![CDATA[  Java 使用正则表达式的基本语法如下实现方式  该方法用于验证一个字符串中是否存在数字public static Boolean numberExist(String title) {    Pattern pattern = Pattern.compile(".*\\d+.*");    Matcher matcher = pattern.matcher(title);    return matcher.matches();}]]></content>
+      <categories>
+        
+          <category> java </category>
+        
+          <category> validate </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> java </tag>
+        
+          <tag> validate </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
       <title><![CDATA[IDEA 调整快速复制的风格]]></title>
       <url>/software/idea/2018/09/19/IDEA-%E8%B0%83%E6%95%B4%E5%BF%AB%E9%80%9F%E5%A4%8D%E5%88%B6%E7%9A%84%E9%A3%8E%E6%A0%BC/</url>
       <content type="text"><![CDATA[  IDEA 快速复制的快捷键是 CMD+D 或者 Ctrl+D ，但其实可以选择两个不同的复制风格调整方式  打开设置菜单进入 Keymap 菜单，搜索 Duplicate  看到的 Editor Actions 中搜到的两行即为 IDEA 提供的两种复制风格          Duplicate Line or Selection 的表现形式是复制光标所选的内容，最直观的感受是 不是整行复制 ，新的内容会在所选内容的末尾出现，而不是另起一行      Duplicate Entire Lines 的表现形式是复制光标所在行，最直观的感受是 整行复制 ，新的内容会出现在下一行      ]]></content>
@@ -2067,7 +2347,7 @@
     <entry>
       <title><![CDATA[Javascript数组属性]]></title>
       <url>/javascript/array/2018/02/11/Javascript%E6%95%B0%E7%BB%84%E5%B1%9E%E6%80%A7/</url>
-      <content type="text"><![CDATA[  Javascript数组可用来存储多个数组，但他也有些不常见的内置功能数组的真面目  数组的索引其实也是数组的属性，所以如下操作是等同的let array = ['Tom', 'Jerry']console.log(array[0]) =&gt; Tomconsole.log(array.0) =&gt; Tom   数组的内置属性let array = ['Tom', 'Jerry']console.log(array.length) =&gt; 2console.log(array['length']) =&gt; 2  数组其实可以添加自定义属性，因为数组其实也是一个object对象let array = ['Tom', 'Jerry']array.itemName = 'wow'console.log(array.itemName) =&gt; wow循环数组的元素  自从ES6发布之后，可以不再使用传统的 for 循环对数组进行遍历，而可以使用 for ... of 循环直接操作数组元素for (let item of array) {	console.log(item)}数组元素的数量不等于数组长度  通常情况下数组元素的数量就是数组的长度，但这种关系非常脆弱，参见如下代码let array = []array.lentgh = 3console.log(array.length) =&gt; 3array[5] = 'Lily'console.log(array.length) =&gt; 5]]></content>
+      <content type="text"><![CDATA[  Javascript数组可用来存储多个数组，但他也有些不常见的内置功能数组的真面目  数组的索引其实也是数组的属性，所以如下操作是等同的let array = ['Tom', 'Jerry']console.log(array[0]) =&gt; Tomconsole.log(array.0) =&gt; Tom   数组的内置属性let array = ['Tom', 'Jerry']console.log(array.length) =&gt; 2console.log(array['length']) =&gt; 2  数组其实可以添加自定义属性，因为数组其实也是一个object对象let array = ['Tom', 'Jerry']array.itemName = 'wow'console.log(array.itemName) =&gt; wow循环数组的元素  自从ES6发布之后，可以不再使用传统的 for 循环对数组进行遍历，而可以使用 for ... of 循环直接操作数组元素for (let item of array) {	console.log(item)}数组元素的数量不等于数组长度  通常情况下数组元素的数量就是数组的长度，但这种关系非常脆弱，参见如下代码let array = []array.lentgh = 3console.log(array.length) =&gt; 3array[5] = 'Lily'console.log(array.length) =&gt; 5删除数组元素  删除数组元素的方法不是 remove() ，而应该使用 splice()  splice(index, number, item...)  提供三个属性          index 表示待删除元素的索引      number 表示从开始删除元素的索引开始要删除几个元素，1 表示只删除该元素，0 表示不删除      item… 可选，可传入多个新元素，将从被删除元素的索引位置插入        splice() 的特点在于会直接作用原数组，返回值中返回的是被删除元素var arr = ['java', 'html', 'css', 'js', 'vue']// java,html,css,js,vueconsole.log(arr)// 删除索引1的元素var result = arr.splice(1, 1)// java,css,js,vueconsole.log(arr)// htmlconsole.log(result)]]></content>
       <categories>
         
           <category> javascript </category>
@@ -4504,7 +4784,7 @@
     <entry>
       <title><![CDATA[MyBatis批量新增]]></title>
       <url>/java/mybatis/2017/03/31/MyBatis%E6%89%B9%E9%87%8F%E6%96%B0%E5%A2%9E/</url>
-      <content type="text"><![CDATA[  通过循环 values 语句实现批量新增数据&lt;insert id="saveTimetables"&gt; INSERT INTO pt_timetable (  id,  lessonNo ) VALUES  &lt;foreach collection="list" item="item" separator=","&gt;   (    #{item.id},              #{item.lessonNo}          )  &lt;/foreach&gt;&lt;/insert&gt;]]></content>
+      <content type="text"><![CDATA[  通过循环 values 语句实现批量新增数据实现方式&lt;insert id="saveTimetables"&gt; INSERT INTO pt_timetable (  id,  lessonNo ) VALUES  &lt;foreach collection="list" item="item" separator=","&gt;   (    #{item.id},              #{item.lessonNo}          )  &lt;/foreach&gt;&lt;/insert&gt;]]></content>
       <categories>
         
           <category> java </category>
@@ -5050,7 +5330,7 @@
     <entry>
       <title><![CDATA[MyBatis新增返回id]]></title>
       <url>/java/mybatis/2017/02/08/MyBatis%E6%96%B0%E5%A2%9E%E8%BF%94%E5%9B%9Eid/</url>
-      <content type="text"><![CDATA[  新增一条数据到数据库，并返回该数据的id&lt;insert id="saveSendMessage" keyColumn="id" keyProperty="id" useGeneratedKeys="true" parameterType="SendMessageDTO"&gt;	...&lt;/insert&gt;]]></content>
+      <content type="text"><![CDATA[  新增一条数据到数据库，并返回该数据的id实现方式&lt;insert id="saveSendMessage" keyColumn="id" keyProperty="id" useGeneratedKeys="true" parameterType="SendMessageDTO"&gt;	...&lt;/insert&gt;]]></content>
       <categories>
         
           <category> java </category>
@@ -5284,7 +5564,7 @@
     <entry>
       <title><![CDATA[HashMap和TreeMap]]></title>
       <url>/java/2017/01/17/HashMap%E5%92%8CTreeMap/</url>
-      <content type="text"><![CDATA[介绍  Map是key-value的集合接口，其实现类包括：          HashMap - 值没有顺序      TreeMap - key值默认升序      LinkedHashMap - 值没有顺序      key排序Map&lt;String, String&gt; map = new TreeMap&lt;String, String&gt;(	new Comparator&lt;String&gt;() {		public int compare(String obj1, String obj2) {			// 降序排序			return obj2.compareTo(obj1);		}	});value排序// 这里将map.entrySet()转换成listList&lt;Map.Entry&lt;String,String&gt;&gt; list = new ArrayList&lt;Map.Entry&lt;String,String&gt;&gt;(map.entrySet());	// 然后通过比较器来实现排序	Collections.sort(list,new Comparator&lt;Map.Entry&lt;String,String&gt;&gt;() {		// 升序排序		public int compare(Entry&lt;String, String&gt; o1, Entry&lt;String, String&gt; o2) {			return o1.getValue().compareTo(o2.getValue());		}            	});]]></content>
+      <content type="text"><![CDATA[  简单描述一下HashMap和TreeMap的区别介绍  Map是key-value的集合接口，其实现类包括：          HashMap - 值没有顺序      TreeMap - key值默认升序      LinkedHashMap - 值没有顺序      key排序Map&lt;String, String&gt; map = new TreeMap&lt;String, String&gt;(	new Comparator&lt;String&gt;() {		public int compare(String obj1, String obj2) {			// 降序排序			return obj2.compareTo(obj1);		}	});value排序// 这里将map.entrySet()转换成listList&lt;Map.Entry&lt;String,String&gt;&gt; list = new ArrayList&lt;Map.Entry&lt;String,String&gt;&gt;(map.entrySet());	// 然后通过比较器来实现排序	Collections.sort(list,new Comparator&lt;Map.Entry&lt;String,String&gt;&gt;() {		// 升序排序		public int compare(Entry&lt;String, String&gt; o1, Entry&lt;String, String&gt; o2) {			return o1.getValue().compareTo(o2.getValue());		}            	});]]></content>
       <categories>
         
           <category> java </category>
@@ -5341,9 +5621,30 @@
     </entry>
   
     <entry>
-      <title><![CDATA[Javascript数组去重]]></title>
-      <url>/javascript/array/2017/01/09/Javascript%E6%95%B0%E7%BB%84%E5%8E%BB%E9%87%8D/</url>
-      <content type="text"><![CDATA[  Set是ES2015引入的数据类型，意为集合其不允许重复元素出现的特性，对于NaN、undefined、null都适用实现方式function unique(arr) {	var set = new Set(arr);		return Array.from(set);}var arr = [1,1,'1','1',0,0,'0','0',undefined,undefined,null,null,NaN,NaN,{},{},[],[],/a/,/a/];console.log(unique(arr));]]></content>
+      <title><![CDATA[MySQL 过滤多个重复字段]]></title>
+      <url>/javascript/array/2017/01/09/MySQL-%E8%BF%87%E6%BB%A4%E5%A4%9A%E4%B8%AA%E9%87%8D%E5%A4%8D%E5%AD%97%E6%AE%B5/</url>
+      <content type="text"><![CDATA[  MySQL 执行查询时，如果需要从记录中过滤多个重复字段，可通过以下方式实现方式  关键点在于 COUNT(DISTINCT vs.name) ，DISTINCT 是 MySQL 用于过滤重复字段的关键字，但其默认只能紧跟在 SELECT 之后  此处通过 COUNT() 函数将其包裹后在指定字段，即可实现过滤效果  注意点：在使用 COUNT(DISTINCT propertyName) 后，在查询末尾要通过 GROUP BY propertyName 将对应字段分组  如果存在多个字段需要过滤，则将每一次过滤的结果作为数据来源再次筛选即可SELECT	vvs.id,	vvs.name,	vvs.mobile,	COUNT(DISTINCT vvs.mobile)FROM (	SELECT		vs.id,		vs.name,		vs.mobile,		COUNT(DISTINCT vs.name)	FROM		pt_visitor_survey vs	WHERE		vs.survey_id = 1	GROUP BY		vs.name) vvsGROUP BY	vvs.mobile]]></content>
+      <categories>
+        
+          <category> javascript </category>
+        
+          <category> array </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> javascript </tag>
+        
+          <tag> array </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[Javascript 数组去重]]></title>
+      <url>/javascript/array/2017/01/09/Javascript-%E6%95%B0%E7%BB%84%E5%8E%BB%E9%87%8D/</url>
+      <content type="text"><![CDATA[  数组去重的多种方式Set 方式  Set是ES2015引入的数据类型，意为集合  其不允许重复元素出现的特性，对于NaN、undefined、null都适用function unique(arr) {	var set = new Set(arr);		return Array.from(set);}var arr = [1,1,'1','1',0,0,'0','0',undefined,undefined,null,null,NaN,NaN,{},{},[],[],/a/,/a/];console.log(unique(arr));Object 方式  在 JS 对象中，key 永远不会重复var arr = [1, 2, 1, 3, 4, 6, 3, 4, 7];	// 将数组转换为对象function toObject(arr) {	var obj = {};		// 实例化一个空对象	// 遍历数组的同时为 obj 赋值，把数组中的值转变为 obj 的 key	arr.forEach(function(item, index, array) {		obj[item] = item;		// 为 obj 绑定 key-value 关系	});		return obj;		// 返回转换后的对象}	 // 将对象转换为数组 function toArray(obj) { 	var arr = [];		// 实例化一个空数组 	// 遍历对象的同时为 arr 赋值 	for (var attr in obj) { 		// 判断当前 attr 是否属于 obj 		if (obj.hasOwnProperty(attr)) { 			arr.push(attr);		// 将当前 attr 传入 arr 中 		} 	} 	 	return arr;		// 返回转换后的数组}	// 去除数组中的重复项function toShow(arr) {	// 1. 先将数组转换为对象	// 2. 再将对象转换为数组	return toArray(toObject(arr));		// 依次调用两个方法}alert(toShow(arr));		// 显示 1,2,3,4,6,7]]></content>
       <categories>
         
           <category> javascript </category>

@@ -377,7 +377,7 @@
       <li class="category-list-item">
         
         <a class="category-list-link" href="/category/#/java">java</a>
-        <span class="category-list-count">81</span>
+        <span class="category-list-count">82</span>
       </li>
     
       
@@ -401,7 +401,7 @@
       <li class="category-list-item">
         
         <a class="category-list-link" href="/category/#/javascript">javascript</a>
-        <span class="category-list-count">32</span>
+        <span class="category-list-count">42</span>
       </li>
     
       
@@ -409,7 +409,7 @@
       <li class="category-list-item">
         
         <a class="category-list-link" href="/category/#/array">array</a>
-        <span class="category-list-count">3</span>
+        <span class="category-list-count">5</span>
       </li>
     
       
@@ -449,7 +449,7 @@
       <li class="category-list-item">
         
         <a class="category-list-link" href="/category/#/validate">validate</a>
-        <span class="category-list-count">2</span>
+        <span class="category-list-count">3</span>
       </li>
     
       
@@ -513,7 +513,7 @@
       <li class="category-list-item">
         
         <a class="category-list-link" href="/category/#/mysql">mysql</a>
-        <span class="category-list-count">13</span>
+        <span class="category-list-count">14</span>
       </li>
     
       
@@ -665,7 +665,7 @@
       <li class="category-list-item">
         
         <a class="category-list-link" href="/category/#/vue">vue</a>
-        <span class="category-list-count">50</span>
+        <span class="category-list-count">53</span>
       </li>
     
       
@@ -793,7 +793,7 @@
       <li class="category-list-item">
         
         <a class="category-list-link" href="/category/#/mintui">mintui</a>
-        <span class="category-list-count">2</span>
+        <span class="category-list-count">3</span>
       </li>
     
       
@@ -866,6 +866,22 @@
         
         <a class="category-list-link" href="/category/#/lambda">lambda</a>
         <span class="category-list-count">1</span>
+      </li>
+    
+      
+      
+      <li class="category-list-item">
+        
+        <a class="category-list-link" href="/category/#/chartjs">chartjs</a>
+        <span class="category-list-count">1</span>
+      </li>
+    
+      
+      
+      <li class="category-list-item">
+        
+        <a class="category-list-link" href="/category/#/function">function</a>
+        <span class="category-list-count">6</span>
       </li>
     
   </ul>
@@ -1027,6 +1043,34 @@
 </code></pre></td></tr></tbody></table></div>
 </div>
 
+<h2 id="删除数组元素">删除数组元素</h2>
+<ol>
+  <li>删除数组元素的方法不是 <code class="highlighter-rouge">remove()</code> ，而应该使用 <code class="highlighter-rouge">splice()</code></li>
+  <li><code class="highlighter-rouge">splice(index, number, item...)</code>  提供三个属性
+    <ul>
+      <li><strong>index</strong> 表示待删除元素的索引</li>
+      <li><strong>number</strong> 表示从开始删除元素的索引开始要删除几个元素，1 表示只删除该元素，0 表示不删除</li>
+      <li><strong>item…</strong> 可选，可传入多个新元素，将从被删除元素的索引位置插入</li>
+    </ul>
+  </li>
+  <li><code class="highlighter-rouge">splice()</code> 的特点在于会直接作用原数组，返回值中返回的是被删除元素</li>
+</ol>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6<br/>7<br/>8<br/>9<br/>10<br/>11<br/>12</pre></td><td class="code"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">arr</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'java'</span><span class="p">,</span> <span class="s1">'html'</span><span class="p">,</span> <span class="s1">'css'</span><span class="p">,</span> <span class="s1">'js'</span><span class="p">,</span> <span class="s1">'vue'</span><span class="p">]</span>
+
+<span class="c1">// java,html,css,js,vue</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">arr</span><span class="p">)</span>
+
+<span class="c1">// 删除索引1的元素</span>
+<span class="kd">var</span> <span class="nx">result</span> <span class="o">=</span> <span class="nx">arr</span><span class="p">.</span><span class="nx">splice</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="c1">// java,css,js,vue</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">arr</span><span class="p">)</span>
+<span class="c1">// html</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">result</span><span class="p">)</span>
+</code></pre></td></tr></tbody></table></div>
+</div>
+
  
     </div>
     <div>
@@ -1043,7 +1087,7 @@
     </div>
     <footer class="post-footer">
         
-        <div class="copyright-marking">版权申明：本文首发 http://asing1elife.com ，转发请注明出处，讲文明懂礼貌！</div>
+        <div class="copyright-marking">版权声明：本文首发 http://asing1elife.com ，转发请注明出处，讲文明懂礼貌！</div>
         <div class="post-tags">
              
             <a href="/tag/#/javascript" rel="tag"># javascript</a>  
@@ -1168,7 +1212,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">280</span>
+                <span class="site-state-item-count">295</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -1179,7 +1223,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/">
-                <span class="site-state-item-count">70</span>
+                <span class="site-state-item-count">72</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -1190,7 +1234,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/">
-                <span class="site-state-item-count">122</span>
+                <span class="site-state-item-count">125</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -1261,7 +1305,7 @@
             
               <div class="post-toc-content">
     <ol class=nav>
-      <li class="nav-item nav-level-2"> <a class="nav-link" href="#数组的真面目"> <span class="nav-number">1</span> <span class="nav-text">数组的真面目</span> </a> </li> <li class="nav-item nav-level-2"> <a class="nav-link" href="#循环数组的元素"> <span class="nav-number">2</span> <span class="nav-text">循环数组的元素</span> </a> </li> <li class="nav-item nav-level-2"> <a class="nav-link" href="#数组元素的数量不等于数组长度"> <span class="nav-number">3</span> <span class="nav-text">数组元素的数量不等于数组长度</span> </a> </li>
+      <li class="nav-item nav-level-2"> <a class="nav-link" href="#数组的真面目"> <span class="nav-number">1</span> <span class="nav-text">数组的真面目</span> </a> </li> <li class="nav-item nav-level-2"> <a class="nav-link" href="#循环数组的元素"> <span class="nav-number">2</span> <span class="nav-text">循环数组的元素</span> </a> </li> <li class="nav-item nav-level-2"> <a class="nav-link" href="#数组元素的数量不等于数组长度"> <span class="nav-number">3</span> <span class="nav-text">数组元素的数量不等于数组长度</span> </a> </li> <li class="nav-item nav-level-2"> <a class="nav-link" href="#删除数组元素"> <span class="nav-number">4</span> <span class="nav-text">删除数组元素</span> </a> </li>
     </ol>
   </div>
             
