@@ -20,7 +20,7 @@ tags:
 3. demo.html 提供给使用者的测试用例
 
 ### CSS
-1. 加载器的实训效果可参考 [纯 CSS 实现 Loading 效果]()
+1. 加载器的实训效果可参考 [纯 CSS 实现 Loading 效果](http://asing1elife.com/css/2018/12/05/纯-CSS-实现-Loading-效果)
 2. 加载器作为插件使用，需要有一个固定的父级，所以添加 `dount-wrapper` 
 
 ```css
