@@ -1,16 +1,8 @@
----
-title: 纯 CSS 实现 Tooltip 效果
-date: 2018-12-07
-author: asing1elife
-categories:
- - css
-tags:
- - css
----
+# 纯 CSS 实现 Tooltip 效果
 > 使用 CSS 可以实现当鼠标悬浮时显示一个小的提示文字内容区  
 
-## 最后效果展现
-![](http://asing1elife.com/sources/images/al-tooltip.gif)
+## 最终效果展现
+![](%E7%BA%AF%20CSS%20%E5%AE%9E%E7%8E%B0%20Tooltip%20%E6%95%88%E6%9E%9C/al-tooltip.gif)
 
 ## 基础效果
 ### HTML
@@ -18,7 +10,6 @@ tags:
 2. `al-tooltop` 表示指定的 **className**
 3. `tooltop="提示出现在xx"` 表示需要显示在内容区的文字
 4. `position="top"` 表示内容区显示的位置
-
 ```html
 <div id="container">
   <button class="btn al-tooltip" tooltip="提示出现在上方" position="top">TOP-TIP</button>
@@ -35,8 +26,7 @@ tags:
 3. **CSS 本身没有太多难点，只需要考虑到不同方向对应元素偏移量的控制**
 	* 涉及属性包括 `top right bottom left`  
 	* `transform: translate(x, y)`
-	* `box-shadow: offsetX offsetY blur spread color` ，更多内容可参考 [CSS box-shadow 详解](http://asing1elife.com/css/2017/08/04/CSS-box-shadow-详解/)
-
+	* `box-shadow: offsetX offsetY blur spread color` ，更多内容可参考 [CSS box-shadow 详解](bear://x-callback-url/open-note?id=358FA3EA-A905-4BE0-A002-0187B3AC8303-315-00002913662BA1AD)
 ```css
 .al-tooltip {
   position: relative;
@@ -122,14 +112,13 @@ tags:
 ### CSS
 1. 内容区本身使用了 `::before` 
 2. 那么小三角可以使用 `::after` 表示
-3. 小三角本身是没有宽高的，真实内容是通过 `border` 进行显示，更多内容可参考 [CSS绘制三角形](http://asing1elife.com/css/2016/12/29/CSS绘制三角形/)
+3. 小三角本身是没有宽高的，真实内容是通过 `border` 进行显示，更多内容可参考 [CSS绘制三角形](bear://x-callback-url/open-note?id=3A7DF9D9-6CD8-48CA-897A-7DA24E5EE736-294-000054E1FB08C9E0)
 	* 显示规则表现为三角形的两侧有边框但是没颜色，底部有边框而且有颜色
 	* 例如 🔼 ，则是存在 `border-left` 和 `border-right` 但是没有颜色，只有 `border-bottom` 是存在且有颜色的
 4. **同时，为了确保三角和内容区位置显示正确，需要修正内容区距离按钮的距离**
 	* 例如顶部的内容区原本距离按钮 `bottom: calc(100% + 5px)` 
 	* 在添加了小三角之后，小三角距离按钮为 `bottom: calc(100% + 5px)`
 	* 那么内容区距离按钮的距离就应该加上小三角的大小 `bottom: calc(100% + 10px)`
-
 ```css
 .al-tooltip::after {
   display: none;
@@ -184,14 +173,12 @@ tags:
 ## 添加主题
 ### HTML
 1. 为 DOM 元素添加 `theme="dark"` 用于指定主题样式
-
 ```html
 <button class="btn al-tooltip" tooltip="提示出现在右侧" position="right" theme="dark">RIGHT-TIP</button>
 ```
 
 ### CSS
 1. 根据从 DOM 元素上匹配到的自定义属性进行相应配置即可
-
 ```css
 .al-tooltip[theme="dark"]::before {
   color: #fff;
