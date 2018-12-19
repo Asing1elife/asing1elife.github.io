@@ -4,8 +4,12 @@ date: 2018-02-03
 author: asing1elife
 categories:
  - vue
+ - highlight
+ - javascript
 tags:
  - vue
+ - highlight
+ - javascript
 ---
 > highlight.js是一个比较实用的语法高亮插件，但其默认并不能在Vue中直接使用  
 
@@ -40,7 +44,6 @@ Highlight.install = (Vue, options) => {
 }
 
 export default Highlight
-
 ```
 
 ## 在main.js中引入上述文件
@@ -57,4 +60,15 @@ Vue.use(Highlight)
 
 ```html
 <div v-highlight v-html="showFileContent"></div>
+```
+
+## 引入主题文件
+1. 在插件的 `highlight.js/styles/` 目录下已经集成了多个主题
+2. 选择合适的引入即可
+
+```css
+<style lang="stylus" rel="stylesheet/stylus">
+  @import "~highlight.js/styles/atom-one-dark.css"
+	...
+</style>
 ```
