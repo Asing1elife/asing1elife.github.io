@@ -1,22 +1,23 @@
 ---
-title: Vue 项目启动抛出 Module build failed/ Error/ No ESLint configuration found.
+title: Vue 项目启动抛出 Module build failed: Error: No ESLint configuration found.
 date: 2018-04-19
 author: asing1elife
 categories:
  - vue
- - eslint
 tags:
  - vue
  - eslint
 ---
+
 > 项目启动时控制台抛出 `Module build failed: Error: No ESLint configuration found.` 的错误  
 
 ## 出现错误的原因
+
 1. 因为项目根路径缺少 ESLint 的配置文件
 
 ## 解决问题的方式
 1. 将 ESLint 相关配置文件添加至项目根路径
-
+2. 文件名 **.eslintrc.js**
 ```javascript
 // https://eslint.org/docs/user-guide/configuring
 
@@ -52,10 +53,11 @@ module.exports = {
   }
 }
 ```
+3. 文件名 **.eslintignore**
 ```javascript
 /build/
 /config/
 /dist/
 /*.js
-
 ```
+
