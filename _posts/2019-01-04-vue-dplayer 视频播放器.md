@@ -17,6 +17,9 @@ tags:
 ## 示例
 1. 如果默认 `options` 中没有视频链接，之后设置视频链接时，直接通过 `this.options.video.url = videoPath` 是无效的
 2. 需要先获取到播放器的实例 `this.$refs.player.dp` ，然后通过 `switchVideo()` 对 `url` 进行修改
+
+
+
 ```js
 <template>
   <d-player ref="player" :options="options"></d-player>
