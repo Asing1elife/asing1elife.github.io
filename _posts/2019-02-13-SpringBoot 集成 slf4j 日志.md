@@ -18,6 +18,7 @@ tags:
 2. 因为SpringBoot默认已经集成了这两个依赖，位于 **spring-boot-starter-logging** 中
 3. 具体的依赖路径为 `spring-boot-starter-web -> spring-boot-starter -> spring-boot-starter-logging`
 4. 在 **spring-boot-starter-logging** 的 **pom.xml** 中，存在以下依赖
+
 ```xml
 <dependencies>
   <dependency>
@@ -44,6 +45,7 @@ tags:
 ## 日志配置内容
 1. 日志文件的名称直接使用 **logback-spring.xml** ，这是SpringBoot能接受的默认日志文件名称
 	* 放置在项目 **/resources** 根目录，可以直接被SpringBoot识别
+
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration scan="true" scanPeriod="10 seconds">

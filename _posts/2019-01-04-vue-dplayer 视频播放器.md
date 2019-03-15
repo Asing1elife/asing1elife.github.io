@@ -19,7 +19,6 @@ tags:
 2. 需要先获取到播放器的实例 `this.$refs.player.dp` ，然后通过 `switchVideo()` 对 `url` 进行修改
 
 
-
 ```js
 <template>
   <d-player ref="player" :options="options"></d-player>
