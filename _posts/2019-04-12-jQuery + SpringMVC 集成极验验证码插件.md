@@ -40,6 +40,7 @@ tags:
 3. [geetest-WEB-front](https://docs.geetest.com/install/deploy/client/web)
 
 ## 后端对接实现
+
 ### 下载并接入集成包
 1. 在前面提供的 [geetest-java](https://docs.geetest.com/install/deploy/server/java/) 中可以下载到插件后端环境的集成包，也可以通过 `git clone https://github.com/GeeTeam/gt3-java-sdk.git` 直接下载
 2. 下载下来其实是 Java 语言的本地文档、DEMO 、SDK 、以及和后端语言配对的前端依赖 JS
@@ -56,6 +57,7 @@ tags:
 2. 文档中分别使用了 `doGet` 演示初始化，`doPost` 演示接收验证请求
 3. 实际项目中当然不会使用 Servlet 来做这些事情，这里使用的是 SpringMVC
 4. 两个操作可以放在同一个 Service 中，例如 **CaptchaServiceImpl.java**
+
 #### 封装请求参数
 1. 单独封装起来是因为两步验证都会用到
 2. 请求参数其实就是每个用户的唯一标识，文档中使用的是 **用户 ID** 、**终端类型** 以及 **IP 地址**
@@ -171,6 +173,7 @@ public class CaptchaController extends AbstractBaseController {
 ```
 
 ## 前端对接实现
+
 ### 前端依赖 JS 在哪里
 1. 前端依赖的 JS 在 [geetest-WEB-front](https://docs.geetest.com/install/deploy/client/web) 接口文档中是找不到的，因为不同服务端语言对应的 JS 不一样，所以将其放置在了后端集成包中
 2. 具体位置如下图所示
