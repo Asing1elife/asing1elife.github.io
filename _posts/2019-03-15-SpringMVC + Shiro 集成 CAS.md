@@ -15,6 +15,7 @@ tags:
 > shiro 在 1.2 版本之后加入 shiro-cas 支持 sso 的 cas 登录验证，以下给出具体的对接方式  
 
 ## 相关网址
+
 1. [从这里知道了 shiro.xml 的具体配置](https://blog.csdn.net/qq_25223941/article/details/78316108)
 2. [讲解了最基础的通过 Filter 控制 CAS](https://blog.csdn.net/qq_34021712/article/details/81318649)
 3. [可能会碰到的重定向问题](https://blog.csdn.net/yy251066394/article/details/78748681)
