@@ -1,9 +1,11 @@
 ---
-title: 
-date: 
+title: Homebrew 安装与配置 JDK
+date: 2019-04-10
 author: asing1elife
 categories:
+- homebrew
 tags:
+- homebrew
 ---
 > 通过 Homebrew 快捷安装 指定版本 JDK  
 
