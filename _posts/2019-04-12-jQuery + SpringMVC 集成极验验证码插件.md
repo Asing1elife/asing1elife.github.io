@@ -62,6 +62,7 @@ tags:
 1. 单独封装起来是因为两步验证都会用到
 2. 请求参数其实就是每个用户的唯一标识，文档中使用的是 **用户 ID** 、**终端类型** 以及 **IP 地址**
 3. 我这里因为是未登录状态下的验证，所以拿不到用户 ID ，所以直接使用的 IP 地址
+
 ```java
 private HashMap<String, String> getParams() {
     String clientIp = URIUtil.getClientIp(request);
@@ -77,6 +78,7 @@ private HashMap<String, String> getParams() {
 
 #### 生成验证码，对应第一步初始化
 1. `getParams()` 获取参数就是上一个函数
+
 ```java
 public String generateCaptcha() {
     // 初始化极验服务
@@ -100,6 +102,7 @@ public String generateCaptcha() {
 	* 通过行为验证，正式发起验证码请求时，会先通过请求的手机号去 Redis 中获取行为验证结果
 	* 存在且成功才会发验证码，否则会提示进行行为验证
 4. `TSharkException()` 是自定义的异常处理，由 Controller 捕获后抛到前端弹出提示框告知用户
+
 ```java
 public void checkCaptcha(String mobile) {
     // 初始化极验服务
@@ -139,6 +142,7 @@ public void checkCaptcha(String mobile) {
 	* `request` 在继承的 `AbstractBaseController` 自定义父类中统一声明
 3. `ResponseData` 是自定义封装的返回结果类
 4. 后端的服务就完成了，实现起来还是非常简洁的，点个赞
+
 ```java
 @Controller
 @RequestMapping("/captcha")
@@ -184,6 +188,7 @@ public class CaptchaController extends AbstractBaseController {
 ### 引入前端依赖 JS
 1. 将 JS 加入到项目并引入即可
 2. 因为我的项目里用到了 jQuery  ，所以以下代码中先引入了
+
 ```html
 <script type="text/javascript" src="${ctx }/assets/plugins/jquery-1.11.1.min.js"></script>
 <script type="text/javascript" src="${ctx }/assets/plugins/geetest/gt.js"></script>
@@ -191,6 +196,7 @@ public class CaptchaController extends AbstractBaseController {
 
 ### 准备一个 HTML 区域用于显示行为验证组件
 1. 具体样式因人而异，总之就是提供一个 `div` 用于放置初始化好的验证组件即可
+
 ```html
 <section>
   <label class="label">行为验证 <span class="text-danger pull-right"></span></label>
@@ -206,6 +212,7 @@ public class CaptchaController extends AbstractBaseController {
 3. 初始化成功后在回调函数中通过 `captchaObj.appendTo()` 将行为验证组件加入指定的页面容器中
 4. 因为组件初始化需要先访问后端接口，考虑到网络延迟，所以一般会先给个提示，比如显示一句话 “行为验证加载中” 
 	* 如果要在初始化结束后隐藏，在 `captchaObj.onReady()` 中调用即可，这些官方文档都有介绍
+
 ```js
 // 发起第一步验证
 $.ajax({
@@ -244,6 +251,7 @@ $.ajax({
 	* `mobile` 是传入的手机号
 	* 其他的三个参数都是极验插件内部返回的验证结果，用于发送到后端进行二次核验
 4. 在请求的回调中可以判断核验结果，并执行后续操作
+
 ```js
 captchaObj.onSuccess(function () {
   var result = captchaObj.getValidate()
