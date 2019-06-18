@@ -69,4 +69,4 @@ systemctl daemon-reload
 1. 使用新用户进行远程登录时可能会抛出 `ERROR 2003 (HY000): Can't connect to MySQL server on` 的异常
 2. 这是因为服务器中 MySQL 对应的端口号 **3306** 没有开放
 3. 如果使用的是阿里云 ECS 服务器，可以参考以下配置
-4. [阿里云 ECS 服务器配置对外开放的端口号](bear://x-callback-url/open-note?id=070AB9FC-37E6-407D-849B-04A89C505A22-3599-00001C32020F6DC5)
+4. [阿里云 ECS 服务器配置对外开放的端口号](http://asing1elife.com/linux/aliyun/2019/06/18/阿里云-ECS-服务器配置对外开放的端口号/)
