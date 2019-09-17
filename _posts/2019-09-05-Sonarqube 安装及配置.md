@@ -15,8 +15,8 @@ tags:
 *  更多技术博客，请移步 [IT人才终生实训与职业进阶平台 - 实训在线](https://shixun.online)
 
 ## 相关网址
-1. [Download | SonarQube](https://www.sonarqube.org/downloads/)
-2. [Get Started in Two Minutes Guide | SonarQube Docs](https://docs.sonarqube.org/latest/setup/get-started-2-minutes/)
+1. [Download - SonarQube](https://www.sonarqube.org/downloads/)
+2. [Get Started in Two Minutes Guide - SonarQube Docs](https://docs.sonarqube.org/latest/setup/get-started-2-minutes/)
 
 ## 安装方式
 1. 在 Mac 上通过 Homebrew 安装，自然是最方便的
