@@ -9,19 +9,12 @@ tags:
 - sonar
 - sonarqube
 ---
-
 > Sonarqube 是开源的代码质量检测平台  
 
-
-
 ## 更多精彩
-
 *  更多技术博客，请移步 [IT人才终生实训与职业进阶平台 - 实训在线](https://shixun.online)
 
-
-
 ## 相关网址
-
 1. [Download | SonarQube](https://www.sonarqube.org/downloads/)
 2. [Get Started in Two Minutes Guide | SonarQube Docs](https://docs.sonarqube.org/latest/setup/get-started-2-minutes/)
 
@@ -64,7 +57,7 @@ tags:
 ![](http://asing1elife.com/sources/images/CB856CE1-7136-4A9A-8347-722F2E1B7592.png)
 4. 前往 **/usr/local/Cellar/sonarqube/7.9.1/libexec/logs** 查看日志记录，在 **web.log** 中可以找到如下信息
 	* 意思就是说 Sonarqube 7.9 不支持连接 MySQL 数据库
-	* 实际上 7.9 版本都是支持 MySQL 的，但 7.9 突然就不支持了，实属无奈
+	* 实际上 7.8 版本都是支持 MySQL 的，但 7.9 突然就不支持了，实属无奈
 ![](http://asing1elife.com/sources/images/B97273E6-6D12-46E8-ABE3-48EF5FE084D8.png)
 
 #### 解决方式

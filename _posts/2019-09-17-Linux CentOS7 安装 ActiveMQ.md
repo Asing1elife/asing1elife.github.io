@@ -13,14 +13,12 @@ tags:
 - centos
 - java
 ---
-
 > 介绍如何在 Linux CentOS7 中按照 ActiveMQ ，并配置启动  
 
 ## 更多精彩
 *  更多技术博客，请移步 [IT人才终生实训与职业进阶平台 - 实训在线](https://shixun.online)
 
 ## 相关网址
-
 1. [linux activemq安装 - 博客园](https://www.cnblogs.com/wenchengqingfeng/p/9896824.html)
 2. [centos7 ActiveMQ设置开机启动 - CSDN博客](https://blog.csdn.net/u012249177/article/details/81322874)
 
