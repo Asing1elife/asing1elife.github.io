@@ -1,13 +1,13 @@
 ---
-title: Sonarqube 安装及配置
-date: 2019-09-06
+title: Sonarqube & SonarScanner 安装及配置
+date: 2019-09-05
 author: asing1elife
 categories:
-- sonar
-- java
-tags:
-- sonar
 - sonarqube
+- sonarscanner
+tags:
+- sonarqube
+- sonarscanner
 ---
 > Sonarqube 是开源的代码质量检测平台  
 
@@ -18,14 +18,40 @@ tags:
 1. [Download - SonarQube](https://www.sonarqube.org/downloads/)
 2. [Get Started in Two Minutes Guide - SonarQube Docs](https://docs.sonarqube.org/latest/setup/get-started-2-minutes/)
 
-## 安装方式
-1. 在 Mac 上通过 Homebrew 安装，自然是最方便的
+## Sonarqube 安装方式
+### 通过 Homebrew 安装
+1. 在 Mac 上通过 Homebrew 安装，自然是最方便的，但 **Homebrew 的库中只存在 Sonarqube7.9 版本，想要安装其他版本无法使用此方式**
 2. 在终端输入 `brew search sonar` 即可看到如下结果
 	* 输入 `brew info sonarqube` 可查看详细信息
 ![](http://asing1elife.com/sources/images/8DEE8EF0-0608-4EEA-BB4A-195C0313E8F6.png)
 3. 在终端输入 `brew install sonarqube` 即可完成安装
-	* **Sonarqube 依赖 JDK11 ，如果没有安装 JDK11 ，即使 sonarqube 安装好了 ，也无法启动** 
+	* **Sonarqube7.9 依赖 JDK11 ，如果没有安装 JDK11 ，即使 sonarqube 安装好了 ，也无法启动** 
 ![](http://asing1elife.com/sources/images/91B4655A-64C3-469A-930D-15898ED02769.png)
+
+### 直接下载安装
+1. 前往 [Sonarqube 的历史版本资源库](https://binaries.sonarsource.com/Distribution/sonarqube/)  找到想要下载的版本即可下载
+2. 其实通过该方式更实用，因为可以安装任意版本
+3. 缺陷就是 Sonarqube 的启动命令默认无法全局执行，需要到软件的 **/bin/** 目录下找到对应平台的启动命令才能执行
+4. 但启动命令其实没必要全局配置
+
+## SonarScanner 安装方式
+### 通过 Homebrew 安装
+1. 在终端输入 `brew search sonar-scanner` 即可看到如下结果
+![](http://asing1elife.com/sources/images/8BE6035F-D2F6-434D-A614-E3BAA80DCB2F.png)
+2. 在终端输入 `brew install sonar-scanner` 即可完成安装
+3. 之后 `soanr-scanner` 的扫描命令可以再任意目录执行，因为 Homebrew 在安装时已经做好了该命令的全局配置
+4. Mac 的话直接使用 Homebrew 安装即可，因为 SonarScanner 实测没有发现版本异常，所以直接安装最新版，也省的再手动的做执行命令的全局配置
+
+### Linux 下的安装方式
+1. 前往 [SonarScanner - SonarQube Docs](https://docs.sonarqube.org/latest/analysis/scan/sonarscanner/) 即可以下载 SonarScanner 的安装包，如下图
+	* 点击对应版本即可完成下载
+![](http://asing1elife.com/sources/images/D1105803-8294-4C57-A664-A3F582E562AD.png)
+2. 将压缩包上传到服务器，并在该目录执行 `unzip sonar-scanner-cli-4.0.0.1744-linux.zip` 即可完成解压
+
+#### 扫描命令的全局配置
+1. 执行 `vi /etc/profile` ，打开环境变量的全局配置文件
+2. 添加 `export SONAR_SCANNER_HOME=/opt/sonar-scanner-4.0/`
+3. 以及在 `export PATH=$PATH` 之后添加 `:$SONAR_SCANNER_HOME/bin` 即可
 
 ## 错误排查
 ### 执行 sonar console 无法启动
