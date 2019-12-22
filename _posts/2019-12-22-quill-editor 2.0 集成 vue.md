@@ -274,7 +274,6 @@ export default {
   }
 </script>
 ```
-
 8. `ICON_SVGS` 所在文件内容如下
 	* 这里其实是一个败笔，本来是想通过和 `/ui/icons.js`	 一样的方式把 SVG 文件通过 `import` 方式引入
 	* 但不管怎么尝试获得的都是文本内容，最后不得以只能采用如下方式
@@ -436,7 +435,6 @@ export const ICON_SVGS = {
   }
 </script>
 ```
-
 4. 实际上是通过异步的表单上传方式将图片上传到了服务端，如果服务端代码正好是 Java ，又正好是 SpringBoot ，可以参考以下代码作为服务端的图片接收接口
 
 ```java
@@ -538,6 +536,7 @@ public class FileUploadController {
 2. 图标内容同样直接存放在之前的 `import { ICON_SVGS } from 'components/in-editor/ui/icon'` 中，内容如下
 	* 之前的表格按钮内容被省略了
 	* 至于初始化按钮的函数中不需要做任何更改
+
 ```js
 export const ICON_SVGS = {
   ...
