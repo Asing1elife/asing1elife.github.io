@@ -56,7 +56,7 @@ require(‘assets/plugins/pictureTag/picture.tag’)
 ### 使用第三方插件
 1. 由于 jQuery 相关插件基本上涉及到操作 DOM 元素
 2. 所以需要在 `$nextTick` 中使用
-3. 之后安装传统的 jQuery 操作方式编写插件调用代码即可
+3. 之后按照传统的 jQuery 操作方式编写插件调用代码即可
 
 ```js
 this.$nextTick(() => {

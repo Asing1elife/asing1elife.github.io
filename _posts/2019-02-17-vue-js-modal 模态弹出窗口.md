@@ -93,8 +93,8 @@ Vue.use(VModal, {
 	* 所以如果传入自定义className ，属于默认值的 `v--modal` 就不会被指定，也就导致默认的样式无法生效
 	* 建议在传入自定义className时，同时指定默认值，例如 `as-modal v--modal` ，这样自定义和默认值都会生效
 3. *transition* 窗口弹出的过渡效果
-	* 	没有默认值，但原生提供了 `nice-modal-fade` 效果，可以直接显示指定
+	* 没有默认值，但原生提供了 `nice-modal-fade` 效果，可以直接显示指定
 	* 想要其他效果需要自定义编写，命名和使用规则参照Vue过渡效果
 4. *overlayTransition* 遮罩层过渡效果
-	* 	默认值 `overlay-fade`
-	* 逍遥其他效果需要自定义编写，命名和使用规则参照Vue过渡效果
+	* 默认值 `overlay-fade`
+	* 其他效果需要自定义编写，命名和使用规则参照Vue过渡效果
