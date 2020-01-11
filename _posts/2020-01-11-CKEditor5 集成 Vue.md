@@ -35,7 +35,7 @@ tags:
 3. [CKEditor 5 - Github](https://github.com/ckeditor/ckeditor5)
 
 ## 基础功能集成
-1. 在官方提供的 [Vue.js component - CKEditor 5 Documentation](https://ckeditor.com/docs/ckeditor5/latest/builds/guides/integration/frameworks/vuejs.html) 中其实已经描述把集成步骤描述的非常清晰，但这里还是需要稍微提点一下
+1. 在官方提供的 [Vue.js component - CKEditor 5 Documentation](https://ckeditor.com/docs/ckeditor5/latest/builds/guides/integration/frameworks/vuejs.html) 中其实已经把集成步骤描述的非常清晰，但这里还是需要稍微提点一下
 
 ### 快捷版本直接集成
 1. 在官方提供的 [CKEditor 5 demo](https://ckeditor.com/ckeditor-5/demo/) 中，有以下几个支持快速集成的版本，就是官方已经把功能模块都集成进去了，直接安装即可快速上手使用
