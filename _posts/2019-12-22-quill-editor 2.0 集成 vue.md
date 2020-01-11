@@ -599,7 +599,7 @@ export const ICON_SVGS = {
     methods: {
       ...
       _initFullEditor () {
-        // 全屏编辑器不存在，测初始化
+        // 全屏编辑器不存在，则初始化
         if (!this.fullEditor) {
           this.$nextTick(() => {
             let fullEditorDom = document.querySelector('.in-full-editor')
