@@ -589,7 +589,8 @@ public String imageUpload(MultipartFile file, String filePath) {
 
 ## 为工具栏添加自定义功能
 1. CKEditor 支持为编辑器添加自定义的功能，具体可以参考 [Creating a simple plugin](https://ckeditor.com/docs/ckeditor5/latest/framework/guides/creating-simple-plugin.html#step-2-creating-a-plugin)
-2. 这里为简单介绍一下我为编辑器添加的全屏模式的实现步骤
+2. 这里简单介绍一下我为编辑器添加的全屏模式的实现步骤，显示效果如下
+![](http://asing1elife.com/sources/images/A4571072-5CE8-4002-9FE5-CB720EDD5786.png)
 
 ### 安装依赖包
 1. 要开发自定义功能，需要使用 CKEditor 的基础功能组件 `plugin.js` ，这个组件在 [GitHub CKEditor 5 - Core](https://github.com/ckeditor/ckeditor5-core) 中
