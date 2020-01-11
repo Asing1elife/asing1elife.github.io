@@ -132,7 +132,7 @@ npm install --save @ckeditor/ckeditor5-vue @ckeditor/ckeditor5-build-classic
 3. 我以为就是要在项目根目录创建一个这个文件并添加文档中的对应内容即可，但添加之后没有任何效果
 4. 因为这个配置文件，其实是 Vue-CLI 3.x 之后才提供的，而当前项目使用的还是 Vue CLI 2.x ，再加上后来我又没有一直关注 Vue 的版本迭代，都不知道其实 Vue CLI 目前都更新到了 4.x 的版本了
 5. 所以说，如果想要进行 CKEditor 源码版本的集成，首先需要确保自己的项目是基于 Vue CLI 3+ 版本构建的
-6. 有关 Vue 项目升级 Vue CLI 的方式，可以参考 [Vue 项目从 Vue CLI 2 升级到 Vue CLI 4](bear://x-callback-url/open-note?id=0ED76F8A-350A-4B88-B6EE-FF3C83D25380-991-000077363151022B)
+6. 有关 Vue 项目升级 Vue CLI 的方式，可以参考 [Vue 项目从 Vue CLI 2 升级到 Vue CLI 4](http://asing1elife.com/vue/vue-cli/javascript/2020/01/11/Vue-项目从-Vue-CLI-2-升级到-Vue-CLI-4/)
 
 #### 安装依赖包
 1. 在官方文档的 [Configuring vue.config.js](https://ckeditor.com/docs/ckeditor5/latest/builds/guides/integration/frameworks/vuejs.html#configuring-vueconfigjs) 中已经明确指出安装依赖包需要指定的脚本，具体如下
